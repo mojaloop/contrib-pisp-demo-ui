@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'route_generator.dart';
 import 'Screens/phone_number.dart';
+import 'Screens/Dashboard.dart';
+import 'Screens/Error.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -12,7 +14,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // Initially display FirstPage
-      home: PhoneNumberScreen(),
+      home: Dashboard(),
       initialRoute: '/',
       onGenerateRoute: RouteGenerator.generateRoute,
     );

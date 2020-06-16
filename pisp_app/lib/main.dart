@@ -13,6 +13,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      builder: (BuildContext context, Widget widget) {
+        ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
+          return buildError(context, errorDetails);
+        };
+        return widget;
+      },
       // Initially display FirstPage
       home: Dashboard(),
       initialRoute: '/',

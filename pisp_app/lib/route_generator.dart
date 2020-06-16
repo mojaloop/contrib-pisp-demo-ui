@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:pispapp/main.dart';
+import 'Screens/phone_number.dart';
 
 // To encapsulate logic around routing and route guards at one place
 class RouteGenerator {
@@ -10,7 +11,7 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => SignUpPage());
+        return MaterialPageRoute(builder: (_) => PhoneNumberScreen());
       case '/second':
         // Validation of correct data type
         if (args is String) {

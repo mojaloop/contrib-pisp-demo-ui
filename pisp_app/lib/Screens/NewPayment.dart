@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pispapp/log_printer.dart';
 import '../MockData/Account.dart';
 import 'package:pispapp/Screens/phone_number.dart';
+import 'package:pispapp/Screens/FindPayee.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:flutter/services.dart';
 
 class NewPayment extends StatefulWidget {
   @override
@@ -11,7 +14,66 @@ class NewPayment extends StatefulWidget {
 class _NewPaymentState extends State<NewPayment> {
   List<Account> _Accounts = List<Account>();
   Account selectedAccount;
-  
+  final LocalAuthentication _localAuthentication = LocalAuthentication();
+
+  Future<bool> _isBiometricAvailable() async {
+    bool isAvailable = false;
+    try {
+      isAvailable = await _localAuthentication.canCheckBiometrics;
+    } on PlatformException catch (e) {
+      print(e);
+    }
+
+    if (!mounted) return isAvailable;
+
+    isAvailable
+        ? print('Biometric is available!')
+        : print('Biometric is unavailable.');
+
+    return isAvailable;
+  }
+
+  Future<void> _getListOfBiometricTypes() async {
+    List<BiometricType> listOfBiometrics;
+    try {
+      listOfBiometrics = await _localAuthentication.getAvailableBiometrics();
+    } on PlatformException catch (e) {
+      print(e);
+    }
+
+    if (!mounted) return;
+
+    print(listOfBiometrics);
+  }
+
+  Future<void> _authenticateUser() async {
+    bool isAuthenticated = false;
+    try {
+      isAuthenticated = await _localAuthentication.authenticateWithBiometrics(
+        localizedReason:
+            "Please authenticate to view your transaction overview",
+        useErrorDialogs: true,
+        stickyAuth: true,
+      );
+    } on PlatformException catch (e) {
+      final logger = getLogger('auth user');
+      logger.e(e);
+    }
+
+    if (!mounted) return;
+
+    isAuthenticated
+        ? print('User is authenticated!')
+        : print('User is not authenticated.');
+
+    if (isAuthenticated) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => FindPayee(),
+        ),
+      );
+    }
+  }
 
   _NewPaymentState() {
     var accounts = getMyDummyAccounts();
@@ -81,8 +143,11 @@ class _NewPaymentState extends State<NewPayment> {
                           width: 56,
                           height: 56,
                           child: Icon(Icons.arrow_forward)),
-                      onTap: ()  {
-                        
+                      onTap: () async {
+                        if (await _isBiometricAvailable()) {
+                          await _getListOfBiometricTypes();
+                          await _authenticateUser();
+                        }
                       },
                     ),
                   ),

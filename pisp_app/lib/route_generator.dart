@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pispapp/main.dart';
 import 'Screens/phone_number.dart';
 import 'Screens/Dashboard.dart';
+import 'Screens/TransactionSuccess.dart';
 
 // To encapsulate logic around routing and route guards at one place
 class RouteGenerator {
@@ -17,8 +18,8 @@ class RouteGenerator {
         // Validation of correct data type
         if (args is String) {
           return MaterialPageRoute(
-            builder: (_) => SecondPage(
-                  data: args,
+            builder: (_) => Dashboard(
+                  // data: args,
                 ),
           );
         }

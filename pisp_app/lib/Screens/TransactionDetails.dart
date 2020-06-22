@@ -18,7 +18,7 @@ class TransactionDetails extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 10, top: 5),
                     child: Column(
                       children: <Widget>[
-                        CardRow('Payer Account Alias', 'Business', Colors.red),
+                        CardRow('Payer Account Alias', 'Business', Colors.black),
                         CardRow('Payee Account name', 'John Doe', Colors.black),
                         CardRow('Payee Phone no', '+9898989898', Colors.black),
                         CardRow('Payee Bank Name', 'Bank Of India', Colors.black),

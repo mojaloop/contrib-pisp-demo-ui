@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:progress_hud/progress_hud.dart';
 import 'package:pispapp/MockData/Account.dart';
 import 'package:pispapp/log_printer.dart';
+import 'package:pispapp/Screens/AccountDetails.dart';
 
 class AccountDashboard extends StatefulWidget {
   @override
@@ -9,8 +10,6 @@ class AccountDashboard extends StatefulWidget {
 }
 
 class _AccountDashboardState extends State<AccountDashboard> {
-  ProgressHUD _progressHUD;
-
   bool _loading = true;
   List<Account> accounts = List<Account>();
   List<String> androidVersionNames = List<String>();
@@ -19,43 +18,27 @@ class _AccountDashboardState extends State<AccountDashboard> {
   void initState() {
     super.initState();
 
-    _progressHUD = new ProgressHUD(
-      backgroundColor: Colors.black12,
-      color: Colors.green,
-      borderRadius: 5.0,
-      text: 'Loading...',
-      loading: _loading,
-    );
-
     accounts = getMyDummyAccounts();
-    accounts = accounts.where((element) => element.linked == true).toList();
-    var logger = getLogger('FindPayee');
-
-    for (var account in accounts) {
-      logger.e(account.name);
-    }
-  }
-
-  void _dismissProgressHUD() {
-    setState(() {
-      if (_loading) {
-        _progressHUD.state.dismiss();
-      } else {
-        _progressHUD.state.show();
-      }
-
-      _loading = !_loading;
-    });
+    accounts = accounts.where((element) => element.linked).toList();
   }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        body: new Stack(
-          children: <Widget>[
-            ListView.builder(
-              itemBuilder: (context, position) {
-                return Column(
+        body: Column(
+      children: <Widget>[
+        Expanded(
+          child: ListView.builder(
+            itemBuilder: (context, position) {
+              return InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => AccountDetails(accounts[position]),
+                    ),
+                  );
+                },
+                child: Column(
                   children: <Widget>[
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,7 +66,6 @@ class _AccountDashboardState extends State<AccountDashboard> {
                             ),
                           ],
                         ),
-                        
                       ],
                     ),
                     Divider(
@@ -91,11 +73,26 @@ class _AccountDashboardState extends State<AccountDashboard> {
                       color: Colors.grey,
                     )
                   ],
-                );
-              },
-              itemCount: accounts.length,
-            ),
-          ],
-        ));
+                ),
+              );
+            },
+            itemCount: accounts.length,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: RaisedButton(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0),
+                side: BorderSide(color: Colors.green)),
+            onPressed: () {},
+            color: Colors.green,
+            textColor: Colors.white,
+            child: Text("Link New Account".toUpperCase(),
+                style: TextStyle(fontSize: 14)),
+          ),
+        )
+      ],
+    ));
   }
 }

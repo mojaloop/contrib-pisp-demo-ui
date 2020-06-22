@@ -136,7 +136,7 @@ class _NewPaymentState extends State<NewPayment> {
                 alignment: Alignment.bottomRight,
                 child: ClipOval(
                   child: Material(
-                    color: Colors.blue, // button color
+                    color: Colors.green, // button color
                     child: InkWell(
                       splashColor: Colors.white, // inkwell color
                       child: SizedBox(

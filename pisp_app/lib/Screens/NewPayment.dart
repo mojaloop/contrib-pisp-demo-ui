@@ -16,6 +16,16 @@ class _NewPaymentState extends State<NewPayment> {
   Account selectedAccount;
   final LocalAuthentication _localAuthentication = LocalAuthentication();
 
+  String phoneNumber;
+  String phoneIsoCode;
+
+  void onPhoneNumberChange(String number, String internationalizedPhoneNumber, String isoCode) {
+    setState(() {
+      phoneNumber = number;
+      phoneIsoCode = isoCode;
+    });
+  }
+
   Future<bool> _isBiometricAvailable() async {
     bool isAvailable = false;
     try {
@@ -77,9 +87,7 @@ class _NewPaymentState extends State<NewPayment> {
 
   _NewPaymentState() {
     var accounts = getMyDummyAccounts();
-    for (var account in accounts) {
-      if (account.linked != null && account.linked) _Accounts.add(account);
-    }
+    _Accounts = accounts.where((element) => element.linked).toList();
   }
 
   @override
@@ -119,7 +127,7 @@ class _NewPaymentState extends State<NewPayment> {
         ),
         SizedBox(height: 60),
         Text(
-          'Enter Payee Phone Number',
+          'Payee Phone Number',
           style: TextStyle(
             fontSize: 16.0,
           ),
@@ -127,7 +135,7 @@ class _NewPaymentState extends State<NewPayment> {
         SizedBox(height: 16),
         Padding(
           padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),
-          child: PhoneNumberInput(),
+          child: PhoneNumberInput(onPhoneNumberChange),
         ),
         Expanded(
           child: Padding(
@@ -144,10 +152,13 @@ class _NewPaymentState extends State<NewPayment> {
                           height: 56,
                           child: Icon(Icons.arrow_forward)),
                       onTap: () async {
-                        if (await _isBiometricAvailable()) {
-                          await _getListOfBiometricTypes();
-                          await _authenticateUser();
-                        }
+                        // if (await _isBiometricAvailable()) {
+                        //   await _getListOfBiometricTypes();
+                        //   await _authenticateUser();
+                        // }
+                        var logger = getLogger('New Payment Page');
+                        logger.e(phoneIsoCode);
+                        logger.e(phoneNumber);
                       },
                     ),
                   ),

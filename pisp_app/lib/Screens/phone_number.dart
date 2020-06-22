@@ -1,8 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:international_phone_input/international_phone_input.dart';
 
+class PhoneNumberScreen extends StatefulWidget {
+  @override
+  _PhoneNumberScreenState createState() => _PhoneNumberScreenState();
+}
 
-class PhoneNumberScreen extends StatelessWidget {
+class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
+  String phoneNumber;
+  String phoneIsoCode;
+
+  void onPhoneNumberChange(
+      String number, String internationalizedPhoneNumber, String isoCode) {
+    setState(() {
+      phoneNumber = number;
+      phoneIsoCode = isoCode;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,36 +37,26 @@ class PhoneNumberScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 10),
-                PhoneNumberInput(),
+                PhoneNumberInput(onPhoneNumberChange),
               ],
             ),
           ),
-        )
-    );
+        ));
   }
 }
 
-class PhoneNumberInput extends StatefulWidget {
-  @override
-  _PhoneNumberInputState createState() => _PhoneNumberInputState();
-}
+class PhoneNumberInput extends StatelessWidget {
+  final void Function(String, String, String) _onPhoneNumberChange;
 
-class _PhoneNumberInputState extends State<PhoneNumberInput> {
-  String phoneNumber;
-  String phoneIsoCode;
-
-  void onPhoneNumberChange(String number, String internationalizedPhoneNumber, String isoCode) {
-    setState(() {
-      phoneNumber = number;
-      phoneIsoCode = isoCode;
-    });
-  }
+  PhoneNumberInput(this._onPhoneNumberChange);
 
   @override
   Widget build(BuildContext context) => InternationalPhoneInput(
-      onPhoneNumberChange: onPhoneNumberChange,
-      initialPhoneNumber: phoneNumber,
-      initialSelection: phoneIsoCode,
-      enabledCountries: ['+91', ]
-  );
+          hintText: "Enter Phone Number",
+          onPhoneNumberChange: _onPhoneNumberChange,
+          initialPhoneNumber: "",
+          initialSelection: "",
+          enabledCountries: [
+            '+91',
+          ]);
 }

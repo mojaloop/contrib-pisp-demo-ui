@@ -33,7 +33,7 @@ List<Account> getMyDummyAccounts() {
 
   listOfAccounts.add(Account(
     alias: 'Personal',
-    phoneNumber: '+911233323987',
+    phoneNumber: 'IN1233323987',
     name: 'John Doe',
     balance: '100000',
     accountNumber: '120980988878828',
@@ -42,7 +42,7 @@ List<Account> getMyDummyAccounts() {
   ));
   listOfAccounts.add(Account(
     alias: 'Business',
-    phoneNumber: '+911233323987',
+    phoneNumber: 'IN1233323987',
     name: 'John Doe1',
     balance: '100000',
     accountNumber: '120980988878821',
@@ -50,7 +50,7 @@ List<Account> getMyDummyAccounts() {
     linked: true,
   ));
   listOfAccounts.add(Account(
-    phoneNumber: '+911233323987',
+    phoneNumber: 'IN1233323987',
     name: 'John Doe2',
     balance: '100000',
     accountNumber: '120980988878822',
@@ -59,7 +59,7 @@ List<Account> getMyDummyAccounts() {
 
   ));
   listOfAccounts.add(Account(
-    phoneNumber: '+911233323987',
+    phoneNumber: 'IN1233323987',
     name: 'John Doe3',
     balance: '100000',
     accountNumber: '120980988878823',
@@ -68,7 +68,7 @@ List<Account> getMyDummyAccounts() {
 
   ));
   listOfAccounts.add(Account(
-    phoneNumber: '+911233323987',
+    phoneNumber: 'IN1233323987',
     name: 'John Doe4',
     balance: '100000',
     accountNumber: '120980988878824',
@@ -77,7 +77,7 @@ List<Account> getMyDummyAccounts() {
 
   ));
   listOfAccounts.add(Account(
-    phoneNumber: '+911233323987',
+    phoneNumber: 'IN1233323987',
     name: 'John Doe5',
     balance: '100000',
     accountNumber: '120980988878825',
@@ -93,21 +93,21 @@ List<Account> getOtherDummyAccounts() {
   List<Account> listOfAccounts = List<Account> ();
 
   listOfAccounts.add(Account(
-    phoneNumber: '+911233323981',
+    phoneNumber: 'IN9999999999',
     name: 'Mark Doe',
     balance: '100000',
     accountNumber: '120980988878818',
     bankName: 'Bank of India',
   ));
   listOfAccounts.add(Account(
-    phoneNumber: '+911233323981',
+    phoneNumber: 'IN9999999999',
     name: 'Mark Doe1',
     balance: '100000',
     accountNumber: '12098098887822',
     bankName: 'Bank of India',
   ));
   listOfAccounts.add(Account(
-    phoneNumber: '+911233323982',
+    phoneNumber: 'IN1233323982',
     name: 'Mark Doe2',
     balance: '100000',
     accountNumber: '120980988878838',
@@ -115,7 +115,7 @@ List<Account> getOtherDummyAccounts() {
 
   ));
   listOfAccounts.add(Account(
-    phoneNumber: '+911233323982',
+    phoneNumber: 'IN1233323982',
     name: 'Mark Doe3',
     balance: '100000',
     accountNumber: '120980988878848',
@@ -123,7 +123,7 @@ List<Account> getOtherDummyAccounts() {
 
   ));
   listOfAccounts.add(Account(
-    phoneNumber: '+911233323983',
+    phoneNumber: 'IN1233323983',
     name: 'Mark Doe4',
     balance: '100000',
     accountNumber: '120980988878858',
@@ -131,7 +131,7 @@ List<Account> getOtherDummyAccounts() {
 
   ));
   listOfAccounts.add(Account(
-    phoneNumber: '+911233323983',
+    phoneNumber: 'IN1233323983',
     name: 'Mark Doe5',
     balance: '100000',
     accountNumber: '120980988878868',

@@ -2,64 +2,63 @@ import 'package:flutter/material.dart';
 import 'package:progress_hud/progress_hud.dart';
 import 'package:pispapp/MockData/Account.dart';
 import 'package:pispapp/log_printer.dart';
+import 'package:pispapp/Screens/TransactionAmount.dart';
 
 class FindPayee extends StatefulWidget {
+  final Account payerAccount;
+  final String payeePhoneNumber;
+  final String payeePhoneIsoCode;
+
+  FindPayee(this.payerAccount, this.payeePhoneIsoCode, this.payeePhoneNumber);
   @override
-  _FindPayeeState createState() => _FindPayeeState();
+  _FindPayeeState createState() =>
+      _FindPayeeState(payerAccount, payeePhoneIsoCode, payeePhoneNumber);
 }
 
 class _FindPayeeState extends State<FindPayee> {
-  ProgressHUD _progressHUD;
+  final Account payerAccount;
+  final String payeePhoneNumber;
+  final String payeePhoneIsoCode;
 
-  bool _loading = true;
+  _FindPayeeState(
+      this.payerAccount, this.payeePhoneIsoCode, this.payeePhoneNumber);
+
+  Account payeeAccount;
+
   List<Account> accounts = List<Account>();
-  List<String> androidVersionNames = List<String>();
 
   @override
   void initState() {
     super.initState();
 
-    _progressHUD = new ProgressHUD(
-      backgroundColor: Colors.black12,
-      color: Colors.green,
-      borderRadius: 5.0,
-      text: 'Loading...',
-      loading: _loading,
-    );
-
-    accounts = getOtherAccountsByPhone('+911233323981');
-    androidVersionNames = ['hello', 'hi', 'hello', 'hi', 'hello', 'hi', 'hello', 'hi', 'hello', 'hi', 'hello', 'hi'];
     var logger = getLogger('FindPayee');
+    logger.e("$payeePhoneIsoCode$payeePhoneNumber");
+    accounts = getOtherAccountsByPhone("$payeePhoneIsoCode$payeePhoneNumber");
+    for(var account in accounts) logger.e(account.name);
 
-    for (var account in accounts) {
-      logger.e(account.name);
-    }
-  }
-
-  void _dismissProgressHUD() {
-    setState(() {
-      if (_loading) {
-        _progressHUD.state.dismiss();
-      } else {
-        _progressHUD.state.show();
-      }
-
-      _loading = !_loading;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        appBar: new AppBar(
-          title: new Text('ProgressHUD Demo'),
+      appBar: AppBar(
+          title: Text('Choose Payee Account'),
         ),
-        body: new Stack(
-          children: <Widget>[
-            _progressHUD,
-            ListView.builder(
-              itemBuilder: (context, position) {
-                return Column(
+        body: Column(
+      children: <Widget>[
+        Expanded(
+          child: ListView.builder(
+            itemBuilder: (context, position) {
+              return InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          TransactionAmount(payerAccount, accounts[position]),
+                    ),
+                  );
+                },
+                child: Column(
                   children: <Widget>[
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -71,7 +70,7 @@ class _FindPayeeState extends State<FindPayee> {
                               padding: const EdgeInsets.fromLTRB(
                                   12.0, 12.0, 12.0, 6.0),
                               child: Text(
-                                androidVersionNames[position],
+                                accounts[position].name,
                                 style: TextStyle(
                                     fontSize: 22.0,
                                     fontWeight: FontWeight.bold),
@@ -81,31 +80,11 @@ class _FindPayeeState extends State<FindPayee> {
                               padding: const EdgeInsets.fromLTRB(
                                   12.0, 6.0, 12.0, 12.0),
                               child: Text(
-                                androidVersionNames[position],
+                                accounts[position].accountNumber,
                                 style: TextStyle(fontSize: 18.0),
                               ),
                             ),
                           ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Text(
-                                "5m",
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Icon(
-                                  Icons.star_border,
-                                  size: 35.0,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ],
-                          ),
                         ),
                       ],
                     ),
@@ -114,17 +93,16 @@ class _FindPayeeState extends State<FindPayee> {
                       color: Colors.grey,
                     )
                   ],
-                );
-              },
-              itemCount: androidVersionNames.length,
-            ),
-            new Positioned(
-                child: new FlatButton(
-                    onPressed: _dismissProgressHUD,
-                    child: new Text(_loading ? "Dismiss" : "Show")),
-                bottom: 30.0,
-                right: 10.0)
-          ],
-        ));
+                ),
+              );
+            },
+            itemCount: accounts.length,
+          ),
+        ),
+
+        
+        
+      ],
+    ));
   }
 }

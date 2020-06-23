@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TransactionScreen extends StatelessWidget {
+class TransactionSuccess extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -9,7 +9,7 @@ class TransactionScreen extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Colors.black, Colors.blue],
+            colors: [Colors.greenAccent, Colors.green],
           ),
         ),
         child: Center(
@@ -19,7 +19,7 @@ class TransactionScreen extends StatelessWidget {
 //              Image.asset('assets/money.png'),
               SizedBox(height: 40),
               Text(
-                'Transaction Overview',
+                'Transaction Succesful',
                 style: TextStyle(fontSize: 30, color: Colors.white),
               ),
               SizedBox(height: 50),

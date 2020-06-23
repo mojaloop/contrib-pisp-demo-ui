@@ -19,70 +19,12 @@ class _NewPaymentState extends State<NewPayment> {
   String phoneNumber;
   String phoneIsoCode;
 
-  void onPhoneNumberChange(String number, String internationalizedPhoneNumber, String isoCode) {
+  void onPhoneNumberChange(
+      String number, String internationalizedPhoneNumber, String isoCode) {
     setState(() {
       phoneNumber = number;
       phoneIsoCode = isoCode;
     });
-  }
-
-  Future<bool> _isBiometricAvailable() async {
-    bool isAvailable = false;
-    try {
-      isAvailable = await _localAuthentication.canCheckBiometrics;
-    } on PlatformException catch (e) {
-      print(e);
-    }
-
-    if (!mounted) return isAvailable;
-
-    isAvailable
-        ? print('Biometric is available!')
-        : print('Biometric is unavailable.');
-
-    return isAvailable;
-  }
-
-  Future<void> _getListOfBiometricTypes() async {
-    List<BiometricType> listOfBiometrics;
-    try {
-      listOfBiometrics = await _localAuthentication.getAvailableBiometrics();
-    } on PlatformException catch (e) {
-      print(e);
-    }
-
-    if (!mounted) return;
-
-    print(listOfBiometrics);
-  }
-
-  Future<void> _authenticateUser() async {
-    bool isAuthenticated = false;
-    try {
-      isAuthenticated = await _localAuthentication.authenticateWithBiometrics(
-        localizedReason:
-            "Please authenticate to view your transaction overview",
-        useErrorDialogs: true,
-        stickyAuth: true,
-      );
-    } on PlatformException catch (e) {
-      final logger = getLogger('auth user');
-      logger.e(e);
-    }
-
-    if (!mounted) return;
-
-    isAuthenticated
-        ? print('User is authenticated!')
-        : print('User is not authenticated.');
-
-    if (isAuthenticated) {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => FindPayee(),
-        ),
-      );
-    }
   }
 
   _NewPaymentState() {
@@ -156,9 +98,12 @@ class _NewPaymentState extends State<NewPayment> {
                         //   await _getListOfBiometricTypes();
                         //   await _authenticateUser();
                         // }
-                        var logger = getLogger('New Payment Page');
-                        logger.e(phoneIsoCode);
-                        logger.e(phoneNumber);
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => FindPayee(
+                                selectedAccount, phoneIsoCode, phoneNumber),
+                          ),
+                        );
                       },
                     ),
                   ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pispapp/log_printer.dart';
 import '../MockData/Account.dart';
 import 'package:pispapp/Screens/phone_number.dart';
-import 'package:pispapp/Screens/FindPayee.dart';
+import 'package:pispapp/Screens/LookupPayee.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:flutter/services.dart';
 
@@ -100,7 +100,7 @@ class _NewPaymentState extends State<NewPayment> {
                         // }
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => FindPayee(
+                            builder: (context) => LookupPayee(
                                 selectedAccount, phoneIsoCode, phoneNumber),
                           ),
                         );

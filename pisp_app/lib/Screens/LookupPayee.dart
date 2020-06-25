@@ -4,23 +4,23 @@ import 'package:pispapp/MockData/Account.dart';
 import 'package:pispapp/log_printer.dart';
 import 'package:pispapp/Screens/TransactionAmount.dart';
 
-class FindPayee extends StatefulWidget {
+class LookupPayee extends StatefulWidget {
   final Account payerAccount;
   final String payeePhoneNumber;
   final String payeePhoneIsoCode;
 
-  FindPayee(this.payerAccount, this.payeePhoneIsoCode, this.payeePhoneNumber);
+  LookupPayee(this.payerAccount, this.payeePhoneIsoCode, this.payeePhoneNumber);
   @override
-  _FindPayeeState createState() =>
-      _FindPayeeState(payerAccount, payeePhoneIsoCode, payeePhoneNumber);
+  _LookupPayeeState createState() =>
+      _LookupPayeeState(payerAccount, payeePhoneIsoCode, payeePhoneNumber);
 }
 
-class _FindPayeeState extends State<FindPayee> {
+class _LookupPayeeState extends State<LookupPayee> {
   final Account payerAccount;
   final String payeePhoneNumber;
   final String payeePhoneIsoCode;
 
-  _FindPayeeState(
+  _LookupPayeeState(
       this.payerAccount, this.payeePhoneIsoCode, this.payeePhoneNumber);
 
   Account payeeAccount;
@@ -31,7 +31,7 @@ class _FindPayeeState extends State<FindPayee> {
   void initState() {
     super.initState();
 
-    var logger = getLogger('FindPayee');
+    var logger = getLogger('LookupPayee');
     logger.e("$payeePhoneIsoCode$payeePhoneNumber");
     accounts = getOtherAccountsByPhone("$payeePhoneIsoCode$payeePhoneNumber");
     for(var account in accounts) logger.e(account.name);

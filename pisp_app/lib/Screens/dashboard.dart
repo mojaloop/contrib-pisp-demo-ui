@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pispapp/Screens/TransactionSuccess.dart';
-import 'package:pispapp/Screens/NewPayment.dart';
-import 'package:pispapp/Screens/Account.dart';
-import 'package:pispapp/Screens/TransactionDetails.dart';
-import 'package:pispapp/Screens/AccountDashboard.dart';
+import 'package:pispapp/Screens/account_dashboard.dart';
+import 'package:pispapp/Screens/new_payment.dart';
 
-import 'package:pispapp/MockData/Account.dart';
 
 class Dashboard extends StatelessWidget {
-  List<Account> accounts;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,16 +14,16 @@ class Dashboard extends StatelessWidget {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            bottom: TabBar(
-              tabs: [
+            bottom: const TabBar(
+              tabs: <Tab>[
                 Tab(text: 'My Accounts'),
                 Tab(text: 'Pay Now'),
               ],
             ),
-            title: Center(child: Text('Mojapay')),
+            title: const Center(child: Text('Mojapay')),
           ),
           body: TabBarView(
-            children: [
+            children: <Widget>[
               AccountDashboard(),
               NewPayment(),
             ],

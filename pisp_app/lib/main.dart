@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pispapp/Screens/dashboard.dart';
+import 'package:pispapp/Screens/error.dart';
 import 'route_generator.dart';
-import 'Screens/phone_number.dart';
-import 'Screens/Dashboard.dart';
-import 'Screens/Error.dart';
-import 'Screens/TransactionSuccess.dart';
-
 void main() {
   print('starting app');
   runApp(MyApp());
@@ -31,7 +28,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-
-

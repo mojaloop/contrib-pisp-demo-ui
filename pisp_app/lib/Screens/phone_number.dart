@@ -22,7 +22,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Mojapay'),
+          title: const Text('Mojapay'),
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -30,13 +30,13 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text(
+                const Text(
                   'Welcome to Mojapay. Please enter your phone number',
                   style: TextStyle(
                     fontSize: 20.0,
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 PhoneNumberInput(onPhoneNumberChange),
               ],
             ),
@@ -46,17 +46,18 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
 }
 
 class PhoneNumberInput extends StatelessWidget {
+  const PhoneNumberInput(this._onPhoneNumberChange);
+
   final void Function(String, String, String) _onPhoneNumberChange;
 
-  PhoneNumberInput(this._onPhoneNumberChange);
 
   @override
   Widget build(BuildContext context) => InternationalPhoneInput(
-          hintText: "Enter Phone Number",
+          hintText: 'Enter Phone Number',
           onPhoneNumberChange: _onPhoneNumberChange,
-          initialPhoneNumber: "",
-          initialSelection: "",
-          enabledCountries: [
+          initialPhoneNumber: '',
+          initialSelection: '',
+          enabledCountries: const <String>[
             '+91',
           ]);
 }

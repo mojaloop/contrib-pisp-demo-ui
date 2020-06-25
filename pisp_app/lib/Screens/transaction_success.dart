@@ -17,12 +17,12 @@ class TransactionSuccess extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
 //              Image.asset('assets/money.png'),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               Text(
                 'Transaction Succesful',
                 style: TextStyle(fontSize: 30, color: Colors.white),
               ),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
             ],
           ),
         ),

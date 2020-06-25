@@ -1,25 +1,21 @@
-
 import 'package:flutter/material.dart';
-import 'package:pispapp/main.dart';
-import 'Screens/phone_number.dart';
-import 'Screens/Dashboard.dart';
-import 'Screens/TransactionSuccess.dart';
+import 'package:pispapp/Screens/dashboard.dart';
 
 // To encapsulate logic around routing and route guards at one place
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     // Getting arguments passed in while calling Navigator.pushNamed
-    final args = settings.arguments;
+    final Object args = settings.arguments;
 
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => Dashboard());
+        return MaterialPageRoute<dynamic>(builder: (_) => Dashboard());
       case '/second':
         // Validation of correct data type
         if (args is String) {
-          return MaterialPageRoute(
+          return MaterialPageRoute<dynamic>(
             builder: (_) => Dashboard(
-                  // data: args,
+                // data: args,
                 ),
           );
         }
@@ -33,12 +29,12 @@ class RouteGenerator {
   }
 
   static Route<dynamic> _errorRoute() {
-    return MaterialPageRoute(builder: (_) {
+    return MaterialPageRoute<dynamic>(builder: (_) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Error'),
+          title: const Text('Error'),
         ),
-        body: Center(
+        body: const Center(
           child: Text('ERROR'),
         ),
       );

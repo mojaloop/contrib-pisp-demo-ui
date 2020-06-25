@@ -1,7 +1,4 @@
 class Account {
-  String _alias, _phoneNumber, _name, _balance, _accountNumber, _bankName;
-  bool _linked = false;
-
   Account(
       {String alias,
       String phoneNumber,
@@ -18,6 +15,11 @@ class Account {
         _bankName = bankName,
         _linked = linked;
 
+  String _alias, _phoneNumber, _name, _balance, _accountNumber, _bankName;
+  bool _linked = false;
+
+  
+
   String get alias => _alias;
   String get phoneNumber => _phoneNumber;
   String get name => _name;
@@ -29,7 +31,7 @@ class Account {
 }
 
 List<Account> getMyDummyAccounts() {
-  List<Account> listOfAccounts = List<Account> ();
+  final List<Account> listOfAccounts = <Account>[];
 
   listOfAccounts.add(Account(
     alias: 'Personal',
@@ -90,7 +92,7 @@ List<Account> getMyDummyAccounts() {
 }
 
 List<Account> getOtherDummyAccounts() {
-  List<Account> listOfAccounts = List<Account> ();
+  final List<Account> listOfAccounts = <Account>[];
 
   listOfAccounts.add(Account(
     phoneNumber: 'IN9999999999',
@@ -143,10 +145,10 @@ List<Account> getOtherDummyAccounts() {
 }
 
 List<Account> getOtherAccountsByPhone(String phone) {
-  List<Account> listOfAccounts = getOtherDummyAccounts();
+  final List<Account> listOfAccounts = getOtherDummyAccounts();
 
   // filter based on phone number
-  return listOfAccounts.where((account) => account.phoneNumber == phone).toList();
+  return listOfAccounts.where((Account account) => account.phoneNumber == phone).toList();
 }
 
 

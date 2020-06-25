@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:pispapp/MockData/Account.dart';
-import 'package:pispapp/Screens/Dashboard.dart';
-import 'package:pispapp/Screens/TransactionDetails.dart';
+import 'package:pispapp/MockData/account.dart';
+import 'package:pispapp/Screens/dashboard.dart';
+import 'package:pispapp/Screens/transaction_details.dart';
 
 class TransactionAmount extends StatefulWidget {
-  final Account payerAccount, payeeAccount;
-  String amount;
+  const TransactionAmount(this.payerAccount, this.payeeAccount);
 
-  TransactionAmount(this.payerAccount, this.payeeAccount);
+  final Account payerAccount, payeeAccount;
+
   @override
   _TransactionAmountState createState() =>
       _TransactionAmountState(payerAccount, payeeAccount);
 }
 
 class _TransactionAmountState extends State<TransactionAmount> {
+  _TransactionAmountState(this.payerAccount, this.payeeAccount);
+
   final Account payerAccount, payeeAccount;
   String amount;
-  _TransactionAmountState(this.payerAccount, this.payeeAccount);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Enter Amount')),
+      appBar: AppBar(title: const Text('Enter Amount')),
       backgroundColor: Colors.green,
       body: Center(
           child: Column(
@@ -31,8 +32,8 @@ class _TransactionAmountState extends State<TransactionAmount> {
               child: TextField(
                 keyboardType: TextInputType.number,
                 style:
-                    TextStyle(fontSize: 40.0, height: 2.0, color: Colors.white),
-                onChanged: (text) {
+                    const TextStyle(fontSize: 40.0, height: 2.0, color: Colors.white),
+                onChanged: (String text) {
                   amount = text;
                 },
               )),
@@ -54,9 +55,9 @@ class _TransactionAmountState extends State<TransactionAmount> {
                                     height: 56,
                                     child: Icon(Icons.clear)),
                                 onTap: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) => Dashboard(),
+                                  Navigator.of(context).push<dynamic>(
+                                    MaterialPageRoute<dynamic>(
+                                      builder: (BuildContext context) => Dashboard(),
                                     ),
                                   );
                                 },
@@ -75,9 +76,9 @@ class _TransactionAmountState extends State<TransactionAmount> {
                                     height: 56,
                                     child: Icon(Icons.arrow_forward)),
                                 onTap: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) => TransactionDetails(
+                                  Navigator.of(context).push<dynamic>(
+                                    MaterialPageRoute<dynamic>(
+                                      builder: (BuildContext context) => TransactionDetails(
                                           payerAccount, payeeAccount, amount),
                                     ),
                                   );

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:pispapp/MockData/Account.dart';
-import 'package:pispapp/Screens/Dashboard.dart';
-import 'package:pispapp/Screens/TransactionSuccess.dart';
+import 'package:logger/logger.dart';
+import 'package:pispapp/MockData/account.dart';
+import 'package:pispapp/Screens/dashboard.dart';
+import 'package:pispapp/Screens/transaction_success.dart';
 
 import 'package:pispapp/log_printer.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:flutter/services.dart';
 
-
 class TransactionDetails extends StatefulWidget {
-  Account payerAccount, payeeAccount;
-  String amount;
-  TransactionDetails(this.payerAccount, this.payeeAccount, this.amount);
+  const TransactionDetails(this.payerAccount, this.payeeAccount, this.amount);
+
+  final Account payerAccount, payeeAccount;
+  final String amount;
 
   @override
   _TransactionDetailsState createState() => _TransactionDetailsState();
@@ -24,19 +25,17 @@ class _TransactionDetailsState extends State<TransactionDetails> {
   String charges;
 
   // Simulates api call
-  // TODO: To be moved out
-  Future sleep1() {
-    var logger = getLogger('future');
-    return new Future.delayed(const Duration(seconds: 1), () => '10');
+  // TODO(MahidharBandaru): To be moved out
+  Future<String> sleep1() {
+    return Future<String>.delayed(const Duration(seconds: 1), () => '10');
   }
 
-  void getTransactionCharges() async {
+  Future<void> getTransactionCharges() async {
     charges = await sleep1();
     setState(() {
       _isLoading = false;
     });
   }
-
 
   Future<bool> _isBiometricAvailable() async {
     bool isAvailable = false;
@@ -46,7 +45,9 @@ class _TransactionDetailsState extends State<TransactionDetails> {
       print(e);
     }
 
-    if (!mounted) return isAvailable;
+    if (!mounted) {
+      return isAvailable;
+    }
 
     isAvailable
         ? print('Biometric is available!')
@@ -63,7 +64,9 @@ class _TransactionDetailsState extends State<TransactionDetails> {
       print(e);
     }
 
-    if (!mounted) return;
+    if (!mounted) {
+      return;
+    }
 
     print(listOfBiometrics);
   }
@@ -75,31 +78,30 @@ class _TransactionDetailsState extends State<TransactionDetails> {
     try {
       isAuthenticated = await _localAuthentication.authenticateWithBiometrics(
         localizedReason:
-            "Please authenticate to view your transaction overview",
+            'Please authenticate to view your transaction overview',
         useErrorDialogs: true,
         stickyAuth: true,
       );
     } on PlatformException catch (e) {
-      final logger = getLogger('auth user');
+      final Logger logger = getLogger('auth user');
       logger.e(e);
     }
 
-    if (!mounted) return;
+    if (!mounted) {
+      return;
+    }
 
     isAuthenticated
         ? print('User is authenticated!')
         : print('User is not authenticated.');
 
     if (isAuthenticated) {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) =>
-              TransactionSuccess()
-        ),
+      Navigator.of(context).push<dynamic>(
+        MaterialPageRoute<dynamic>(
+            builder: (BuildContext context) => TransactionSuccess()),
       );
     }
   }
-
 
   @override
   void initState() {
@@ -111,23 +113,23 @@ class _TransactionDetailsState extends State<TransactionDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Transaction Details'),
+        title: const Text('Transaction Details'),
       ),
       body: _isLoading
           ? Center(
-            child: CircularProgressIndicator(
+              child: CircularProgressIndicator(
                 backgroundColor: Colors.white,
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
               ),
-          )
+            )
           : Container(
-              padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
               // height: 220,
               width: double.maxFinite,
               child: Card(
                 elevation: 5,
                 child: Padding(
-                  padding: EdgeInsets.all(7),
+                  padding: const EdgeInsets.all(7),
                   child: Stack(children: <Widget>[
                     Stack(
                       children: <Widget>[
@@ -145,7 +147,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                                 ),
                                 CardRow('Account Alias',
                                     widget.payerAccount.alias, Colors.black),
-                                SizedBox(height: 40),
+                                const SizedBox(height: 40),
                                 Text('Payee Details',
                                     style: TextStyle(
                                         color: Colors.black.withOpacity(0.5),
@@ -166,7 +168,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                                     'Account Number',
                                     widget.payeeAccount.accountNumber,
                                     Colors.black),
-                                SizedBox(height: 40),
+                                const SizedBox(height: 40),
                                 Text('Transaction Details',
                                     style: TextStyle(
                                         color: Colors.black.withOpacity(0.5),
@@ -203,10 +205,10 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                                                               Icons.clear)),
                                                       onTap: () {
                                                         Navigator.of(context)
-                                                            .push(
-                                                          MaterialPageRoute(
+                                                            .push<dynamic>(
+                                                          MaterialPageRoute<dynamic>(
                                                             builder:
-                                                                (context) =>
+                                                                (BuildContext context) =>
                                                                     Dashboard(),
                                                           ),
                                                         );
@@ -222,20 +224,19 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                                                     color: Colors
                                                         .green, // button color
                                                     child: InkWell(
-                                                      splashColor: Colors
-                                                          .white, // inkwell color
-                                                      child: SizedBox(
-                                                          width: 56,
-                                                          height: 56,
-                                                          child: Icon(Icons
-                                                              .arrow_forward)),
-                                                      onTap: () async {
-                        if (await _isBiometricAvailable()) {
-                          await _getListOfBiometricTypes();
-                          await _authenticateUser();
-                        }
-                                                      }
-                                                    ),
+                                                        splashColor: Colors
+                                                            .white, // inkwell color
+                                                        child: SizedBox(
+                                                            width: 56,
+                                                            height: 56,
+                                                            child: Icon(Icons
+                                                                .arrow_forward)),
+                                                        onTap: () async {
+                                                          if (await _isBiometricAvailable()) {
+                                                            await _getListOfBiometricTypes();
+                                                            await _authenticateUser();
+                                                          }
+                                                        }),
                                                   ),
                                                 )),
                                           ])),
@@ -253,9 +254,10 @@ class _TransactionDetailsState extends State<TransactionDetails> {
 }
 
 class CardRow extends StatelessWidget {
-  String left, right;
-  Color color;
-  CardRow(this.left, this.right, this.color);
+  const CardRow(this.left, this.right, this.color);
+
+  final String left, right;
+  final Color color;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -266,7 +268,7 @@ class CardRow extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               RichText(
-                  text: TextSpan(children: [
+                  text: TextSpan(children: <TextSpan>[
                 TextSpan(
                     text: left,
                     style: TextStyle(
@@ -275,7 +277,7 @@ class CardRow extends StatelessWidget {
                         fontWeight: FontWeight.bold)),
               ])),
               RichText(
-                  text: TextSpan(children: [
+                  text: TextSpan(children: <TextSpan>[
                 TextSpan(
                     text: right, style: TextStyle(color: color, fontSize: 16)),
               ])),
@@ -290,4 +292,3 @@ class CardRow extends StatelessWidget {
     );
   }
 }
-

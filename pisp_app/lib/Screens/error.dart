@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 Widget buildError(BuildContext context, FlutterErrorDetails error) {
-  return Error('Something went wrong');
+  return const Error('Something went wrong');
 }
 
 class Error extends StatelessWidget {
+  const Error(this.errorString);
+
   final String errorString;
 
-  const Error(this.errorString);
 
   @override
   Widget build(BuildContext context) {

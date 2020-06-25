@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:pispapp/MockData/Account.dart';
+import 'package:pispapp/MockData/account.dart';
+
 class AccountDetails extends StatelessWidget {
+  const AccountDetails(this._account);
+
   final Account _account;
 
-  AccountDetails(this._account);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Account Details'),
+        title: const Text('Account Details'),
       ),
-          body: Container(
+      body: Container(
         child: Column(
           children: <Widget>[
             Row(
@@ -20,24 +22,24 @@ class AccountDetails extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: RichText(
-                      text: TextSpan(children: [
+                      text: TextSpan(children: <TextSpan>[
                     TextSpan(
-                        text: "\nTotal Balance\n",
+                        text: '\nTotal Balance\n',
                         style: TextStyle(
-                            color: Colors.black.withOpacity(0.5), fontSize: 18)),
+                            color: Colors.black.withOpacity(0.5),
+                            fontSize: 18)),
                     TextSpan(
-                        text: "\$ ",
+                        text: '\$ ',
                         style: TextStyle(
-                            color: Colors.black.withOpacity(0.5), fontSize: 30)),
+                            color: Colors.black.withOpacity(0.5),
+                            fontSize: 30)),
                     TextSpan(
                         text: _account.balance,
                         style: TextStyle(color: Colors.black, fontSize: 36)),
                   ])),
                 ),
-                
               ],
             ),
-            
           ],
         ),
       ),

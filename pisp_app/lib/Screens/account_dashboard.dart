@@ -1,60 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:progress_hud/progress_hud.dart';
-import 'package:pispapp/MockData/Account.dart';
-import 'package:pispapp/log_printer.dart';
-import 'package:pispapp/Screens/TransactionAmount.dart';
+import 'package:pispapp/MockData/account.dart';
+import 'package:pispapp/Screens/account_details.dart';
 
-class LookupPayee extends StatefulWidget {
-  final Account payerAccount;
-  final String payeePhoneNumber;
-  final String payeePhoneIsoCode;
-
-  LookupPayee(this.payerAccount, this.payeePhoneIsoCode, this.payeePhoneNumber);
+class AccountDashboard extends StatefulWidget {
   @override
-  _LookupPayeeState createState() =>
-      _LookupPayeeState(payerAccount, payeePhoneIsoCode, payeePhoneNumber);
+  _AccountDashboardState createState() => _AccountDashboardState();
 }
 
-class _LookupPayeeState extends State<LookupPayee> {
-  final Account payerAccount;
-  final String payeePhoneNumber;
-  final String payeePhoneIsoCode;
-
-  _LookupPayeeState(
-      this.payerAccount, this.payeePhoneIsoCode, this.payeePhoneNumber);
-
-  Account payeeAccount;
-
-  List<Account> accounts = List<Account>();
+class _AccountDashboardState extends State<AccountDashboard> {
+  List<Account> accounts = <Account>[];
+  List<String> androidVersionNames = <String>[];
 
   @override
   void initState() {
     super.initState();
 
-    var logger = getLogger('LookupPayee');
-    logger.e("$payeePhoneIsoCode$payeePhoneNumber");
-    accounts = getOtherAccountsByPhone("$payeePhoneIsoCode$payeePhoneNumber");
-    for(var account in accounts) logger.e(account.name);
-
+    accounts = getMyDummyAccounts();
+    accounts = accounts.where((Account element) => element.linked).toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: AppBar(
-          title: Text('Choose Payee Account'),
-        ),
+    return Scaffold(
         body: Column(
       children: <Widget>[
         Expanded(
           child: ListView.builder(
-            itemBuilder: (context, position) {
+            itemBuilder: (BuildContext context, int position) {
               return InkWell(
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          TransactionAmount(payerAccount, accounts[position]),
+                  Navigator.of(context).push<dynamic>(
+                    MaterialPageRoute<dynamic>(
+                      builder: (BuildContext context) => AccountDetails(accounts[position]),
                     ),
                   );
                 },
@@ -70,7 +47,7 @@ class _LookupPayeeState extends State<LookupPayee> {
                               padding: const EdgeInsets.fromLTRB(
                                   12.0, 12.0, 12.0, 6.0),
                               child: Text(
-                                accounts[position].name,
+                                accounts[position].alias,
                                 style: TextStyle(
                                     fontSize: 22.0,
                                     fontWeight: FontWeight.bold),
@@ -81,7 +58,7 @@ class _LookupPayeeState extends State<LookupPayee> {
                                   12.0, 6.0, 12.0, 12.0),
                               child: Text(
                                 accounts[position].accountNumber,
-                                style: TextStyle(fontSize: 18.0),
+                                style: const TextStyle(fontSize: 18.0),
                               ),
                             ),
                           ],
@@ -99,9 +76,19 @@ class _LookupPayeeState extends State<LookupPayee> {
             itemCount: accounts.length,
           ),
         ),
-
-        
-        
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: RaisedButton(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0),
+                side: BorderSide(color: Colors.green)),
+            onPressed: () {},
+            color: Colors.green,
+            textColor: Colors.white,
+            child: Text('Link New Account'.toUpperCase(),
+                style: const TextStyle(fontSize: 14)),
+          ),
+        )
       ],
     ));
   }

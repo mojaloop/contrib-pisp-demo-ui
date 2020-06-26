@@ -1,0 +1,12 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: cirrusci/flutter
+    steps:
+      - checkout
+      - run: flutter doctor
+      - run: cd pisp_app/ && flutter analyze lib && cd ..
+      - run: cd pisp_app/ && flutter test && cd ..
+      - run: cd pisp_app/ && flutter -v build apk && cd ..
+

@@ -6,7 +6,6 @@ class AccountDetails extends StatelessWidget {
 
   final Account _account;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

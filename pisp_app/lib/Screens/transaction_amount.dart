@@ -31,8 +31,8 @@ class _TransactionAmountState extends State<TransactionAmount> {
               width: 170.0,
               child: TextField(
                 keyboardType: TextInputType.number,
-                style:
-                    const TextStyle(fontSize: 40.0, height: 2.0, color: Colors.white),
+                style: const TextStyle(
+                    fontSize: 40.0, height: 2.0, color: Colors.white),
                 onChanged: (String text) {
                   amount = text;
                 },
@@ -57,7 +57,8 @@ class _TransactionAmountState extends State<TransactionAmount> {
                                 onTap: () {
                                   Navigator.of(context).push<dynamic>(
                                     MaterialPageRoute<dynamic>(
-                                      builder: (BuildContext context) => Dashboard(),
+                                      builder: (BuildContext context) =>
+                                          Dashboard(),
                                     ),
                                   );
                                 },
@@ -78,8 +79,9 @@ class _TransactionAmountState extends State<TransactionAmount> {
                                 onTap: () {
                                   Navigator.of(context).push<dynamic>(
                                     MaterialPageRoute<dynamic>(
-                                      builder: (BuildContext context) => TransactionDetails(
-                                          payerAccount, payeeAccount, amount),
+                                      builder: (BuildContext context) =>
+                                          TransactionDetails(payerAccount,
+                                              payeeAccount, amount),
                                     ),
                                   );
                                 },

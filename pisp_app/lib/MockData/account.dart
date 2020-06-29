@@ -18,8 +18,6 @@ class Account {
   String _alias, _phoneNumber, _name, _balance, _accountNumber, _bankName;
   bool _linked = false;
 
-  
-
   String get alias => _alias;
   String get phoneNumber => _phoneNumber;
   String get name => _name;
@@ -58,7 +56,6 @@ List<Account> getMyDummyAccounts() {
     accountNumber: '120980988878822',
     bankName: 'Bank of India',
     linked: false,
-
   ));
   listOfAccounts.add(Account(
     phoneNumber: 'IN1233323987',
@@ -67,7 +64,6 @@ List<Account> getMyDummyAccounts() {
     accountNumber: '120980988878823',
     bankName: 'Bank of India',
     linked: false,
-
   ));
   listOfAccounts.add(Account(
     phoneNumber: 'IN1233323987',
@@ -76,7 +72,6 @@ List<Account> getMyDummyAccounts() {
     accountNumber: '120980988878824',
     bankName: 'Bank of India',
     linked: false,
-
   ));
   listOfAccounts.add(Account(
     phoneNumber: 'IN1233323987',
@@ -85,7 +80,6 @@ List<Account> getMyDummyAccounts() {
     accountNumber: '120980988878825',
     bankName: 'Bank of India',
     linked: false,
-
   ));
 
   return listOfAccounts;
@@ -114,7 +108,6 @@ List<Account> getOtherDummyAccounts() {
     balance: '100000',
     accountNumber: '120980988878838',
     bankName: 'Bank of India',
-
   ));
   listOfAccounts.add(Account(
     phoneNumber: 'IN1233323982',
@@ -122,7 +115,6 @@ List<Account> getOtherDummyAccounts() {
     balance: '100000',
     accountNumber: '120980988878848',
     bankName: 'Bank of India',
-
   ));
   listOfAccounts.add(Account(
     phoneNumber: 'IN1233323983',
@@ -130,7 +122,6 @@ List<Account> getOtherDummyAccounts() {
     balance: '100000',
     accountNumber: '120980988878858',
     bankName: 'Bank of India',
-
   ));
   listOfAccounts.add(Account(
     phoneNumber: 'IN1233323983',
@@ -138,7 +129,6 @@ List<Account> getOtherDummyAccounts() {
     balance: '100000',
     accountNumber: '120980988878868',
     bankName: 'Bank of India',
-
   ));
 
   return listOfAccounts;
@@ -148,7 +138,7 @@ List<Account> getOtherAccountsByPhone(String phone) {
   final List<Account> listOfAccounts = getOtherDummyAccounts();
 
   // filter based on phone number
-  return listOfAccounts.where((Account account) => account.phoneNumber == phone).toList();
+  return listOfAccounts
+      .where((Account account) => account.phoneNumber == phone)
+      .toList();
 }
-
-

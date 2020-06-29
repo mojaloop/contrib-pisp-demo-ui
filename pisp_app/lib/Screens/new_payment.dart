@@ -13,7 +13,7 @@ class _NewPaymentState extends State<NewPayment> {
     final List<Account> accounts = getMyDummyAccounts();
     _accounts = accounts.where((Account element) => element.linked).toList();
   }
-  
+
   List<Account> _accounts = <Account>[];
   Account selectedAccount;
 
@@ -28,21 +28,19 @@ class _NewPaymentState extends State<NewPayment> {
     });
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Container(
         child: Column(
       children: <Widget>[
-        const SizedBox(height: 25),
+        const Divider(height: 25),
         const Text(
           'Choose an account',
           style: TextStyle(
             fontSize: 18.0,
           ),
         ),
-        const SizedBox(height: 16),
+        const Divider(height: 16),
         DropdownButton<Account>(
           hint: const Text('Select Account'),
           value: selectedAccount,
@@ -65,14 +63,14 @@ class _NewPaymentState extends State<NewPayment> {
             });
           },
         ),
-        const SizedBox(height: 60),
+        const Divider(height: 40),
         const Text(
           'Payee Phone Number',
           style: TextStyle(
             fontSize: 16.0,
           ),
         ),
-        const SizedBox(height: 16),
+        const Divider(height: 16),
         Padding(
           padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),
           child: PhoneNumberInput(onPhoneNumberChange),

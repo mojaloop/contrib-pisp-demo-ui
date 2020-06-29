@@ -50,7 +50,6 @@ class PhoneNumberInput extends StatelessWidget {
 
   final void Function(String, String, String) _onPhoneNumberChange;
 
-
   @override
   Widget build(BuildContext context) => InternationalPhoneInput(
           hintText: 'Enter Phone Number',

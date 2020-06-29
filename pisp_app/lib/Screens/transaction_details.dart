@@ -206,10 +206,11 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                                                       onTap: () {
                                                         Navigator.of(context)
                                                             .push<dynamic>(
-                                                          MaterialPageRoute<dynamic>(
-                                                            builder:
-                                                                (BuildContext context) =>
-                                                                    Dashboard(),
+                                                          MaterialPageRoute<
+                                                              dynamic>(
+                                                            builder: (BuildContext
+                                                                    context) =>
+                                                                Dashboard(),
                                                           ),
                                                         );
                                                       },

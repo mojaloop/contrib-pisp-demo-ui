@@ -5,11 +5,11 @@ class Transaction {
 }
 
 List<Transaction> transactions = <Transaction>[
-  Transaction('1231231', '123123123', '100'),
-  Transaction('1231231', '123123123', '100'),
-  Transaction('1231231', '123123123', '100'),
-  Transaction('1231231', '123123123', '100'),
-  Transaction('1231231', '123123123', '100'),
+  Transaction('1231231', '123123123', '100', ),
+  Transaction('1231231', '123123123', '100', ),
+  Transaction('1231231', '123123123', '100', ),
+  Transaction('1231231', '123123123', '100', ),
+  Transaction('1231231', '123123123', '100', ),
 ];
 
 List<Transaction> getCreditTransactions(String accountId) {

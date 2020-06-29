@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pispapp/Screens/dashboard.dart';
 import 'package:pispapp/Screens/error.dart';
 import 'route_generator.dart';
+
 void main() {
   print('starting app');
   runApp(MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       ),
       builder: (BuildContext context, Widget widget) {
         ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
-          return buildError(context, errorDetails);
+          return Error.genericError();
         };
         return widget;
       },

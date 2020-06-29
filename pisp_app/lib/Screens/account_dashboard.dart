@@ -9,7 +9,6 @@ class AccountDashboard extends StatefulWidget {
 
 class _AccountDashboardState extends State<AccountDashboard> {
   List<Account> accounts = <Account>[];
-  List<String> androidVersionNames = <String>[];
 
   @override
   void initState() {
@@ -31,7 +30,8 @@ class _AccountDashboardState extends State<AccountDashboard> {
                 onTap: () {
                   Navigator.of(context).push<dynamic>(
                     MaterialPageRoute<dynamic>(
-                      builder: (BuildContext context) => AccountDetails(accounts[position]),
+                      builder: (BuildContext context) =>
+                          AccountDetails(accounts[position]),
                     ),
                   );
                 },

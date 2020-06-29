@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pispapp/Screens/account_dashboard.dart';
 import 'package:pispapp/Screens/new_payment.dart';
 
-
 class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

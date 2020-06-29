@@ -1,49 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:pispapp/MockData/account.dart';
-import 'package:pispapp/log_printer.dart';
 
 import 'transaction_amount.dart';
 
-class LookupPayee extends StatefulWidget {
-
-  const LookupPayee(
-      this.payerAccount, this.payeePhoneIsoCode, this.payeePhoneNumber);
-  
-  final Account payerAccount;
-  final String payeePhoneNumber;
-  final String payeePhoneIsoCode;
-
-  
-  @override
-  _LookupPayeeState createState() =>
-      _LookupPayeeState(payerAccount, payeePhoneIsoCode, payeePhoneNumber);
-}
-
-class _LookupPayeeState extends State<LookupPayee> {
-  _LookupPayeeState(
-      this.payerAccount, this.payeePhoneIsoCode, this.payeePhoneNumber);
+class LookupPayee extends StatelessWidget {
+  LookupPayee(
+      this.payerAccount, this.payeePhoneIsoCode, this.payeePhoneNumber) : accounts = getOtherAccountsByPhone('$payeePhoneIsoCode$payeePhoneNumber') ;
 
   final Account payerAccount;
   final String payeePhoneNumber;
   final String payeePhoneIsoCode;
 
-  Account payeeAccount;
-
-  List<Account> accounts = <Account>[];
-
-  @override
-  void initState() {
-    super.initState();
-
-    final Logger logger = getLogger('LookupPayee');
-    logger.e('$payeePhoneIsoCode$payeePhoneNumber');
-    accounts = getOtherAccountsByPhone('$payeePhoneIsoCode$payeePhoneNumber');
-    for (final Account account in accounts) {
-      logger.e(account.name);
-    }
-  }
-
+  final List<Account> accounts;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -43,63 +43,49 @@ class _TransactionAmountState extends State<TransactionAmount> {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(22.0),
+                padding: const EdgeInsets.all(
+                  22.0,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Align(
-                        alignment: Alignment.bottomRight,
-                        child: ClipOval(
-                          child: Material(
-                            color: Colors.red, // button color
-                            child: InkWell(
-                              splashColor: Colors.white, // inkwell color
-                              child: SizedBox(
-                                width: 56,
-                                height: 56,
-                                child: Icon(
-                                  Icons.clear,
-                                ),
-                              ),
-                              onTap: () {
-                                Navigator.of(context).push<dynamic>(
-                                  MaterialPageRoute<dynamic>(
-                                    builder: (BuildContext context) =>
-                                        Dashboard(),
-                                  ),
-                                );
-                              },
+                      alignment: Alignment.bottomRight,
+                      child: FloatingActionButton(
+                        heroTag: 'cancel',
+                        onPressed: () {
+                          Navigator.of(context).push<dynamic>(
+                            MaterialPageRoute<dynamic>(
+                              builder: (BuildContext context) => Dashboard(),
                             ),
-                          ),
-                        )),
+                          );
+                        },
+                        child: Icon(
+                          Icons.clear,
+                        ),
+                        backgroundColor: Colors.red,
+                      ),
+                    ),
                     Align(
                       alignment: Alignment.bottomRight,
-                      child: ClipOval(
-                        child: Material(
-                          color: Colors.green, // button color
-                          child: InkWell(
-                            splashColor: Colors.white, // inkwell color
-                            child: SizedBox(
-                              width: 56,
-                              height: 56,
-                              child: Icon(
-                                Icons.arrow_forward,
+                      child: FloatingActionButton(
+                        heroTag: 'forward',
+                        onPressed: () {
+                          Navigator.of(context).push<dynamic>(
+                            MaterialPageRoute<dynamic>(
+                              builder: (BuildContext context) =>
+                                  TransactionDetails(
+                                payerAccount,
+                                payeeAccount,
+                                amount,
                               ),
                             ),
-                            onTap: () {
-                              Navigator.of(context).push<dynamic>(
-                                MaterialPageRoute<dynamic>(
-                                  builder: (BuildContext context) =>
-                                      TransactionDetails(
-                                    payerAccount,
-                                    payeeAccount,
-                                    amount,
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
+                          );
+                        },
+                        child: Icon(
+                          Icons.arrow_forward,
                         ),
+                        backgroundColor: Colors.green,
                       ),
                     ),
                   ],

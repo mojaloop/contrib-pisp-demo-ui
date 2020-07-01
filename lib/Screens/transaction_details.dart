@@ -81,7 +81,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
     try {
       isAuthenticated = await _localAuthentication.authenticateWithBiometrics(
         localizedReason:
-            'Please authenticate to view your transaction overview',
+            'Please authenticate to continue',
         useErrorDialogs: true,
         stickyAuth: true,
       );
@@ -243,59 +243,38 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                                       children: <Widget>[
                                         Align(
                                           alignment: Alignment.bottomRight,
-                                          child: ClipOval(
-                                            child: Material(
-                                              color: Colors.red, // button color
-                                              child: InkWell(
-                                                splashColor: Colors
-                                                    .white, // inkwell color
-                                                child: SizedBox(
-                                                  width: 56,
-                                                  height: 56,
-                                                  child: Icon(
-                                                    Icons.clear,
-                                                  ),
-                                                ),
-                                                onTap: () {
-                                                  Navigator.of(
-                                                    context,
-                                                  ).push<dynamic>(
-                                                    MaterialPageRoute<dynamic>(
-                                                      builder: (
-                                                        BuildContext context,
-                                                      ) =>
+                                          child: FloatingActionButton(
+                                            heroTag: 'cancel',
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .push<dynamic>(
+                                                MaterialPageRoute<dynamic>(
+                                                  builder:
+                                                      (BuildContext context) =>
                                                           Dashboard(),
-                                                    ),
-                                                  );
-                                                },
-                                              ),
+                                                ),
+                                              );
+                                            },
+                                            child: Icon(
+                                              Icons.clear,
                                             ),
+                                            backgroundColor: Colors.red,
                                           ),
                                         ),
                                         Align(
                                           alignment: Alignment.bottomRight,
-                                          child: ClipOval(
-                                            child: Material(
-                                              color:
-                                                  Colors.green, // button color
-                                              child: InkWell(
-                                                splashColor: Colors
-                                                    .white, // inkwell color
-                                                child: SizedBox(
-                                                  width: 56,
-                                                  height: 56,
-                                                  child: Icon(
-                                                    Icons.arrow_forward,
-                                                  ),
-                                                ),
-                                                onTap: () async {
-                                                  if (await _isBiometricAvailable()) {
-                                                    await _getListOfBiometricTypes();
-                                                    await _authenticateUser();
-                                                  }
-                                                },
-                                              ),
+                                          child: FloatingActionButton(
+                                            heroTag: 'forward',
+                                            onPressed: () async {
+                                              if (await _isBiometricAvailable()) {
+                                                await _getListOfBiometricTypes();
+                                                await _authenticateUser();
+                                              }
+                                            },
+                                            child: Icon(
+                                              Icons.arrow_forward,
                                             ),
+                                            backgroundColor: Colors.green,
                                           ),
                                         ),
                                       ],

@@ -99,31 +99,22 @@ class _NewPaymentState extends State<NewPayment> {
               padding: const EdgeInsets.all(22.0),
               child: Align(
                 alignment: Alignment.bottomRight,
-                child: ClipOval(
-                  child: Material(
-                    color: Colors.green, // button color
-                    child: InkWell(
-                      splashColor: Colors.white, // inkwell color
-                      child: SizedBox(
-                        width: 56,
-                        height: 56,
-                        child: Icon(
-                          Icons.arrow_forward,
+                child: FloatingActionButton(
+                  onPressed: () {
+                    Navigator.of(context).push<dynamic>(
+                      MaterialPageRoute<dynamic>(
+                        builder: (BuildContext context) => LookupPayee(
+                          selectedAccount,
+                          phoneIsoCode,
+                          phoneNumber,
                         ),
                       ),
-                      onTap: () async {
-                        Navigator.of(context).push<dynamic>(
-                          MaterialPageRoute<dynamic>(
-                            builder: (BuildContext context) => LookupPayee(
-                              selectedAccount,
-                              phoneIsoCode,
-                              phoneNumber,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                    );
+                  },
+                  child: Icon(
+                    Icons.arrow_forward,
                   ),
+                  backgroundColor: Colors.green,
                 ),
               ),
             ),

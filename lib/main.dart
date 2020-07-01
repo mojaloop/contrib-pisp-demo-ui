@@ -10,14 +10,21 @@ void main() {
 
 class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return MaterialApp(
       title: 'Mojapay',
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      builder: (BuildContext context, Widget widget) {
-        ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
+      builder: (
+        BuildContext context,
+        Widget widget,
+      ) {
+        ErrorWidget.builder = (
+          FlutterErrorDetails errorDetails,
+        ) {
           return Error.genericError();
         };
         return widget;

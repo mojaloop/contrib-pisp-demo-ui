@@ -1,13 +1,13 @@
 class Account {
-  Account(
-      {String alias,
-      String phoneNumber,
-      String name,
-      String balance,
-      String accountNumber,
-      String bankName,
-      bool linked})
-      : _alias = alias,
+  Account({
+    String alias,
+    String phoneNumber,
+    String name,
+    String balance,
+    String accountNumber,
+    String bankName,
+    bool linked,
+  })  : _alias = alias,
         _phoneNumber = phoneNumber,
         _name = name,
         _balance = balance,
@@ -139,6 +139,8 @@ List<Account> getOtherAccountsByPhone(String phone) {
 
   // filter based on phone number
   return listOfAccounts
-      .where((Account account) => account.phoneNumber == phone)
+      .where(
+        (Account account) => account.phoneNumber == phone,
+      )
       .toList();
 }

@@ -27,7 +27,10 @@ class _TransactionDetailsState extends State<TransactionDetails> {
   // Simulates api call
   // TODO(MahidharBandaru): To be moved out
   Future<String> sleep1() {
-    return Future<String>.delayed(const Duration(seconds: 1), () => '10');
+    return Future<String>.delayed(
+      const Duration(seconds: 1),
+      () => '10',
+    );
   }
 
   Future<void> getTransactionCharges() async {
@@ -119,134 +122,193 @@ class _TransactionDetailsState extends State<TransactionDetails> {
           ? Center(
               child: CircularProgressIndicator(
                 backgroundColor: Colors.white,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  Colors.green,
+                ),
               ),
             )
           : Container(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              padding: const EdgeInsets.fromLTRB(
+                10,
+                10,
+                10,
+                0,
+              ),
               // height: 220,
               width: double.maxFinite,
               child: Card(
                 elevation: 5,
                 child: Padding(
-                  padding: const EdgeInsets.all(7),
-                  child: Stack(children: <Widget>[
-                    Stack(
-                      children: <Widget>[
-                        Padding(
-                            padding: const EdgeInsets.only(left: 10, top: 5),
+                  padding: const EdgeInsets.all(
+                    7,
+                  ),
+                  child: Stack(
+                    children: <Widget>[
+                      Stack(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 10,
+                              top: 5,
+                            ),
                             child: Column(
                               children: <Widget>[
-                                Text('Payer Details',
-                                    style: TextStyle(
-                                        color: Colors.black.withOpacity(0.5),
-                                        fontSize: 18)),
+                                Text(
+                                  'Payer Details',
+                                  style: TextStyle(
+                                    color: Colors.black.withOpacity(0.5),
+                                    fontSize: 18,
+                                  ),
+                                ),
                                 Divider(
                                   height: 2.0,
                                   color: Colors.grey,
                                 ),
-                                CardRow('Account Alias',
-                                    widget.payerAccount.alias, Colors.black),
-                                const SizedBox(height: 40),
-                                Text('Payee Details',
-                                    style: TextStyle(
-                                        color: Colors.black.withOpacity(0.5),
-                                        fontSize: 18)),
-                                Divider(
-                                  height: 2.0,
-                                  color: Colors.grey,
-                                ),
-                                CardRow('Account name',
-                                    widget.payeeAccount.name, Colors.black),
                                 CardRow(
-                                    'Phone no',
-                                    widget.payeeAccount.phoneNumber,
-                                    Colors.black),
-                                CardRow('Bank Name',
-                                    widget.payeeAccount.bankName, Colors.black),
-                                CardRow(
-                                    'Account Number',
-                                    widget.payeeAccount.accountNumber,
-                                    Colors.black),
-                                const SizedBox(height: 40),
-                                Text('Transaction Details',
-                                    style: TextStyle(
-                                        color: Colors.black.withOpacity(0.5),
-                                        fontSize: 18)),
+                                  'Account Alias',
+                                  widget.payerAccount.alias,
+                                  Colors.black,
+                                ),
+                                const SizedBox(
+                                  height: 40,
+                                ),
+                                Text(
+                                  'Payee Details',
+                                  style: TextStyle(
+                                      color: Colors.black.withOpacity(0.5),
+                                      fontSize: 18),
+                                ),
                                 Divider(
                                   height: 2.0,
                                   color: Colors.grey,
                                 ),
-                                CardRow('Amount', widget.amount, Colors.black),
-                                CardRow('Type', 'Credit', Colors.black),
-                                CardRow('Charges', charges, Colors.black),
+                                CardRow(
+                                  'Account name',
+                                  widget.payeeAccount.name,
+                                  Colors.black,
+                                ),
+                                CardRow(
+                                  'Phone no',
+                                  widget.payeeAccount.phoneNumber,
+                                  Colors.black,
+                                ),
+                                CardRow(
+                                  'Bank Name',
+                                  widget.payeeAccount.bankName,
+                                  Colors.black,
+                                ),
+                                CardRow(
+                                  'Account Number',
+                                  widget.payeeAccount.accountNumber,
+                                  Colors.black,
+                                ),
+                                const SizedBox(
+                                  height: 40,
+                                ),
+                                Text(
+                                  'Transaction Details',
+                                  style: TextStyle(
+                                    color: Colors.black.withOpacity(0.5),
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                Divider(
+                                  height: 2.0,
+                                  color: Colors.grey,
+                                ),
+                                CardRow(
+                                  'Amount',
+                                  widget.amount,
+                                  Colors.black,
+                                ),
+                                CardRow(
+                                  'Type',
+                                  'Credit',
+                                  Colors.black,
+                                ),
+                                CardRow(
+                                  'Charges',
+                                  charges,
+                                  Colors.black,
+                                ),
                                 // MyAlert(),
                                 Expanded(
                                   child: Padding(
-                                      padding: const EdgeInsets.all(22.0),
-                                      child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Align(
-                                                alignment:
-                                                    Alignment.bottomRight,
-                                                child: ClipOval(
-                                                  child: Material(
-                                                    color: Colors
-                                                        .red, // button color
-                                                    child: InkWell(
-                                                      splashColor: Colors
-                                                          .white, // inkwell color
-                                                      child: SizedBox(
-                                                          width: 56,
-                                                          height: 56,
-                                                          child: Icon(
-                                                              Icons.clear)),
-                                                      onTap: () {
-                                                        Navigator.of(context)
-                                                            .push<dynamic>(
-                                                          MaterialPageRoute<
-                                                              dynamic>(
-                                                            builder: (BuildContext
-                                                                    context) =>
-                                                                Dashboard(),
-                                                          ),
-                                                        );
-                                                      },
+                                    padding: const EdgeInsets.all(
+                                      22.0,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Align(
+                                          alignment: Alignment.bottomRight,
+                                          child: ClipOval(
+                                            child: Material(
+                                              color: Colors.red, // button color
+                                              child: InkWell(
+                                                splashColor: Colors
+                                                    .white, // inkwell color
+                                                child: SizedBox(
+                                                  width: 56,
+                                                  height: 56,
+                                                  child: Icon(
+                                                    Icons.clear,
+                                                  ),
+                                                ),
+                                                onTap: () {
+                                                  Navigator.of(
+                                                    context,
+                                                  ).push<dynamic>(
+                                                    MaterialPageRoute<dynamic>(
+                                                      builder: (
+                                                        BuildContext context,
+                                                      ) =>
+                                                          Dashboard(),
                                                     ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Align(
+                                          alignment: Alignment.bottomRight,
+                                          child: ClipOval(
+                                            child: Material(
+                                              color:
+                                                  Colors.green, // button color
+                                              child: InkWell(
+                                                splashColor: Colors
+                                                    .white, // inkwell color
+                                                child: SizedBox(
+                                                  width: 56,
+                                                  height: 56,
+                                                  child: Icon(
+                                                    Icons.arrow_forward,
                                                   ),
-                                                )),
-                                            Align(
-                                                alignment:
-                                                    Alignment.bottomRight,
-                                                child: ClipOval(
-                                                  child: Material(
-                                                    color: Colors
-                                                        .green, // button color
-                                                    child: InkWell(
-                                                        splashColor: Colors
-                                                            .white, // inkwell color
-                                                        child: SizedBox(
-                                                            width: 56,
-                                                            height: 56,
-                                                            child: Icon(Icons
-                                                                .arrow_forward)),
-                                                        onTap: () async {
-                                                          if (await _isBiometricAvailable()) {
-                                                            await _getListOfBiometricTypes();
-                                                            await _authenticateUser();
-                                                          }
-                                                        }),
-                                                  ),
-                                                )),
-                                          ])),
+                                                ),
+                                                onTap: () async {
+                                                  if (await _isBiometricAvailable()) {
+                                                    await _getListOfBiometricTypes();
+                                                    await _authenticateUser();
+                                                  }
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ],
-                            ))
-                      ],
-                    )
-                  ]),
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -264,24 +326,39 @@ class CardRow extends StatelessWidget {
     return Column(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(
+            8.0,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               RichText(
-                  text: TextSpan(children: <TextSpan>[
-                TextSpan(
-                    text: left,
-                    style: TextStyle(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: left,
+                      style: TextStyle(
                         color: Colors.black,
                         fontSize: 16,
-                        fontWeight: FontWeight.bold)),
-              ])),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               RichText(
-                  text: TextSpan(children: <TextSpan>[
-                TextSpan(
-                    text: right, style: TextStyle(color: color, fontSize: 16)),
-              ])),
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: right,
+                      style: TextStyle(
+                        color: color,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

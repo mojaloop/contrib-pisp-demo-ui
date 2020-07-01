@@ -21,21 +21,30 @@ class AccountDetails extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: RichText(
-                      text: TextSpan(children: <TextSpan>[
-                    TextSpan(
-                        text: '\nTotal Balance\n',
-                        style: TextStyle(
-                            color: Colors.black.withOpacity(0.5),
-                            fontSize: 18)),
-                    TextSpan(
-                        text: '\$ ',
-                        style: TextStyle(
-                            color: Colors.black.withOpacity(0.5),
-                            fontSize: 30)),
-                    TextSpan(
-                        text: _account.balance,
-                        style: TextStyle(color: Colors.black, fontSize: 36)),
-                  ])),
+                    text: TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: '\nTotal Balance\n',
+                          style: TextStyle(
+                              color: Colors.black.withOpacity(0.5),
+                              fontSize: 18),
+                        ),
+                        TextSpan(
+                          text: '\$ ',
+                          style: TextStyle(
+                              color: Colors.black.withOpacity(0.5),
+                              fontSize: 30),
+                        ),
+                        TextSpan(
+                          text: _account.balance,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 36,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),

@@ -9,7 +9,10 @@ class TransactionSuccess extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Colors.greenAccent, Colors.green],
+            colors: [
+              Colors.greenAccent,
+              Colors.green,
+            ],
           ),
         ),
         child: Center(
@@ -20,9 +23,14 @@ class TransactionSuccess extends StatelessWidget {
               SizedBox(height: 40),
               Text(
                 'Transaction Succesful',
-                style: TextStyle(fontSize: 30, color: Colors.white),
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.white,
+                ),
               ),
-              SizedBox(height: 50),
+              SizedBox(
+                height: 50,
+              ),
             ],
           ),
         ),

@@ -21,27 +21,36 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Mojapay'),
+      appBar: AppBar(
+        title: const Text(
+          'Mojapay',
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                const Text(
-                  'Welcome to Mojapay. Please enter your phone number',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                  ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(
+          8.0,
+        ),
+        child: Container(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const Text(
+                'Welcome to Mojapay. Please enter your phone number',
+                style: TextStyle(
+                  fontSize: 20.0,
                 ),
-                const SizedBox(height: 10),
-                PhoneNumberInput(onPhoneNumberChange),
-              ],
-            ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              PhoneNumberInput(
+                onPhoneNumberChange,
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
 
@@ -52,11 +61,12 @@ class PhoneNumberInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => InternationalPhoneInput(
-          hintText: 'Enter Phone Number',
-          onPhoneNumberChange: _onPhoneNumberChange,
-          initialPhoneNumber: '',
-          initialSelection: '',
-          enabledCountries: const <String>[
-            '+91',
-          ]);
+        hintText: 'Enter Phone Number',
+        onPhoneNumberChange: _onPhoneNumberChange,
+        initialPhoneNumber: '',
+        initialSelection: '',
+        enabledCountries: const <String>[
+          '+91',
+        ],
+      );
 }

@@ -32,10 +32,14 @@ class RouteGenerator {
     return MaterialPageRoute<dynamic>(builder: (_) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Error'),
+          title: const Text(
+            'Error',
+          ),
         ),
         body: const Center(
-          child: Text('ERROR'),
+          child: Text(
+            'ERROR',
+          ),
         ),
       );
     });

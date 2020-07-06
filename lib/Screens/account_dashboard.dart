@@ -111,6 +111,7 @@ class _AccountDashboardState extends State<AccountDashboard> {
                 const SizedBox(
                   height: 20,
                 ),
+                BalanceCard(account: accounts[0]),
                 const SizedBox(
                   height: 50,
                 ),

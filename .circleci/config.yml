@@ -6,7 +6,7 @@ jobs:
     steps:
       - checkout
       - run: flutter doctor
-      - run: cd pisp_app/ && flutter analyze lib && cd ..
-      - run: cd pisp_app/ && flutter test && cd ..
-      - run: cd pisp_app/ && flutter -v build apk && cd ..
+      - run: flutter analyze lib
+      - run: flutter test
+      - run: flutter -v build apk
 

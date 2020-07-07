@@ -18,7 +18,10 @@ class _DashboardState extends State<Dashboard> {
   }
 
   static List<BottomNavigationButton> buttons = <BottomNavigationButton>[
-    
+    BottomNavigationButton(
+      Icons.arrow_forward,
+      SplashScreen(),
+    ),
     BottomNavigationButton(
       Icons.home,
       AccountDashboard(),

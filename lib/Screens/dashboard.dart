@@ -1,34 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:pispapp/Screens/account_dashboard.dart';
 import 'package:pispapp/Screens/new_payment.dart';
+import 'package:pispapp/Screens/splash.dart';
+import 'package:pispapp/widgets/bottom_navigation.dart';
 
-class Dashboard extends StatelessWidget {
+class Dashboard extends StatefulWidget {
+  @override
+  _DashboardState createState() => _DashboardState();
+}
+
+class _DashboardState extends State<Dashboard> {
+  Widget widgetToShow = AccountDashboard();
+  void changeRootWidget(Widget widget) {
+    setState(() {
+      widgetToShow = widget;
+    });
+  }
+
+  static List<BottomNavigationButton> buttons = <BottomNavigationButton>[
+    
+    BottomNavigationButton(
+      Icons.home,
+      AccountDashboard(),
+    ),
+    BottomNavigationButton(
+      Icons.chat_bubble_outline,
+      const Text('Hello'),
+    ),
+    BottomNavigationButton(
+      Icons.notifications_none,
+      const Text('How are you'),
+    ),
+    BottomNavigationButton(
+      Icons.person_outline,
+      const Text('Bye'),
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          appBar: AppBar(
-            bottom: const TabBar(
-              tabs: <Tab>[
-                Tab(text: 'My Accounts'),
-                Tab(text: 'Pay Now'),
-              ],
-            ),
-            title: const Center(child: Text('Mojapay')),
-          ),
-          body: TabBarView(
-            children: <Widget>[
-              AccountDashboard(),
-              NewPayment(),
-            ],
-          ),
-        ),
-      ),
+    return Scaffold(
+      bottomNavigationBar: BottomNavigation(buttons, changeRootWidget),
+      body: widgetToShow,
     );
   }
 }

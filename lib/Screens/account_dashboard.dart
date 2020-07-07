@@ -91,7 +91,58 @@ class _AccountDashboardState extends State<AccountDashboard> {
     );
   }
 
-  
+  Widget _transactionList() {
+    return Column(
+      children: <Widget>[
+        _transaction('Mark Doe', '23 Feb 2020', '20'),
+        _transaction('John Doe', '25 Feb 2020', '20'),
+        _transaction('Flight Ticket', '03 Mar 2020', '20'),
+        _transaction('Flight Ticket', '03 Mar 2020', '-20'),
+      ],
+    );
+  }
+
+  Widget _transaction(String text, String time, String amount) {
+    var icon = (amount[0] == '-')
+        ? Icons.keyboard_arrow_right
+        : Icons.keyboard_arrow_left;
+    final color =
+        (amount[0] != '-') ? const Color(0xff4caf50) : const Color(0xffd50000);
+
+    return ListTile(
+      leading: Container(
+        height: 50,
+        width: 50,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+        ),
+        child: Icon(icon, color: Colors.white),
+      ),
+      contentPadding: const EdgeInsets.symmetric(),
+      title: TitleText(
+        text: text,
+        fontSize: 14,
+      ),
+      subtitle: Text(time),
+      trailing: Container(
+        height: 30,
+        width: 60,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: LightColor.lightGrey,
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+        ),
+        child: Text(
+          amount,
+          style: GoogleFonts.muli(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: LightColor.navyBlue2),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,6 +179,7 @@ class _AccountDashboardState extends State<AccountDashboard> {
                 const TitleText(
                   text: 'Transactions',
                 ),
+                _transactionList(),
               ],
             )),
       ),

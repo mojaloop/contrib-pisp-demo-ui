@@ -44,9 +44,9 @@ List<Account> getMyDummyAccounts() {
     alias: 'Business',
     phoneNumber: 'IN1233323987',
     name: 'John Doe1',
-    balance: '100000',
+    balance: '1002340',
     accountNumber: '120980988878821',
-    bankName: 'Bank of India',
+    bankName: 'Axis Bank',
     linked: true,
   ));
   listOfAccounts.add(Account(

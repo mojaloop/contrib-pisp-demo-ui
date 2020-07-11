@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pispapp/Screens/account_dashboard.dart';
+import 'package:pispapp/Screens/new_payment.dart';
 import 'package:pispapp/Screens/splash.dart';
 import 'package:pispapp/widgets/bottom_navigation.dart';
 
@@ -26,8 +27,8 @@ class _DashboardState extends State<Dashboard> {
       AccountDashboard(),
     ),
     BottomNavigationButton(
-      Icons.chat_bubble_outline,
-      const Text('Hello'),
+      Icons.transfer_within_a_station,
+      NewPayment(),
     ),
     BottomNavigationButton(
       Icons.notifications_none,

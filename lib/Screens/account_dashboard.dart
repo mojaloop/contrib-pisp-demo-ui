@@ -43,7 +43,7 @@ class _AccountDashboardState extends State<AccountDashboard> {
           text: acc.alias,
           fontSize: 14,
         ),
-        subtitle: Text(account.accountNumber),
+        subtitle: Text(acc.accountNumber),
         trailing: Container(
           height: 30,
           width: 60,

@@ -48,9 +48,9 @@ class _AccountDashboardState extends State<AccountDashboard> {
           height: 30,
           width: 60,
           alignment: Alignment.center,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: LightColor.lightGrey,
-            borderRadius: const BorderRadius.all(
+            borderRadius: BorderRadius.all(
               Radius.circular(
                 10,
               ),
@@ -93,9 +93,9 @@ class _AccountDashboardState extends State<AccountDashboard> {
           height: 350.0,
           color: const Color(0xFF737373),
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
-              borderRadius: const BorderRadius.only(
+              borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(
                   20.0,
                 ),
@@ -168,14 +168,14 @@ class _AccountDashboardState extends State<AccountDashboard> {
             margin: const EdgeInsets.symmetric(
               vertical: 10,
             ),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
-              borderRadius: const BorderRadius.all(
+              borderRadius: BorderRadius.all(
                 Radius.circular(
                   20,
                 ),
               ),
-              boxShadow: const [
+              boxShadow: [
                 BoxShadow(
                   color: Color(0xfff3f3f3),
                   offset: Offset(
@@ -231,9 +231,9 @@ class _AccountDashboardState extends State<AccountDashboard> {
           child: Wrap(
             children: <Widget>[
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: const BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(
                       20.0,
                     ),
@@ -407,9 +407,9 @@ class _AccountDashboardState extends State<AccountDashboard> {
         height: 30,
         width: 60,
         alignment: Alignment.center,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: LightColor.lightGrey,
-          borderRadius: const BorderRadius.all(
+          borderRadius: BorderRadius.all(
             Radius.circular(
               10,
             ),

@@ -26,7 +26,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
       icon: Icon(
         icon,
       ),
-      title: Text(
+      title: const Text(
         '',
       ),
     );

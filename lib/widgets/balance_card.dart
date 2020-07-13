@@ -12,7 +12,11 @@ class BalanceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(40)),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(
+            40,
+          ),
+        ),
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * .27,
@@ -27,9 +31,10 @@ class BalanceCard extends StatelessWidget {
                   Text(
                     account.bankName,
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white),
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
+                    ),
                   ),
                   const SizedBox(
                     height: 10,
@@ -50,17 +55,19 @@ class BalanceCard extends StatelessWidget {
                       Text(
                         'Rs',
                         style: GoogleFonts.muli(
-                            textStyle: Theme.of(context).textTheme.display1,
-                            fontSize: 28,
-                            fontWeight: FontWeight.w800,
-                            color: LightColor.yellow2),
+                          fontSize: 28,
+                          fontWeight: FontWeight.w800,
+                          color: LightColor.yellow2,
+                        ),
                       ),
                       Text(
                         ' ${account.balance}',
                         style: TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.w500,
-                          color: LightColor.yellow.withAlpha(200),
+                          color: LightColor.yellow.withAlpha(
+                            200,
+                          ),
                         ),
                       ),
                     ],
@@ -70,7 +77,7 @@ class BalanceCard extends StatelessWidget {
                   ),
                 ],
               ),
-              Positioned(
+              const Positioned(
                 left: -170,
                 top: -170,
                 child: CircleAvatar(

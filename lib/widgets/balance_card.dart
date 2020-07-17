@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pispapp/MockData/account.dart';
+import 'package:pispapp/mock_data/account.dart';
 import 'package:pispapp/theme/light_color.dart';
 
 class BalanceCard extends StatelessWidget {
@@ -40,7 +40,7 @@ class BalanceCard extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    account.accountNumber,
+                    getSecretAccountNumber(account),
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,

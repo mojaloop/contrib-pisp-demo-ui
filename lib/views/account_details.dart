@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pispapp/MockData/account.dart';
+import 'package:pispapp/mock_data/account.dart';
 
 class AccountDetails extends StatelessWidget {
   const AccountDetails(this._account);

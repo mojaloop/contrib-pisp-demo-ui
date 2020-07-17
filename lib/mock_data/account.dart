@@ -19,10 +19,15 @@ class Account {
   bool _linked = false;
 
   String get alias => _alias;
+
   String get phoneNumber => _phoneNumber;
+
   String get name => _name;
+
   String get balance => _balance;
+
   String get accountNumber => _accountNumber;
+
   String get bankName => _bankName;
 
   bool get linked => _linked;
@@ -144,3 +149,14 @@ List<Account> getOtherAccountsByPhone(String phone) {
       )
       .toList();
 }
+
+String getSecretAccountNumber(Account acc) {
+  final String accountNumber = acc.accountNumber;
+  StringBuffer sb = StringBuffer();
+  for(int i = 0 ; i < accountNumber.length ; i++) {
+    if(i >= 4 && i <= accountNumber.length - 3) {sb.write('*');}
+    else {sb.write(accountNumber[i]);}
+  }
+  return sb.toString();
+}
+

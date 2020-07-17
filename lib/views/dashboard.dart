@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:pispapp/Screens/account_dashboard.dart';
-import 'package:pispapp/Screens/splash.dart';
+import 'package:pispapp/views/account_dashboard.dart';
+import 'package:pispapp/views/new_payment.dart';
+import 'package:pispapp/views/payment_initiate.dart';
+import 'package:pispapp/views/splash.dart';
 import 'package:pispapp/widgets/bottom_navigation.dart';
+
+import 'package:pispapp/views/login.dart';
+
 
 class Dashboard extends StatefulWidget {
   @override
@@ -10,6 +15,7 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   Widget widgetToShow = AccountDashboard();
+
   void changeRootWidget(Widget widget) {
     setState(() {
       widgetToShow = widget;
@@ -17,25 +23,18 @@ class _DashboardState extends State<Dashboard> {
   }
 
   static List<BottomNavigationButton> buttons = <BottomNavigationButton>[
-    BottomNavigationButton(
-      Icons.arrow_forward,
-      SplashScreen(),
-    ),
+
     BottomNavigationButton(
       Icons.home,
       AccountDashboard(),
     ),
     BottomNavigationButton(
-      Icons.chat_bubble_outline,
-      const Text('Hello'),
-    ),
-    BottomNavigationButton(
-      Icons.notifications_none,
-      const Text('How are you'),
+      Icons.transfer_within_a_station,
+      PaymentStart(),
     ),
     BottomNavigationButton(
       Icons.person_outline,
-      const Text('Bye'),
+      const Center(child: Text('Settings')),
     ),
   ];
 

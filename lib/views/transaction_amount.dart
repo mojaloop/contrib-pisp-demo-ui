@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pispapp/MockData/account.dart';
-import 'package:pispapp/Screens/dashboard.dart';
-import 'package:pispapp/Screens/transaction_details.dart';
+import 'package:pispapp/mock_data/account.dart';
+import 'package:pispapp/views/dashboard.dart';
+import 'package:pispapp/views/transaction_details.dart';
 
 class TransactionAmount extends StatefulWidget {
   const TransactionAmount(this.payerAccount, this.payeeAccount);

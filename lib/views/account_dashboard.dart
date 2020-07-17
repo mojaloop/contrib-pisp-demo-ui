@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pispapp/MockData/account.dart';
-import 'package:pispapp/MockData/transaction.dart';
+import 'package:pispapp/mock_data/account.dart';
+import 'package:pispapp/mock_data/transaction.dart';
 import 'package:pispapp/theme/light_color.dart';
 import 'package:pispapp/widgets/balance_card.dart';
 import 'package:pispapp/widgets/title_text.dart';
@@ -43,7 +43,7 @@ class _AccountDashboardState extends State<AccountDashboard> {
           text: acc.alias,
           fontSize: 14,
         ),
-        subtitle: Text(acc.accountNumber),
+        subtitle: Text(getSecretAccountNumber(acc)),
         trailing: Container(
           height: 30,
           width: 60,
@@ -141,10 +141,6 @@ class _AccountDashboardState extends State<AccountDashboard> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-        _icon(
-          Icons.transfer_within_a_station,
-          'Transfer',
-        ),
         _icon(
           Icons.delete_sweep,
           'Unlink',
@@ -315,7 +311,7 @@ class _AccountDashboardState extends State<AccountDashboard> {
                           text: 'From',
                           fontSize: 14,
                         ),
-                        subtitle: Text(account.accountNumber),
+                        subtitle: Text(getSecretAccountNumber(account)),
                         trailing: TitleText(
                           text: account.name,
                           fontSize: 14,
@@ -375,7 +371,9 @@ class _AccountDashboardState extends State<AccountDashboard> {
   }
 
   Widget _transaction(Transaction t) {
-    final icon = Icons.keyboard_arrow_right;
+    final IconData icon = t.status == Status.SUCCESSFUL
+        ? Icons.check_circle_outline
+        : (t.status == Status.PENDING ? Icons.assignment_late : Icons.cancel);
     const color = Color(0xffd50000);
 
     return ListTile(

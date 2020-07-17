@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pispapp/theme/light_color.dart';
 
+import 'login.dart';
+
 class SplashScreen extends StatelessWidget {
   Widget _getStartedTile(BuildContext context) {
     return Padding(
@@ -16,7 +18,13 @@ class SplashScreen extends StatelessWidget {
               color: Colors.blue,
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push<dynamic>(
+              MaterialPageRoute<dynamic>(
+                builder: (BuildContext context) => LoginPage1(),
+              ),
+            );
+          },
           color: LightColor.navyBlue1,
           textColor: Colors.white,
           child: Text(

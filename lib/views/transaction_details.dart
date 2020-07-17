@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:pispapp/MockData/account.dart';
-import 'package:pispapp/Screens/dashboard.dart';
-import 'package:pispapp/Screens/transaction_success.dart';
+import 'package:pispapp/mock_data/account.dart';
+import 'package:pispapp/views/dashboard.dart';
+import 'package:pispapp/views/transaction_success.dart';
 
 import 'package:pispapp/log_printer.dart';
 import 'package:local_auth/local_auth.dart';

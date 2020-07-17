@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pispapp/Screens/dashboard.dart';
+import 'package:pispapp/views/dashboard.dart';
 
 // To encapsulate logic around routing and route guards at one place
 class RouteGenerator {

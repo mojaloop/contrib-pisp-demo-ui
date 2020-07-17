@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pispapp/Screens/dashboard.dart';
-import 'package:pispapp/Screens/error.dart';
+import 'package:pispapp/views/dashboard.dart';
+import 'package:pispapp/views/error.dart';
+import 'package:pispapp/views/splash.dart';
 import 'route_generator.dart';
 
 void main() {
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
         return widget;
       },
       // Initially display FirstPage
-      home: Dashboard(),
+      home: SplashScreen(),
       initialRoute: '/',
       onGenerateRoute: RouteGenerator.generateRoute,
     );

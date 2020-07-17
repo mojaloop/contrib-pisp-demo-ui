@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pispapp/MockData/account.dart';
-import 'package:pispapp/Screens/lookup_payee.dart';
-import 'package:pispapp/Screens/phone_number.dart';
+import 'package:pispapp/mock_data/account.dart';
+import 'package:pispapp/views/lookup_payee.dart';
+import 'package:pispapp/views/phone_number.dart';
 
 class NewPayment extends StatefulWidget {
   @override
@@ -104,7 +104,6 @@ class _NewPaymentState extends State<NewPayment> {
                     Navigator.of(context).push<dynamic>(
                       MaterialPageRoute<dynamic>(
                         builder: (BuildContext context) => LookupPayee(
-                          selectedAccount,
                           phoneIsoCode,
                           phoneNumber,
                         ),

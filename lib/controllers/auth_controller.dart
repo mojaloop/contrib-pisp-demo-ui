@@ -8,15 +8,15 @@ class AuthController extends GetxController {
   AuthRepository _authRepository;
 
   Future<User> signInWithGoogle() async {
-      final user = await _authRepository.signInWithGoogle();
-      setUser(user);
-      return user;
+    final user = await _authRepository.signInWithGoogle();
+    setUser(user);
+    return user;
   }
 
   Future<void> signOut() async {
-      await _authRepository.signOutGoogle();
-      setUser(User());
-      Get.find<LoginController>().defaultState();
+    await _authRepository.signOutGoogle();
+    setUser(User());
+    Get.find<LoginController>().defaultState();
   }
 
   String phoneNumber = '';

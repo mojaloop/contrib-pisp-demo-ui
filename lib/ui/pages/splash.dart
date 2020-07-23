@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pispapp/controllers/splash_controller.dart';
 import 'package:pispapp/ui/widgets/bottom_button.dart';
 
-
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

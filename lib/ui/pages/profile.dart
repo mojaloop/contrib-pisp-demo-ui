@@ -5,18 +5,7 @@ import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
 import 'package:get/get.dart';
 
-
 class Profile extends StatelessWidget {
-  Widget _headingTile(BuildContext context, String s) {
-    return ListTile(
-      contentPadding: const EdgeInsets.symmetric(),
-      title: TitleText(
-        text: s,
-        fontSize: 18,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,13 +33,15 @@ class Profile extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(14.0),
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage(Get.find<AuthController>().user.photourl),
+                  backgroundImage:
+                      NetworkImage(Get.find<AuthController>().user.photourl),
                   radius: 60,
                 ),
               ),
             ),
             Center(
-              child: TitleText(text: Get.find<AuthController>().user.displayName),
+              child:
+                  TitleText(text: Get.find<AuthController>().user.displayName),
             ),
             const SizedBox(height: 40),
             Column(
@@ -64,7 +55,7 @@ class Profile extends StatelessWidget {
                 ),
                 ListTile(
                   contentPadding: const EdgeInsets.symmetric(),
-                  title: TitleText(
+                  title: const TitleText(
                     text: 'Phone Number',
                     fontSize: 18,
                   ),

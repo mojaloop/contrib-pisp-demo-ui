@@ -7,7 +7,6 @@ import 'package:pispapp/ui/widgets/title_text.dart';
 import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/phone_number.dart';
 
-
 class Login extends StatelessWidget {
   Widget _loginWithGoogleTile() {
     return ListTile(
@@ -45,7 +44,7 @@ class Login extends StatelessWidget {
               ? Icon(
                   Icons.check_circle_outline,
                 )
-              : Text('')),
+              : const Text('')),
     );
   }
 

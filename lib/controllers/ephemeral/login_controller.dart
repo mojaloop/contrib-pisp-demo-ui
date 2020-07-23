@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:pispapp/controllers/auth_controller.dart';
+import 'package:pispapp/controllers/app/auth_controller.dart';
 
 class LoginController extends GetxController {
   String phoneNumber = '';

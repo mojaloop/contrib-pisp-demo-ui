@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:pispapp/controllers/login_controller.dart';
+import 'package:pispapp/controllers/ephemeral/login_controller.dart';
 import 'package:pispapp/models/user.dart';
 import 'package:pispapp/repositories/auth_repository.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pispapp/controllers/auth_controller.dart';
-import 'package:pispapp/controllers/profile_controller.dart';
+import 'package:pispapp/controllers/app/auth_controller.dart';
+import 'package:pispapp/controllers/ephemeral/profile_controller.dart';
 import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
 import 'package:get/get.dart';

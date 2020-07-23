@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pispapp/controllers/splash_controller.dart';
+import 'package:pispapp/controllers/ephemeral/splash_controller.dart';
 import 'package:pispapp/ui/widgets/bottom_button.dart';
 
 class SplashScreen extends StatelessWidget {

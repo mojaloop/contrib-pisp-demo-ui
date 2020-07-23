@@ -5,10 +5,11 @@ import 'package:pispapp/routes/app_pages.dart';
 import 'package:pispapp/ui/pages/splash.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 
-import 'controllers/auth_controller.dart';
-import 'controllers/login_controller.dart';
-import 'controllers/profile_controller.dart';
-import 'controllers/splash_controller.dart';
+import 'controllers/app/auth_controller.dart';
+import 'controllers/ephemeral/login_controller.dart';
+import 'controllers/ephemeral/profile_controller.dart';
+import 'controllers/ephemeral/splash_controller.dart';
+
 
 
 void main() {

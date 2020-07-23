@@ -26,6 +26,12 @@ dependencies:
   logger: ^0.6.0
   international_phone_input: ^1.0.4
   local_auth: ^0.6.2+3
+  get: ^3.4.0
+  google_fonts: ^1.1.0
+  firebase_auth: ^0.16.1
+  cloud_firestore: ^0.13.7
+  google_sign_in: ^4.5.1
+  json_annotation: ^3.0.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -34,6 +40,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^1.10.0
+  json_serializable: ^3.3.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -12,8 +12,6 @@ class AccountController extends GetxController {
 
   void getAllLinkedAccounts() {
     accounts.value = _accountRepository.getUserAccounts();
-    final logger = getLogger('printing size');
-    logger.e(accounts.value.length);
     Get.find<AccountDashboardController>().setSelectedAccount(accounts.value[0]);
     
   }

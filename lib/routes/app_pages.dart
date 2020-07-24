@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pispapp/ui/pages/account_dashboard.dart';
 import 'package:pispapp/ui/pages/login.dart';
 import 'package:pispapp/ui/pages/profile.dart';
 import 'package:pispapp/ui/pages/splash.dart';
@@ -19,6 +20,10 @@ abstract class AppPages {
     GetPage(
       name: Routes.PROFILE,
       page: () => Profile(),
+    ),
+    GetPage(
+      name: Routes.DASHBOARD,
+      page: () => AccountDashboard(),
     ),
   ];
 }

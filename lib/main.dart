@@ -10,6 +10,7 @@ import 'package:pispapp/ui/theme/light_theme.dart';
 
 import 'controllers/app/account_controller.dart';
 import 'controllers/app/auth_controller.dart';
+import 'controllers/ephemeral/dashboard_controller.dart';
 import 'controllers/ephemeral/login_controller.dart';
 import 'controllers/ephemeral/profile_controller.dart';
 import 'controllers/ephemeral/splash_controller.dart';
@@ -34,4 +35,5 @@ void initControllers() {
   Get.put(ProfileController());
   Get.put(AccountController(MockAccountRepository()));
   Get.put(AccountDashboardController(MockTransactionRepository()));
+  Get.put(DashboardController());
 }

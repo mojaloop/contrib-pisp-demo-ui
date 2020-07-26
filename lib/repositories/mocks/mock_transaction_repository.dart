@@ -1,6 +1,5 @@
 import 'package:pispapp/models/transaction.dart';
 import 'package:pispapp/repositories/interfaces/i_transaction_repository.dart';
-import 'package:pispapp/utils/log_printer.dart';
 
 List<Transaction> transactions = <Transaction>[
   Transaction(
@@ -63,7 +62,7 @@ List<Transaction> getMockTransactions(String accountId) {
 class MockTransactionRepository extends ITransactionRepository {
   @override
   List<Transaction> getTransactions(String accountId) {
-    var ans = getMockTransactions(accountId);
+    final ans = getMockTransactions(accountId);
     return ans;
   }
 }

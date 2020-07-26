@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/app/account_controller.dart';
@@ -286,7 +285,7 @@ class AccountDashboard extends StatelessWidget {
         width: 50,
         decoration: BoxDecoration(
           color: textColor,
-          borderRadius: BorderRadius.all(
+          borderRadius: const BorderRadius.all(
             Radius.circular(
               10,
             ),

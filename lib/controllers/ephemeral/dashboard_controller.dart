@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
-import 'package:meta/meta.dart';
 import 'package:pispapp/ui/pages/account_dashboard.dart';
 import 'package:pispapp/ui/pages/profile.dart';
 

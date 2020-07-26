@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:meta/meta.dart';
 import 'package:pispapp/controllers/app/account_controller.dart';
 import 'package:pispapp/models/account.dart';
 import 'package:pispapp/models/transaction.dart';

@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:pispapp/controllers/ephemeral/account_dashboard_controller.dart';
 import 'package:pispapp/models/account.dart';
 import 'package:pispapp/repositories/interfaces/i_account_repository.dart';
-import 'package:pispapp/utils/log_printer.dart';
 
 class AccountController extends GetxController {
   AccountController(this._accountRepository);

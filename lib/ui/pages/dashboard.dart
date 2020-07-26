@@ -18,25 +18,25 @@ class Dashboard extends StatelessWidget {
                 items: <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
                     icon: Icon(Icons.account_balance),
-                    title: Text(
+                    title: const Text(
                       'Accounts',
                     ),
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(Icons.add_box),
-                    title: Text(
+                    title: const Text(
                       'Link',
                     ),
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(Icons.transfer_within_a_station),
-                    title: Text(
+                    title: const Text(
                       'Transfer',
                     ),
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(Icons.person_outline),
-                    title: Text(
+                    title: const Text(
                       'Profile',
                     ),
                   ),
@@ -47,7 +47,6 @@ class Dashboard extends StatelessWidget {
                 onTap: _.onItemTapped,
               ),
             );
-            ;
           },
         ),
       ),

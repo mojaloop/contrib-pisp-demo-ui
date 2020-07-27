@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pispapp/controllers/ephemeral/user_pin_auth_controller.dart';
 import 'package:pispapp/repositories/auth_repository.dart';
 import 'package:pispapp/routes/app_pages.dart';
+import 'package:pispapp/ui/pages/pin_entry.dart';
 import 'package:pispapp/ui/pages/splash.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 
@@ -18,7 +20,6 @@ void main() {
   runApp(
     GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/',
         theme: appThemeData,
         defaultTransition: Transition.fade,
         getPages: AppPages.pages,
@@ -32,5 +33,6 @@ void initControllers() {
   Get.put(SplashController());
   Get.put(LoginController());
   Get.put(ProfileController());
+  Get.put(PINAuthController());
 }
 

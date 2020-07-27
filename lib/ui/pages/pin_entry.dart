@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'file:///C:/Users/Kenneth/Desktop/pisp-demo-app-flutter/lib/controllers/ephemeral/user_pin_auth_controller.dart';
+import 'package:pispapp/controllers/ephemeral/user_pin_auth_controller.dart';
 
 
 class PinEntry extends StatefulWidget {
@@ -16,9 +18,6 @@ class _PinEntryState extends State<PinEntry> {
 
   // Handles text field
   TextEditingController textEditingController = TextEditingController();
-
-  // Handles business logic of PIN auth
-  PINAuthController pinAuthController = PINAuthController();
 
   @override
   Widget build(BuildContext context) {
@@ -39,16 +38,21 @@ class _PinEntryState extends State<PinEntry> {
                   )),
               const Icon(Icons.lock,
               size: 100,
-              color: Colors.green), // Replace with a nice image
+              color: Colors.blue), // Replace with a nice image
               Padding(
                 padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
                 child: PinCodeTextField(
                   length: 6,
                   onCompleted: (value) {
-                    final bool correct = pinAuthController.authenticate(value);
-                    if (!correct) {
+                    textEditingController.clear();
+                    print(Get.find<PINAuthController>().userSetPIN);
+                    final bool correct = Get.find<PINAuthController>().authenticate(value);
+                    if (correct) {
+                      assert(Navigator.canPop(context));
+                      Navigator.pop(context);
+                    }
+                    else {
                       errorController.add(ErrorAnimationType.shake);
-                      textEditingController.clear();
                     }
                   },
                   errorAnimationController: errorController,
@@ -63,12 +67,13 @@ class _PinEntryState extends State<PinEntry> {
                     inactiveFillColor: Colors.white,
                     selectedFillColor: Colors.white,
                     // Outline
-                    selectedColor: Colors.green,
+                    selectedColor: Colors.blue,
                     inactiveColor: Colors.grey,
                   ),
                   enableActiveFill: true,
                   backgroundColor: Colors.transparent,
                   textInputType: TextInputType.number,
+                  inputFormatters: [WhitelistingTextInputFormatter.digitsOnly], // Allow only numbers
                   autoFocus: true,
                   animationType: AnimationType.fade,
                   animationDuration: const Duration(milliseconds: 200),

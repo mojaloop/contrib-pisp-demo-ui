@@ -4,12 +4,12 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'file:///C:/Users/Kenneth/Desktop/pisp-demo-app-flutter/lib/controllers/ephemeral/user_pin_auth_controller.dart';
 
 
-class PinEntryScreen extends StatefulWidget {
+class PinEntry extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _PinEntryScreenState();
+  State<StatefulWidget> createState() => _PinEntryState();
 }
 
-class _PinEntryScreenState extends State<PinEntryScreen> {
+class _PinEntryState extends State<PinEntry> {
   // Handles animation for error
   StreamController<ErrorAnimationType> errorController =
   StreamController<ErrorAnimationType>();

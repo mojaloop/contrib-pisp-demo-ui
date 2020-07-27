@@ -10,8 +10,6 @@ import 'controllers/ephemeral/login_controller.dart';
 import 'controllers/ephemeral/profile_controller.dart';
 import 'controllers/ephemeral/splash_controller.dart';
 
-
-
 void main() {
   
   initControllers();

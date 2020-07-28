@@ -46,14 +46,7 @@ class _PinEntryState extends State<PinEntry> {
                   onCompleted: (value) {
                     textEditingController.clear();
                     final bool correct = Get.find<PINAuthController>().authenticate(value);
-
-                    final bool userDidSetPIN = Get.find<PINAuthController>().userSetPIN;
-                    print('setPIN: $userDidSetPIN');
-                    // TODO: DEBUG REMOVE
-                    if(!userDidSetPIN) {
-                      Get.find<PINAuthController>().storeNewPIN(value);
-                    }
-
+                    
                     if (correct) {
                       assert(Navigator.canPop(context));
                       Navigator.pop(context);
@@ -74,6 +67,7 @@ class _PinEntryState extends State<PinEntry> {
                     inactiveFillColor: Colors.white,
                     selectedFillColor: Colors.white,
                     // Outline
+                    activeColor: Colors.blue,
                     selectedColor: Colors.blue,
                     inactiveColor: Colors.grey,
                   ),

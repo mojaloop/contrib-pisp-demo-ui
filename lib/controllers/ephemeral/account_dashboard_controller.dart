@@ -20,7 +20,6 @@ class AccountDashboardController extends GetxController {
 
   void setSelectedAccount(Account acc) {
     selectedAccount = acc;
-    update();
     updateTransactions();
   }
 

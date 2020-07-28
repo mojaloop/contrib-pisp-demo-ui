@@ -52,17 +52,11 @@ List<Transaction> transactions = <Transaction>[
   ),
 ];
 
-
-List<Transaction> getMockTransactions(String accountId) {
-  return transactions
-      .where((Transaction element) => element.from == accountId)
-      .toList();
-}
-
 class MockTransactionRepository extends ITransactionRepository {
   @override
   List<Transaction> getTransactions(String accountId) {
-    final ans = getMockTransactions(accountId);
-    return ans;
+    return transactions
+        .where((Transaction element) => element.from == accountId)
+        .toList();
   }
 }

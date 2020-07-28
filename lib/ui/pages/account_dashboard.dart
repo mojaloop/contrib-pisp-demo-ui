@@ -217,12 +217,7 @@ class AccountDashboard extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    20.0,
-                    0,
-                    20,
-                    0,
-                  ),
+                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                   child: ListTile(
                     contentPadding: const EdgeInsets.symmetric(),
                     title: const TitleText(
@@ -239,12 +234,7 @@ class AccountDashboard extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    20.0,
-                    0,
-                    20,
-                    0,
-                  ),
+                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                   child: ListTile(
                     contentPadding: const EdgeInsets.symmetric(),
                     title: const TitleText(
@@ -306,7 +296,8 @@ class AccountDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: SafeArea(
+    return Scaffold(
+        body: SafeArea(
       child: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.symmetric(

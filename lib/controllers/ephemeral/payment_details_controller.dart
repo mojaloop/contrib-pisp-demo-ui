@@ -7,7 +7,7 @@ class PaymentDetailsController extends GetxController {
     final bool isUserAuthenticated = await LocalAuth.authenticateUser('Please authorize to pay');
     if(isUserAuthenticated) {
       Get.find<PaymentInitiateController>().defaultState();
-      Get.offAllNamed<dynamic>('/dashboard');
+      Get.offAllNamed<dynamic>('/transfer/success');
 
     }
     else {

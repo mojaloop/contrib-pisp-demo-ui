@@ -11,9 +11,7 @@ class AccountController extends GetxController {
 
   void getAllLinkedAccounts() {
     accounts.value = _accountRepository.getUserAccounts();
-    Get.find<AccountDashboardController>().setSelectedAccount(accounts.value[0]);
-    
+    Get.find<AccountDashboardController>()
+        .setSelectedAccount(accounts.value[0]);
   }
-
-
 }

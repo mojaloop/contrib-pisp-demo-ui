@@ -1,5 +1,3 @@
-
-
 import 'package:pispapp/models/account.dart';
 import 'package:pispapp/repositories/interfaces/i_account_repository.dart';
 
@@ -123,16 +121,14 @@ List<Account> getOtherAccountsByPhone(String phone) {
 class MockAccountRepository implements IAccountRepository {
   @override
   List<Account> getUserAccounts() {
-    return getMyDummyAccounts().where(
+    return getMyDummyAccounts()
+        .where(
           (Account element) => element.linked,
         )
         .toList();
-  } 
+  }
 
   List<Account> getOtherAccounts() {
     return getOtherDummyAccounts();
-  } 
+  }
 }
-
-
-

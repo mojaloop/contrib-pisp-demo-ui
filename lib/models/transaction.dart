@@ -3,13 +3,16 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'transaction.g.dart';
 
-enum Status { 
-   SUCCESSFUL, PENDING, ERROR,
+enum Status {
+  SUCCESSFUL,
+  PENDING,
+  ERROR,
 }
 
 @JsonSerializable()
-class Transaction implements Model{
-  Transaction(this.from, this.to, this.amount, this.date, this.payeeName, this.status);
+class Transaction implements Model {
+  Transaction(
+      this.from, this.to, this.amount, this.date, this.payeeName, this.status);
 
   @override
   factory Transaction.fromJson(Map<String, dynamic> json) =>
@@ -18,11 +21,6 @@ class Transaction implements Model{
   @override
   Map<String, dynamic> toJson() => _$TransactionToJson(this);
 
-
-
   String from, to, amount, date, payeeName;
   Status status;
-
-  
-  
 }

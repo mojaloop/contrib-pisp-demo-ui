@@ -128,7 +128,14 @@ class MockAccountRepository implements IAccountRepository {
         .toList();
   }
 
+  @override
+  List<Account> getPayeeAccountsByPhone(String phoneNumber) {
+    return getOtherAccountsByPhone(phoneNumber);
+  }
+
   List<Account> getOtherAccounts() {
     return getOtherDummyAccounts();
   }
 }
+
+

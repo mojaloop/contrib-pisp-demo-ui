@@ -52,7 +52,7 @@ List<Transaction> transactions = <Transaction>[
   ),
 ];
 
-class MockTransactionRepository extends ITransactionRepository {
+class MockTransactionRepository implements ITransactionRepository {
   @override
   List<Transaction> getTransactions(String accountId) {
     return transactions

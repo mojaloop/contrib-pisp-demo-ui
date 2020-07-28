@@ -93,7 +93,7 @@ class PaymentDetails extends StatelessWidget {
                   ),
                   ListTile(
                     contentPadding: const EdgeInsets.symmetric(),
-                    title: TitleText(
+                    title: const TitleText(
                       text: 'Phone Number',
                       fontSize: 18,
                     ),

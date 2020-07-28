@@ -12,15 +12,29 @@ enum Status {
 @JsonSerializable()
 class Transaction implements Model {
   Transaction(
-      this.from, this.to, this.amount, this.date, this.payeeName, this.status);
+      String from, String to, String amount, String date, String payeeName, Status status)
+      : _from = from,
+        _to = to,
+        _amount = amount,
+        _date = date,
+        _payeeName = payeeName,
+        _status = status;
 
   @override
   factory Transaction.fromJson(Map<String, dynamic> json) =>
       _$TransactionFromJson(json);
 
+
   @override
   Map<String, dynamic> toJson() => _$TransactionToJson(this);
 
-  String from, to, amount, date, payeeName;
-  Status status;
+  String _from, _to, _amount, _date, _payeeName;
+  Status _status;
+
+  String get from => _from;
+  String get to => _to;
+  String get amount => _amount;
+  String get date => _date;
+  String get payeeName => _payeeName;
+  Status get status => _status;
 }

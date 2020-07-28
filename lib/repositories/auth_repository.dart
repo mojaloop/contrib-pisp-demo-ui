@@ -30,7 +30,7 @@ class AuthRepository {
 
     final User u = User.fromJson(_mapUserToJson(user));
 
-    logger.d('User signin: ${u.email}');
+    logger.d('User signin: ${u.photoUrl}');
 
     return u;
   }
@@ -39,7 +39,7 @@ class AuthRepository {
     return <String, dynamic>{
       'displayName': user.displayName,
       'email': user.email,
-      'photourl': user.photoUrl,
+      'photoUrl': user.photoUrl,
     };
   }
 

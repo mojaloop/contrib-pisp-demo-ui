@@ -5,7 +5,7 @@ part 'user.g.dart';
 
 @JsonSerializable()
 class User implements Model {
-  User({this.displayName, this.email, this.photourl});
+  User({this.displayName, this.email, this.photoUrl});
 
   @override
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
@@ -13,5 +13,5 @@ class User implements Model {
   @override
   Map<String, dynamic> toJson() => _$UserToJson(this);
 
-  String displayName, email, photourl;
+  String displayName, email, photoUrl;
 }

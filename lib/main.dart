@@ -10,23 +10,17 @@ import 'controllers/ephemeral/login_controller.dart';
 import 'controllers/ephemeral/profile_controller.dart';
 import 'controllers/ephemeral/splash_controller.dart';
 
-
-
 void main() {
-  
   initControllers();
 
-
-  runApp(
-    GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: '/',
-        theme: appThemeData,
-        defaultTransition: Transition.fade,
-        getPages: AppPages.pages,
-        home: SplashScreen(),
-    )
-  );
+  runApp(GetMaterialApp(
+    debugShowCheckedModeBanner: false,
+    initialRoute: '/',
+    theme: appThemeData,
+    defaultTransition: Transition.fade,
+    getPages: AppPages.pages,
+    home: SplashScreen(),
+  ));
 }
 
 void initControllers() {
@@ -35,4 +29,3 @@ void initControllers() {
   Get.put(LoginController());
   Get.put(ProfileController());
 }
-

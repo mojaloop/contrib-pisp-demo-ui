@@ -34,7 +34,7 @@ class Profile extends StatelessWidget {
                 padding: const EdgeInsets.all(14.0),
                 child: CircleAvatar(
                   backgroundImage:
-                      NetworkImage(Get.find<AuthController>().user.photourl),
+                      NetworkImage(Get.find<AuthController>().user.photoUrl),
                   radius: 60,
                 ),
               ),

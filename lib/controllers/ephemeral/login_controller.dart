@@ -56,5 +56,7 @@ class LoginController extends GetxController {
   Future<void> onLinkGoogleAccount() async {
     final _ = await Get.find<AuthController>().signInWithGoogle();
     googleLogin = true;
+    googleLoginPrompt = false;
+    update();
   }
 }

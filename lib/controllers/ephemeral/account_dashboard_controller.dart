@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/app/account_controller.dart';
 import 'package:pispapp/models/account.dart';
@@ -11,8 +12,19 @@ class AccountDashboardController extends GetxController {
   List<Transaction> transactionList = <Transaction>[];
 
   ITransactionRepository _transactionRepo;
+  bool noAccounts = false;
 
-  void refreshAll() {}
+  void onRefresh() {
+    getLinkedAccounts();
+    if (Get.find<AccountController>().accounts.isEmpty) {
+      noAccounts = true;
+    } else {
+      noAccounts = false;
+      setSelectedAccount(Get.find<AccountController>().accounts.elementAt(0));
+    }
+
+    update();
+  }
 
   void onAccountTileTap(Account acc) {
     setSelectedAccount(acc);
@@ -26,12 +38,12 @@ class AccountDashboardController extends GetxController {
   void updateTransactions() {
     final logger = getLogger('AccountDashboardController');
     logger.e('getting transactions');
-    transactionList = _transactionRepo.getTransactions(selectedAccount.accountNumber);
+    transactionList =
+        _transactionRepo.getTransactions(selectedAccount.accountNumber);
     update();
   }
 
-  void refreshAccounts() {
+  void getLinkedAccounts() {
     Get.find<AccountController>().getAllLinkedAccounts();
-    // TODO(MahidharBandaru): Handle empty case;
   }
 }

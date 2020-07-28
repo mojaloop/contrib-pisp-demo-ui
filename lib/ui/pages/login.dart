@@ -67,8 +67,8 @@ class Login extends StatelessWidget {
               ),
             ),
             GetBuilder<LoginController>(
-              builder: (_) => ShadowBox(
-                color: _.googleLoginPrompt ? Colors.red : LightColor.navyBlue1,
+              builder: (value) => ShadowBox(
+                color: value.googleLoginPrompt ? Colors.red : LightColor.navyBlue1,
                 child: Column(
                   children: <Widget>[
                     _loginWithGoogleTile(),
@@ -78,16 +78,17 @@ class Login extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             GetBuilder<LoginController>(
-              builder: (_) => ShadowBox(
-                color: Get.find<LoginController>().phoneNumberPrompt
+              builder: (value) => ShadowBox(
+                color: value.phoneNumberPrompt
                     ? Colors.red
                     : LightColor.navyBlue1,
                 child: Column(
                   children: <Widget>[
                     _phoneNumberTile(),
                     PhoneNumberInput(
-                      Get.find<LoginController>().onPhoneNumberChange,
+                      value.onPhoneNumberChange,
                       'Enter phone number',
+                      Get.find<LoginController>().phoneNumber,
                     ),
                   ],
                 ),

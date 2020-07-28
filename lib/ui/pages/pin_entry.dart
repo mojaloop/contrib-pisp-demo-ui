@@ -19,69 +19,77 @@ class _PinEntryState extends State<PinEntry> {
   // Handles text field
   TextEditingController textEditingController = TextEditingController();
 
+  Widget buildPINEntryScreen() {
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text('Please enter your PIN to resume using the app',
+                style: TextStyle(
+                  fontSize: 18.0,
+                )),
+            const Icon(Icons.lock,
+                size: 100,
+                color: Colors.blue), // Replace with a nice image
+            Padding(
+              padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
+              child: PinCodeTextField(
+                length: 6,
+                onCompleted: (value) {
+                  textEditingController.clear();
+                  final bool correct = Get.find<PINAuthController>().authenticate(value);
+
+                  if (correct) {
+                    assert(Navigator.canPop(context));
+                    Navigator.pop(context);
+                  }
+                  else {
+                    errorController.add(ErrorAnimationType.shake);
+                  }
+                },
+                errorAnimationController: errorController,
+                controller: textEditingController,
+                pinTheme: PinTheme(
+                  shape: PinCodeFieldShape.box,
+                  borderRadius: BorderRadius.circular(12),
+                  fieldHeight: 50,
+                  fieldWidth: 40,
+                  // Box background
+                  activeFillColor: Colors.white,
+                  inactiveFillColor: Colors.white,
+                  selectedFillColor: Colors.white,
+                  // Outline
+                  activeColor: Colors.blue,
+                  selectedColor: Colors.blue,
+                  inactiveColor: Colors.grey,
+                ),
+                enableActiveFill: true,
+                backgroundColor: Colors.transparent,
+                textInputType: TextInputType.number,
+                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly], // Allow only numbers
+                autoFocus: true,
+                animationType: AnimationType.fade,
+                animationDuration: const Duration(milliseconds: 200),
+              ),
+            )
+          ]),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Enter your PIN'),
+        title: const Text('Verify Your Identity'),
+        leading: const Icon(Icons.account_circle),
       ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Text('Please enter your PIN to resume using the app',
-                  style: TextStyle(
-                    fontSize: 18.0,
-                  )),
-              const Icon(Icons.lock,
-              size: 100,
-              color: Colors.blue), // Replace with a nice image
-              Padding(
-                padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
-                child: PinCodeTextField(
-                  length: 6,
-                  onCompleted: (value) {
-                    textEditingController.clear();
-                    final bool correct = Get.find<PINAuthController>().authenticate(value);
-                    
-                    if (correct) {
-                      assert(Navigator.canPop(context));
-                      Navigator.pop(context);
-                    }
-                    else {
-                      errorController.add(ErrorAnimationType.shake);
-                    }
-                  },
-                  errorAnimationController: errorController,
-                  controller: textEditingController,
-                  pinTheme: PinTheme(
-                    shape: PinCodeFieldShape.box,
-                    borderRadius: BorderRadius.circular(12),
-                    fieldHeight: 50,
-                    fieldWidth: 40,
-                    // Box background
-                    activeFillColor: Colors.white,
-                    inactiveFillColor: Colors.white,
-                    selectedFillColor: Colors.white,
-                    // Outline
-                    activeColor: Colors.blue,
-                    selectedColor: Colors.blue,
-                    inactiveColor: Colors.grey,
-                  ),
-                  enableActiveFill: true,
-                  backgroundColor: Colors.transparent,
-                  textInputType: TextInputType.number,
-                  inputFormatters: [WhitelistingTextInputFormatter.digitsOnly], // Allow only numbers
-                  autoFocus: true,
-                  animationType: AnimationType.fade,
-                  animationDuration: const Duration(milliseconds: 200),
-                ),
-              )
-            ]),
-      ),
+      body: WillPopScope(
+        onWillPop: () async => false,
+        child: buildPINEntryScreen(),
+      )
     );
   }
 }

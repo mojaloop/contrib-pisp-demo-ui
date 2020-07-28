@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:get/get.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:pispapp/routes/app_pages.dart';
 
 class PINAuthController extends GetxController {
   // Constructor to fetch PIN automatically
@@ -24,6 +26,22 @@ class PINAuthController extends GetxController {
   // Synchronous
   // Called after correct PIN has been populated
   bool authenticate(String pin) => pin == _correctPIN;
+
+  Future<void> onUserVerificationNeeded() async {
+    var localAuth = LocalAuthentication();
+    try {
+      bool didAuth = await localAuth.authenticateWithBiometrics(
+          localizedReason: 'Please verify you are the user',
+          useErrorDialogs: false);
+
+      // Use PIN screen if biometric did not validate
+      if(!didAuth) {
+        Get.toNamed<dynamic>(Routes.PIN_ENTRY);
+      }
+    } catch(e) {
+      Get.toNamed<dynamic>(Routes.PIN_ENTRY);
+    }
+  }
 
   Future<void> _fetchPIN() async {
     final String pin = await Future.any([

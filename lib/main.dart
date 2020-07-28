@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:pispapp/controllers/ephemeral/user_pin_auth_controller.dart';
 import 'package:pispapp/repositories/auth_repository.dart';
 import 'package:pispapp/routes/app_pages.dart';
-import 'package:pispapp/ui/pages/pin_entry.dart';
 import 'package:pispapp/ui/pages/splash.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 
@@ -19,16 +18,47 @@ void main() {
 
   initControllers();
 
-  runApp(
-    GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: appThemeData,
-        defaultTransition: Transition.fade,
-        getPages: AppPages.pages,
-        home: SplashScreen(),
-    )
-  );
+  runApp(LifecycleAwareApp());
 }
+
+// Wrapper class to allow app-wide lifecycle listening
+class LifecycleAwareApp extends StatefulWidget {
+  @override
+  _LifecycleAwareAppState createState() => _LifecycleAwareAppState();
+}
+
+class _LifecycleAwareAppState extends State<LifecycleAwareApp> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      Get.find<PINAuthController>().onUserVerificationNeeded();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: appThemeData,
+      defaultTransition: Transition.fade,
+      getPages: AppPages.pages,
+      home: SplashScreen(),
+    );
+  }
+}
+
 
 void initControllers() {
   Get.put(AuthController(AuthRepository()));

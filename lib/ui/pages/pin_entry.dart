@@ -45,8 +45,15 @@ class _PinEntryState extends State<PinEntry> {
                   length: 6,
                   onCompleted: (value) {
                     textEditingController.clear();
-                    print(Get.find<PINAuthController>().userSetPIN);
                     final bool correct = Get.find<PINAuthController>().authenticate(value);
+
+                    final bool userDidSetPIN = Get.find<PINAuthController>().userSetPIN;
+                    print('setPIN: $userDidSetPIN');
+                    // TODO: DEBUG REMOVE
+                    if(!userDidSetPIN) {
+                      Get.find<PINAuthController>().storeNewPIN(value);
+                    }
+
                     if (correct) {
                       assert(Navigator.canPop(context));
                       Navigator.pop(context);

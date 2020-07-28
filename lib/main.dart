@@ -13,9 +13,11 @@ import 'controllers/ephemeral/profile_controller.dart';
 import 'controllers/ephemeral/splash_controller.dart';
 
 void main() {
-  
-  initControllers();
+  // Ensures flutter binding is created even before runApp() so
+  // binary messenger can be used for async code
+  WidgetsFlutterBinding.ensureInitialized();
 
+  initControllers();
 
   runApp(
     GetMaterialApp(

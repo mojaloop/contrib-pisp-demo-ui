@@ -11,7 +11,6 @@ import 'package:pispapp/ui/widgets/title_text.dart';
 import 'package:pispapp/utils/utils.dart';
 
 class PaymentFinalize extends StatelessWidget {
-
   Widget _getAccountTile(Account acc) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -94,18 +93,21 @@ class PaymentFinalize extends StatelessWidget {
                 fontSize: 20,
               ),
             ),
-            ShadowBox(
-              child: Column(
-                children: <Widget>[
-                  ShadowBoxHeading('Transaction Amount'),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+            GetBuilder<PaymentFinalizeController>(
+              builder: (value) {
+                return ShadowBox(
+                  color: value.transactionAmountPrompt
+                    ? Colors.red
+                    : LightColor.navyBlue1,
+                  child: Column(
                     children: <Widget>[
-                      Container(
-                        width: 170.0,
-                        child: GetBuilder<PaymentFinalizeController>(
-                          builder: (value) {
-                            return TextField(
+                      ShadowBoxHeading('Transaction Amount'),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            width: 170.0,
+                            child: TextField(
                               textAlign: TextAlign.center,
                               decoration: const InputDecoration(hintText: '0'),
                               keyboardType: TextInputType.number,
@@ -115,18 +117,18 @@ class PaymentFinalize extends StatelessWidget {
                                 color: LightColor.navyBlue2,
                               ),
                               onChanged: value.onTransactionAmountChange,
-                            );
-                          },
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                        child: TitleText(text: '\$', fontSize: 20),
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                            child: TitleText(text: '\$', fontSize: 20),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
+                );
+              },
             ),
             const SizedBox(
               height: 30,

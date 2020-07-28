@@ -3,6 +3,7 @@ import 'package:pispapp/bindings/login_binding.dart';
 import 'package:pispapp/bindings/lookup_payee_bindings.dart';
 import 'package:pispapp/bindings/payment_details_binding.dart';
 import 'package:pispapp/bindings/payment_finalize_bindings.dart';
+import 'package:pispapp/bindings/payment_success_bindings.dart';
 import 'package:pispapp/bindings/splash_binding.dart';
 import 'package:pispapp/controllers/ephemeral/account_dashboard_controller.dart';
 import 'package:pispapp/ui/pages/dashboard.dart';
@@ -10,6 +11,7 @@ import 'package:pispapp/ui/pages/login.dart';
 import 'package:pispapp/ui/pages/lookup_payee.dart';
 import 'package:pispapp/ui/pages/payment_details.dart';
 import 'package:pispapp/ui/pages/payment_finalize.dart';
+import 'package:pispapp/ui/pages/payment_success.dart';
 import 'package:pispapp/ui/pages/splash.dart';
 
 part './app_routes.dart';
@@ -50,6 +52,11 @@ abstract class AppPages {
       name: Routes.TRANSGER_DETAILS,
       page: () => PaymentDetails(),
       binding: PaymentDetailsBinding(),
+    ),
+    GetPage(
+      name: Routes.TRANSFER_SUCCESS,
+      page: () => PaymentSuccess(),
+      binding: PaymentSuccessBinding(),
     ),
   ];
 }

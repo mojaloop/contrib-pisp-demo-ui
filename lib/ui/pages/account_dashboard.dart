@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -296,47 +298,53 @@ class AccountDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(
-      child: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const SizedBox(
-                height: 35,
-              ),
-              _appBar(),
-              const SizedBox(
-                height: 50,
-              ),
-              const TitleText(
-                text: 'Operations',
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              _operationsWidget(),
-              const SizedBox(
-                height: 40,
-              ),
-              const TitleText(
-                text: 'Transactions',
-              ),
-              GetBuilder<AccountDashboardController>(builder: (value) {
-                return Column(
-                  children: value.transactionList
-                      .map((Transaction t) => _transaction(t))
-                      .toList(),
-                );
-              }),
-            ],
+    return SafeArea(
+      child: RefreshIndicator(
+        onRefresh: () async {
+          Get.find<AccountDashboardController>().onRefresh();
+        },
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
+            height: Get.height,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const SizedBox(
+                  height: 35,
+                ),
+                _appBar(),
+                const SizedBox(
+                  height: 50,
+                ),
+                const TitleText(
+                  text: 'Operations',
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                _operationsWidget(),
+                const SizedBox(
+                  height: 40,
+                ),
+                const TitleText(
+                  text: 'Transactions',
+                ),
+                GetBuilder<AccountDashboardController>(builder: (value) {
+                  return Column(
+                    children: value.transactionList
+                        .map((Transaction t) => _transaction(t))
+                        .toList(),
+                  );
+                }),
+              ],
+            ),
           ),
         ),
       ),
-    ));
+    );
   }
 }

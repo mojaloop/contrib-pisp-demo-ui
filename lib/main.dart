@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pispapp/controllers/ephemeral/user_pin_auth_controller.dart';
+import 'package:pispapp/controllers/ephemeral/pin_entry_controller.dart';
 import 'package:pispapp/repositories/auth_repository.dart';
 import 'package:pispapp/routes/app_pages.dart';
 import 'package:pispapp/ui/pages/splash.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 
 import 'controllers/app/auth_controller.dart';
+import 'controllers/ephemeral/local_auth_controller.dart';
 import 'controllers/ephemeral/login_controller.dart';
 import 'controllers/ephemeral/profile_controller.dart';
 import 'controllers/ephemeral/splash_controller.dart';
@@ -31,6 +32,8 @@ class _LifecycleAwareAppState extends State<LifecycleAwareApp> with WidgetsBindi
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
+    // Show verification screen when app first starts
+    Get.find<LocalAuthController>().onUserVerificationNeeded();
     super.initState();
   }
 
@@ -43,7 +46,7 @@ class _LifecycleAwareAppState extends State<LifecycleAwareApp> with WidgetsBindi
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      Get.find<PINAuthController>().onUserVerificationNeeded();
+      Get.find<LocalAuthController>().onUserVerificationNeeded();
     }
   }
 
@@ -65,6 +68,7 @@ void initControllers() {
   Get.put(SplashController());
   Get.put(LoginController());
   Get.put(ProfileController());
-  Get.put(PINAuthController());
+  Get.put(PINEntryController());
+  Get.put(LocalAuthController());
 }
 

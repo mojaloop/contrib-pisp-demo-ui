@@ -4,20 +4,18 @@ import 'package:pispapp/controllers/ephemeral/pin_entry_controller.dart';
 
 class LocalAuthController extends GetxController {
 
+  // Timer for grace period
   static const Duration gracePeriod = Duration(seconds: 10);
+  DateTime _timestamp = DateTime.now().subtract(gracePeriod);
 
   // Used to prevent duplicates when resuming onto a verification screen
   bool verificationInProgress = false;
 
-  // TODO: Timer for cooldown
-
-  Future<void> onUserVerificationNeeded() async {
+  Future<void> _onUserVerificationNeeded() async {
     // If already happening, do not open more verification screens
     if(verificationInProgress) {
       return;
     }
-
-    // Check if still within grace period
 
     verificationInProgress = true;
     final localAuth = LocalAuthentication();
@@ -36,6 +34,14 @@ class LocalAuthController extends GetxController {
       }
     } catch(e) {
       Get.find<PINEntryController>().onFallbackVerificationNeeded();
+    }
+  }
+
+  void appWasPaused() =>_timestamp = DateTime.now();
+  void appWasResumed() {
+    // Check if still within grace period
+    if(DateTime.now().difference(_timestamp) > gracePeriod) {
+      _onUserVerificationNeeded();
     }
   }
 }

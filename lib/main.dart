@@ -33,7 +33,7 @@ class _LifecycleAwareAppState extends State<LifecycleAwareApp> with WidgetsBindi
   void initState() {
     WidgetsBinding.instance.addObserver(this);
     // Show verification screen when app first starts
-    Get.find<LocalAuthController>().onUserVerificationNeeded();
+    Get.find<LocalAuthController>().appWasResumed();
     super.initState();
   }
 
@@ -46,7 +46,10 @@ class _LifecycleAwareAppState extends State<LifecycleAwareApp> with WidgetsBindi
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      Get.find<LocalAuthController>().onUserVerificationNeeded();
+      Get.find<LocalAuthController>().appWasResumed();
+    }
+    else if (state == AppLifecycleState.paused) {
+      Get.find<LocalAuthController>().appWasPaused();
     }
   }
 

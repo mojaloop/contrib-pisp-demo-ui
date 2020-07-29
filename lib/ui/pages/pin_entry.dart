@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,20 +5,8 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:pispapp/controllers/ephemeral/user_pin_auth_controller.dart';
 
 
-class PinEntry extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _PinEntryState();
-}
-
-class _PinEntryState extends State<PinEntry> {
-  // Handles animation for error
-  StreamController<ErrorAnimationType> errorController =
-  StreamController<ErrorAnimationType>();
-
-  // Handles text field
-  TextEditingController textEditingController = TextEditingController();
-
-  Widget buildPINEntryScreen() {
+class PinEntry extends StatelessWidget {
+  Widget buildPINEntryScreen(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
@@ -39,19 +26,10 @@ class _PinEntryState extends State<PinEntry> {
               child: PinCodeTextField(
                 length: 6,
                 onCompleted: (value) {
-                  textEditingController.clear();
-                  final bool correct = Get.find<PINAuthController>().authenticate(value);
-
-                  if (correct) {
-                    assert(Navigator.canPop(context));
-                    Navigator.pop(context);
-                  }
-                  else {
-                    errorController.add(ErrorAnimationType.shake);
-                  }
+                  Get.find<PINAuthController>().onPINEntered(value);
                 },
-                errorAnimationController: errorController,
-                controller: textEditingController,
+                errorAnimationController: Get.find<PINAuthController>().errorController,
+                controller: Get.find<PINAuthController>().textEditingController,
                 pinTheme: PinTheme(
                   shape: PinCodeFieldShape.box,
                   borderRadius: BorderRadius.circular(12),
@@ -82,14 +60,14 @@ class _PinEntryState extends State<PinEntry> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Verify Your Identity'),
-        leading: const Icon(Icons.account_circle),
-      ),
-      body: WillPopScope(
-        onWillPop: () async => false,
-        child: buildPINEntryScreen(),
-      )
+        appBar: AppBar(
+          title: const Text('Verify Your Identity'),
+          leading: const Icon(Icons.account_circle),
+        ),
+        body: WillPopScope(
+          onWillPop: () async => false,
+          child: buildPINEntryScreen(context),
+        )
     );
   }
 }

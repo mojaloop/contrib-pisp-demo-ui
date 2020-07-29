@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:pispapp/routes/app_pages.dart';
 
 class PINAuthController extends GetxController {
@@ -14,7 +16,15 @@ class PINAuthController extends GetxController {
   static const String key = 'USER_PIN';
   static const Duration timeoutDuration = Duration(milliseconds: 1000);
 
+  // Storage
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
+
+  // Handles animation for error
+  StreamController<ErrorAnimationType> errorController =
+  StreamController<ErrorAnimationType>();
+
+  // Handles text field
+  TextEditingController textEditingController = TextEditingController();
 
   // Fields to be populated
   String _correctPIN = '';
@@ -23,15 +33,29 @@ class PINAuthController extends GetxController {
   // Returns whether or not the user set a PIN
   bool get userSetPIN => _userSetPIN;
 
-  // Synchronous
   // Called after correct PIN has been populated
   bool authenticate(String pin) => pin == _correctPIN;
+
+  // Authentication process
+  void onPINEntered(String pin) {
+    textEditingController.clear();
+    if (authenticate(pin)) {
+      // PIN entry screen always opened on top of something AND
+      // is not poppable via device controls so we can be sure it
+      // is still on top when we call this
+      Get.back();
+    }
+    else {
+      // Shakes the entry fields to indicate incorrect PIN
+      errorController.add(ErrorAnimationType.shake);
+    }
+  }
 
   Future<void> onUserVerificationNeeded() async {
     var localAuth = LocalAuthentication();
     try {
       bool didAuth = await localAuth.authenticateWithBiometrics(
-          localizedReason: 'Please verify you are the user',
+          localizedReason: 'Please verify your identity',
           useErrorDialogs: false);
 
       // Use PIN screen if biometric did not validate

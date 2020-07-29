@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +9,18 @@ import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
 
 class PinEntry extends StatelessWidget {
+
+  // Handles animation for error
+  // Must be created within the widget since a new stream should be created to avoid
+  // "Stream has already been listened to" error
+  StreamController<ErrorAnimationType> _errorController =
+  StreamController<ErrorAnimationType>();
+
+  // Handles text field
+  TextEditingController _textEditingController = TextEditingController();
+
+  PINEntryController _pinEntryController = Get.find<PINEntryController>();
+
   // TODO: Refactor this button code after features are working
   Widget buildWidthFillingButton() {
     return SizedBox(
@@ -27,12 +41,10 @@ class PinEntry extends StatelessWidget {
               ),
             ),
             onPressed: () {
-              PINEntryController p = Get.find<PINEntryController>();
-              final String enteredPIN = p.textEditingController.text;
+              final String enteredPIN = _textEditingController.text;
               if (enteredPIN.length == PINEntryController.PINlength) {
-                final String enteredPIN = p.textEditingController.text;
-                p.storeNewPIN(enteredPIN);
-                p.textEditingController.clear();
+                _pinEntryController.storeNewPIN(enteredPIN);
+                _textEditingController.clear();
               }
             },
             color: LightColor.navyBlue1,
@@ -68,12 +80,12 @@ class PinEntry extends StatelessWidget {
               child: PinCodeTextField(
                 length: PINEntryController.PINlength,
                 onCompleted: (value) {
-                  Get.find<PINEntryController>().onPINEntered(value);
+                  _pinEntryController.onPINEntered(value, _textEditingController, _errorController);
                 },
                 errorAnimationController:
-                    Get.find<PINEntryController>().errorController,
+                    _errorController,
                 controller:
-                    Get.find<PINEntryController>().textEditingController,
+                    _textEditingController,
                 pinTheme: PinTheme(
                   shape: PinCodeFieldShape.box,
                   borderRadius: BorderRadius.circular(12),
@@ -95,6 +107,7 @@ class PinEntry extends StatelessWidget {
                 // Allow only numbers
                 animationType: AnimationType.fade,
                 animationDuration: const Duration(milliseconds: 200),
+                autoDisposeControllers: true,
               ),
             ),
             GetBuilder<PINEntryController>(

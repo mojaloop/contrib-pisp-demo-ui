@@ -20,13 +20,6 @@ class PINEntryController extends GetxController {
   // Storage
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
-  // Handles animation for error
-  StreamController<ErrorAnimationType> errorController =
-  StreamController<ErrorAnimationType>();
-
-  // Handles text field
-  TextEditingController textEditingController = TextEditingController();
-
   // Fields to be populated
   String _correctPIN = '';
   bool _userSetPIN = false;
@@ -42,9 +35,9 @@ class PINEntryController extends GetxController {
   bool authenticate(String pin) => pin == _correctPIN;
 
   // Authentication process
-  void onPINEntered(String pin) {
+  void onPINEntered(String pin, TextEditingController tc, StreamController<ErrorAnimationType> ec) {
     if(!_userSetPIN) { return; } // Do nothing if there is no previous set PIN
-    textEditingController.clear();
+    tc.clear();
     if (authenticate(pin)) {
       // PIN entry screen always opened on top of something AND
       // is not poppable via device controls so we can be sure it
@@ -54,7 +47,7 @@ class PINEntryController extends GetxController {
     }
     else {
       // Shakes the entry fields to indicate incorrect PIN
-      errorController.add(ErrorAnimationType.shake);
+      ec.add(ErrorAnimationType.shake);
     }
   }
 

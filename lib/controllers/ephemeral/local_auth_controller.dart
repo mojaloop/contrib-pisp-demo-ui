@@ -22,6 +22,7 @@ class LocalAuthController extends GetxController {
     try {
       final bool didAuth = await localAuth.authenticateWithBiometrics(
           localizedReason: 'Please verify your identity',
+          stickyAuth: true,
           useErrorDialogs: false);
 
       // Use PIN screen if biometric did not validate

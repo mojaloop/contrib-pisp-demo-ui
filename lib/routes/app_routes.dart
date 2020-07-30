@@ -1,5 +1,5 @@
 
-
+// Named routes
 abstract class Routes {
   static const SPLASH = '/';
   static const SETUP_LOGIN = '/login';

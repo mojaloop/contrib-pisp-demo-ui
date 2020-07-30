@@ -21,6 +21,7 @@ void main() {
   ));
 }
 
+// Initialize controllers which maintain global app state
 void initAppControllers() {
   Get.put(AuthController(AuthRepository()));
   Get.put(AccountController(StubAccountRepository()));

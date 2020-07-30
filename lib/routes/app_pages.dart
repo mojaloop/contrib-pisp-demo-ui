@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pispapp/bindings/dashboard_bindings.dart';
 import 'package:pispapp/bindings/lookup_payee_bindings.dart';
 import 'package:pispapp/bindings/payment_details_bindings.dart';
 import 'package:pispapp/bindings/payment_finalize_bindings.dart';
@@ -39,8 +40,8 @@ abstract class AppPages {
       page: ()  {
         Get.find<AccountDashboardController>().onRefresh();
         return Dashboard();
-      }
-      // binding: DashboardBinding(),
+      },
+      binding: DashboardBinding(),
 
     ),
     GetPage(

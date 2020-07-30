@@ -12,7 +12,7 @@ class PhoneNumberInput extends StatelessWidget {
   Widget build(BuildContext context) => InternationalPhoneInput(
         hintText: hintText,
         onPhoneNumberChange: _onPhoneNumberChange,
-        initialPhoneNumber: '',
+        initialPhoneNumber: initialPhoneNumber,
         initialSelection: '',
         enabledCountries: Countries.countryCodes,
       );

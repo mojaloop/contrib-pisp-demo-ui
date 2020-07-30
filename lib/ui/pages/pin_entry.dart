@@ -12,13 +12,13 @@ class PinEntry extends StatelessWidget {
   // Handles animation for error
   // Must be created within the widget since a new stream should be created to avoid
   // "Stream has already been listened to" error
-  final StreamController<ErrorAnimationType> _errorController =
+  StreamController<ErrorAnimationType> _errorController =
   StreamController<ErrorAnimationType>();
 
   // Handles text field
-  final TextEditingController _textEditingController = TextEditingController();
+  TextEditingController _textEditingController = TextEditingController();
 
-  final PINEntryController _pinEntryController = Get.find<PINEntryController>();
+  PINEntryController _pinEntryController = Get.find<PINEntryController>();
 
   Widget buildWidthFillingButton() {
     return SizedBox(

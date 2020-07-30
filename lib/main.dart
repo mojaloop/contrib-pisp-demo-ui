@@ -1,38 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:pispapp/Screens/dashboard.dart';
-import 'package:pispapp/Screens/error.dart';
-import 'route_generator.dart';
+import 'package:get/get.dart';
+import 'package:pispapp/repositories/auth_repository.dart';
+import 'package:pispapp/routes/app_pages.dart';
+import 'package:pispapp/ui/pages/splash.dart';
+import 'package:pispapp/ui/theme/light_theme.dart';
+
+import 'controllers/app/auth_controller.dart';
+import 'controllers/ephemeral/login_controller.dart';
+import 'controllers/ephemeral/profile_controller.dart';
+import 'controllers/ephemeral/splash_controller.dart';
 
 void main() {
-  print('starting app');
-  runApp(MyApp());
+  initControllers();
+
+  runApp(GetMaterialApp(
+    debugShowCheckedModeBanner: false,
+    initialRoute: '/',
+    theme: appThemeData,
+    defaultTransition: Transition.fade,
+    getPages: AppPages.pages,
+    home: SplashScreen(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(
-    BuildContext context,
-  ) {
-    return MaterialApp(
-      title: 'Mojapay',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      builder: (
-        BuildContext context,
-        Widget widget,
-      ) {
-        ErrorWidget.builder = (
-          FlutterErrorDetails errorDetails,
-        ) {
-          return Error.genericError();
-        };
-        return widget;
-      },
-      // Initially display FirstPage
-      home: Dashboard(),
-      initialRoute: '/',
-      onGenerateRoute: RouteGenerator.generateRoute,
-    );
-  }
+void initControllers() {
+  Get.put(AuthController(AuthRepository()));
+  Get.put(SplashController());
+  Get.put(LoginController());
+  Get.put(ProfileController());
 }

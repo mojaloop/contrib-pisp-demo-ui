@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 final ThemeData appThemeData = ThemeData(
   primaryColor: LightColor.navyBlue2,
   accentColor: LightColor.navyBlue1,
@@ -7,7 +11,10 @@ final ThemeData appThemeData = ThemeData(
   ),
 );
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 class LightColor {
   static const Color background = Color(0xffffffff);
 
@@ -29,4 +36,8 @@ class LightColor {
 
   static const Color black = Color(0xff040405);
   static const Color lightblack = Color(0xff3E404D);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> master

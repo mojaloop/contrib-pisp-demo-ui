@@ -16,6 +16,8 @@ import 'package:pispapp/ui/pages/payment_success.dart';
 import 'package:pispapp/ui/pages/phone_number_setup.dart';
 import 'package:pispapp/ui/pages/splash.dart';
 import 'package:pispapp/routes/app_routes.dart';
+
+// Define mapping between named route, widget and the bindings
 // ignore: avoid_classes_with_only_static_members
 abstract class AppPages {
   static final pages = [

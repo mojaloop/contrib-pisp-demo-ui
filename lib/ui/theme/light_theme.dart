@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 final ThemeData appThemeData = ThemeData(
   primaryColor: LightColor.navyBlue2,
   accentColor: LightColor.navyBlue1,
@@ -6,7 +7,6 @@ final ThemeData appThemeData = ThemeData(
     headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
   ),
 );
-
 
 class LightColor {
   static const Color background = Color(0xffffffff);

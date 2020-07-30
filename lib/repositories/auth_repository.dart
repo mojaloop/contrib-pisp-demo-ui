@@ -3,14 +3,13 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pispapp/models/user.dart';
 import 'package:pispapp/utils/log_printer.dart';
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
-final GoogleSignIn googleSignIn = GoogleSignIn();
-
 class AuthRepository {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   static final logger = getLogger('AuthRepository');
 
   Future<User> signInWithGoogle() async {
-    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+    final GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
 
     final GoogleSignInAuthentication googleSignInAuthentication =
         await googleSignInAccount.authentication;
@@ -31,7 +30,7 @@ class AuthRepository {
 
     final User u = User.fromJson(_mapUserToJson(user));
 
-    logger.d('User signin: ${u.email}');
+    logger.d('User signin: ${u.photoUrl}');
 
     return u;
   }
@@ -40,12 +39,12 @@ class AuthRepository {
     return <String, dynamic>{
       'displayName': user.displayName,
       'email': user.email,
-      'photourl': user.photoUrl,
+      'photoUrl': user.photoUrl,
     };
   }
 
   Future<void> signOutGoogle() async {
-    await googleSignIn.signOut();
+    await _googleSignIn.signOut();
     logger.d('User sign out: ');
   }
 }

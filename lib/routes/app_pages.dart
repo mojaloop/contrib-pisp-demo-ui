@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pispapp/ui/pages/dashboard.dart';
 import 'package:pispapp/ui/pages/login.dart';
 import 'package:pispapp/ui/pages/pin_entry.dart';
 import 'package:pispapp/ui/pages/profile.dart';
@@ -22,8 +23,12 @@ abstract class AppPages {
       page: () => Profile(),
     ),
     GetPage(
+      name: Routes.DASHBOARD,
+      page: () => Dashboard(),
+    ),
+    GetPage(
       name: Routes.PIN_ENTRY,
       page: () => PinEntry(),
-    ),
+    )
   ];
 }

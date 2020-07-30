@@ -50,7 +50,7 @@ class LoginController extends GetxController {
       return;
     }
 
-    Get.offAllNamed<dynamic>('/profile');
+    Get.offAllNamed<dynamic>('/dashboard');
   }
 
   Future<void> onLinkGoogleAccount() async {

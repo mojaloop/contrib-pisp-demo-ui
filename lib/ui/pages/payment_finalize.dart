@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pispapp/controllers/app/account_controller.dart';
 import 'package:pispapp/controllers/ephemeral/payment_finalize_controller.dart';
 import 'package:pispapp/models/account.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
+import 'package:pispapp/ui/widgets/account_choosing_bottom_sheet.dart';
 import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
 import 'package:pispapp/ui/widgets/shadow_heading.dart';
@@ -11,60 +11,12 @@ import 'package:pispapp/ui/widgets/title_text.dart';
 import 'package:pispapp/utils/utils.dart';
 
 class PaymentFinalize extends StatelessWidget {
-  Widget _getAccountTile(Account acc) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-      child: ListTile(
-        onTap: () {
-          Get.find<PaymentFinalizeController>().onAccountTileTap(acc);
-        },
-        leading: const CircleAvatar(),
-        contentPadding: const EdgeInsets.symmetric(),
-        title: TitleText(
-          text: acc.alias,
-          fontSize: 14,
-        ),
-        subtitle: Text(Utils.getSecretAccountNumber(acc)),
-      ),
-    );
-  }
-
   void _showAccountChoosingBottomSheet() {
     Get.bottomSheet<void>(
-      Container(
-        height: 350.0,
-        color: const Color(0xFF737373),
-        child: Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(
-                20.0,
-              ),
-              topRight: Radius.circular(
-                20.0,
-              ),
-            ),
-          ),
-          child: GetX<AccountController>(
-            builder: (value) {
-              return ListView(
-                children: <Widget>[
-                  const Padding(
-                    padding: EdgeInsets.all(
-                      20.0,
-                    ),
-                    child: TitleText(text: 'Accounts'),
-                  ),
-                  const Divider(
-                    height: 20,
-                  ),
-                  for (var acc in value.accounts.value) _getAccountTile(acc)
-                ],
-              );
-            },
-          ),
-        ),
+      AccountChoosingBottomSheet(
+        onTap: (Account acc) {
+          Get.find<PaymentFinalizeController>().onAccountTileTap(acc);
+        },
       ),
     );
   }
@@ -82,12 +34,7 @@ class PaymentFinalize extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             const Padding(
-              padding: EdgeInsets.fromLTRB(
-                10,
-                60,
-                0,
-                50,
-              ),
+              padding: EdgeInsets.fromLTRB(10, 60, 0, 50),
               child: TitleText(
                 text: 'Pay Now',
                 fontSize: 20,
@@ -97,8 +44,8 @@ class PaymentFinalize extends StatelessWidget {
               builder: (value) {
                 return ShadowBox(
                   color: value.transactionAmountPrompt
-                    ? Colors.red
-                    : LightColor.navyBlue1,
+                      ? Colors.red
+                      : LightColor.navyBlue1,
                   child: Column(
                     children: <Widget>[
                       ShadowBoxHeading('Transaction Amount'),
@@ -147,7 +94,8 @@ class PaymentFinalize extends StatelessWidget {
                           fontSize: 18,
                         ),
                         subtitle: Text(
-                          Utils.getSecretAccountNumber(value.selectedAccount),
+                          Utils.getSecretAccountNumberFromString(
+                              value.selectedAccount.accountNumber),
                         ),
                         trailing: GestureDetector(
                           onTap: () {

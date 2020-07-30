@@ -6,6 +6,7 @@ import 'package:pispapp/controllers/ephemeral/profile_controller.dart';
 import 'package:pispapp/repositories/mocks/mock_transaction_repository.dart';
 
 import 'package:pispapp/ui/pages/account_dashboard.dart';
+import 'package:pispapp/ui/pages/account_linking.dart';
 import 'package:pispapp/ui/pages/payment_initiate.dart';
 import 'package:pispapp/ui/pages/profile.dart';
 
@@ -13,7 +14,7 @@ class DashboardController extends GetxController {
   int selectedIndex = 0;
   List<Widget> widgetOptions = <Widget>[
     AccountDashboard(),
-    const Center(child: Text('Account Linking')),
+    MyHomePage(),
     PaymentInitiate(),
     Profile(),
   ];

@@ -5,52 +5,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:pispapp/controllers/ephemeral/pin_entry_controller.dart';
-import 'package:pispapp/ui/theme/light_theme.dart';
-import 'package:pispapp/ui/widgets/title_text.dart';
+import 'package:pispapp/ui/widgets/moja_button.dart';
 
 class PinEntry extends StatelessWidget {
 
   // Handles animation for error
   // Must be created within the widget since a new stream should be created to avoid
   // "Stream has already been listened to" error
-  StreamController<ErrorAnimationType> _errorController =
+  final StreamController<ErrorAnimationType> _errorController =
   StreamController<ErrorAnimationType>();
 
   // Handles text field
-  TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController _textEditingController = TextEditingController();
 
-  PINEntryController _pinEntryController = Get.find<PINEntryController>();
+  final PINEntryController _pinEntryController = Get.find<PINEntryController>();
 
-  // TODO: Refactor this button code after features are working
   Widget buildWidthFillingButton() {
     return SizedBox(
       width: double.infinity,
-      child: buildSetPINButton(),
+      child: MojaButton('Set PIN', () {
+        final String enteredPIN = _textEditingController.text;
+        print('Entered PIN: $enteredPIN');
+        if (enteredPIN.length == PINEntryController.PINlength) {
+          _pinEntryController.storeNewPIN(enteredPIN);
+          _textEditingController.clear();
+        }
+      })
     );
-  }
-
-  // TODO: Factor this raised button into a new button and change button_button.dart
-  Widget buildSetPINButton() {
-    return Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: RaisedButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(18.0),
-              side: const BorderSide(
-                color: Colors.blue,
-              ),
-            ),
-            onPressed: () {
-              final String enteredPIN = _textEditingController.text;
-              if (enteredPIN.length == PINEntryController.PINlength) {
-                _pinEntryController.storeNewPIN(enteredPIN);
-                _textEditingController.clear();
-              }
-            },
-            color: LightColor.navyBlue1,
-            textColor: Colors.white,
-            child: const TitleText(
-                text: 'Set PIN', color: Colors.white, fontSize: 20)));
   }
 
   Widget buildPINEntryScreen(BuildContext context) {

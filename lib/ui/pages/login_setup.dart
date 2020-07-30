@@ -3,11 +3,8 @@ import 'package:get/get.dart';
 import 'package:pispapp/controllers/ephemeral/setup_controller.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/login_google_tile.dart';
-import 'package:pispapp/ui/widgets/phone_number_tile.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
-import 'package:pispapp/ui/widgets/bottom_button.dart';
-import 'package:pispapp/ui/widgets/phone_number.dart';
 
 class LoginSetup extends StatelessWidget {
   @override

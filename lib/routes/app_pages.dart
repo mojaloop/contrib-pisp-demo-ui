@@ -1,21 +1,20 @@
 import 'package:get/get.dart';
-import 'package:pispapp/bindings/login_binding.dart';
 import 'package:pispapp/bindings/lookup_payee_bindings.dart';
-import 'package:pispapp/bindings/payment_details_binding.dart';
+import 'package:pispapp/bindings/payment_details_bindings.dart';
 import 'package:pispapp/bindings/payment_finalize_bindings.dart';
 import 'package:pispapp/bindings/payment_success_bindings.dart';
-import 'package:pispapp/bindings/splash_binding.dart';
+import 'package:pispapp/bindings/setup_bindings.dart';
+import 'package:pispapp/bindings/splash_bindings.dart';
 import 'package:pispapp/controllers/ephemeral/account_dashboard_controller.dart';
 import 'package:pispapp/ui/pages/dashboard.dart';
-import 'package:pispapp/ui/pages/login.dart';
+import 'package:pispapp/ui/pages/login_setup.dart';
 import 'package:pispapp/ui/pages/lookup_payee.dart';
 import 'package:pispapp/ui/pages/payment_details.dart';
 import 'package:pispapp/ui/pages/payment_finalize.dart';
 import 'package:pispapp/ui/pages/payment_success.dart';
+import 'package:pispapp/ui/pages/phone_number_setup.dart';
 import 'package:pispapp/ui/pages/splash.dart';
-
-part './app_routes.dart';
-
+import 'package:pispapp/routes/app_routes.dart';
 // ignore: avoid_classes_with_only_static_members
 abstract class AppPages {
   static final pages = [
@@ -25,9 +24,15 @@ abstract class AppPages {
       binding: SplashBinding(),
     ),
     GetPage(
-      name: Routes.LOGIN,
-      page: () => Login(),
-      binding: LoginBinding(),
+      name: Routes.SETUP_LOGIN,
+      page: () => LoginSetup(),
+      binding: SetupBinding(),
+    ),
+    GetPage(
+      name: Routes.SETUP_PHONE,
+      page: () => PhoneNumberSetup(),
+      binding: SetupBinding(),
+      transition: Transition.leftToRight,
     ),
     GetPage(
       name: Routes.DASHBOARD,

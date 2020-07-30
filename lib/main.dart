@@ -9,6 +9,8 @@ import 'package:pispapp/routes/app_pages.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   initAppControllers();
 
   runApp(GetMaterialApp(

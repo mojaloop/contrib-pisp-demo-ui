@@ -7,10 +7,10 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<DashboardController>(
-      builder: (_) {
+      builder: (value) {
         return Scaffold(
           resizeToAvoidBottomPadding: false,
-          body: _.widgetOptions.elementAt(_.selectedIndex),
+          body: value.widgetOptions.elementAt(value.selectedIndex),
           bottomNavigationBar: BottomNavigationBar(
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
@@ -38,10 +38,10 @@ class Dashboard extends StatelessWidget {
                 ),
               ),
             ],
-            currentIndex: _.selectedIndex,
+            currentIndex: value.selectedIndex,
             fixedColor: LightColor.navyBlue2,
             unselectedItemColor: Colors.black,
-            onTap: _.onItemTapped,
+            onTap: value.onItemTapped,
           ),
         );
       },

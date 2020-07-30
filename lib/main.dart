@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/app/account_controller.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
-import 'package:pispapp/controllers/ephemeral/dashboard_controller.dart';
 import 'package:pispapp/repositories/auth_repository.dart';
 import 'package:pispapp/repositories/stubs/stub_account_repository.dart';
 import 'package:pispapp/routes/app_pages.dart';
@@ -26,5 +25,4 @@ void initAppControllers() {
   Get.put(AuthController(AuthRepository()));
   Get.put(AccountController(StubAccountRepository()));
   
-  Get.put<DashboardController>(DashboardController());
 }

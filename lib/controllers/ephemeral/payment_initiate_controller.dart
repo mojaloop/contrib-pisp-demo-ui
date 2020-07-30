@@ -10,11 +10,10 @@ class PaymentInitiateController extends GetxController {
   void defaultState() {
     phoneNumber = '';
     phoneIsoCode = '';
-    
-    correctPhoneNumber = false;
-    
 
+    correctPhoneNumber = false;
     phoneNumberPrompt = false;
+
     update();
   }
 

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pispapp/controllers/ephemeral/account_dashboard_controller.dart';
 import 'package:pispapp/controllers/ephemeral/payment_initiate_controller.dart';
 import 'package:pispapp/controllers/ephemeral/profile_controller.dart';
-import 'package:pispapp/repositories/mocks/mock_transaction_repository.dart';
+import 'package:pispapp/repositories/stubs/stub_transaction_repository.dart';
 
 import 'package:pispapp/ui/pages/account_dashboard.dart';
 import 'package:pispapp/ui/pages/account_linking.dart';
@@ -23,7 +23,7 @@ class DashboardController extends GetxController {
   void onInit() {
     // TODO(MahidharBandaru): Change to the actual firesotre repository once it's created
     Get.put<AccountDashboardController>(
-        AccountDashboardController(MockTransactionRepository()));
+        AccountDashboardController(StubTransactionRepository()));
     Get.put<PaymentInitiateController>(PaymentInitiateController());
     Get.put<ProfileController>(ProfileController());
     // TODO(MahidharBandaru): add account linking controller once it's created

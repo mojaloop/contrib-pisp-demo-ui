@@ -118,7 +118,7 @@ List<Account> getOtherAccountsByPhone(String phone) {
       .toList();
 }
 
-class MockAccountRepository implements IAccountRepository {
+class StubAccountRepository implements IAccountRepository {
   @override
   List<Account> getUserAccounts() {
     return getMyDummyAccounts()

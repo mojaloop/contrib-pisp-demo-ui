@@ -42,16 +42,23 @@ class PinEntry extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            GetBuilder<PINEntryController>(
-                builder: (c) => c.userSetPIN
-                    ? const Text('Please enter your PIN to resume using the app',
+            Container(width: Get.width - 50,
+                child:
+                GetBuilder<PINEntryController>(
+                    builder: (c) => c.userSetPIN
+                        ? const Text('Please enter your PIN to resume using the app.',
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 5,
                         style: TextStyle(
                           fontSize: 18.0,
                         ))
-                    : const Text('Please set your PIN',
+                        : const Text('Please set a PIN to be used in the future for verification purposes.',
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 5,
                         style: TextStyle(
                           fontSize: 18.0,
                         )
+                    )
                 )
             ),
             const Icon(Icons.lock,

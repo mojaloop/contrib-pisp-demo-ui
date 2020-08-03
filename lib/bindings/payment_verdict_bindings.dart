@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'package:pispapp/controllers/ephemeral/payment_success_controller.dart';
+import 'package:pispapp/controllers/ephemeral/payment_verdict_controller.dart';
 
-class PaymentSuccessBinding implements Bindings{
+class PaymentVerdictBinding implements Bindings{
   @override
   void dependencies() {
-    Get.lazyPut<PaymentSuccessController>(() => PaymentSuccessController());
+    Get.lazyPut<PaymentVerdictController>(() => PaymentVerdictController());
   }
 }

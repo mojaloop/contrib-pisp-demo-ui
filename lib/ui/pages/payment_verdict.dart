@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pispapp/controllers/ephemeral/payment_success_controller.dart';
+import 'package:pispapp/controllers/ephemeral/payment_verdict_controller.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
 
-class PaymentSuccess extends StatelessWidget {
+class PaymentVerdict extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +19,7 @@ class PaymentSuccess extends StatelessWidget {
             ],
           ),
         ),
-        child: GetBuilder<PaymentSuccessController>(
+        child: GetBuilder<PaymentVerdictController>(
           builder: (value) {
             return value.complete
                 ? Center(

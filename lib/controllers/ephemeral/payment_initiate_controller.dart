@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:pispapp/repositories/transaction_repository.dart';
+import 'package:pispapp/utils/log_printer.dart';
 
 class PaymentInitiateController extends GetxController {
   String phoneNumber = '';
@@ -6,6 +8,9 @@ class PaymentInitiateController extends GetxController {
 
   bool correctPhoneNumber = false;
   bool phoneNumberPrompt = false;
+  bool transactionSubmitting = false;
+
+  String transactionId = '';
 
   void defaultState() {
     phoneNumber = '';
@@ -31,14 +36,21 @@ class PaymentInitiateController extends GetxController {
     update();
   }
 
-  void onPayNow() {
+  Future<void> onPayNow() async {
     if (!correctPhoneNumber) {
       phoneNumberPrompt = true;
       update();
       return;
     }
+    transactionSubmitting = true;
+    update();
+    String id = await Get.find<TransactionRepository>().initiatePayment(phoneIsoCode, phoneNumber);
+    final logger = getLogger('New transaction id');
+    logger.d(id);
+    transactionId = id;
+    transactionSubmitting = false;
+    update();
     Get.toNamed<dynamic>('/transfer/lookup');
 
-    // Get.to<dynamic>(LookupPayee());
   }
 }

@@ -60,7 +60,8 @@ class Profile extends StatelessWidget {
               ],
             ),
             BottomButton(
-              'Log out',
+              TitleText(
+                  text: 'Log out', color: Colors.white, fontSize: 20),
               () async {
                 await Get.find<ProfileController>().onLogout();
               },

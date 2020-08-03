@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:pispapp/controllers/ephemeral/lookup_payee_controller.dart';
 import 'package:pispapp/controllers/ephemeral/payment_details_controller.dart';
 import 'package:pispapp/controllers/ephemeral/payment_finalize_controller.dart';
+import 'package:pispapp/controllers/ephemeral/payment_initiate_controller.dart';
+import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
 import 'package:pispapp/ui/widgets/shadow_heading.dart';
@@ -44,7 +46,8 @@ class PaymentDetails extends StatelessWidget {
                     subtitle: Text(
                       Utils.getSecretAccountNumberFromString(
                           Get.find<PaymentFinalizeController>()
-                              .selectedAccount.accountNumber),
+                              .selectedAccount
+                              .accountNumber),
                     ),
                   ),
                 ],
@@ -82,7 +85,7 @@ class PaymentDetails extends StatelessWidget {
                     leading: const CircleAvatar(),
                     contentPadding: const EdgeInsets.symmetric(),
                     title: TitleText(
-                      text: Get.find<LookupPayeeController>().payeeAccount.name,
+                      text: Get.find<LookupPayeeController>().payeeName,
                       fontSize: 18,
                     ),
                   ),
@@ -92,15 +95,25 @@ class PaymentDetails extends StatelessWidget {
                       text: 'Phone Number',
                       fontSize: 18,
                     ),
-                    trailing: Text(Get.find<LookupPayeeController>()
-                        .payeeAccount
-                        .phoneNumber),
+                    trailing: Text(
+                        Get.find<PaymentInitiateController>().phoneIsoCode +
+                            Get.find<PaymentInitiateController>().phoneNumber),
                   ),
                 ],
               ),
             ),
-            BottomButton('Make Payment',
-                Get.find<PaymentDetailsController>().onMakePayment),
+            GetBuilder<PaymentDetailsController>(
+            builder: (value) => BottomButton(
+              value.isSubmitting
+                  ? CircularProgressIndicator(
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(Colors.white),
+                    )
+                  : TitleText(
+                      text: 'Make Payment', color: Colors.white, fontSize: 20),
+              () => Get.find<PaymentDetailsController>().onMakePayment(),
+            ),
+          )
           ],
         ),
       ),

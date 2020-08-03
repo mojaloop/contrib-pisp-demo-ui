@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 
-class PaymentSuccessController extends GetxController {
+class PaymentVerdictController extends GetxController {
   bool complete = false;
 
   @override

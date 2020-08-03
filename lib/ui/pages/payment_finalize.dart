@@ -111,7 +111,8 @@ class PaymentFinalize extends StatelessWidget {
                 },
               ),
             ),
-            BottomButton('Review Transaction', () {
+            BottomButton(TitleText(
+                  text: 'Review Transaction', color: Colors.white, fontSize: 20), () {
               Get.find<PaymentFinalizeController>().onTapReview();
             }),
           ],

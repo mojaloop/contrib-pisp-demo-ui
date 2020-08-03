@@ -51,10 +51,18 @@ class PaymentInitiate extends StatelessWidget {
               ),
             ),
           ),
-          BottomButton(
-            'Find Payee',
-            () => Get.find<PaymentInitiateController>().onPayNow(),
-          ),
+          GetBuilder<PaymentInitiateController>(
+            builder: (value) => BottomButton(
+              value.transactionSubmitting
+                  ? CircularProgressIndicator(
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(LightColor.yellow2),
+                    )
+                  : TitleText(
+                      text: 'Find Payee', color: Colors.white, fontSize: 20),
+              () => Get.find<PaymentInitiateController>().onPayNow(),
+            ),
+          )
         ],
       ),
     );

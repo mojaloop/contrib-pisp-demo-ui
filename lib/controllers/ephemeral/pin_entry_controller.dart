@@ -5,6 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:pispapp/controllers/ephemeral/local_auth_controller.dart';
 import 'package:pispapp/routes/app_pages.dart';
+import 'package:pispapp/utils/log_printer.dart';
 
 class PINEntryController extends GetxController {
   // Constructor to fetch PIN automatically
@@ -16,6 +17,7 @@ class PINEntryController extends GetxController {
   static const String key = 'USER_PIN';
   static const Duration timeoutDuration = Duration(milliseconds: 1000);
   static const int PINlength = 6;
+  static final logger = getLogger('PinEntryController');
 
   // Storage
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
@@ -32,13 +34,12 @@ class PINEntryController extends GetxController {
   }
 
   // Called after correct PIN has been populated
-  bool authenticate(String pin) => pin == _correctPIN;
+  bool _isCorrectPin(String pin) => pin == _correctPIN;
 
   // Authentication process
   void onPINEntered(String pin, TextEditingController tc, StreamController<ErrorAnimationType> ec) {
-    if(!_userSetPIN) { return; } // Do nothing if there is no previous set PIN
     tc.clear();
-    if (authenticate(pin)) {
+    if (_isCorrectPin(pin)) {
       // PIN entry screen always opened on top of something AND
       // is not poppable via device controls so we can be sure it
       // is still on top when we call this
@@ -58,11 +59,11 @@ class PINEntryController extends GetxController {
     ]);
 
     if (pin == null) {
-      print('no previous PIN set');
+      logger.i('no previous PIN set');
       _userSetPIN = false;
     }
     else {
-      print('fetched pin as $pin');
+      logger.i('fetched pin');
       _userSetPIN = true;
       _correctPIN = pin;
     }
@@ -70,11 +71,16 @@ class PINEntryController extends GetxController {
   }
 
   Future<void> storeNewPIN(String pin) async {
-    print('storing new pin $pin');
+    logger.i('storing new pin');
+    bool timeout = false;
     await Future.any([
       _storage.write(key: PINEntryController.key, value: pin),
-      Future.delayed(PINEntryController.timeoutDuration, () => null)
+      Future.delayed(PINEntryController.timeoutDuration, () => timeout = true)
     ]);
+
+    if(timeout) {
+      throw TimeoutException('Operation to store the user PIN timed out!');
+    }
 
     // Update new PIN
     await _fetchPIN();

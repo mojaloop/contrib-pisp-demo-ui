@@ -50,11 +50,13 @@ class _LifecycleAwareAppState extends State<LifecycleAwareApp> with WidgetsBindi
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      Get.find<LocalAuthController>().appWasResumed();
-    }
-    else if (state == AppLifecycleState.paused) {
-      Get.find<LocalAuthController>().appWasPaused();
+    switch (state) {
+      case AppLifecycleState.resumed:
+        Get.find<LocalAuthController>().appWasResumed();
+        break;
+      case AppLifecycleState.paused:
+        Get.find<LocalAuthController>().appWasPaused();
+        break;
     }
   }
 

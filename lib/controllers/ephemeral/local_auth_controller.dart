@@ -29,8 +29,7 @@ class LocalAuthController extends GetxController {
       // i.e. User hit cancel
       if(!didAuth) {
         Get.find<PINEntryController>().onFallbackVerificationNeeded();
-      }
-      else {
+      } else {
         verificationInProgress = false; // Completed verification
       }
     } catch(e) {
@@ -38,7 +37,7 @@ class LocalAuthController extends GetxController {
     }
   }
 
-  void appWasPaused() =>_timestamp = DateTime.now();
+  void appWasPaused() => _timestamp = DateTime.now();
   void appWasResumed() {
     // Check if still within grace period
     if(DateTime.now().difference(_timestamp) > gracePeriod) {

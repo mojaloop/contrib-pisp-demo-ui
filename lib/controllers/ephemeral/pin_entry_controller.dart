@@ -32,7 +32,7 @@ class PINEntryController extends GetxController {
   }
 
   // Called after correct PIN has been populated
-  bool authenticate(String pin) => pin == _correctPIN;
+  bool _isCorrectPin(String pin) => pin == _correctPIN;
 
   // Authentication process
   void onPINEntered(String pin, TextEditingController tc, StreamController<ErrorAnimationType> ec) {

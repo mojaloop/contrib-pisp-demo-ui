@@ -99,7 +99,7 @@ class PaymentFinalize extends StatelessWidget {
                           onTap: () {
                             _showAccountChoosingBottomSheet();
                           },
-                          child: Icon(
+                          child: const Icon(
                             Icons.keyboard_arrow_right,
                           ),
                         ),

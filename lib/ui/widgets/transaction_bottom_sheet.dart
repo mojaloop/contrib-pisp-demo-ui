@@ -105,12 +105,7 @@ class TransactionBottomSheet extends StatelessWidget {
                   height: 8,
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    20.0,
-                    0,
-                    20,
-                    0,
-                  ),
+                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                   child: GetBuilder<AccountDashboardController>(
                     builder: (value) {
                       return ListTile(
@@ -154,7 +149,6 @@ class TransactionBottomSheet extends StatelessWidget {
                       text: 'Date',
                       fontSize: 14,
                     ),
-                    // subtitle: Text(selectedAccount.accountNumber),
                     trailing: TitleText(
                       text: _transaction.completedTimestamp ?? '',
                       fontSize: 14,

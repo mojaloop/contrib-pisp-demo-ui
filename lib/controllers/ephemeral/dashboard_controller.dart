@@ -24,7 +24,6 @@ class DashboardController extends GetxController {
 
   @override
   void onInit() {
-    // TODO(MahidharBandaru): Change to the actual firesotre repository once it's created
     if (TRANSACTION_STUB) {
       Get.put<AccountDashboardController>(
           AccountDashboardController(StubTransactionRepository()));

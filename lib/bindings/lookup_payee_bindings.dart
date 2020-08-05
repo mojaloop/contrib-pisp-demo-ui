@@ -4,13 +4,14 @@ import 'package:pispapp/controllers/ephemeral/lookup_payee_controller.dart';
 import 'package:pispapp/repositories/stubs/stub_transaction_repository.dart';
 import 'package:pispapp/repositories/transaction_repository.dart';
 
-class LookupPayeeBinding implements Bindings{
+class LookupPayeeBinding implements Bindings {
   @override
   void dependencies() {
-    if(TRANSACTION_STUB)
-      Get.put<LookupPayeeController>(LookupPayeeController(StubTransactionRepository()));
-    else 
-      Get.put<LookupPayeeController>(LookupPayeeController(TransactionRepository()));
-
+    if (TRANSACTION_STUB)
+      Get.put<LookupPayeeController>(
+          LookupPayeeController(StubTransactionRepository()));
+    else
+      Get.put<LookupPayeeController>(
+          LookupPayeeController(TransactionRepository()));
   }
 }

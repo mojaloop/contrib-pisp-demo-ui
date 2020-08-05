@@ -6,14 +6,14 @@ class SetupController extends GetxController {
   String phoneIsoCode = '';
 
   bool googleLogin = false;
-  bool correctPhoneNumber = false;
+  bool validPhoneNumber = false;
 
   bool googleLoginPrompt = false;
   bool phoneNumberPrompt = false;
 
   void defaultState() {
     googleLogin = false;
-    correctPhoneNumber = false;
+    validPhoneNumber = false;
 
     googleLoginPrompt = false;
     phoneNumberPrompt = false;
@@ -26,10 +26,10 @@ class SetupController extends GetxController {
     phoneIsoCode = isoCode;
 
     if (number.length == 10) {
-      correctPhoneNumber = true;
+      validPhoneNumber = true;
       Get.find<AuthController>().setPhoneNumber(number, isoCode);
     } else {
-      correctPhoneNumber = false;
+      validPhoneNumber = false;
       Get.find<AuthController>().setPhoneNumber('', '');
     }
 
@@ -55,7 +55,7 @@ class SetupController extends GetxController {
   }
 
   void onLogin() {
-    if (!correctPhoneNumber) {
+    if (!validPhoneNumber) {
       phoneNumberPrompt = true;
       update();
       return;

@@ -33,7 +33,7 @@ class PaymentInitiate extends StatelessWidget {
                 children: <Widget>[
                   PhoneNumberTile(
                     trailingWidget: GetBuilder<PaymentInitiateController>(
-                      builder: (value) => value.correctPhoneNumber
+                      builder: (value) => value.validPhoneNumber
                           ? const Icon(
                               Icons.check_circle_outline,
                             )

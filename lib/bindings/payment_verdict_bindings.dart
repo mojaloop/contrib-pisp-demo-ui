@@ -1,9 +1,16 @@
 import 'package:get/get.dart';
-import 'package:pispapp/controllers/ephemeral/payment_success_controller.dart';
+import 'package:pispapp/config/config.dart';
+import 'package:pispapp/controllers/ephemeral/payment_verdict_controller.dart';
+import 'package:pispapp/repositories/stubs/stub_transaction_repository.dart';
+import 'package:pispapp/repositories/transaction_repository.dart';
 
-class PaymentSuccessBinding implements Bindings {
+class PaymentVerdictBinding implements Bindings{
   @override
   void dependencies() {
-    Get.lazyPut<PaymentSuccessController>(() => PaymentSuccessController());
+    if(STUB)
+      Get.lazyPut<PaymentVerdictController>(() => PaymentVerdictController(StubTransactionRepository()));
+    else
+      Get.lazyPut<PaymentVerdictController>(() => PaymentVerdictController(TransactionRepository()));
+
   }
 }

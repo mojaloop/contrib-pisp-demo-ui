@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
 
 class BottomButton extends StatelessWidget {
-  BottomButton(this.text, this.onTap);
+  BottomButton(this.child, this.onTap);
 
-  final String text;
+  Widget child;
   final void Function() onTap;
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class BottomButton extends StatelessWidget {
               onPressed: onTap,
               color: LightColor.navyBlue1,
               textColor: Colors.white,
-              child: TitleText(text: text, color: Colors.white, fontSize: 20),
+              child: child,
             ),
           ),
         ),

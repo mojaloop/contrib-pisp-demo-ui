@@ -36,7 +36,7 @@ class PhoneNumberSetup extends StatelessWidget {
                   children: <Widget>[
                     PhoneNumberTile(
                       trailingWidget: GetBuilder<SetupController>(
-                          builder: (value) => value.validPhoneNumber
+                          builder: (value) => value.correctPhoneNumber
                               ? Icon(
                                   Icons.check_circle_outline,
                                 )
@@ -52,13 +52,16 @@ class PhoneNumberSetup extends StatelessWidget {
               ),
             ),
             BottomButton(
-              'Login',
+              TitleText(
+                text: 'Login',
+                color: Colors.white,
+                fontSize: 20,
+              ),
               () => Get.find<SetupController>().onLogin(),
             ),
           ],
         ),
       ),
-      
     );
   }
 }

@@ -21,8 +21,7 @@ class AccountBottomSheetTile extends StatelessWidget {
           text: account.alias,
           fontSize: 14,
         ),
-        subtitle:
-            Text(Utils.getSecretAccountNumberFromString(account.accountNumber)),
+        subtitle: Text(account.fspInfo.fspName),
       ),
     );
   }

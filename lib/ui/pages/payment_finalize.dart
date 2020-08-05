@@ -94,8 +94,7 @@ class PaymentFinalize extends StatelessWidget {
                           fontSize: 18,
                         ),
                         subtitle: Text(
-                          Utils.getSecretAccountNumberFromString(
-                              value.selectedAccount.accountNumber),
+                          value.selectedAccount.fspInfo.fspName,
                         ),
                         trailing: GestureDetector(
                           onTap: () {
@@ -111,7 +110,11 @@ class PaymentFinalize extends StatelessWidget {
                 },
               ),
             ),
-            BottomButton('Review Transaction', () {
+            BottomButton(
+                TitleText(
+                    text: 'Review Transaction',
+                    color: Colors.white,
+                    fontSize: 20), () {
               Get.find<PaymentFinalizeController>().onTapReview();
             }),
           ],

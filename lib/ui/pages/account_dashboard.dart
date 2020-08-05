@@ -30,62 +30,98 @@ class AccountDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: RefreshIndicator(
-        onRefresh: () async {
-          Get.find<AccountDashboardController>().onRefresh();
-        },
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-            ),
-            height: Get.height,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const SizedBox(
-                  height: 35,
+    return GetBuilder<AccountDashboardController>(builder: (value) {
+      if (value.noAccounts == false) {
+        return SafeArea(
+          child: RefreshIndicator(
+            onRefresh: () async {
+              Get.find<AccountDashboardController>().onRefresh();
+            },
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
                 ),
-                AccountDashboardAppBar(() {
-                  _showAccountChoosingBottomSheet();
-                }),
-                const SizedBox(
-                  height: 50,
+                height: Get.height,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(10, 30, 0, 30),
+                      child: TitleText(
+                        text: 'Accounts',
+                        fontSize: 20,
+                      ),
+                    ),
+                    AccountDashboardAppBar(() {
+                      _showAccountChoosingBottomSheet();
+                    }),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    const TitleText(
+                      text: 'Operations',
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Operations(),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    const TitleText(
+                      text: 'Transactions',
+                    ),
+                    Column(
+                      children: value.transactionList
+                          .map(
+                            (Transaction t) => TransactionTile(
+                              t,
+                              (Transaction t) {
+                                _showTransactionDetailBottomSheet(t);
+                              },
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ],
                 ),
-                const TitleText(
-                  text: 'Operations',
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Operations(),
-                const SizedBox(
-                  height: 40,
-                ),
-                const TitleText(
-                  text: 'Transactions',
-                ),
-                GetBuilder<AccountDashboardController>(builder: (value) {
-                  return Column(
-                    children: value.transactionList
-                        .map(
-                          (Transaction t) => TransactionTile(
-                            t,
-                            (Transaction t) {
-                              _showTransactionDetailBottomSheet(t);
-                            },
-                          ),
-                        )
-                        .toList(),
-                  );
-                }),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
-    );
+        );
+      } else {
+        return SafeArea(
+          child: RefreshIndicator(
+            onRefresh: () async {
+              Get.find<AccountDashboardController>().onRefresh();
+            },
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                height: Get.height,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(10, 30, 0, 30),
+                      child: TitleText(
+                        text: 'Accounts',
+                        fontSize: 20,
+                      ),
+                    ),
+                    const TitleText(text: 'No Accounts Linked', fontSize: 20),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+    });
   }
 }

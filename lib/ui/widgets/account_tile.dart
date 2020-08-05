@@ -4,7 +4,7 @@ import 'package:pispapp/ui/widgets/title_text.dart';
 import 'package:pispapp/utils/utils.dart';
 
 class AccountBottomSheetTile extends StatelessWidget {
-  const AccountBottomSheetTile({this.account, this.onTap}); 
+  const AccountBottomSheetTile({this.account, this.onTap});
 
   final Account account;
   final void Function() onTap;
@@ -21,7 +21,8 @@ class AccountBottomSheetTile extends StatelessWidget {
           text: account.alias,
           fontSize: 14,
         ),
-        subtitle: Text(Utils.getSecretAccountNumberFromString(account.accountNumber)),
+        subtitle:
+            Text(Utils.getSecretAccountNumberFromString(account.accountNumber)),
       ),
     );
   }

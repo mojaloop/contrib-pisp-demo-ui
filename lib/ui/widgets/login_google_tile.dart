@@ -18,4 +18,3 @@ class LoginWithGoogleTile extends StatelessWidget {
     );
   }
 }
-  

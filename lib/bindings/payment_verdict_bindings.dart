@@ -7,7 +7,7 @@ import 'package:pispapp/repositories/transaction_repository.dart';
 class PaymentVerdictBinding implements Bindings{
   @override
   void dependencies() {
-    if(STUB)
+    if(TRANSACTION_STUB)
       Get.lazyPut<PaymentVerdictController>(() => PaymentVerdictController(StubTransactionRepository()));
     else
       Get.lazyPut<PaymentVerdictController>(() => PaymentVerdictController(TransactionRepository()));

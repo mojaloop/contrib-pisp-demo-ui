@@ -47,7 +47,7 @@ class PaymentVerdictController extends GetxController {
 
       _transactionRepo.authorizePayment(transactionId, signedString);
 
-      if (STUB) {
+      if (TRANSACTION_STUB) {
         onSuccess();
       }
     } else {

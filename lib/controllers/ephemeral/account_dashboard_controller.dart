@@ -9,11 +9,14 @@ class AccountDashboardController extends GetxController {
   AccountDashboardController(this._transactionRepo);
   Account selectedAccount;
   List<Transaction> transactionList = <Transaction>[];
+  bool isLoading = true;
 
   ITransactionRepository _transactionRepo;
   bool noAccounts = true;
 
   Future<void> onRefresh() async {
+    isLoading = true;
+    update();
     await getLinkedAccounts();
     if (Get.find<AccountController>().accounts.isEmpty) {
       noAccounts = true;
@@ -21,6 +24,7 @@ class AccountDashboardController extends GetxController {
       noAccounts = false;
       setSelectedAccount(Get.find<AccountController>().accounts.elementAt(0));
     }
+    isLoading = false;
 
     update();
   }

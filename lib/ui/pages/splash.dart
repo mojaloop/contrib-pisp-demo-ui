@@ -18,12 +18,7 @@ class SplashScreen extends StatelessWidget {
               height: 150.0,
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(
-                20,
-                0,
-                0,
-                0,
-              ),
+              padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
@@ -42,12 +37,7 @@ class SplashScreen extends StatelessWidget {
               height: 20.0,
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(
-                20,
-                0,
-                0,
-                0,
-              ),
+              padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
@@ -66,12 +56,7 @@ class SplashScreen extends StatelessWidget {
               height: 20.0,
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(
-                20,
-                0,
-                0,
-                0,
-              ),
+              padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(

@@ -1,32 +1,5 @@
-class Account {
-  Account({
-    String alias,
-    String phoneNumber,
-    String name,
-    String balance,
-    String accountNumber,
-    String bankName,
-    bool linked,
-  })  : _alias = alias,
-        _phoneNumber = phoneNumber,
-        _name = name,
-        _balance = balance,
-        _accountNumber = accountNumber,
-        _bankName = bankName,
-        _linked = linked;
-
-  String _alias, _phoneNumber, _name, _balance, _accountNumber, _bankName;
-  bool _linked = false;
-
-  String get alias => _alias;
-  String get phoneNumber => _phoneNumber;
-  String get name => _name;
-  String get balance => _balance;
-  String get accountNumber => _accountNumber;
-  String get bankName => _bankName;
-
-  bool get linked => _linked;
-}
+import 'package:pispapp/models/account.dart';
+import 'package:pispapp/repositories/interfaces/i_account_repository.dart';
 
 List<Account> getMyDummyAccounts() {
   final List<Account> listOfAccounts = <Account>[];
@@ -44,9 +17,9 @@ List<Account> getMyDummyAccounts() {
     alias: 'Business',
     phoneNumber: 'IN1233323987',
     name: 'John Doe1',
-    balance: '100000',
+    balance: '1002340',
     accountNumber: '120980988878821',
-    bankName: 'Bank of India',
+    bankName: 'Axis Bank',
     linked: true,
   ));
   listOfAccounts.add(Account(
@@ -144,3 +117,25 @@ List<Account> getOtherAccountsByPhone(String phone) {
       )
       .toList();
 }
+
+class StubAccountRepository implements IAccountRepository {
+  @override
+  List<Account> getUserAccounts() {
+    return getMyDummyAccounts()
+        .where(
+          (Account element) => element.linked,
+        )
+        .toList();
+  }
+
+  @override
+  List<Account> getPayeeAccountsByPhone(String phoneNumber) {
+    return getOtherAccountsByPhone(phoneNumber);
+  }
+
+  List<Account> getOtherAccounts() {
+    return getOtherDummyAccounts();
+  }
+}
+
+

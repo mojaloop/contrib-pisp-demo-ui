@@ -18,12 +18,7 @@ class Profile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             const Padding(
-              padding: EdgeInsets.fromLTRB(
-                10,
-                60,
-                0,
-                30,
-              ),
+              padding: EdgeInsets.fromLTRB(10, 60, 0, 30),
               child: TitleText(
                 text: 'Profile',
                 fontSize: 20,

@@ -10,6 +10,5 @@ class AccountController extends GetxController {
 
   void getAllLinkedAccounts() {
     accounts.value = _accountRepository.getUserAccounts();
-    
   }
 }

@@ -7,17 +7,12 @@ class PaymentSuccessController extends GetxController {
 
   @override
   void onInit() {
-    Timer(
-        const Duration(seconds: 1),
-        () {
-          complete = true;
-          update();
-        }
-    );
+    Timer(const Duration(seconds: 1), () {
+      complete = true;
+      update();
+    });
 
-    Timer(
-      const Duration(seconds: 3),
-      () => Get.offAllNamed<dynamic>('/dashboard')
-    );
+    Timer(const Duration(seconds: 3),
+        () => Get.offAllNamed<dynamic>('/dashboard'));
   }
 }

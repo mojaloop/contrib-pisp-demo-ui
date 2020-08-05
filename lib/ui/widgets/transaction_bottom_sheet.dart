@@ -21,7 +21,7 @@ class TransactionBottomSheet extends StatelessWidget {
         _text = _transaction.status == Status.SUCCESSFUL
             ? 'Successful'
             : (_transaction.status == Status.PENDING ? 'Pending' : 'Error');
-            
+
   final IconData _icon;
   final Color _textColor;
   final String _text;
@@ -105,12 +105,7 @@ class TransactionBottomSheet extends StatelessWidget {
                   height: 8,
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    20.0,
-                    0,
-                    20,
-                    0,
-                  ),
+                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                   child: GetBuilder<AccountDashboardController>(
                     builder: (value) {
                       return ListTile(
@@ -154,7 +149,6 @@ class TransactionBottomSheet extends StatelessWidget {
                       text: 'Date',
                       fontSize: 14,
                     ),
-                    // subtitle: Text(selectedAccount.accountNumber),
                     trailing: TitleText(
                       text: _transaction.date,
                       fontSize: 14,

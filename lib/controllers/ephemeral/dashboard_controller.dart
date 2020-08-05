@@ -13,14 +13,18 @@ class DashboardController extends GetxController {
   int selectedIndex = 0;
   List<Widget> widgetOptions = <Widget>[
     AccountDashboard(),
-    const Center(child:  Text('Account Linking')),
+    const Center(
+      child: Text(
+        'Account Linking',
+      ),
+    ),
     PaymentInitiate(),
     Profile(),
   ];
 
   @override
   void onInit() {
-    // TODO(MahidharBandaru): Change to the actual firesotre repository once it's created
+    // TODO(MahidharBandaru): Change to the actual firestore repository once it's created
     Get.put<AccountDashboardController>(
         AccountDashboardController(StubTransactionRepository()));
     Get.put<PaymentInitiateController>(PaymentInitiateController());

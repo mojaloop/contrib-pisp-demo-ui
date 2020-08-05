@@ -1,6 +1,6 @@
 ## Controllers
 
-Controllers maintain the state for our app. All the business logic lies in these classes. When state changes in a controller, the widget which uses this state is notified by Get.
+Controllers maintain the states for our app. All the business logic lies in these classes. When a state changes in a controller, the widgets that depend on it are notified by `Get`.
 
 We have two kinds of controllers.
 

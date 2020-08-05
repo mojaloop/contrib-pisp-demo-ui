@@ -4,14 +4,14 @@ class PaymentInitiateController extends GetxController {
   String phoneNumber = '';
   String phoneIsoCode = '';
 
-  bool correctPhoneNumber = false;
+  bool validPhoneNumber = false;
   bool phoneNumberPrompt = false;
 
   void defaultState() {
     phoneNumber = '';
     phoneIsoCode = '';
 
-    correctPhoneNumber = false;
+    validPhoneNumber = false;
     phoneNumberPrompt = false;
 
     update();
@@ -22,9 +22,9 @@ class PaymentInitiateController extends GetxController {
     phoneNumber = number;
     phoneIsoCode = isoCode;
     if (number.length == 10) {
-      correctPhoneNumber = true;
+      validPhoneNumber = true;
     } else {
-      correctPhoneNumber = false;
+      validPhoneNumber = false;
     }
     phoneNumberPrompt = false;
 
@@ -32,7 +32,7 @@ class PaymentInitiateController extends GetxController {
   }
 
   void onPayNow() {
-    if (!correctPhoneNumber) {
+    if (!validPhoneNumber) {
       phoneNumberPrompt = true;
       update();
       return;

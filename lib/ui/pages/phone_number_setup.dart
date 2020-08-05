@@ -36,7 +36,7 @@ class PhoneNumberSetup extends StatelessWidget {
                   children: <Widget>[
                     PhoneNumberTile(
                       trailingWidget: GetBuilder<SetupController>(
-                          builder: (value) => value.correctPhoneNumber
+                          builder: (value) => value.validPhoneNumber
                               ? Icon(
                                   Icons.check_circle_outline,
                                 )

@@ -3,7 +3,6 @@ import 'package:pispapp/controllers/app/account_controller.dart';
 import 'package:pispapp/models/account.dart';
 
 class PaymentFinalizeController extends GetxController {
-
   String transactionAmount = '';
   bool transactionAmountPrompt = false;
   Account selectedAccount;
@@ -14,7 +13,6 @@ class PaymentFinalizeController extends GetxController {
     onRefresh();
     super.onInit();
   }
-
 
   void onTransactionAmountChange(String amount) {
     transactionAmount = amount;
@@ -45,13 +43,11 @@ class PaymentFinalizeController extends GetxController {
   }
 
   void onTapReview() {
-    if(transactionAmount == '') {
+    if (transactionAmount == '') {
       transactionAmountPrompt = true;
       update();
       return;
     }
     Get.toNamed<dynamic>('/transfer/details');
-
   }
 }
-

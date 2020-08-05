@@ -13,45 +13,44 @@ class AccountChoosingBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 350.0,
-        color: const Color(0xFF737373),
-        child: Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(
-                20.0,
-              ),
-              topRight: Radius.circular(
-                20.0,
-              ),
+      height: 350.0,
+      color: const Color(0xFF737373),
+      child: Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(
+              20.0,
+            ),
+            topRight: Radius.circular(
+              20.0,
             ),
           ),
-          child: GetX<AccountController>(
-            builder: (value) {
-              return ListView(
-                children: <Widget>[
-                  const Padding(
-                    padding: EdgeInsets.all(
-                      20.0,
-                    ),
-                    child: TitleText(text: 'Accounts'),
+        ),
+        child: GetX<AccountController>(
+          builder: (value) {
+            return ListView(
+              children: <Widget>[
+                const Padding(
+                  padding: EdgeInsets.all(
+                    20.0,
                   ),
-                  const Divider(
-                    height: 20,
-                  ),
-                  for (var acc in value.accounts.value)
-                    AccountBottomSheetTile(
+                  child: TitleText(text: 'Accounts'),
+                ),
+                const Divider(
+                  height: 20,
+                ),
+                for (var acc in value.accounts.value)
+                  AccountBottomSheetTile(
                       account: acc,
                       onTap: () {
                         onTap(acc);
-                      }
-                    )
-                ],
-              );
-            },
-          ),
+                      })
+              ],
+            );
+          },
         ),
-      );
+      ),
+    );
   }
 }

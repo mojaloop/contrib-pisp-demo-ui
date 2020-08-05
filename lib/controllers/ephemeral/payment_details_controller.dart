@@ -5,9 +5,6 @@ import 'package:pispapp/controllers/ephemeral/payment_finalize_controller.dart';
 import 'package:pispapp/controllers/ephemeral/payment_initiate_controller.dart';
 import 'package:pispapp/models/account.dart';
 import 'package:pispapp/repositories/interfaces/i_transaction_repository.dart';
-import 'package:pispapp/repositories/transaction_repository.dart';
-import 'package:pispapp/utils/local_auth.dart';
-import 'package:pispapp/utils/log_printer.dart';
 
 class PaymentDetailsController extends GetxController {
   PaymentDetailsController(this._transactionRepo);
@@ -29,9 +26,6 @@ class PaymentDetailsController extends GetxController {
     }
   }
 
-  void onInit() {
-    super.onInit();
-  }
 
   void onQuoteAvailable(String transactionAmount) {
     Get.defaultDialog<dynamic>(

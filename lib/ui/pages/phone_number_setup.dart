@@ -37,7 +37,7 @@ class PhoneNumberSetup extends StatelessWidget {
                     PhoneNumberTile(
                       trailingWidget: GetBuilder<SetupController>(
                           builder: (value) => value.correctPhoneNumber
-                              ? Icon(
+                              ? const Icon(
                                   Icons.check_circle_outline,
                                 )
                               : const Text('')),
@@ -52,7 +52,7 @@ class PhoneNumberSetup extends StatelessWidget {
               ),
             ),
             BottomButton(
-              TitleText(
+              const TitleText(
                 text: 'Login',
                 color: Colors.white,
                 fontSize: 20,

@@ -4,12 +4,10 @@ import 'package:pispapp/controllers/ephemeral/lookup_payee_controller.dart';
 import 'package:pispapp/controllers/ephemeral/payment_details_controller.dart';
 import 'package:pispapp/controllers/ephemeral/payment_finalize_controller.dart';
 import 'package:pispapp/controllers/ephemeral/payment_initiate_controller.dart';
-import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
 import 'package:pispapp/ui/widgets/shadow_heading.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
-import 'package:pispapp/utils/utils.dart';
 
 class PaymentDetails extends StatelessWidget {
   @override
@@ -105,10 +103,10 @@ class PaymentDetails extends StatelessWidget {
             GetBuilder<PaymentDetailsController>(
               builder: (value) => BottomButton(
                 value.isSubmitting
-                    ? CircularProgressIndicator(
+                    ? const CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                       )
-                    : TitleText(
+                    : const TitleText(
                         text: 'Make Payment',
                         color: Colors.white,
                         fontSize: 20),

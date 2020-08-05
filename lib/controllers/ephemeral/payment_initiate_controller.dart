@@ -1,10 +1,9 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/repositories/interfaces/i_transaction_repository.dart';
-import 'package:pispapp/repositories/transaction_repository.dart';
-import 'package:pispapp/utils/log_printer.dart';
-import 'dart:async';
 
 class PaymentInitiateController extends GetxController {
   PaymentInitiateController(this._transactionRepo);
@@ -30,7 +29,9 @@ class PaymentInitiateController extends GetxController {
     update();
 
     transactionId = '';
-    if (transactionStream != null) transactionStream.cancel();
+    if (transactionStream != null) {
+      transactionStream.cancel();
+    }
   }
 
   void onPhoneNumberChange(

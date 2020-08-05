@@ -34,7 +34,7 @@ class PaymentInitiate extends StatelessWidget {
                   PhoneNumberTile(
                     trailingWidget: GetBuilder<PaymentInitiateController>(
                       builder: (value) => value.correctPhoneNumber
-                          ? Icon(
+                          ? const Icon(
                               Icons.check_circle_outline,
                             )
                           : const Text(
@@ -54,10 +54,10 @@ class PaymentInitiate extends StatelessWidget {
           GetBuilder<PaymentInitiateController>(
             builder: (value) => BottomButton(
               value.transactionSubmitting
-                  ? CircularProgressIndicator(
+                  ? const CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                     )
-                  : TitleText(
+                  : const TitleText(
                       text: 'Find Payee', color: Colors.white, fontSize: 20),
               () => Get.find<PaymentInitiateController>().onPayNow(),
             ),

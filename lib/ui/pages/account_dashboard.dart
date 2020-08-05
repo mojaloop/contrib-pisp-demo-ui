@@ -106,15 +106,15 @@ class AccountDashboard extends StatelessWidget {
                 height: Get.height,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const Padding(
+                  children: const <Widget>[
+                    Padding(
                       padding: EdgeInsets.fromLTRB(10, 30, 0, 30),
                       child: TitleText(
                         text: 'Accounts',
                         fontSize: 20,
                       ),
                     ),
-                    const TitleText(text: 'No Accounts Linked', fontSize: 20),
+                    TitleText(text: 'No Accounts Linked', fontSize: 20),
                   ],
                 ),
               ),

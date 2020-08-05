@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:get/get.dart';
-import 'package:pispapp/ui/widgets/title_text.dart';
 
 class BottomButton extends StatelessWidget {
   BottomButton(this.child, this.onTap);
 
-  Widget child;
+  final Widget child;
   final void Function() onTap;
   @override
   Widget build(BuildContext context) {

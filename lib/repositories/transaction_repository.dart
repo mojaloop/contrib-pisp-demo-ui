@@ -6,7 +6,7 @@ import 'package:pispapp/controllers/ephemeral/lookup_payee_controller.dart';
 import 'package:pispapp/controllers/ephemeral/payment_details_controller.dart';
 import 'package:pispapp/controllers/ephemeral/payment_verdict_controller.dart';
 import 'package:pispapp/models/account.dart';
-import 'package:pispapp/models/transaction.dart' as Transaction;
+import 'package:pispapp/models/transaction.dart' as transaction_model;
 
 import 'package:pispapp/repositories/interfaces/i_transaction_repository.dart';
 
@@ -15,16 +15,16 @@ class TransactionRepository implements ITransactionRepository {
   CollectionReference get transactions => firestore.collection('transactions');
 
   @override
-  Future<List<Transaction.Transaction>> getTransactions(
+  Future<List<transaction_model.Transaction>> getTransactions(
       String userId, String sourceAccountId) async {
     final userTransactions = await transactions
         .where('userId', isEqualTo: userId)
         .where('sourceAccountId', isEqualTo: sourceAccountId)
         .getDocuments();
-    final List<Transaction.Transaction> transactionList = userTransactions
+    final List<transaction_model.Transaction> transactionList = userTransactions
         .documents
         .map((DocumentSnapshot element) =>
-            Transaction.Transaction.fromJson(element.data))
+            transaction_model.Transaction.fromJson(element.data))
         .toList();
     return transactionList;
   }
@@ -53,8 +53,8 @@ class TransactionRepository implements ITransactionRepository {
         transactions.document(transactionid).snapshots().listen(
       (snapshot) {
         if (snapshot.data != null) {
-          final Transaction.Transaction transaction =
-              Transaction.Transaction.fromJson(snapshot.data);
+          final transaction_model.Transaction transaction =
+              transaction_model.Transaction.fromJson(snapshot.data);
           switch (transaction.status) {
             case 'PENDING_PARTY_LOOKUP':
               {

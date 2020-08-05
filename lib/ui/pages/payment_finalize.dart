@@ -8,7 +8,6 @@ import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
 import 'package:pispapp/ui/widgets/shadow_heading.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
-import 'package:pispapp/utils/utils.dart';
 
 class PaymentFinalize extends StatelessWidget {
   void _showAccountChoosingBottomSheet() {
@@ -111,7 +110,7 @@ class PaymentFinalize extends StatelessWidget {
               ),
             ),
             BottomButton(
-                TitleText(
+                const TitleText(
                     text: 'Review Transaction',
                     color: Colors.white,
                     fontSize: 20), () {

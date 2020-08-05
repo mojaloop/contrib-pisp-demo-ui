@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:pispapp/config/config.dart';
 import 'package:pispapp/controllers/ephemeral/payment_initiate_controller.dart';
 import 'package:pispapp/repositories/interfaces/i_transaction_repository.dart';
-import 'package:pispapp/repositories/transaction_repository.dart';
 import 'package:pispapp/utils/local_auth.dart';
 
 class PaymentVerdictController extends GetxController {

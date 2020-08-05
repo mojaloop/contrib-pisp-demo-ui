@@ -2,7 +2,6 @@ import 'package:pispapp/models/amount.dart';
 import 'package:pispapp/models/authentication.dart';
 import 'package:pispapp/models/model.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:pispapp/models/party_id_info.dart';
 import 'package:pispapp/models/payee.dart';
 import 'package:pispapp/models/quote.dart';
 

@@ -60,7 +60,7 @@ class Profile extends StatelessWidget {
               ],
             ),
             BottomButton(
-              TitleText(
+              const TitleText(
                 text: 'Log out',
                 color: Colors.white,
                 fontSize: 20,

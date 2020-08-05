@@ -2,7 +2,6 @@ import 'package:pispapp/models/account.dart';
 import 'package:pispapp/models/fsp_info.dart';
 import 'package:pispapp/models/party_id_info.dart';
 import 'package:pispapp/repositories/interfaces/i_account_repository.dart';
-import 'package:pispapp/utils/log_printer.dart';
 
 final List<Account> accounts = <Account>[
   Account(

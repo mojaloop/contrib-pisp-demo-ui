@@ -4,7 +4,6 @@ import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/models/account.dart';
 import 'package:pispapp/models/transaction.dart';
 import 'package:pispapp/repositories/interfaces/i_transaction_repository.dart';
-import 'package:pispapp/utils/log_printer.dart';
 
 class AccountDashboardController extends GetxController {
   AccountDashboardController(this._transactionRepo);
@@ -36,8 +35,6 @@ class AccountDashboardController extends GetxController {
   }
 
   Future<void> updateTransactions() async {
-    final logger = getLogger('AccountDashboardController');
-    // logger.e('getting transactions');
     final userId = Get.find<AuthController>().user.uid;
     transactionList = await _transactionRepo.getTransactions(
         userId, selectedAccount.sourceAccountId);

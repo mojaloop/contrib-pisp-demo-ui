@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/ephemeral/lookup_payee_controller.dart';
-import 'package:pispapp/models/account.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/payee_tile.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';

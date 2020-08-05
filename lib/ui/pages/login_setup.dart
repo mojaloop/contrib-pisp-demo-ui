@@ -34,14 +34,14 @@ class LoginSetup extends StatelessWidget {
                     LoginWithGoogleTile(
                       trailingWidget: GetBuilder<SetupController>(
                         builder: (value) => value.googleLogin
-                            ? Icon(
+                            ? const Icon(
                                 Icons.check_circle_outline,
                               )
                             : GestureDetector(
                                 onTap: () async {
                                   await value.onLinkGoogleAccount();
                                 },
-                                child: Icon(
+                                child: const Icon(
                                   Icons.keyboard_arrow_right,
                                 ),
                               ),

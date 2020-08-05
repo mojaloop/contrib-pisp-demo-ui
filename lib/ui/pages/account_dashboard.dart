@@ -56,7 +56,7 @@ class AccountDashboard extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                     horizontal: 20,
                   ),
-                  height: Get.height,
+                  // height: Get.height,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -86,18 +86,13 @@ class AccountDashboard extends StatelessWidget {
                       const TitleText(
                         text: 'Transactions',
                       ),
-                      Column(
-                        children: value.transactionList
-                            .map(
-                              (Transaction t) => TransactionTile(
-                                t,
-                                (Transaction t) {
-                                  _showTransactionDetailBottomSheet(t);
-                                },
-                              ),
-                            )
-                            .toList(),
-                      ),
+                      for (Transaction t in value.transactionList)
+                        TransactionTile(
+                          t,
+                          (Transaction t) {
+                            _showTransactionDetailBottomSheet(t);
+                          },
+                        ),
                     ],
                   ),
                 ),

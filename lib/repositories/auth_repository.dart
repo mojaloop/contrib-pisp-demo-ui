@@ -9,7 +9,8 @@ class AuthRepository {
   static final logger = getLogger('AuthRepository');
 
   Future<User> signInWithGoogle() async {
-    final GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
+    final GoogleSignInAccount googleSignInAccount =
+        await _googleSignIn.signIn();
 
     final GoogleSignInAuthentication googleSignInAuthentication =
         await googleSignInAccount.authentication;

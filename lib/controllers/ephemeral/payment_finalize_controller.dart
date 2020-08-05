@@ -48,6 +48,7 @@ class PaymentFinalizeController extends GetxController {
       update();
       return;
     }
+
     Get.toNamed<dynamic>('/transfer/details');
   }
 }

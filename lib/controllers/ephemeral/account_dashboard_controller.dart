@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/app/account_controller.dart';
+import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/models/account.dart';
 import 'package:pispapp/models/transaction.dart';
 import 'package:pispapp/repositories/interfaces/i_transaction_repository.dart';
@@ -11,10 +12,10 @@ class AccountDashboardController extends GetxController {
   List<Transaction> transactionList = <Transaction>[];
 
   ITransactionRepository _transactionRepo;
-  bool noAccounts = false;
+  bool noAccounts = true;
 
-  void onRefresh() {
-    getLinkedAccounts();
+  Future<void> onRefresh() async {
+    await getLinkedAccounts();
     if (Get.find<AccountController>().accounts.isEmpty) {
       noAccounts = true;
     } else {
@@ -34,15 +35,16 @@ class AccountDashboardController extends GetxController {
     updateTransactions();
   }
 
-  void updateTransactions() {
+  Future<void> updateTransactions() async {
     final logger = getLogger('AccountDashboardController');
-    logger.e('getting transactions');
-    transactionList =
-        _transactionRepo.getTransactions(selectedAccount.accountNumber);
+    // logger.e('getting transactions');
+    final userId = Get.find<AuthController>().user.uid;
+    transactionList = await _transactionRepo.getTransactions(
+        userId, selectedAccount.sourceAccountId);
     update();
   }
 
-  void getLinkedAccounts() {
-    Get.find<AccountController>().getAllLinkedAccounts();
+  Future<void> getLinkedAccounts() async {
+    await Get.find<AccountController>().getAllLinkedAccounts();
   }
 }

@@ -1,16 +1,53 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pispapp/config/config.dart';
+import 'package:pispapp/controllers/ephemeral/payment_finalize_controller.dart';
 import 'package:pispapp/controllers/ephemeral/payment_initiate_controller.dart';
+import 'package:pispapp/models/account.dart';
+import 'package:pispapp/repositories/interfaces/i_transaction_repository.dart';
+import 'package:pispapp/repositories/transaction_repository.dart';
 import 'package:pispapp/utils/local_auth.dart';
+import 'package:pispapp/utils/log_printer.dart';
 
 class PaymentDetailsController extends GetxController {
+  PaymentDetailsController(this._transactionRepo);
+  ITransactionRepository _transactionRepo;
+  bool isSubmitting = false;
   Future<void> onMakePayment() async {
-    final bool isUserAuthenticated =
-        await LocalAuth.authenticateUser('Please authorize to pay');
-    if (isUserAuthenticated) {
-      Get.find<PaymentInitiateController>().defaultState();
-      Get.offAllNamed<dynamic>('/transfer/success');
-    } else {
-      // TODO(MahidharBandaru): Handle auth failure case
+    final String transactionId =
+        Get.find<PaymentInitiateController>().transactionId;
+    isSubmitting = true;
+    update();
+    final String amount =
+        Get.find<PaymentFinalizeController>().transactionAmount;
+    final Account payerAccount =
+        Get.find<PaymentFinalizeController>().selectedAccount;
+
+    await _transactionRepo.finalizePayment(transactionId, amount, payerAccount);
+    if (STUB) {
+      onQuoteAvailable('5');
     }
+  }
+
+  void onInit() {
+    super.onInit();
+  }
+
+  void onQuoteAvailable(String transactionAmount) {
+    Get.defaultDialog<dynamic>(
+        title: 'Transaction Fee',
+        textConfirm: 'Pay',
+        confirmTextColor: Colors.white,
+        onConfirm: () {
+          Get.back();
+          Get.toNamed<dynamic>('/transfer/verdict');
+
+          isSubmitting = false;
+          update();
+        },
+        onCancel: () {
+          Get.offAllNamed<dynamic>('/dashboard');
+        },
+        middleText: 'Amount: $transactionAmount\n');
   }
 }

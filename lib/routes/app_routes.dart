@@ -5,5 +5,5 @@ abstract class Routes {
   static const LOGIN = '/login';
   static const PROFILE = '/profile';
   static const DASHBOARD = '/dashboard';
-
+  static const AVAILABLE_FSP = '/available-fsps';
 }

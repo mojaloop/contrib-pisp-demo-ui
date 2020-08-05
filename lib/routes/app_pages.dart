@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pispapp/ui/pages/account-linking/available_fsp.dart';
 import 'package:pispapp/ui/pages/dashboard.dart';
 import 'package:pispapp/ui/pages/login.dart';
 import 'package:pispapp/ui/pages/profile.dart';
@@ -25,5 +26,9 @@ abstract class AppPages {
       name: Routes.DASHBOARD,
       page: () => Dashboard(),
     ),
+    GetPage(
+      name: Routes.AVAILABLE_FSP,
+      page: () => AvailableFSPScreen(),
+    )
   ];
 }

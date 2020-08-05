@@ -36,4 +36,5 @@ void initControllers() {
   Get.put(AccountController(MockAccountRepository()));
   Get.put(AccountDashboardController(MockTransactionRepository()));
   Get.put(DashboardController());
+  Get.put(AvailableFSPController());
 }

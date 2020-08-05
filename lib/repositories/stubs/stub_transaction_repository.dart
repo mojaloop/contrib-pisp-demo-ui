@@ -13,7 +13,7 @@ List<Transaction> transactions = <Transaction>[
       amount: '100',
       currency: 'USD',
     ),
-    completedTimestamp: '23 Feb 2020',
+    completedTimestamp: '2020-08-04T02:38:56.779Z',
     payee: Payee(
       name: 'Mark Doe',
       partyIdInfo: PartyIdInfo(partyIdentifier: 'IN1233323987'),
@@ -26,7 +26,7 @@ List<Transaction> transactions = <Transaction>[
       amount: '100',
       currency: 'USD',
     ),
-    completedTimestamp: '22 Feb 2020',
+    completedTimestamp: '2020-08-04T02:38:56.779Z',
     payee: Payee(
       name: 'John Doe',
       partyIdInfo: PartyIdInfo(partyIdentifier: 'IN9876564738'),
@@ -39,7 +39,7 @@ List<Transaction> transactions = <Transaction>[
       amount: '100',
       currency: 'USD',
     ),
-    completedTimestamp: '21 Feb 2020',
+    completedTimestamp: '2020-08-04T02:38:56.779Z',
     payee: Payee(
       name: 'Lily Doe',
       partyIdInfo: PartyIdInfo(partyIdentifier: 'IN1238748576'),
@@ -52,7 +52,7 @@ List<Transaction> transactions = <Transaction>[
       amount: '100',
       currency: 'USD',
     ),
-    completedTimestamp: '23 Feb 2020',
+    completedTimestamp: '2020-08-04T02:38:56.779Z',
     payee: Payee(
       name: 'Mark Doe',
       partyIdInfo: PartyIdInfo(partyIdentifier: 'IN1233323987'),

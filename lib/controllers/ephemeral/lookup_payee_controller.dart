@@ -14,7 +14,7 @@ class LookupPayeeController extends GetxController {
   void onInit() {
     final String phoneNumber =
         Get.find<PaymentInitiateController>().phoneIsoCode +
-            Get.find<PaymentInitiateController>().phoneNumber;
+        Get.find<PaymentInitiateController>().phoneNumber;
     payeeAccounts = _accountRepository.getPayeeAccountsByPhone(phoneNumber);
     super.onInit();
     update();

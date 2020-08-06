@@ -38,5 +38,62 @@ A high level view of the architecture of Mojapay looks like this. We have a few 
    - AccountController - Holds the information about the accounts the current logged in user has linked to MojaPay. 
 
 ## Repositories
-1. AccountRepository - Exposes methods which help fetch data from firestore accounts collection.
-2. TransactionRepository - Exposes methods which help fetch data from firestore transactions collection.
+1. AccountRepository - Exposes methods which help fetch data from firestore accounts collection. Implements IAccountRepository.
+2. TransactionRepository - Exposes methods which help fetch data from firestore transactions collection. Implements ITransactionRepository.
+
+## Model Definitions
+1. User: <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String displayName, <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String email, <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String photoUrl, <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String uid;
+
+2. Account: <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String userId, consentId, alias, sourceAccountId, <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PartyIdInfo partyInfo, <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FspInfo fspInfo; <br />
+
+3. PartyIdInfo: <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String fspId, <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String partyIdType, <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String partyIdentifier;
+
+4. FspInfo: <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String fspId, <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String fspName, <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String fspIconUrl;
+
+5. Transaction: <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String completedTimestamp <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String consentId <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String responseType <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String sourceAccountId <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String status <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String transactionId <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String transactionRequestId <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String userId <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Amount amount <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Authentication authentication; <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Payee payee <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Quote quote <br />
+
+6. Amount: <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String currency <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String amount <br />
+
+7. Authentication: <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String type <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String value; 
+
+8. Payee: <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String name <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PartyIdInfo partyIdInfo; 
+
+9. Quote: <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String condition, <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String expiration, <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String ilpPacket, <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Amount transferAmount, <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Amount payeeFspFee, <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Amount payeeFspCommission, <br />
+   

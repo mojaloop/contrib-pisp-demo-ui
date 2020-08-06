@@ -1,49 +1,38 @@
-# Account Dashboard
+# Mojapay Setup
 
-Page to view information about all the accounts the user has linked and the transaction he/she has made from them.
+When user opens app for first tiime, or logs out and opens it, show Mojapay setup flow which allows user to sign in with google account and enter phone number to which accounts are linked.
 
 Components of the app this feature depends on:
-   
+
 
 ### Controllers
 
 1. AuthController
-2. AccountController
-3. AccountDashboardController
+2. SetupController
 
 ### Repositories
 
-1. AccountRepository 
-2. TransactionRepository 
+1. AuthRepository 
 
 ### UI Pages
 
-1. AccountDashboard
+1. LoginSetup - UI for page which allows google login.
+2. PhoneNumberSetup - UI for page which allows users to enter phone numbers.
 
 ## Business Logic
 
-![](../images/mojapay_setup.jpeg)
-
-We have two events that the user can trigger here.
-
-### Refresh
-
-On scrolling down all the way, the user can trigger a refresh. The steps which follow are as follows:
-
-1. The refresh event is picked up by the AccountDashboard page.
-2. The AccountDashboardController is notified of the refresh event.
-3. AccountDashboardController asks AccountRepository to fetch all linked accounts of logged in user.
-4. AccountRepository queries firestore.
-5. Firestore responds with a list of accounts.
-6. The accounts are passed back to AccountDashboardController.
-7. The AccountDashboardController chooses the first account as selectedAccount and tries to fetch its transactions from TransactionRepository.
-8. TransactionRepository queries firestore.
-9. Firestore responds with a list of transactions for selectedAccount.
-10. transactions passed to AccountDashboardController. 
-11. AccountDashboardController updates ui with new transactions. 
-12. UI rendered.
+![](../images/mojapay_setup.png)
 
 
-### Switch Account
-
-The user can switch the account whose information they want to see. The flow is same as that of `onRefresh` above. Just that instead of fetching all accounts first, we directly try to fetch transactions for the selectedAccount. The diagram clearly describes it.
+1. User tries to login with google. Chooses a google account to sign in with.
+2. UI notifies SetupController of the event.
+3. SetupController calls signInWithGoogle() on AuthController.
+4. AuthController asks AuthRepository to signInWithGoogle.
+5. AuthRepository requests firestore.
+6. Firestore responds with user json data.
+7. AuthRepository forms User object using User Model and return the User Object to AuthController.
+8. AuthController returns User to SetupController.
+9. SetupController switches UI to PhoneNumberSetup.
+10. User enters phone number.
+11. SetupController validates phone number. 
+12. SetupController navigates to Dashboard UI. Entering phone nunber during Mojapay setup is optional. No validation required here.

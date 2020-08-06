@@ -11,6 +11,8 @@ class LocalAuthController extends GetxController {
   // Used to prevent duplicates when resuming onto a verification screen
   bool verificationInProgress = false;
 
+  PINEntryController _pinEntryController = Get.put(PINEntryController());
+
   Future<void> _onUserVerificationNeeded() async {
     // If already happening, do not open more verification screens
     if(verificationInProgress) {
@@ -28,12 +30,12 @@ class LocalAuthController extends GetxController {
       // Use PIN screen if biometric did not validate
       // i.e. User hit cancel
       if(!didAuth) {
-        Get.find<PINEntryController>().onFallbackVerificationNeeded();
+        _pinEntryController.onFallbackVerificationNeeded();
       } else {
         verificationInProgress = false; // Completed verification
       }
     } catch(e) {
-      Get.find<PINEntryController>().onFallbackVerificationNeeded();
+      _pinEntryController.onFallbackVerificationNeeded();
     }
   }
 

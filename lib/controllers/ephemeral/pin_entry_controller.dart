@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:pispapp/controllers/ephemeral/local_auth_controller.dart';
-import 'package:pispapp/routes/app_pages.dart';
+import 'package:pispapp/routes/app_routes.dart';
 import 'package:pispapp/utils/log_printer.dart';
 
 class PINEntryController extends GetxController {

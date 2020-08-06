@@ -25,13 +25,8 @@ class SetupController extends GetxController {
     phoneNumber = number;
     phoneIsoCode = isoCode;
 
-    if (number.length == 10) {
-      validPhoneNumber = true;
-      Get.find<AuthController>().setPhoneNumber(number, isoCode);
-    } else {
-      validPhoneNumber = false;
-      Get.find<AuthController>().setPhoneNumber('', '');
-    }
+    validPhoneNumber = true;
+    Get.find<AuthController>().setPhoneNumber(number, isoCode);
 
     phoneNumberPrompt = false;
 

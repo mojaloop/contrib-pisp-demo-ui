@@ -38,11 +38,8 @@ class PaymentInitiateController extends GetxController {
       String number, String internationalizedPhoneNumber, String isoCode) {
     phoneNumber = number;
     phoneIsoCode = isoCode;
-    if (number.length == 10) {
-      validPhoneNumber = true;
-    } else {
-      validPhoneNumber = false;
-    }
+    validPhoneNumber = true;
+
     phoneNumberPrompt = false;
 
     update();

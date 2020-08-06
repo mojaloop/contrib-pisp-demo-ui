@@ -129,7 +129,7 @@ class TransactionRepository implements ITransactionRepository {
         'authentication': {
           'value': signedString,
         },
-        'responseType': 'ENTERED',
+        'responseType': 'AUTHORIZED',
       },
       merge: true,
     );

@@ -33,6 +33,6 @@ class StubAccountRepository implements IAccountRepository {
   Future<List<Account>> getUserAccounts(String userId) {
     // final logger = getLogger('here');
     // logger.e('stub');
-    return Future.value(accounts.where((element) => element.userId == userId).toList());
+    return Future.value(accounts.toList());
   }
 }

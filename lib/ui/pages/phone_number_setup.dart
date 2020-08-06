@@ -35,12 +35,12 @@ class PhoneNumberSetup extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     PhoneNumberTile(
+                      text: 'Phone number',
                       trailingWidget: GetBuilder<SetupController>(
-                          builder: (value) => value.validPhoneNumber
-                              ? const Icon(
-                                  Icons.check_circle_outline,
-                                )
-                              : const Text('')),
+                        builder: (value) => value.validPhoneNumber
+                            ? const Icon(Icons.check_circle_outline)
+                            : const Text(''),
+                      ),
                     ),
                     PhoneNumberInput(
                       value.onPhoneNumberChange,

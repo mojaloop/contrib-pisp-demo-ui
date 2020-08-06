@@ -34,12 +34,8 @@ class PaymentInitiate extends StatelessWidget {
                   PhoneNumberTile(
                     trailingWidget: GetBuilder<PaymentInitiateController>(
                       builder: (value) => value.validPhoneNumber
-                          ? const Icon(
-                              Icons.check_circle_outline,
-                            )
-                          : const Text(
-                              '',
-                            ),
+                          ? const Icon(Icons.check_circle_outline)
+                          : const Text(''),
                     ),
                   ),
                   PhoneNumberInput(

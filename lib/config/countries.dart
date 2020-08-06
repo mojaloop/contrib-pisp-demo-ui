@@ -2,5 +2,6 @@
 class Countries {
   static List<String> countryCodes = <String>[
     '+91',
+    '+65',
   ];
 }

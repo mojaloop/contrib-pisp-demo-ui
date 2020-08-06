@@ -58,7 +58,7 @@ class LoginSetup extends StatelessWidget {
         onPressed: () {
           Get.find<SetupController>().onTapNext();
         },
-        tooltip: 'Increment',
+        tooltip: 'Continue',
         child: const Icon(Icons.arrow_forward),
       ),
     );

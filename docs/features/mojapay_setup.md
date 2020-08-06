@@ -22,7 +22,7 @@ Components of the app this feature depends on:
 
 ## Business Logic
 
-![](../images/account_dashboard.jpeg)
+![](../images/mojapay_setup.jpeg)
 
 We have two events that the user can trigger here.
 

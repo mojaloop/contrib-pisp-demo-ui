@@ -56,6 +56,17 @@ class AvailableFSPScreen extends StatelessWidget {
       child: const Text('Please choose the financial provider of the account that you would like to link:',),
     );
   }
+
+  Widget _buildIcon() {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      child: const Icon(
+        Icons.account_balance,
+        color: Colors.blue,
+        size: 50,),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,12 +74,14 @@ class AvailableFSPScreen extends StatelessWidget {
         title: const Text('Supported financial providers'),
       ),
       body: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-          _buildDescText(),
-          Expanded(
-            child: _buildList(),),
-        ]),
-      );
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            _buildIcon(),
+            _buildDescText(),
+            Expanded(
+              child: _buildList(),
+            ),
+          ]),
+    );
   }
 }

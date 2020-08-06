@@ -1,19 +1,19 @@
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
 
-class LoginController extends GetxController {
+class SetupController extends GetxController {
   String phoneNumber = '';
   String phoneIsoCode = '';
 
   bool googleLogin = false;
-  bool correctPhoneNumber = false;
+  bool validPhoneNumber = false;
 
   bool googleLoginPrompt = false;
   bool phoneNumberPrompt = false;
 
   void defaultState() {
     googleLogin = false;
-    correctPhoneNumber = false;
+    validPhoneNumber = false;
 
     googleLoginPrompt = false;
     phoneNumberPrompt = false;
@@ -26,10 +26,10 @@ class LoginController extends GetxController {
     phoneIsoCode = isoCode;
 
     if (number.length == 10) {
-      correctPhoneNumber = true;
+      validPhoneNumber = true;
       Get.find<AuthController>().setPhoneNumber(number, isoCode);
     } else {
-      correctPhoneNumber = false;
+      validPhoneNumber = false;
       Get.find<AuthController>().setPhoneNumber('', '');
     }
 
@@ -38,23 +38,28 @@ class LoginController extends GetxController {
     update();
   }
 
-  void onLogin() {
-    if (!(googleLogin && correctPhoneNumber)) {
-      if (!googleLogin) {
-        googleLoginPrompt = true;
-      }
-      if (!correctPhoneNumber) {
-        phoneNumberPrompt = true;
-      }
-      update();
-      return;
-    }
-
-    Get.offAllNamed<dynamic>('/dashboard');
-  }
-
   Future<void> onLinkGoogleAccount() async {
     final _ = await Get.find<AuthController>().signInWithGoogle();
     googleLogin = true;
+    googleLoginPrompt = false;
+    update();
+  }
+
+  void onTapNext() {
+    if (!googleLogin) {
+      googleLoginPrompt = true;
+      update();
+      return;
+    }
+    Get.toNamed<dynamic>('/phone_number');
+  }
+
+  void onLogin() {
+    if (!validPhoneNumber) {
+      phoneNumberPrompt = true;
+      update();
+      return;
+    }
+    Get.offAllNamed<dynamic>('/dashboard');
   }
 }

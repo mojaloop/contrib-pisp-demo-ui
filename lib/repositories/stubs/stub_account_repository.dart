@@ -118,7 +118,7 @@ List<Account> getOtherAccountsByPhone(String phone) {
       .toList();
 }
 
-class MockAccountRepository implements IAccountRepository {
+class StubAccountRepository implements IAccountRepository {
   @override
   List<Account> getUserAccounts() {
     return getMyDummyAccounts()
@@ -128,7 +128,14 @@ class MockAccountRepository implements IAccountRepository {
         .toList();
   }
 
+  @override
+  List<Account> getPayeeAccountsByPhone(String phoneNumber) {
+    return getOtherAccountsByPhone(phoneNumber);
+  }
+
   List<Account> getOtherAccounts() {
     return getOtherDummyAccounts();
   }
 }
+
+

@@ -6,7 +6,7 @@ class LocalAuthController extends GetxController {
 
   // Timer for grace period
   static const Duration gracePeriod = Duration(seconds: 10);
-  DateTime _timestamp = DateTime.now().subtract(gracePeriod);
+  DateTime _timestamp;
 
   // Used to prevent duplicates when resuming onto a verification screen
   bool verificationInProgress = false;
@@ -40,7 +40,7 @@ class LocalAuthController extends GetxController {
   void appWasPaused() => _timestamp = DateTime.now();
   void appWasResumed() {
     // Check if still within grace period
-    if(DateTime.now().difference(_timestamp) > gracePeriod) {
+    if(_timestamp == null || DateTime.now().difference(_timestamp) > gracePeriod) {
       _onUserVerificationNeeded();
     }
   }

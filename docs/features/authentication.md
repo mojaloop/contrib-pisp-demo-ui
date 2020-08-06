@@ -1,19 +1,9 @@
-# Authentication
+# Mojapay Setup
 
-We only have the option to sign in with google on Mojapay. We implement this using firebase's authentication service.
+When user opens app for first tiime, or logs out and opens it, show Mojapay setup flow which allows user to sign in with google account and enter phone number to which accounts are linked.
 
 Components of the app this feature depends on:
 
-
-### Models
-
-1. User: <br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String displayName, <br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String email, <br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String photoUrl, <br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String uid;
-
-We don't need to make this collection in firestore. The authentication service provides it.
 
 ### Controllers
 
@@ -22,7 +12,7 @@ We don't need to make this collection in firestore. The authentication service p
 
 ### Repositories
 
-1. AuthRepository - Exposes methods which enable firebase login with google and signout.
+1. AuthRepository 
 
 ### UI Pages
 
@@ -31,9 +21,18 @@ We don't need to make this collection in firestore. The authentication service p
 
 ## Business Logic
 
-The business logic is simple. It follows the general code design [design.md](../design.md)
+![](../images/mojapay_setup.jpg)
 
-1. The user triggers events on the ui pages above.
-2. The controllers perform validation
-3. AuthController tries to log user in on LoginSetup using authRepository.
-4. On success, the user model object is returned to the controller and the user is navigated to the dashboard.
+
+1. User tries to login with google. Chooses a google account to sign in with.
+2. UI notifies SetupController of the event.
+3. SetupController calls signInWithGoogle() on AuthController.
+4. AuthController asks AuthRepository to signInWithGoogle.
+5. AuthRepository requests firestore.
+6. Firestore responds with user json data.
+7. AuthRepository forms User object using User Model and return the User Object to AuthController.
+8. AuthController returns User to SetupController.
+9. SetupController switches UI to PhoneNumberSetup.
+10. User enters phone number.
+11. SetupController validates phone number. 
+12. SetupController navigates to Dashboard UI. Entering phone nunber during Mojapay setup is optional. No validation required here.

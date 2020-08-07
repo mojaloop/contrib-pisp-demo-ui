@@ -77,9 +77,7 @@ class TransactionBottomSheet extends StatelessWidget {
                               height: 70.0,
                               child: RaisedButton(
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    18.0,
-                                  ),
+                                  borderRadius: BorderRadius.circular(18.0),
                                   side: BorderSide(
                                     color: Colors.grey,
                                   ),

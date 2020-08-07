@@ -10,7 +10,7 @@ class PaymentVerdictController extends GetxController {
   PaymentVerdictController(this._transactionRepo);
   ITransactionRepository _transactionRepo;
   bool isLoading = true;
-  bool success = false;
+  bool isSuccess = false;
 
   @override
   void onInit() {
@@ -19,7 +19,7 @@ class PaymentVerdictController extends GetxController {
 
   void onSuccess() {
     isLoading = false;
-    success = true;
+    isSuccess = true;
     update();
     Get.find<PaymentInitiateController>().defaultState();
     Timer(const Duration(seconds: 3),
@@ -28,7 +28,7 @@ class PaymentVerdictController extends GetxController {
 
   void onFailure() {
     isLoading = false;
-    success = false;
+    isSuccess = false;
     update();
     Get.find<PaymentInitiateController>().defaultState();
 

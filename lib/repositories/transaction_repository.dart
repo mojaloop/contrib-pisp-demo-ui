@@ -72,7 +72,7 @@ class TransactionRepository implements ITransactionRepository {
             case 'AUTHORIZATION_REQUIRED':
               {
                 // Already authorized case
-                if (transaction.responseType == 'ENTERED') {
+                if (transaction.responseType == 'AUTHORIZED') {
                   return;
                 }
                 int transactionFees;
@@ -111,7 +111,7 @@ class TransactionRepository implements ITransactionRepository {
     await transactions.document(transactionId).setData(
       <String, dynamic>{
         'sourceAccountId': payerAccount.sourceAccountId,
-        'consentId': '555',
+        'consentId': payerAccount.consentId,
         'amount': {
           'amount': amount,
           'currency': 'USD',
@@ -129,7 +129,7 @@ class TransactionRepository implements ITransactionRepository {
         'authentication': {
           'value': signedString,
         },
-        'responseType': 'ENTERED',
+        'responseType': 'AUTHORIZED',
       },
       merge: true,
     );

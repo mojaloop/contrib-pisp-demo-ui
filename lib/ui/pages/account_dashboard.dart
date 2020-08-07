@@ -70,22 +70,12 @@ class AccountDashboard extends StatelessWidget {
                       AccountDashboardAppBar(() {
                         _showAccountChoosingBottomSheet();
                       }),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      const TitleText(
-                        text: 'Operations',
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      const SizedBox(height: 50),
+                      const TitleText(text: 'Operations'),
+                      const SizedBox(height: 10),
                       Operations(),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      const TitleText(
-                        text: 'Transactions',
-                      ),
+                      const SizedBox(height: 40),
+                      const TitleText(text: 'Transactions'),
                       for (Transaction t in value.transactionList)
                         TransactionTile(
                           t,
@@ -122,7 +112,10 @@ class AccountDashboard extends StatelessWidget {
                           fontSize: 20,
                         ),
                       ),
-                      TitleText(text: 'No Accounts Linked', fontSize: 20),
+                      TitleText(
+                        text: 'No Accounts Linked',
+                        fontSize: 20,
+                      ),
                     ],
                   ),
                 ),

@@ -15,9 +15,7 @@ class SplashScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         body: Column(
           children: <Widget>[
-            const SizedBox(
-              height: 150.0,
-            ),
+            const SizedBox(height: 150.0),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
               child: Align(
@@ -34,9 +32,7 @@ class SplashScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
               child: Align(
@@ -53,9 +49,7 @@ class SplashScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
               child: Align(

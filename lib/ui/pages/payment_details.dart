@@ -5,7 +5,6 @@ import 'package:pispapp/controllers/ephemeral/payment_details_controller.dart';
 import 'package:pispapp/controllers/ephemeral/payment_finalize_controller.dart';
 import 'package:pispapp/controllers/ephemeral/payment_initiate_controller.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
-import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
 import 'package:pispapp/ui/widgets/shadow_heading.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';

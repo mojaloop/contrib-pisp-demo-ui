@@ -13,7 +13,7 @@ class LookupPayee extends StatelessWidget {
         if (value.isLoading)
           return Scaffold(
             body: Container(
-              child: Center(
+              child: const Center(
                 child: CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(LightColor.yellow2),
                 ),

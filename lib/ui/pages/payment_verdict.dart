@@ -18,7 +18,7 @@ class PaymentVerdict extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [
+                  colors: const [
                     LightColor.navyBlue2,
                     LightColor.lightBlue2,
                   ],

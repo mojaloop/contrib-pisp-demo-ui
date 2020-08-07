@@ -8,7 +8,6 @@ import 'package:pispapp/repositories/auth_repository.dart';
 import 'package:pispapp/repositories/interfaces/i_account_repository.dart';
 
 class MockAccountRepository extends Mock implements IAccountRepository {}
-
 class MockAuthRepository extends Mock implements AuthRepository {}
 
 void main() {

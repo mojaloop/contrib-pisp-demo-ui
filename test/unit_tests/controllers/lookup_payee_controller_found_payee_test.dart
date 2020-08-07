@@ -4,7 +4,8 @@ import 'package:pispapp/controllers/ephemeral/lookup_payee_controller.dart';
 import 'package:pispapp/repositories/transaction_repository.dart';
 
 class MockTransactionRepository extends Mock implements TransactionRepository {}
-void main () {
+
+void main() {
   LookupPayeeController lookupPayeeController;
   setUp(() {
     lookupPayeeController = LookupPayeeController(MockTransactionRepository());

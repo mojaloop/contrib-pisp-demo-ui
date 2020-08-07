@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/repositories/interfaces/i_transaction_repository.dart';
+import 'package:pispapp/routes/custom_navigator.dart';
 
 class PaymentInitiateController extends GetxController {
   PaymentInitiateController(this._transactionRepo);
@@ -63,6 +64,6 @@ class PaymentInitiateController extends GetxController {
         as StreamSubscription<DocumentSnapshot>;
     transactionSubmitting = false;
     update();
-    Get.toNamed<dynamic>('/transfer/lookup');
+    Get.find<CustomNavigator>().toNamed('/transfer/lookup');
   }
 }

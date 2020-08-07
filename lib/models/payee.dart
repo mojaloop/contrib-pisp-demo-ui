@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:pispapp/models/model.dart';
 import 'package:pispapp/models/party_id_info.dart';
@@ -5,7 +6,8 @@ import 'package:pispapp/models/party_id_info.dart';
 part 'payee.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class Payee implements Model {
+// ignore: must_be_immutable
+class Payee extends Equatable implements Model {
   Payee({this.name, this.partyIdInfo});
 
   @override
@@ -16,4 +18,7 @@ class Payee implements Model {
 
   String name;
   PartyIdInfo partyIdInfo;
+
+  @override
+  List<Object> get props => [partyIdInfo];
 }

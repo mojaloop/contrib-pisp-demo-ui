@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:pispapp/models/amount.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:pispapp/models/model.dart';
@@ -5,7 +6,8 @@ import 'package:pispapp/models/model.dart';
 part 'quote.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class Quote implements Model {
+// ignore: must_be_immutable
+class Quote extends Equatable implements Model {
   Quote(
       {this.condition,
       this.expiration,
@@ -22,4 +24,7 @@ class Quote implements Model {
   String expiration;
   String ilpPacket;
   Amount transferAmount, payeeFspFee, payeeFspCommission;
+
+  @override
+  List<Object> get props => [condition, expiration, ilpPacket, transferAmount, payeeFspFee,payeeFspCommission];
 }

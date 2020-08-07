@@ -32,6 +32,7 @@ class PaymentInitiate extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   PhoneNumberTile(
+                    heading: 'Find Payee',
                     trailingWidget: GetBuilder<PaymentInitiateController>(
                       builder: (value) => value.validPhoneNumber
                           ? const Icon(

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:pispapp/config/config.dart';
 import 'package:pispapp/models/account.dart';
 import 'package:pispapp/repositories/interfaces/i_transaction_repository.dart';
+import 'package:pispapp/routes/custom_navigator.dart';
 
 class LookupPayeeController extends GetxController {
   LookupPayeeController(this._transactionRepository);
@@ -28,6 +29,6 @@ class LookupPayeeController extends GetxController {
   }
 
   void onTapPayertile() {
-    Get.toNamed<dynamic>('/transfer/finalize');
+    Get.find<CustomNavigator>().toNamed('/transfer/finalize');
   }
 }

@@ -8,6 +8,7 @@ import 'package:pispapp/repositories/account_repository.dart';
 import 'package:pispapp/repositories/auth_repository.dart';
 import 'package:pispapp/repositories/stubs/stub_account_repository.dart';
 import 'package:pispapp/routes/app_pages.dart';
+import 'package:pispapp/routes/custom_navigator.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 
 void main() {
@@ -34,4 +35,5 @@ void initAppControllers() {
     Get.put(AccountController(AccountRepository()));
 
   Get.put(DashboardController());
+  Get.put(CustomNavigator());
 }

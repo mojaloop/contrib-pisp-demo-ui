@@ -14,11 +14,11 @@ class PaymentVerdict extends StatelessWidget {
         builder: (value) {
           return Scaffold(
             body: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: const [
+                  colors: [
                     LightColor.navyBlue2,
                     LightColor.lightBlue2,
                   ],

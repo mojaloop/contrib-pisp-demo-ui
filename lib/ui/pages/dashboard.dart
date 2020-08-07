@@ -12,28 +12,28 @@ class Dashboard extends StatelessWidget {
           resizeToAvoidBottomPadding: false,
           body: value.widgetOptions.elementAt(value.selectedIndex),
           bottomNavigationBar: BottomNavigationBar(
-            items: <BottomNavigationBarItem>[
+            items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.account_balance),
-                title: const Text(
+                title: Text(
                   'Accounts',
                 ),
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.add_box),
-                title: const Text(
+                title: Text(
                   'Link',
                 ),
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.transfer_within_a_station),
-                title: const Text(
+                title: Text(
                   'Transfer',
                 ),
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person_outline),
-                title: const Text(
+                title: Text(
                   'Profile',
                 ),
               ),

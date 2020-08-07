@@ -1,10 +1,12 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:pispapp/models/model.dart';
 
 part 'party_id_info.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class PartyIdInfo implements Model {
+// ignore: must_be_immutable
+class PartyIdInfo extends Equatable implements Model {
   PartyIdInfo({this.fspId, this.partyIdType, this.partyIdentifier});
 
   @override
@@ -14,4 +16,7 @@ class PartyIdInfo implements Model {
   @override
   Map<String, dynamic> toJson() => _$PartyIdInfoToJson(this);
   String fspId, partyIdType, partyIdentifier;
+
+  @override
+  List<Object> get props => [fspId, partyIdType, partyIdentifier];
 }

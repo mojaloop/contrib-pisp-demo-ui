@@ -78,7 +78,7 @@ class TransactionBottomSheet extends StatelessWidget {
                               child: RaisedButton(
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18.0),
-                                  side: BorderSide(
+                                  side: const BorderSide(
                                     color: Colors.grey,
                                   ),
                                 ),

@@ -22,7 +22,7 @@ class AccountDashboardController extends GetxController {
       noAccounts = true;
     } else {
       noAccounts = false;
-      setSelectedAccount(Get.find<AccountController>().accounts.elementAt(0));
+      await setSelectedAccount(Get.find<AccountController>().accounts.elementAt(0));
     }
     isLoading = false;
 
@@ -33,9 +33,9 @@ class AccountDashboardController extends GetxController {
     setSelectedAccount(acc);
   }
 
-  void setSelectedAccount(Account acc) {
+  Future<void> setSelectedAccount(Account acc) async {
     selectedAccount = acc;
-    updateTransactions();
+    await updateTransactions();
   }
 
   Future<void> updateTransactions() async {

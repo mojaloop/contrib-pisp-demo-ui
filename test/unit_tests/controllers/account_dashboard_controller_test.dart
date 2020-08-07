@@ -9,11 +9,8 @@ import 'package:pispapp/models/user.dart';
 import 'package:pispapp/repositories/auth_repository.dart';
 import 'package:pispapp/repositories/interfaces/i_transaction_repository.dart';
 
-class MockTransactionRepository extends Mock implements ITransactionRepository {
-}
-
+class MockTransactionRepository extends Mock implements ITransactionRepository {}
 class MockAccountController extends Mock implements AccountController {}
-
 class MockAuthRepository extends Mock implements AuthRepository {}
 
 void main() {
@@ -77,5 +74,4 @@ void main() {
           authController.user.uid, account.sourceAccountId));
     },
   );
-
 }

@@ -6,7 +6,6 @@ import 'package:pispapp/controllers/ephemeral/setup_controller.dart';
 import 'package:pispapp/routes/custom_navigator.dart';
 
 class MockAuthController extends Mock implements AuthController {}
-
 class MockCustomNavigator extends Mock implements CustomNavigator {}
 
 void main() {
@@ -19,7 +18,6 @@ void main() {
       Get.put(navigator);
     },
   );
-
 
   test(
     'onLogin',

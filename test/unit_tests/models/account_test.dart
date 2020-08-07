@@ -50,11 +50,8 @@ void main() {
 
   test('toJson() makes correct map', () {
     final Function eq = const DeepCollectionEquality().equals;
-    final Map<String, dynamic> jsonFromAccount  = account.toJson();
+    final Map<String, dynamic> jsonFromAccount = account.toJson();
 
     expect(eq(json, jsonFromAccount), true);
   });
 }
-
-
-

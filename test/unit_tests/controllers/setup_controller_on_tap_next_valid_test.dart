@@ -4,7 +4,6 @@ import 'package:mockito/mockito.dart';
 import 'package:pispapp/controllers/ephemeral/setup_controller.dart';
 import 'package:pispapp/routes/custom_navigator.dart';
 
-
 class MockCustomNavigator extends Mock implements CustomNavigator {}
 
 void main() {
@@ -17,7 +16,6 @@ void main() {
       Get.put(navigator);
     },
   );
-
 
   test(
     'onTapNext() valid case',

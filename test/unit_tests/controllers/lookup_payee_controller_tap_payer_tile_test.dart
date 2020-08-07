@@ -7,7 +7,8 @@ import 'package:pispapp/routes/custom_navigator.dart';
 
 class MockTransactionRepository extends Mock implements TransactionRepository {}
 class MockCustomNavigator extends Mock implements CustomNavigator {}
-void main () {
+
+void main() {
   LookupPayeeController lookupPayeeController;
   CustomNavigator navigator;
   setUp(() {
@@ -15,7 +16,6 @@ void main () {
     navigator = MockCustomNavigator();
     Get.put(navigator);
   });
-
 
   test('onTapPayerTile() navigates to /transfer/finalize', () {
     lookupPayeeController.onTapPayertile();

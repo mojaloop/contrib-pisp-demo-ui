@@ -10,7 +10,8 @@ import 'package:pispapp/routes/custom_navigator.dart';
 
 class MockAuthRepository extends Mock implements AuthRepository {}
 class MockTransactionRepository extends Mock implements TransactionRepository {}
-class MockCustomNavigator extends Mock implements CustomNavigator{}
+class MockCustomNavigator extends Mock implements CustomNavigator {}
+
 void main() {
   AuthRepository authRepository;
   AuthController authController;
@@ -23,7 +24,8 @@ void main() {
       authController = AuthController(authRepository);
       navigator = MockCustomNavigator();
       transactionRepository = MockTransactionRepository();
-      paymentInitiateController = PaymentInitiateController(transactionRepository);
+      paymentInitiateController =
+          PaymentInitiateController(transactionRepository);
       // sign in with google
       when(authRepository.signInWithGoogle()).thenAnswer(
         (_) => Future.value(
@@ -42,18 +44,16 @@ void main() {
       paymentInitiateController.phoneIsoCode = 'IN';
       paymentInitiateController.phoneNumber = '9999999999';
       await paymentInitiateController.onPayNow();
-      
     },
   );
 
   test(
     'onPayNow() with valid phone number initiates transaction ,calls setupTransactionStream and navigates to LookupPayee',
     () async {
-      verify(transactionRepository.initiateTransaction('asd67aAhsda768AS', 'IN', '9999999999'));
+      verify(transactionRepository.initiateTransaction(
+          'asd67aAhsda768AS', 'IN', '9999999999'));
       verify(transactionRepository.setupTransactionStream(any));
       verify(navigator.toNamed('/transfer/lookup'));
-
     },
   );
-
 }

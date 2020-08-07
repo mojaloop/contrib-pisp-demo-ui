@@ -1,4 +1,3 @@
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pispapp/models/authentication.dart';
 import 'package:collection/collection.dart';
@@ -13,13 +12,11 @@ void main() {
     };
 
     auth = Authentication(type: 'U2F', value: 'asdAhasdkljassdaASD2131bA');
-
   });
 
   test('fromJson() makes correct object', () {
     final Authentication authObject = Authentication.fromJson(json);
     expect(authObject == auth, true);
-
   });
 
   test('toJson() makes correct map', () {

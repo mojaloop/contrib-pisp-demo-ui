@@ -1,4 +1,3 @@
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pispapp/models/user.dart';
 import 'package:collection/collection.dart';
@@ -14,14 +13,17 @@ void main() {
       'uid': 'asdAhasdkljassdaASD2131bA'
     };
 
-    user = User(displayName: 'John Doe', email: 'john@example.com', photoUrl: 'https://abc.com/john', uid: 'asdAhasdkljassdaASD2131bA',);
-
+    user = User(
+      displayName: 'John Doe',
+      email: 'john@example.com',
+      photoUrl: 'https://abc.com/john',
+      uid: 'asdAhasdkljassdaASD2131bA',
+    );
   });
 
   test('fromJson() makes correct object', () {
     final User userObject = User.fromJson(json);
     expect(userObject == user, true);
-
   });
 
   test('toJson() makes correct map', () {

@@ -6,7 +6,6 @@ import 'package:pispapp/controllers/ephemeral/payment_initiate_controller.dart';
 import 'package:pispapp/repositories/transaction_repository.dart';
 
 class MockAuthController extends Mock implements AuthController {}
-
 class MockTransactionRepository extends Mock implements TransactionRepository {}
 
 void main() {

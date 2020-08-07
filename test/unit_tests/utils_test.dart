@@ -18,7 +18,9 @@ void main() {
   test(
     'getDateFromDateTime()',
     () {
-      expect(Utils.getDateFromDateTime(DateTime.parse('2020-08-04T02:38:56.779Z')), '2020-08-04');
+      expect(
+          Utils.getDateFromDateTime(DateTime.parse('2020-08-04T02:38:56.779Z')),
+          '2020-08-04');
     },
   );
 }

@@ -1,4 +1,3 @@
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pispapp/models/amount.dart';
 import 'package:collection/collection.dart';
@@ -13,13 +12,11 @@ void main() {
     };
 
     amount = Amount(amount: '100', currency: 'USD');
-
   });
 
   test('fromJson() makes correct object', () {
     final Amount amountObject = Amount.fromJson(json);
     expect(amount == amountObject, true);
-
   });
 
   test('toJson() makes correct map', () {

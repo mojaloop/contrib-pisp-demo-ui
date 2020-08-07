@@ -1,10 +1,11 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'model.dart';
 part 'user.g.dart';
 
 @JsonSerializable()
-class User implements Model {
+class User extends Equatable implements Model {
   User({this.uid, this.displayName, this.email, this.photoUrl});
 
   @override
@@ -14,4 +15,7 @@ class User implements Model {
   Map<String, dynamic> toJson() => _$UserToJson(this);
 
   String displayName, email, photoUrl, uid;
+
+  @override
+  List<Object> get props => [displayName, email, photoUrl, uid];
 }

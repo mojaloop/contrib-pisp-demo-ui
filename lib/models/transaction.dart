@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:pispapp/models/amount.dart';
 import 'package:pispapp/models/authentication.dart';
 import 'package:pispapp/models/model.dart';
@@ -8,7 +9,7 @@ import 'package:pispapp/models/quote.dart';
 part 'transaction.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class Transaction implements Model {
+class Transaction extends Equatable implements Model {
   Transaction({
     this.completedTimestamp,
     this.consentId,
@@ -43,4 +44,20 @@ class Transaction implements Model {
   Authentication authentication;
   Payee payee;
   Quote quote;
+
+  @override
+  List<Object> get props => [
+        completedTimestamp,
+        consentId,
+        responseType,
+        sourceAccountId,
+        status,
+        transactionId,
+        transactionRequestId,
+        userId,
+        amount,
+        authentication,
+        payee,
+        quote,
+      ];
 }

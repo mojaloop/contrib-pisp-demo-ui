@@ -57,8 +57,8 @@ class PaymentDetails extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Column(children: <Widget>[
-                    Icon(Icons.arrow_downward),
-                    Icon(Icons.arrow_downward),
+                    const Icon(Icons.arrow_downward),
+                    const Icon(Icons.arrow_downward),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TitleText(
@@ -66,8 +66,8 @@ class PaymentDetails extends StatelessWidget {
                               '${Get.find<PaymentFinalizeController>().transactionAmount} \$',
                           fontSize: 40),
                     ),
-                    Icon(Icons.arrow_downward),
-                    Icon(Icons.arrow_downward),
+                    const Icon(Icons.arrow_downward),
+                    const Icon(Icons.arrow_downward),
                   ]),
                 ],
               ),
@@ -109,7 +109,7 @@ class PaymentDetails extends StatelessWidget {
                           child: RaisedButton(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0),
-                              side: BorderSide(
+                              side: const BorderSide(
                                 color: Colors.blue,
                               ),
                             ),
@@ -129,7 +129,7 @@ class PaymentDetails extends StatelessWidget {
                           child: RaisedButton(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0),
-                              side: BorderSide(
+                              side: const BorderSide(
                                 color: Colors.blue,
                               ),
                             ),

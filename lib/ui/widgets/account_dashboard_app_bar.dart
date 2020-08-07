@@ -24,9 +24,7 @@ class AccountDashboardAppBar extends StatelessWidget {
         ),
         GestureDetector(
           onTap: _onTap,
-          child: Icon(
-            Icons.short_text,
-          ),
+          child: const Icon(Icons.short_text),
         ),
       ],
     );

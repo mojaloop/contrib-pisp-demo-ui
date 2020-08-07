@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 final ThemeData appThemeData = ThemeData(
   primaryColor: LightColor.navyBlue2,
   accentColor: LightColor.navyBlue1,
-  textTheme: TextTheme(
+  textTheme: const TextTheme(
     headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
   ),
 );

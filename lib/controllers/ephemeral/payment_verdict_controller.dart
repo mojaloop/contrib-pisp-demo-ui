@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:pispapp/config/config.dart';
 import 'package:pispapp/controllers/ephemeral/payment_initiate_controller.dart';
 import 'package:pispapp/repositories/interfaces/i_transaction_repository.dart';
+import 'package:pispapp/routes/custom_navigator.dart';
 import 'package:pispapp/utils/local_auth.dart';
 
 class PaymentVerdictController extends GetxController {
@@ -23,7 +24,7 @@ class PaymentVerdictController extends GetxController {
     update();
     Get.find<PaymentInitiateController>().defaultState();
     Timer(const Duration(seconds: 3),
-        () => Get.offAllNamed<dynamic>('/dashboard'));
+        () => Get.find<CustomNavigator>().offAllNamed('/dashboard'));
   }
 
   void onFailure() {
@@ -33,7 +34,7 @@ class PaymentVerdictController extends GetxController {
     Get.find<PaymentInitiateController>().defaultState();
 
     Timer(const Duration(seconds: 3),
-        () => Get.offAllNamed<dynamic>('/dashboard'));
+        () => Get.find<CustomNavigator>().offAllNamed('/dashboard'));
   }
 
   Future<void> getAuthorization() async {

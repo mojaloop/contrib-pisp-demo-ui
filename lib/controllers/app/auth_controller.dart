@@ -14,13 +14,13 @@ class AuthController extends GetxController {
 
   Future<void> signOut() async {
     await _authRepository.signOutGoogle();
-    setUser(User());
+    setUser(null);
   }
 
   String phoneNumber = '';
   String phoneIsoCode = '';
 
-  User user = User();
+  User user;
 
   void setPhoneNumber(String number, String isoCode) {
     phoneNumber = number;

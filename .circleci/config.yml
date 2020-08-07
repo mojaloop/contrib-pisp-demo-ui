@@ -8,5 +8,6 @@ jobs:
       - run: flutter doctor
       - run: flutter analyze lib
       - run: flutter test
-      - run: flutter -v build apk
+      # TODO: To be added later after encrypting google-services.json secret
+      # - run: flutter -v build apk
 

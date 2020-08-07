@@ -8,19 +8,19 @@ import 'package:pispapp/utils/utils.dart';
 
 class TransactionBottomSheet extends StatelessWidget {
   TransactionBottomSheet(this._transaction)
-      : _icon = _transaction.status == Status.SUCCESSFUL
+      : _icon = _transaction.status == 'SUCCESS'
             ? Icons.check_circle_outline
-            : (_transaction.status == Status.PENDING
-                ? Icons.hourglass_empty
-                : Icons.error_outline),
-        _textColor = _transaction.status == Status.SUCCESSFUL
+            : (_transaction.status == 'ERROR'
+                ? Icons.error_outline
+                : Icons.hourglass_empty),
+        _textColor = _transaction.status == 'SUCCESS'
             ? Colors.green
-            : (_transaction.status == Status.PENDING
-                ? LightColor.yellow2
-                : Colors.red),
-        _text = _transaction.status == Status.SUCCESSFUL
+            : (_transaction.status == 'ERROR'
+                ? Colors.red
+                : LightColor.yellow2),
+        _text = _transaction.status == 'SUCCESS'
             ? 'Successful'
-            : (_transaction.status == Status.PENDING ? 'Pending' : 'Error');
+            : (_transaction.status == 'ERROR' ? 'Error' : 'Pending');
 
   final IconData _icon;
   final Color _textColor;
@@ -77,9 +77,7 @@ class TransactionBottomSheet extends StatelessWidget {
                               height: 70.0,
                               child: RaisedButton(
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    18.0,
-                                  ),
+                                  borderRadius: BorderRadius.circular(18.0),
                                   side: BorderSide(
                                     color: Colors.grey,
                                   ),
@@ -88,7 +86,7 @@ class TransactionBottomSheet extends StatelessWidget {
                                 color: LightColor.navyBlue2,
                                 textColor: Colors.white,
                                 child: Text(
-                                  '${_transaction.amount} \$',
+                                  '${_transaction.amount.amount} \$',
                                   style: const TextStyle(
                                     fontSize: 28,
                                   ),
@@ -114,10 +112,9 @@ class TransactionBottomSheet extends StatelessWidget {
                           text: 'From',
                           fontSize: 14,
                         ),
-                        subtitle: Text(Utils.getSecretAccountNumberFromString(
-                            value.selectedAccount.accountNumber)),
+                        subtitle: Text(value.selectedAccount.fspInfo.fspName),
                         trailing: TitleText(
-                          text: value.selectedAccount.name,
+                          text: value.selectedAccount.alias,
                           fontSize: 14,
                         ),
                       );
@@ -133,10 +130,11 @@ class TransactionBottomSheet extends StatelessWidget {
                       fontSize: 14,
                     ),
                     subtitle: Text(
-                      Utils.getSecretAccountNumberFromString(_transaction.to),
+                      Utils.getSecretNumberFromString(
+                          _transaction.payee.partyIdInfo.partyIdentifier),
                     ),
                     trailing: TitleText(
-                      text: _transaction.payeeName,
+                      text: _transaction.payee.name,
                       fontSize: 14,
                     ),
                   ),
@@ -150,7 +148,7 @@ class TransactionBottomSheet extends StatelessWidget {
                       fontSize: 14,
                     ),
                     trailing: TitleText(
-                      text: _transaction.date,
+                      text: _transaction.completedTimestamp ?? '',
                       fontSize: 14,
                     ),
                   ),

@@ -8,7 +8,6 @@ import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
 import 'package:pispapp/ui/widgets/shadow_heading.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
-import 'package:pispapp/utils/utils.dart';
 
 class PaymentFinalize extends StatelessWidget {
   void _showAccountChoosingBottomSheet() {
@@ -94,14 +93,13 @@ class PaymentFinalize extends StatelessWidget {
                           fontSize: 18,
                         ),
                         subtitle: Text(
-                          Utils.getSecretAccountNumberFromString(
-                              value.selectedAccount.accountNumber),
+                          value.selectedAccount.fspInfo.fspName,
                         ),
                         trailing: GestureDetector(
                           onTap: () {
                             _showAccountChoosingBottomSheet();
                           },
-                          child: Icon(
+                          child: const Icon(
                             Icons.keyboard_arrow_right,
                           ),
                         ),
@@ -111,7 +109,11 @@ class PaymentFinalize extends StatelessWidget {
                 },
               ),
             ),
-            BottomButton('Review Transaction', () {
+            BottomButton(
+                const TitleText(
+                    text: 'Review Transaction',
+                    color: Colors.white,
+                    fontSize: 20), () {
               Get.find<PaymentFinalizeController>().onTapReview();
             }),
           ],

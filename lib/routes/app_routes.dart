@@ -1,4 +1,3 @@
-
 // Named routes
 abstract class Routes {
   static const SPLASH = '/';
@@ -9,7 +8,5 @@ abstract class Routes {
   static const TRANSFER_LOOKUP = '/transfer/lookup';
   static const TRANSFER_FINALIZE = '/transfer/finalize';
   static const TRANSGER_DETAILS = '/transfer/details';
-  static const TRANSFER_FAILURE = '/transfer/fail';
-  static const TRANSFER_SUCCESS = '/transfer/success';
-
+  static const TRANSFER_VERDICT = '/transfer/verdict';
 }

@@ -35,6 +35,7 @@ class PhoneNumberSetup extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     PhoneNumberTile(
+                      heading: 'Enter phone Number',
                       trailingWidget: GetBuilder<SetupController>(
                           builder: (value) => value.validPhoneNumber
                               ? const Icon(

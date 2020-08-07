@@ -41,9 +41,13 @@ class AvailableFSPScreen extends StatelessWidget {
       }
 
       return ListView.builder(
-        itemCount: c.fsps.value.length,
+        itemCount: c.fsps.value.length + 2,
         itemBuilder: (BuildContext ctxt, int index) {
-          return _buildListItem(c.fsps.value[index]);
+          switch(index) {
+            case 0:  return _buildIcon(); break;
+            case 1: return _buildDescText(); break;
+            default: return _buildListItem(c.fsps.value[index - 2]);
+          }
         },
       );
     }
@@ -73,15 +77,10 @@ class AvailableFSPScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Supported financial providers'),
       ),
-      body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            _buildIcon(),
-            _buildDescText(),
-            Expanded(
+      body:
+            SizedBox.expand(
               child: _buildList(),
             ),
-          ]),
     );
   }
 }

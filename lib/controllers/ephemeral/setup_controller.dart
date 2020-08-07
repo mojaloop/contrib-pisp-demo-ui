@@ -56,11 +56,6 @@ class SetupController extends GetxController {
   }
 
   void onLogin() {
-    if (!validPhoneNumber) {
-      phoneNumberPrompt = true;
-      update();
-      return;
-    }
     Get.find<CustomNavigator>().offAllNamed('/dashboard');
   }
 }

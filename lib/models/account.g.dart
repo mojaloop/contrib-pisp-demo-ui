@@ -26,6 +26,6 @@ Map<String, dynamic> _$AccountToJson(Account instance) => <String, dynamic>{
       'consentId': instance.consentId,
       'alias': instance.alias,
       'sourceAccountId': instance.sourceAccountId,
-      'partyInfo': instance.partyInfo,
-      'fspInfo': instance.fspInfo,
+      'partyInfo': instance.partyInfo?.toJson(),
+      'fspInfo': instance.fspInfo?.toJson(),
     };

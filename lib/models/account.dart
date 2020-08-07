@@ -5,7 +5,7 @@ import 'package:pispapp/models/party_id_info.dart';
 import 'model.dart';
 part 'account.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Account implements Model {
   Account(
       {this.alias,

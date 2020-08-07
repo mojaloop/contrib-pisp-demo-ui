@@ -6,6 +6,7 @@ import 'package:pispapp/models/model.dart';
 part 'quote.g.dart';
 
 @JsonSerializable(explicitToJson: true)
+// ignore: must_be_immutable
 class Quote extends Equatable implements Model {
   Quote(
       {this.condition,

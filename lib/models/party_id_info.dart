@@ -5,6 +5,7 @@ import 'package:pispapp/models/model.dart';
 part 'party_id_info.g.dart';
 
 @JsonSerializable(explicitToJson: true)
+// ignore: must_be_immutable
 class PartyIdInfo extends Equatable implements Model {
   PartyIdInfo({this.fspId, this.partyIdType, this.partyIdentifier});
 

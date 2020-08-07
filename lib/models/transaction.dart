@@ -9,6 +9,7 @@ import 'package:pispapp/models/quote.dart';
 part 'transaction.g.dart';
 
 @JsonSerializable(explicitToJson: true)
+// ignore: must_be_immutable
 class Transaction extends Equatable implements Model {
   Transaction({
     this.completedTimestamp,

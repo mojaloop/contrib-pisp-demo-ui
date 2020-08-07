@@ -5,6 +5,7 @@ import 'package:pispapp/models/model.dart';
 part 'fsp_info.g.dart';
 
 @JsonSerializable(explicitToJson: true)
+// ignore: must_be_immutable
 class FspInfo extends Equatable implements Model {
   FspInfo({this.fspId, this.fspName, this.fspIconUrl});
 

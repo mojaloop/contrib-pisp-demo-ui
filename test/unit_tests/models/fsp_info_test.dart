@@ -24,8 +24,8 @@ void main() {
   });
 
   test('toJson() makes correct map', () {
-    Function eq = const DeepCollectionEquality().equals;
-    Map<String, dynamic> jsonFromFspInfo = fspInfo.toJson();
+    final Function eq = const DeepCollectionEquality().equals;
+    final Map<String, dynamic> jsonFromFspInfo = fspInfo.toJson();
     expect(eq(json, jsonFromFspInfo), true);
   });
 }

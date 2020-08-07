@@ -6,6 +6,7 @@ import 'package:pispapp/models/party_id_info.dart';
 part 'payee.g.dart';
 
 @JsonSerializable(explicitToJson: true)
+// ignore: must_be_immutable
 class Payee extends Equatable implements Model {
   Payee({this.name, this.partyIdInfo});
 

@@ -23,8 +23,8 @@ void main() {
   });
 
   test('toJson() makes correct map', () {
-    Function eq = const DeepCollectionEquality().equals;
-    Map<String, dynamic> jsonFromAmount = amount.toJson();
+    final Function eq = const DeepCollectionEquality().equals;
+    final Map<String, dynamic> jsonFromAmount = amount.toJson();
     expect(eq(json, jsonFromAmount), true);
   });
 }

@@ -5,6 +5,7 @@ import 'package:pispapp/models/model.dart';
 part 'authentication.g.dart';
 
 @JsonSerializable(explicitToJson: true)
+// ignore: must_be_immutable
 class Authentication extends Equatable implements Model {
   Authentication({this.type, this.value});
   @override

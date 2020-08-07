@@ -5,6 +5,7 @@ import 'package:pispapp/models/model.dart';
 part 'amount.g.dart';
 
 @JsonSerializable(explicitToJson: true)
+// ignore: must_be_immutable
 class Amount extends Equatable implements Model {
   Amount({this.amount, this.currency});
   @override

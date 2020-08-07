@@ -5,6 +5,7 @@ import 'model.dart';
 part 'user.g.dart';
 
 @JsonSerializable()
+// ignore: must_be_immutable
 class User extends Equatable implements Model {
   User({this.uid, this.displayName, this.email, this.photoUrl});
 

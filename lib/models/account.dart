@@ -7,6 +7,7 @@ import 'model.dart';
 part 'account.g.dart';
 
 @JsonSerializable(explicitToJson: true)
+// ignore: must_be_immutable
 class Account extends Equatable implements Model {
   Account(
       {this.alias,

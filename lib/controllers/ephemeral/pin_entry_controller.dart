@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:pispapp/controllers/ephemeral/local_auth_controller.dart';
 import 'package:pispapp/routes/app_routes.dart';
 import 'package:pispapp/utils/log_printer.dart';
+import 'package:pispapp/utils/secure_storage.dart';
 
 class PINEntryController extends GetxController {
   // Constructor to fetch PIN automatically
@@ -13,14 +13,12 @@ class PINEntryController extends GetxController {
     _fetchPIN();
   }
 
-  // Constants
-  static const String key = 'USER_PIN';
+  // Use storage class
+  SecureStorage _storage = SecureStorage();
+
   static const Duration timeoutDuration = Duration(milliseconds: 1000);
   static const int PINlength = 6;
   static final logger = getLogger('PinEntryController');
-
-  // Storage
-  final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
   // Fields to be populated
   String _correctPIN = '';
@@ -53,10 +51,7 @@ class PINEntryController extends GetxController {
   }
 
   Future<void> _fetchPIN() async {
-    final String pin = await Future.any([
-      _storage.read(key: PINEntryController.key),
-      Future.delayed(PINEntryController.timeoutDuration, () => null)
-    ]);
+    final String pin = await _storage.readUserPIN();
 
     if (pin == null) {
       logger.i('no previous PIN set');
@@ -72,15 +67,7 @@ class PINEntryController extends GetxController {
 
   Future<void> storeNewPIN(String pin) async {
     logger.i('storing new pin');
-    bool timeout = false;
-    await Future.any([
-      _storage.write(key: PINEntryController.key, value: pin),
-      Future.delayed(PINEntryController.timeoutDuration, () => timeout = true)
-    ]);
-
-    if(timeout) {
-      throw TimeoutException('Operation to store the user PIN timed out!');
-    }
+    _storage.writeUserPIN(pin);
 
     // Update new PIN
     await _fetchPIN();

@@ -33,6 +33,8 @@ dependencies:
   google_sign_in: ^4.5.1
   json_annotation: ^3.0.1
   firebase_core: ^0.4.5
+  pin_code_fields: ^4.0.0
+  flutter_secure_storage: ^3.3.3
   intl: ^0.16.1
   mockito: ^4.1.1
   equatable: ^0.6.0

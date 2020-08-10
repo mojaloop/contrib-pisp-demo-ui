@@ -13,6 +13,7 @@ import 'package:pispapp/ui/pages/payment_details.dart';
 import 'package:pispapp/ui/pages/payment_finalize.dart';
 import 'package:pispapp/ui/pages/payment_verdict.dart';
 import 'package:pispapp/ui/pages/phone_number_setup.dart';
+import 'package:pispapp/ui/pages/pin_entry.dart';
 import 'package:pispapp/ui/pages/splash.dart';
 import 'package:pispapp/routes/app_routes.dart';
 
@@ -54,7 +55,7 @@ abstract class AppPages {
       binding: PaymentFinalizeBinding(),
     ),
     GetPage(
-      name: Routes.TRANSGER_DETAILS,
+      name: Routes.TRANSFER_DETAILS,
       page: () => PaymentDetails(),
       binding: PaymentDetailsBinding(),
     ),
@@ -63,5 +64,9 @@ abstract class AppPages {
       page: () => PaymentVerdict(),
       binding: PaymentVerdictBinding(),
     ),
+    GetPage(
+      name: Routes.PIN_ENTRY,
+      page: () => PinEntry(),
+    )
   ];
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pispapp/ui/theme/light_theme.dart';
-import 'package:get/get.dart';
+import 'moja_button.dart';
 
 class BottomButton extends StatelessWidget {
   BottomButton(this.child, this.onTap);
@@ -12,25 +11,7 @@ class BottomButton extends StatelessWidget {
     return Expanded(
       child: Align(
         alignment: Alignment.bottomRight,
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: ButtonTheme(
-            minWidth: Get.width,
-            height: 70.0,
-            child: RaisedButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
-                side: const BorderSide(
-                  color: Colors.blue,
-                ),
-              ),
-              onPressed: onTap,
-              color: LightColor.navyBlue1,
-              textColor: Colors.white,
-              child: child,
-            ),
-          ),
-        ),
+        child: MojaButton(child, onTap),
       ),
     );
   }

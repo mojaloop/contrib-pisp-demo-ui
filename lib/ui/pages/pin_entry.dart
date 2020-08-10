@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:pispapp/controllers/ephemeral/pin_entry_controller.dart';
+import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/moja_button.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
 import 'package:pispapp/utils/log_printer.dart';
@@ -31,7 +32,6 @@ class PinEntry extends StatelessWidget {
             fontSize: 20,
           ), () {
         final String enteredPIN = _textEditingController.text;
-        getLogger('PinEntry').i('User entered PIN');
         if (enteredPIN.length == PINEntryController.PINlength) {
           _pinEntryController.storeNewPIN(enteredPIN);
           _textEditingController.clear();
@@ -114,7 +114,8 @@ class PinEntry extends StatelessWidget {
           GetBuilder<PINEntryController>(
               builder: (c) => c.userSetPIN
                   ? Container(width: 0.0, height: 0.0)
-                  : buildWidthFillingButton())
+                  : buildWidthFillingButton()
+          ),
         ],
       ),
     );

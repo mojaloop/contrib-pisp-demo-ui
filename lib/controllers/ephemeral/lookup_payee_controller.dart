@@ -1,27 +1,34 @@
 import 'package:get/get.dart';
-import 'package:pispapp/controllers/ephemeral/payment_initiate_controller.dart';
+import 'package:pispapp/config/config.dart';
 import 'package:pispapp/models/account.dart';
-import 'package:pispapp/repositories/interfaces/i_account_repository.dart';
+import 'package:pispapp/repositories/interfaces/i_transaction_repository.dart';
+import 'package:pispapp/routes/custom_navigator.dart';
 
 class LookupPayeeController extends GetxController {
-  LookupPayeeController(this._accountRepository);
+  LookupPayeeController(this._transactionRepository);
 
-  List<Account> payeeAccounts;
-  IAccountRepository _accountRepository;
-  Account payeeAccount;
+  List<Account> payeeAccounts = <Account>[];
+  // ignore: unused_field
+  ITransactionRepository _transactionRepository;
+  bool isLoading = true;
+  String payeeName;
 
   @override
   void onInit() {
-    final String phoneNumber =
-        Get.find<PaymentInitiateController>().phoneIsoCode +
-        Get.find<PaymentInitiateController>().phoneNumber;
-    payeeAccounts = _accountRepository.getPayeeAccountsByPhone(phoneNumber);
+    if (TRANSACTION_STUB == true) {
+      foundPayee(STUB_PAYEE_NAME);
+    }
     super.onInit();
     update();
   }
 
-  void onTapPayertile(Account account) {
-    payeeAccount = account;
-    Get.toNamed<dynamic>('/transfer/finalize');
+  void foundPayee(String name) {
+    payeeName = name;
+    isLoading = false;
+    update();
+  }
+
+  void onTapPayertile() {
+    Get.find<CustomNavigator>().toNamed('/transfer/finalize');
   }
 }

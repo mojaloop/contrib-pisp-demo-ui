@@ -9,21 +9,23 @@ part of 'account.dart';
 Account _$AccountFromJson(Map<String, dynamic> json) {
   return Account(
     alias: json['alias'] as String,
-    phoneNumber: json['phoneNumber'] as String,
-    name: json['name'] as String,
-    balance: json['balance'] as String,
-    accountNumber: json['accountNumber'] as String,
-    bankName: json['bankName'] as String,
-    linked: json['linked'] as bool,
+    userId: json['userId'] as String,
+    consentId: json['consentId'] as String,
+    sourceAccountId: json['sourceAccountId'] as String,
+    partyInfo: json['partyInfo'] == null
+        ? null
+        : PartyIdInfo.fromJson(json['partyInfo'] as Map<String, dynamic>),
+    fspInfo: json['fspInfo'] == null
+        ? null
+        : FspInfo.fromJson(json['fspInfo'] as Map<String, dynamic>),
   );
 }
 
 Map<String, dynamic> _$AccountToJson(Account instance) => <String, dynamic>{
+      'userId': instance.userId,
+      'consentId': instance.consentId,
       'alias': instance.alias,
-      'phoneNumber': instance.phoneNumber,
-      'name': instance.name,
-      'balance': instance.balance,
-      'accountNumber': instance.accountNumber,
-      'bankName': instance.bankName,
-      'linked': instance.linked,
+      'sourceAccountId': instance.sourceAccountId,
+      'partyInfo': instance.partyInfo?.toJson(),
+      'fspInfo': instance.fspInfo?.toJson(),
     };

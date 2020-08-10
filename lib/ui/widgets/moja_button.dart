@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:get/get.dart';
-import 'package:pispapp/ui/widgets/title_text.dart';
 
 class MojaButton extends StatelessWidget {
-  MojaButton(this.text, this.onTap);
+  MojaButton(this.child, this.onTap);
 
-  final String text;
+  final Widget child;
   final void Function() onTap;
 
   @override
@@ -26,7 +25,7 @@ class MojaButton extends StatelessWidget {
           onPressed: onTap,
           color: LightColor.navyBlue1,
           textColor: Colors.white,
-          child: TitleText(text: text, color: Colors.white, fontSize: 20),
+          child: child,
         ),
       ),
     );

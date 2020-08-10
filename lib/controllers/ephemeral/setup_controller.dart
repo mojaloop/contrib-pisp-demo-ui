@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
+import 'package:pispapp/routes/custom_navigator.dart';
 
 class SetupController extends GetxController {
   String phoneNumber = '';
@@ -51,15 +52,10 @@ class SetupController extends GetxController {
       update();
       return;
     }
-    Get.toNamed<dynamic>('/phone_number');
+    Get.find<CustomNavigator>().toNamed('/phone_number');
   }
 
   void onLogin() {
-    if (!validPhoneNumber) {
-      phoneNumberPrompt = true;
-      update();
-      return;
-    }
-    Get.offAllNamed<dynamic>('/dashboard');
+    Get.find<CustomNavigator>().offAllNamed('/dashboard');
   }
 }

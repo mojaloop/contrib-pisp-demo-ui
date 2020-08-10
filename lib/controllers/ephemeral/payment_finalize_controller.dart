@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/app/account_controller.dart';
 import 'package:pispapp/models/account.dart';
+import 'package:pispapp/routes/custom_navigator.dart';
 
 class PaymentFinalizeController extends GetxController {
   String transactionAmount = '';
@@ -48,6 +49,7 @@ class PaymentFinalizeController extends GetxController {
       update();
       return;
     }
-    Get.toNamed<dynamic>('/transfer/details');
+
+    Get.find<CustomNavigator>().toNamed('/transfer/details');
   }
 }

@@ -32,9 +32,10 @@ class PaymentInitiate extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   PhoneNumberTile(
+                    heading: 'Find Payee',
                     trailingWidget: GetBuilder<PaymentInitiateController>(
                       builder: (value) => value.validPhoneNumber
-                          ? Icon(
+                          ? const Icon(
                               Icons.check_circle_outline,
                             )
                           : const Text(
@@ -51,10 +52,17 @@ class PaymentInitiate extends StatelessWidget {
               ),
             ),
           ),
-          BottomButton(
-            'Find Payee',
-            () => Get.find<PaymentInitiateController>().onPayNow(),
-          ),
+          GetBuilder<PaymentInitiateController>(
+            builder: (value) => BottomButton(
+              value.transactionSubmitting
+                  ? const CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    )
+                  : const TitleText(
+                      text: 'Find Payee', color: Colors.white, fontSize: 20),
+              () => Get.find<PaymentInitiateController>().onPayNow(),
+            ),
+          )
         ],
       ),
     );

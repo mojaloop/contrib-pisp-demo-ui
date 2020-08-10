@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:pispapp/controllers/ephemeral/pin_entry_controller.dart';
 import 'package:pispapp/ui/widgets/moja_button.dart';
+import 'package:pispapp/ui/widgets/title_text.dart';
 import 'package:pispapp/utils/log_printer.dart';
 
 class PinEntry extends StatelessWidget {
@@ -22,15 +23,20 @@ class PinEntry extends StatelessWidget {
 
   Widget buildWidthFillingButton() {
     return SizedBox(
-        width: double.infinity,
-        child: MojaButton('Set PIN', () {
-          final String enteredPIN = _textEditingController.text;
-          getLogger('PinEntry').i('User entered PIN');
-          if (enteredPIN.length == PINEntryController.PINlength) {
-            _pinEntryController.storeNewPIN(enteredPIN);
-            _textEditingController.clear();
-          }
-        }),
+      width: double.infinity,
+      child: MojaButton(
+          const TitleText(
+            text: 'Set PIN',
+            color: Colors.white,
+            fontSize: 20,
+          ), () {
+        final String enteredPIN = _textEditingController.text;
+        getLogger('PinEntry').i('User entered PIN');
+        if (enteredPIN.length == PINEntryController.PINlength) {
+          _pinEntryController.storeNewPIN(enteredPIN);
+          _textEditingController.clear();
+        }
+      }),
     );
   }
 
@@ -45,23 +51,23 @@ class PinEntry extends StatelessWidget {
           Container(
             width: Get.width - 50,
             child: GetBuilder<PINEntryController>(
-                builder: (c) => c.userSetPIN
-                    ? const Text(
-                        'Please enter your PIN to resume using the app.',
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 5,
-                        style: TextStyle(
-                          fontSize: 18.0,
-                        ),
-                      )
-                    : const Text(
-                        'Please set a PIN to be used in the future for verification purposes.',
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 5,
-                        style: TextStyle(
-                          fontSize: 18.0,
-                        ),
+              builder: (c) => c.userSetPIN
+                  ? const Text(
+                      'Please enter your PIN to resume using the app.',
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 5,
+                      style: TextStyle(
+                        fontSize: 18.0,
                       ),
+                    )
+                  : const Text(
+                      'Please set a PIN to be used in the future for verification purposes.',
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 5,
+                      style: TextStyle(
+                        fontSize: 18.0,
+                      ),
+                    ),
             ),
           ),
           const Icon(Icons.lock,
@@ -75,7 +81,8 @@ class PinEntry extends StatelessWidget {
                 // otherwise the user is able to save the PIN using
                 // the save button.
                 if (_pinEntryController.userSetPIN) {
-                  _pinEntryController.onPINEntered(value, _textEditingController, _errorController);
+                  _pinEntryController.onPINEntered(
+                      value, _textEditingController, _errorController);
                 }
               },
               errorAnimationController: _errorController,
@@ -116,14 +123,14 @@ class PinEntry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Verify Your Identity'),
-          leading: const Icon(Icons.account_circle),
-        ),
-        body: WillPopScope(
-          onWillPop: () async => false,
-          child: buildPINEntryScreen(context),
-        ),
+      appBar: AppBar(
+        title: const Text('Verify Your Identity'),
+        leading: const Icon(Icons.account_circle),
+      ),
+      body: WillPopScope(
+        onWillPop: () async => false,
+        child: buildPINEntryScreen(context),
+      ),
     );
   }
 }

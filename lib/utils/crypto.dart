@@ -13,14 +13,25 @@ abstract class CryptoUtil {
   // Create storage
   final FlutterSecureStorage storage = const FlutterSecureStorage();
 
-  AsymmetricKeyPair generateKeyPair();
-  String signChallenge(PrivateKey p, Uint8List msg);
-  String encodePublicKey(PublicKey p);
-  PublicKey decodePublicKey(String pemString);
-  String encodePrivateKey(PrivateKey p);
+  // Protected
+  @protected
   PrivateKey decodePrivateKey(String pemString);
 
-  // Protected
+  @protected
+  AsymmetricKeyPair generateKeyPair();
+
+  @protected
+  String signChallenge(PrivateKey p, Uint8List challenge);
+
+  @protected
+  String encodePublicKey(PublicKey p);
+
+  @protected
+  PublicKey decodePublicKey(String pemString);
+
+  @protected
+  String encodePrivateKey(PrivateKey p);
+
   @protected
   void storePublicKey(PublicKey p) {
     String encoded = encodePublicKey(p);
@@ -59,7 +70,14 @@ abstract class CryptoUtil {
   }
 
   Future<PublicKey> retrievePublicKey() async {
-    String pemString = await storage.read(key: PUBLIC_KEY_ID);
+    final String pemString = await storage.read(key: PUBLIC_KEY_ID);
     return decodePublicKey(pemString);
   }
+
+  Future<String> retrievePublicKeyInPEM() async {
+    final String pemString = await storage.read(key: PUBLIC_KEY_ID);
+    return pemString;
+  }
+
+  Future<String> signChallengeWithStoredPrivateKey(Uint8List challenge);
 }

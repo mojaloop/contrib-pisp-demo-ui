@@ -127,4 +127,10 @@ class CryptoECDSAUtil extends CryptoUtil {
 
     return '$BEGIN_EC_PUBLIC_KEY\n${chunks.join('\n')}\n$END_EC_PUBLIC_KEY';
   }
+
+  @override
+  Future<String> signChallengeWithStoredPrivateKey(Uint8List challenge) async {
+    final ECPrivateKey pk = await retrievePrivateKey() as ECPrivateKey;
+    return signChallenge(pk, challenge);
+  }
 }

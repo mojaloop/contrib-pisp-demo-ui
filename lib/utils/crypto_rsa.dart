@@ -24,4 +24,10 @@ class CryptoRSAUtil extends CryptoUtil {
 
   @override
   String encodePublicKey(covariant RSAPublicKey publicKey) => CryptoUtils.encodeRSAPublicKeyToPem(publicKey);
+
+  @override
+  Future<String> signChallengeWithStoredPrivateKey(Uint8List challenge) async {
+    final RSAPrivateKey pk = await retrievePrivateKey() as RSAPrivateKey;
+    return signChallenge(pk, challenge);
+  }
 }

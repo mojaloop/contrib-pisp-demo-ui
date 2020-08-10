@@ -40,6 +40,7 @@ class LocalAuthController extends GetxController {
   }
 
   void appWasPaused() => _timestamp = DateTime.now();
+
   void appWasResumed() {
     // Check if still within grace period
     if(_timestamp == null || DateTime.now().difference(_timestamp) > gracePeriod) {

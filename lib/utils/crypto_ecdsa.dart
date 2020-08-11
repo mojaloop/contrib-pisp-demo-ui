@@ -21,14 +21,15 @@ class CryptoECDSAUtil extends CryptoUtil {
   static const String END_EC_PUBLIC_KEY = '-----END EC PUBLIC KEY-----';
   static const String BEGIN_EC_PRIVATE_KEY = '-----BEGIN EC PRIVATE KEY-----';
   static const String END_EC_PRIVATE_KEY = '-----END EC PRIVATE KEY-----';
-  
+
   @override
-  AsymmetricKeyPair generateKeyPair() => CryptoUtils.generateEcKeyPair(curve: secp256k1Name);
+  AsymmetricKeyPair generateKeyPair() =>
+      CryptoUtils.generateEcKeyPair(curve: secp256k1Name);
 
   /// ECDSASignature ::= SEQUENCE {
-///    r   INTEGER,
-///    s   INTEGER
-/// }
+  ///    r   INTEGER,
+  ///    s   INTEGER
+  /// }
   String _convertECSigToString(ECSignature sig) {
     final ASN1Sequence seq = ASN1Sequence();
     seq.add(ASN1Integer(sig.r));
@@ -50,7 +51,7 @@ class CryptoECDSAUtil extends CryptoUtil {
     var asn1Parser = ASN1Parser(bytes);
     var topLevelSeq = asn1Parser.nextObject() as ASN1Sequence;
     var privateKeyAsOctetString =
-    topLevelSeq.elements.elementAt(1) as ASN1OctetString;
+        topLevelSeq.elements.elementAt(1) as ASN1OctetString;
     var x = privateKeyAsOctetString.contentBytes();
 
     return ECPrivateKey(decodeBigInt(x), ECDomainParameters(secp256k1Name));
@@ -66,13 +67,12 @@ class CryptoECDSAUtil extends CryptoUtil {
     var privateKey = ASN1OctetString(privateKeyAsBytes);
     var choice = ASN1Sequence(tag: 0xA0);
 
-    choice
-        .add(ASN1ObjectIdentifier.fromComponentString(secp256k1ObjectIdentifier));
+    choice.add(convertOIDFromStringToASN1(secp256k1ObjectIdentifier));
 
     var publicKey = ASN1Sequence(tag: 0xA1);
 
     var subjectPublicKey =
-    ASN1BitString(ecPrivateKey.parameters.G.getEncoded(false));
+        ASN1BitString(ecPrivateKey.parameters.G.getEncoded(false));
     publicKey.add(subjectPublicKey);
 
     outer.add(version);
@@ -104,8 +104,10 @@ class CryptoECDSAUtil extends CryptoUtil {
     var params = ECDomainParameters(secp256k1Name);
     var decodedX = decodeBigInt(x);
     var decodedY = decodeBigInt(y);
-    var curveFromX = params.curve.fromBigInteger(decodedX) as ecc_fp.ECFieldElement;
-    var curveFromY = params.curve.fromBigInteger(decodedY) as ecc_fp.ECFieldElement;
+    var curveFromX =
+        params.curve.fromBigInteger(decodedX) as ecc_fp.ECFieldElement;
+    var curveFromY =
+        params.curve.fromBigInteger(decodedY) as ecc_fp.ECFieldElement;
     var curve = params.curve as ecc_fp.ECCurve;
     var ecpoint = ecc_fp.ECPoint(curve, curveFromX, curveFromY, compressed);
     return ECPublicKey(ecpoint, params);
@@ -117,7 +119,7 @@ class CryptoECDSAUtil extends CryptoUtil {
     var outer = ASN1Sequence();
     var algorithm = ASN1Sequence();
     algorithm.add(ASN1ObjectIdentifier.fromName('ecPublicKey'));
-    algorithm.add(ASN1ObjectIdentifier.fromComponentString(secp256k1ObjectIdentifier));
+    algorithm.add(convertOIDFromStringToASN1(secp256k1ObjectIdentifier));
     var subjectPublicKey = ASN1BitString(p.Q.getEncoded(false));
 
     outer.add(algorithm);

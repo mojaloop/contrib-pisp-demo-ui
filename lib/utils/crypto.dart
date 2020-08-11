@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
+import 'package:asn1lib/asn1lib.dart';
 import 'package:meta/meta.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pointycastle/export.dart';
@@ -77,6 +78,40 @@ abstract class CryptoUtil {
   Future<String> retrievePublicKeyInPEM() async {
     final String pemString = await storage.read(key: PUBLIC_KEY_ID);
     return pemString;
+  }
+
+  @protected
+  ASN1ObjectIdentifier convertOIDFromStringToASN1(String path) =>
+      _fromComponents(path.split('.').map((v) => int.parse(v)).toList());
+
+  // For more info: https://docs.microsoft.com/en-us/windows/win32/seccertenroll/about-object-identifier?redirectedfrom=MSDN
+  ASN1ObjectIdentifier _fromComponents(List<int> components) {
+    assert(components.length >= 2);
+    assert(components[0] < 3);
+    assert(components[1] < 64);
+
+    var oi = <int>[];
+    oi.add(components[0] * 40 + components[1]);
+
+    for (var ci = 2; ci < components.length; ci++) {
+      final position = oi.length;
+      var v = components[ci];
+
+      var first = true;
+      do {
+        var remainder = v & 127;
+        v = v >> 7;
+        if (first) {
+          first = false;
+        } else {
+          remainder |= 0x80;
+        }
+
+        oi.insert(position, remainder);
+      } while (v > 0);
+    }
+
+    return ASN1ObjectIdentifier(oi, tag: 0x06);
   }
 
   Future<String> signChallengeWithStoredPrivateKey(Uint8List challenge);

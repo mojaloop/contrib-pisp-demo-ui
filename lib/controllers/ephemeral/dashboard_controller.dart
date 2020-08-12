@@ -24,7 +24,7 @@ class DashboardController extends GetxController {
 
   @override
   void onInit() {
-    if (TRANSACTION_STUB) {
+    if (Config.TRANSACTION_STUB) {
       Get.put<AccountDashboardController>(
           AccountDashboardController(StubTransactionRepository()));
       Get.put<PaymentInitiateController>(

@@ -22,7 +22,7 @@ class PaymentDetailsController extends GetxController {
         Get.find<PaymentFinalizeController>().selectedAccount;
 
     await _transactionRepo.finalizePayment(transactionId, amount, payerAccount);
-    if (TRANSACTION_STUB) {
+    if (Config.TRANSACTION_STUB) {
       onQuoteAvailable('5');
     }
   }

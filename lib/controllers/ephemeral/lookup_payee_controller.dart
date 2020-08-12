@@ -15,8 +15,8 @@ class LookupPayeeController extends GetxController {
 
   @override
   void onInit() {
-    if (TRANSACTION_STUB == true) {
-      foundPayee(STUB_PAYEE_NAME);
+    if (Config.TRANSACTION_STUB == true) {
+      foundPayee(Config.STUB_PAYEE_NAME);
     }
     super.onInit();
     update();

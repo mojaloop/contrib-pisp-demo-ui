@@ -74,7 +74,7 @@ class _LifecycleAwareAppState extends State<LifecycleAwareApp> with WidgetsBindi
 void initAppControllers() {
   Get.put(AuthController(AuthRepository()));
 
-  if (ACCOUNT_STUB)
+  if (Config.ACCOUNT_STUB)
     Get.put(AccountController(StubAccountRepository()));
   else
     Get.put(AccountController(AccountRepository()));

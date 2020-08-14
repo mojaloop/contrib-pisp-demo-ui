@@ -40,6 +40,7 @@ class PhoneNumberSetup extends StatelessWidget {
                           builder: (value) => value.validPhoneNumber
                               ? const Icon(
                                   Icons.check_circle_outline,
+                                  color: Colors.green,
                                 )
                               : const Text('')),
                     ),

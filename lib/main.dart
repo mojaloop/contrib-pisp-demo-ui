@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pispapp/config/config.dart';
@@ -13,6 +14,7 @@ import 'package:pispapp/ui/theme/light_theme.dart';
 import 'controllers/app/account_controller.dart';
 import 'controllers/app/auth_controller.dart';
 import 'controllers/ephemeral/local_auth_controller.dart';
+import 'models/user.dart';
 
 void main() {
   // Ensures flutter binding is created even before runApp() so
@@ -22,6 +24,14 @@ void main() {
   initAppControllers();
 
   runApp(LifecycleAwareApp());
+
+  FirebaseAuth.instance.onAuthStateChanged.listen((user) {
+    if(user != null) {
+      User u = User.fromJson(AuthRepository.mapUserToJson(user));
+      Get.find<AuthController>().setUser(u);
+      Get.find<CustomNavigator>().offAllNamed('/dashboard');
+    }
+  });
 }
 
 // Wrapper class to allow app-wide lifecycle listening

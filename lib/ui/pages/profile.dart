@@ -54,8 +54,7 @@ class Profile extends StatelessWidget {
                     text: 'Phone Number',
                     fontSize: 18,
                   ),
-                  trailing: Text(Get.find<AuthController>().phoneIsoCode +
-                      Get.find<AuthController>().phoneNumber),
+                  trailing: Text(Get.find<AuthController>().getFormattedPhoneNoForDisplay()),
                 ),
               ],
             ),

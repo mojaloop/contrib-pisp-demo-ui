@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:pispapp/models/user.dart';
 import 'package:pispapp/repositories/auth_repository.dart';
@@ -18,15 +19,23 @@ class AuthController extends GetxController {
   }
 
   String phoneNumber = '';
-  String phoneIsoCode = '';
+  String phoneNoIsoCode = '';
 
   User user;
 
   void setPhoneNumber(String number, String isoCode) {
     phoneNumber = number;
-    phoneIsoCode = isoCode;
-
+    phoneNoIsoCode = isoCode;
+    _authRepository.associateUserWithPhoneNumber(user.uid, phoneNoIsoCode, phoneNumber);
     update();
+  }
+
+  void loadUserInfo() {
+    _authRepository.loadUserInfo()
+  }
+
+  String getFormattedPhoneNoForDisplay() {
+    return phoneNoIsoCode + ' ' + phoneNumber;
   }
 
   void setUser(User u) {

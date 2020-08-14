@@ -8,7 +8,7 @@ part 'user.g.dart';
 @JsonSerializable()
 // ignore: must_be_immutable
 class User extends Equatable implements Model {
-  User({this.uid, this.displayName, this.email, this.photoUrl, this.phoneNoIso, this.phoneNo});
+  User({this.uid, this.displayName, this.email, this.photoUrl});
 
   static User fromFirebaseUser(FirebaseUser user) {
     return User(uid: user.uid, displayName: user.displayName, email: user.email, photoUrl: user.photoUrl);
@@ -20,7 +20,7 @@ class User extends Equatable implements Model {
   @override
   Map<String, dynamic> toJson() => _$UserToJson(this);
 
-  String displayName, email, photoUrl, uid, phoneNoIso, phoneNo;
+  String displayName, email, photoUrl, uid;
 
   @override
   List<Object> get props => [displayName, email, photoUrl, uid];

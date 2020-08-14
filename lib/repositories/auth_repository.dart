@@ -5,6 +5,10 @@ import 'package:pispapp/models/user.dart';
 import 'package:pispapp/utils/log_printer.dart';
 
 class AuthRepository {
+  static const PHONE_NO_KEY = 'phoneNo';
+  static const PHONE_NO_ISO_KEY = 'phoneNoIsoCode';
+  static const REGISTRATION_DATE_KEY = 'dateRegistered';
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Firestore _firestore = Firestore.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -45,7 +49,7 @@ class AuthRepository {
     final bool userExists = s.documents.where((document) => document.documentID == uid).isNotEmpty;
     if(!userExists) {
       final Map<String, dynamic> data = <String, dynamic>{
-        'dateRegistered': DateTime.now().toIso8601String()
+        REGISTRATION_DATE_KEY: DateTime.now().toIso8601String()
       };
       _firestore.collection('users').document(uid).setData(data);
       logger.d('Firestore entry created for ${uid}');
@@ -54,23 +58,14 @@ class AuthRepository {
 
   Future<void> associateUserWithPhoneNumber(String uid, String phoneNoIsoCode, String phoneNo) async {
     final Map<String, dynamic> phoneNumberData = <String, dynamic>{
-      'phoneNo': phoneNo,
-      'phoneNoIsoCode': phoneNoIsoCode
+      PHONE_NO_KEY : phoneNo,
+      PHONE_NO_ISO_KEY : phoneNoIsoCode
     };
     _firestore.collection('users').document(uid).setData(phoneNumberData, merge: true);
   }
 
-  Future<User> loadCurrentUserInfo() async {
-    FirebaseUser user = await _auth.currentUser();
-    _firestore.collection('users').document(user.uid).get().then((userEntry) {
-      // map to a user object
-      User currentUser = User.fromFirebaseUser(user);
-      currentUser.phoneNo = userEntry.data['phoneNo'] as String;
-      currentUser.phoneNoIso = userEntry.data['phoneNoIsoCode'] as String;
-      print(currentUser.phoneNo);
-      print(currentUser.phoneNoIso);
-      return currentUser;
-    });
+  Future<Map<String, dynamic>> loadAuxiliaryInfoForUser(String uid) async {
+    return _firestore.collection('users').document(uid).get().then((userEntry) => userEntry.data);
   }
 
   Future<void> signOutGoogle() async {

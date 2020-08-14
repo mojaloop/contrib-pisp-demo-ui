@@ -17,18 +17,21 @@ class AuthController extends GetxController {
     setUser(null);
   }
 
+  String phoneNoIso;
+  String phoneNo;
   User user;
 
-  Future<void> loadAndPopulateCurrentUserInfo() async {
-    User u = await _authRepository.loadCurrentUserInfo();
-    print('KZ phone no: ${u.phoneNo}');
+  Future<void> loadAuxiliaryInfoForUser(String uid) async {
+    Map<String, dynamic> userData = await _authRepository.loadAuxiliaryInfoForUser(uid);
     // Currently only phone number but can be extended to populate other fields
-    setPhoneNumber(u.phoneNo, u.phoneNoIso);
+    final String phoneNo = userData[AuthRepository.PHONE_NO_KEY] as String;
+    final String phoneNoKey = userData[AuthRepository.PHONE_NO_ISO_KEY] as String;
+    setPhoneNumber(phoneNo, phoneNoKey);
   }
 
   void setPhoneNumber(String number, String isoCode) {
-    user.phoneNo = number;
-    user.phoneNoIso = isoCode;
+    phoneNo = number;
+    phoneNoIso = isoCode;
     update();
   }
 
@@ -37,12 +40,10 @@ class AuthController extends GetxController {
   }
 
   String getFormattedPhoneNoForDisplay() {
-    if(user == null) {
-      return '';
+    if(phoneNoIso == null && phoneNo == null) {
+      return 'n/a';
     }
-    final String phoneIso = user.phoneNoIso ?? '';
-    final String phoneNo = user.phoneNo ?? '';
-    return phoneIso + phoneNo;
+    return (phoneNoIso ?? '') + (phoneNo ?? '');
   }
 
   void setUser(User u) {

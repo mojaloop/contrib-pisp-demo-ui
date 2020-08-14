@@ -16,23 +16,21 @@ import 'controllers/app/auth_controller.dart';
 import 'controllers/ephemeral/local_auth_controller.dart';
 import 'models/user.dart';
 
-void main() {
+Future<void> main() async {
   // Ensures flutter binding is created even before runApp() so
   // binary messenger can be used for async code
   WidgetsFlutterBinding.ensureInitialized();
 
   initAppControllers();
 
+  final FirebaseUser currentUser = await FirebaseAuth.instance.currentUser();
+  if(currentUser != null) {
+    Get.find<AuthController>().setUser(User.fromFirebaseUser(currentUser));
+    Get.find<AuthController>().loadAuxiliaryInfoForUser(currentUser.uid); // Add auxiliary info
+  }
+
   runApp(LifecycleAwareApp());
 
-  FirebaseAuth.instance.onAuthStateChanged.listen((user) {
-    if(user != null) {
-      User u = User.fromFirebaseUser(user);
-      Get.find<AuthController>().loadAndPopulateCurrentUserInfo(); // Pre-load user info
-      Get.find<AuthController>().setUser(u);
-      Get.find<CustomNavigator>().offAllNamed('/dashboard');
-    }
-  });
 }
 
 // Wrapper class to allow app-wide lifecycle listening

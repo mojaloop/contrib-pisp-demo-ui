@@ -27,7 +27,8 @@ void main() {
 
   FirebaseAuth.instance.onAuthStateChanged.listen((user) {
     if(user != null) {
-      User u = User.fromJson(AuthRepository.mapUserToJson(user));
+      User u = User.fromFirebaseUser(user);
+      Get.find<AuthController>().loadAndPopulateCurrentUserInfo(); // Pre-load user info
       Get.find<AuthController>().setUser(u);
       Get.find<CustomNavigator>().offAllNamed('/dashboard');
     }
@@ -93,4 +94,3 @@ void initAppControllers() {
   Get.put(CustomNavigator());
   Get.put(LocalAuthController());
 }
-

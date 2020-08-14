@@ -32,7 +32,7 @@ class AuthRepository {
     final FirebaseUser currentUser = await _auth.currentUser();
     assert(user.uid == currentUser.uid);
 
-    final User u = User.fromJson(mapUserToJson(user));
+    final User u = User.fromFirebaseUser(currentUser);
 
     logger.d('User signin: ${u.uid}');
 
@@ -59,13 +59,18 @@ class AuthRepository {
     };
     _firestore.collection('users').document(uid).setData(phoneNumberData, merge: true);
   }
-  static Map<String, dynamic> mapUserToJson(FirebaseUser user) {
-    return <String, dynamic>{
-      'uid': user.uid,
-      'displayName': user.displayName,
-      'email': user.email,
-      'photoUrl': user.photoUrl,
-    };
+
+  Future<User> loadCurrentUserInfo() async {
+    FirebaseUser user = await _auth.currentUser();
+    _firestore.collection('users').document(user.uid).get().then((userEntry) {
+      // map to a user object
+      User currentUser = User.fromFirebaseUser(user);
+      currentUser.phoneNo = userEntry.data['phoneNo'] as String;
+      currentUser.phoneNoIso = userEntry.data['phoneNoIsoCode'] as String;
+      print(currentUser.phoneNo);
+      print(currentUser.phoneNoIso);
+      return currentUser;
+    });
   }
 
   Future<void> signOutGoogle() async {

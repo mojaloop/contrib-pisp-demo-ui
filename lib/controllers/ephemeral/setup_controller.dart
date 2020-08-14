@@ -12,6 +12,7 @@ class SetupController extends GetxController {
   bool googleLoginPrompt = false;
   bool phoneNumberPrompt = false;
 
+  final AuthController _ac = Get.find<AuthController>();
   void defaultState() {
     googleLogin = false;
     validPhoneNumber = false;
@@ -28,10 +29,11 @@ class SetupController extends GetxController {
 
     if (number.length == 10) {
       validPhoneNumber = true;
-      Get.find<AuthController>().setPhoneNumber(number, isoCode);
+      _ac.setPhoneNumber(number, isoCode);
+      _ac.associatePhoneNumberWithUser(number, isoCode);
     } else {
       validPhoneNumber = false;
-      Get.find<AuthController>().setPhoneNumber('', '');
+      _ac.setPhoneNumber('', '');
     }
 
     phoneNumberPrompt = false;

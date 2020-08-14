@@ -42,20 +42,21 @@ class Profile extends StatelessWidget {
             Column(
               children: <Widget>[
                 // _headingTile(context, 'Payee Details'),
-
                 ListTile(
                   contentPadding: const EdgeInsets.symmetric(),
                   title: const TitleText(text: 'Email'),
                   trailing: Text(Get.find<AuthController>().user.email),
                 ),
-                ListTile(
-                  contentPadding: const EdgeInsets.symmetric(),
-                  title: const TitleText(
-                    text: 'Phone Number',
-                    fontSize: 18,
+                GetBuilder<AuthController>(builder: (value) =>
+                  ListTile(
+                    contentPadding: const EdgeInsets.symmetric(),
+                    title: const TitleText(
+                      text: 'Phone Number',
+                      fontSize: 18,
+                    ),
+                    trailing: Text(value.getFormattedPhoneNoForDisplay()),
                   ),
-                  trailing: Text(Get.find<AuthController>().getFormattedPhoneNoForDisplay()),
-                ),
+                )
               ],
             ),
             BottomButton(

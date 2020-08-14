@@ -56,7 +56,17 @@ class Profile extends StatelessWidget {
                     ),
                     trailing: Text(value.getFormattedPhoneNoForDisplay()),
                   ),
-                )
+                ),
+                GetBuilder<AuthController>(builder: (value) =>
+                    ListTile(
+                      contentPadding: const EdgeInsets.symmetric(),
+                      title: const TitleText(
+                        text: 'Registration Date',
+                        fontSize: 18,
+                      ),
+                      trailing: Text(value.getFormattedRegistrationDate()),
+                    ),
+                ),
               ],
             ),
             BottomButton(

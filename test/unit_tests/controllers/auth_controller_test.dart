@@ -75,8 +75,8 @@ void main() {
     'setPhoneNumber() sets the phone number correctly',
     () {
       authController.setPhoneNumber('9999999999', 'IN');
-      expect(authController.phoneIsoCode, 'IN');
-      expect(authController.phoneNumber, '9999999999');
+      expect(authController.phoneNo, 'IN');
+      expect(authController.phoneNoIso, '9999999999');
     },
   );
 

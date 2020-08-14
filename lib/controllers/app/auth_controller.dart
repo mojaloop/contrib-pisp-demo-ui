@@ -19,6 +19,7 @@ class AuthController extends GetxController {
 
   String phoneNoIso;
   String phoneNo;
+  String registrationDate;
   User user;
 
   Future<void> loadAuxiliaryInfoForUser(String uid) async {
@@ -26,12 +27,19 @@ class AuthController extends GetxController {
     // Currently only phone number but can be extended to populate other fields
     final String phoneNo = userData[AuthRepository.PHONE_NO_KEY] as String;
     final String phoneNoKey = userData[AuthRepository.PHONE_NO_ISO_KEY] as String;
+    final String dateRegistered = userData[AuthRepository.REGISTRATION_DATE_KEY] as String;
     setPhoneNumber(phoneNo, phoneNoKey);
+    setUserRegistrationDate(dateRegistered);
   }
 
   void setPhoneNumber(String number, String isoCode) {
     phoneNo = number;
     phoneNoIso = isoCode;
+    update();
+  }
+
+  void setUserRegistrationDate(String date) {
+    registrationDate = date;
     update();
   }
 
@@ -44,6 +52,10 @@ class AuthController extends GetxController {
       return 'n/a';
     }
     return (phoneNoIso ?? '') + (phoneNo ?? '');
+  }
+
+  String getFormattedRegistrationDate() {
+    return registrationDate == null ? 'n/a' : registrationDate.split('T')[0];
   }
 
   void setUser(User u) {

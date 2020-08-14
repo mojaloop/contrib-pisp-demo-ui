@@ -26,11 +26,10 @@ Future<void> main() async {
   final FirebaseUser currentUser = await FirebaseAuth.instance.currentUser();
   if(currentUser != null) {
     Get.find<AuthController>().setUser(User.fromFirebaseUser(currentUser));
-    Get.find<AuthController>().loadAuxiliaryInfoForUser(currentUser.uid); // Add auxiliary info
+    Get.find<AuthController>().loadAuxiliaryInfoForUser(currentUser.uid);
   }
 
   runApp(LifecycleAwareApp());
-
 }
 
 // Wrapper class to allow app-wide lifecycle listening

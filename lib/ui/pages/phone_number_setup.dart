@@ -53,14 +53,18 @@ class PhoneNumberSetup extends StatelessWidget {
                 ),
               ),
             ),
-            BottomButton(
-              const TitleText(
-                text: 'Login',
-                color: Colors.white,
-                fontSize: 20,
-              ),
-              () => Get.find<SetupController>().onLogin(),
-            ),
+            GetBuilder<SetupController>(
+              builder: (value) {
+                return BottomButton(
+                  const TitleText(
+                    text: 'Login',
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                    value.validPhoneNumber ? () => value.onLogin() : null,
+                );
+              },
+            )
           ],
         ),
       ),

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:pispapp/controllers/ephemeral/account-linking/available_fsp_controller.dart';
 
 class AvailableFSPScreen extends StatelessWidget {
-  final AvailableFSPController c = Get.find();
+  final AvailableFSPController c = Get.put(AvailableFSPController());
 
   Widget _buildListItem(String fspName) {
     return Container(

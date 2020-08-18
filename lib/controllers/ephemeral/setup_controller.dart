@@ -54,7 +54,12 @@ class SetupController extends GetxController {
       update();
       return;
     }
-    Get.find<CustomNavigator>().toNamed('/phone_number');
+    if(_ac.phoneNo != null) {
+      Get.find<CustomNavigator>().offAllNamed('/dashboard');
+    }
+    else {
+      Get.find<CustomNavigator>().toNamed('/phone_number');
+    }
   }
 
   void onLogin() {

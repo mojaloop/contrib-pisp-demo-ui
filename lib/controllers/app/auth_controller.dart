@@ -9,6 +9,7 @@ class AuthController extends GetxController {
   Future<User> signInWithGoogle() async {
     final user = await _authRepository.signInWithGoogle();
     setUser(user);
+    await loadAuxiliaryInfoForUser(user.uid);
     return user;
   }
 

@@ -15,7 +15,7 @@ class Error extends StatelessWidget {
       alignment: Alignment.center,
       child: Text(
         errorString,
-        style: TextStyle(color: Colors.yellow),
+        style: const TextStyle(color: Colors.yellow),
         textDirection: TextDirection.ltr,
       ),
     );

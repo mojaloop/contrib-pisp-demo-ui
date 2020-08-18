@@ -1,37 +1,51 @@
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/app/account_controller.dart';
+import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/models/account.dart';
 import 'package:pispapp/models/transaction.dart';
 import 'package:pispapp/repositories/interfaces/i_transaction_repository.dart';
-import 'package:pispapp/utils/log_printer.dart';
 
 class AccountDashboardController extends GetxController {
   AccountDashboardController(this._transactionRepo);
   Account selectedAccount;
   List<Transaction> transactionList = <Transaction>[];
+  bool isLoading = true;
 
   ITransactionRepository _transactionRepo;
+  bool noAccounts = true;
 
-  void refreshAll() {}
+  Future<void> onRefresh() async {
+    isLoading = true;
+    update();
+    await getLinkedAccounts();
+    if (Get.find<AccountController>().accounts.isEmpty) {
+      noAccounts = true;
+    } else {
+      noAccounts = false;
+      await setSelectedAccount(Get.find<AccountController>().accounts.elementAt(0));
+    }
+    isLoading = false;
+
+    update();
+  }
 
   void onAccountTileTap(Account acc) {
     setSelectedAccount(acc);
   }
 
-  void setSelectedAccount(Account acc) {
+  Future<void> setSelectedAccount(Account acc) async {
     selectedAccount = acc;
-    updateTransactions();
+    await updateTransactions();
   }
 
-  void updateTransactions() {
-    final logger = getLogger('AccountDashboardController');
-    logger.e('getting transactions');
-    transactionList = _transactionRepo.getTransactions(selectedAccount.accountNumber);
+  Future<void> updateTransactions() async {
+    final userId = Get.find<AuthController>().user.uid;
+    transactionList = await _transactionRepo.getTransactions(
+        userId, selectedAccount.sourceAccountId);
     update();
   }
 
-  void refreshAccounts() {
-    Get.find<AccountController>().getAllLinkedAccounts();
-    // TODO(MahidharBandaru): Handle empty case;
+  Future<void> getLinkedAccounts() async {
+    await Get.find<AccountController>().getAllLinkedAccounts();
   }
 }

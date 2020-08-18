@@ -1,6 +1,4 @@
 import 'package:get/get.dart';
-import 'package:pispapp/controllers/app/account_controller.dart';
-import 'package:pispapp/controllers/ephemeral/login_controller.dart';
 import 'package:pispapp/models/user.dart';
 import 'package:pispapp/repositories/auth_repository.dart';
 
@@ -11,20 +9,18 @@ class AuthController extends GetxController {
   Future<User> signInWithGoogle() async {
     final user = await _authRepository.signInWithGoogle();
     setUser(user);
-    Get.find<AccountController>().getAllLinkedAccounts();
     return user;
   }
 
   Future<void> signOut() async {
     await _authRepository.signOutGoogle();
-    setUser(User());
-    Get.find<LoginController>().defaultState();
+    setUser(null);
   }
 
   String phoneNumber = '';
   String phoneIsoCode = '';
 
-  User user = User();
+  User user;
 
   void setPhoneNumber(String number, String isoCode) {
     phoneNumber = number;

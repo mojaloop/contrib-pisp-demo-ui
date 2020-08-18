@@ -6,50 +6,45 @@ import 'package:pispapp/ui/theme/light_theme.dart';
 class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: GetBuilder<DashboardController>(
-          builder: (_) {
-            return Scaffold(
-              body: Center(
-                child: _.widgetOptions.elementAt(_.selectedIndex),
+    return GetBuilder<DashboardController>(
+      builder: (value) {
+        return Scaffold(
+          resizeToAvoidBottomPadding: false,
+          body: value.widgetOptions.elementAt(value.selectedIndex),
+          bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.account_balance),
+                title: Text(
+                  'Accounts',
+                ),
               ),
-              bottomNavigationBar: BottomNavigationBar(
-                items: <BottomNavigationBarItem>[
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.account_balance),
-                    title: const Text(
-                      'Accounts',
-                    ),
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.add_box),
-                    title: const Text(
-                      'Link',
-                    ),
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.transfer_within_a_station),
-                    title: const Text(
-                      'Transfer',
-                    ),
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.person_outline),
-                    title: const Text(
-                      'Profile',
-                    ),
-                  ),
-                ],
-                currentIndex: _.selectedIndex,
-                fixedColor: LightColor.navyBlue2,
-                unselectedItemColor: Colors.black,
-                onTap: _.onItemTapped,
+              BottomNavigationBarItem(
+                icon: Icon(Icons.add_box),
+                title: Text(
+                  'Link',
+                ),
               ),
-            );
-          },
-        ),
-      ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.transfer_within_a_station),
+                title: Text(
+                  'Transfer',
+                ),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person_outline),
+                title: Text(
+                  'Profile',
+                ),
+              ),
+            ],
+            currentIndex: value.selectedIndex,
+            fixedColor: LightColor.navyBlue2,
+            unselectedItemColor: Colors.black,
+            onTap: value.onItemTapped,
+          ),
+        );
+      },
     );
   }
 }

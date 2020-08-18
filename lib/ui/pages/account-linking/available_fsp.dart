@@ -2,35 +2,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/ephemeral/account-linking/available_fsp_controller.dart';
+import 'package:pispapp/ui/theme/light_theme.dart';
+import 'package:pispapp/ui/widgets/shadow_box.dart';
 
 class AvailableFSPScreen extends StatelessWidget {
   final AvailableFSPController c = Get.put(AvailableFSPController());
 
   Widget _buildListItem(String fspName) {
     return Container(
-        padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-        child: Container(
-          child: ListTile(
-            trailing: const Icon(Icons.arrow_forward_ios),
-            title: Text(fspName),
-          ),
-          decoration: BoxDecoration(color: Colors.white,
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
-                  bottomLeft: Radius.circular(10),
-                  bottomRight: Radius.circular(10)
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: const Offset(0, 3), // changes position of shadow
-                ),
-              ]
-          ),
-        )
+      padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+      child: ShadowBox(
+        color: LightColor.navyBlue1,
+        child: ListTile(
+          trailing: const Icon(Icons.arrow_forward_ios),
+          title: Text(fspName),
+        ),
+      ),
     );
   }
 
@@ -78,9 +65,9 @@ class AvailableFSPScreen extends StatelessWidget {
         title: const Text('Supported financial providers'),
       ),
       body:
-            SizedBox.expand(
-              child: _buildList(),
-            ),
+      SizedBox.expand(
+        child: _buildList(),
+      ),
     );
   }
 }

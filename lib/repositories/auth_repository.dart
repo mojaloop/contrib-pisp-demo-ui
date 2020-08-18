@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:pispapp/models/auxiliary_user_info.dart';
 import 'package:pispapp/models/user.dart';
 import 'package:pispapp/utils/log_printer.dart';
 
@@ -64,8 +65,18 @@ class AuthRepository {
     _firestore.collection('users').document(uid).setData(phoneNumberData, merge: true);
   }
 
-  Future<Map<String, dynamic>> loadAuxiliaryInfoForUser(String uid) async {
-    return _firestore.collection('users').document(uid).get().then((userEntry) => userEntry.data);
+  Future<AuxiliaryUserInfo> loadAuxiliaryInfoForUser(String uid) async {
+    return _firestore.collection('users').document(uid).get().then((userEntry) {
+      if(userEntry == null) {
+        return null;
+      }
+      final Map<String, dynamic> userData = userEntry.data;
+      // Currently only phone number but can be extended to populate other fields
+      final String phoneNo = userData[AuthRepository.PHONE_NO_KEY] as String;
+      final String phoneNoIso = userData[AuthRepository.PHONE_NO_ISO_KEY] as String;
+      final String dateRegistered = userData[AuthRepository.REGISTRATION_DATE_KEY] as String;
+      return AuxiliaryUserInfo(phoneNo: phoneNo, phoneNoIso: phoneNoIso, registrationDate: dateRegistered);
+    });
   }
 
   Future<void> signOutGoogle() async {

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pispapp/models/auxiliary_user_info.dart';
 import 'package:pispapp/models/user.dart';
 import 'package:pispapp/repositories/auth_repository.dart';
 
@@ -24,13 +25,11 @@ class AuthController extends GetxController {
   User user;
 
   Future<void> loadAuxiliaryInfoForUser(String uid) async {
-    Map<String, dynamic> userData = await _authRepository.loadAuxiliaryInfoForUser(uid);
-    // Currently only phone number but can be extended to populate other fields
-    final String phoneNo = userData[AuthRepository.PHONE_NO_KEY] as String;
-    final String phoneNoKey = userData[AuthRepository.PHONE_NO_ISO_KEY] as String;
-    final String dateRegistered = userData[AuthRepository.REGISTRATION_DATE_KEY] as String;
-    setPhoneNumber(phoneNo, phoneNoKey);
-    setUserRegistrationDate(dateRegistered);
+    final AuxiliaryUserInfo info = await _authRepository.loadAuxiliaryInfoForUser(uid);
+    if(info != null) {
+      setPhoneNumber(info.phoneNo, info.phoneNoIso);
+      setUserRegistrationDate(info.registrationDate);
+    }
   }
 
   void setPhoneNumber(String number, String isoCode) {

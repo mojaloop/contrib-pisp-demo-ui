@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pispapp/controllers/ephemeral/account_dashboard_controller.dart';
+import 'package:pispapp/controllers/ephemeral/dashboard/account_dashboard_controller.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
 
 class AccountDashboardAppBar extends StatelessWidget {

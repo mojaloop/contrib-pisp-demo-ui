@@ -5,7 +5,7 @@ import 'package:pispapp/bindings/payment_finalize_bindings.dart';
 import 'package:pispapp/bindings/payment_verdict_bindings.dart';
 import 'package:pispapp/bindings/setup_bindings.dart';
 import 'package:pispapp/bindings/splash_bindings.dart';
-import 'package:pispapp/controllers/ephemeral/account_dashboard_controller.dart';
+import 'package:pispapp/controllers/ephemeral/dashboard/account_dashboard_controller.dart';
 import 'package:pispapp/ui/pages/dashboard.dart';
 import 'package:pispapp/ui/pages/login_setup.dart';
 import 'package:pispapp/ui/pages/lookup_payee.dart';

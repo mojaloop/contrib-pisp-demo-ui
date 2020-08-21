@@ -1,31 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pispapp/controllers/ephemeral/account_dashboard_controller.dart';
+import 'package:pispapp/controllers/ephemeral/dashboard/account_dashboard_controller.dart';
 import 'package:pispapp/models/transaction.dart';
+import 'package:pispapp/ui/data/transaction_ui_data.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
 import 'package:pispapp/utils/utils.dart';
 
 class TransactionBottomSheet extends StatelessWidget {
   TransactionBottomSheet(this._transaction)
-      : _icon = _transaction.status == 'SUCCESS'
-            ? Icons.check_circle_outline
-            : (_transaction.status == 'ERROR'
-                ? Icons.error_outline
-                : Icons.hourglass_empty),
-        _textColor = _transaction.status == 'SUCCESS'
-            ? Colors.green
-            : (_transaction.status == 'ERROR'
-                ? Colors.red
-                : LightColor.yellow2),
-        _text = _transaction.status == 'SUCCESS'
-            ? 'Successful'
-            : (_transaction.status == 'ERROR' ? 'Error' : 'Pending');
+      : _transactionUIData = TransactionUIData(_transaction);
 
-  final IconData _icon;
-  final Color _textColor;
-  final String _text;
   final Transaction _transaction;
+
+  final TransactionUIData _transactionUIData;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +44,7 @@ class TransactionBottomSheet extends StatelessWidget {
                           TitleText(
                             _transactionUIData.textData,
                             fontSize: 28,
-                            color: _textColor,
+                            color: _transactionUIData.textColor,
                           ),
                           const SizedBox(height: 20),
                           _buildTransactionAmountWidget()

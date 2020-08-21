@@ -76,6 +76,7 @@ class PinEntry extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
             child: PinCodeTextField(
               length: PINEntryController.PINlength,
+              onChanged: (value) {},
               onCompleted: (value) {
                 // Only validate PIN when the user has set a PIN,
                 // otherwise the user is able to save the PIN using
@@ -112,9 +113,9 @@ class PinEntry extends StatelessWidget {
             ),
           ),
           GetBuilder<PINEntryController>(
-              builder: (c) => c.userSetPIN
-                  ? Container(width: 0.0, height: 0.0)
-                  : buildWidthFillingButton()
+            builder: (c) => c.userSetPIN
+                ? Container(width: 0.0, height: 0.0)
+                : buildWidthFillingButton(),
           ),
         ],
       ),

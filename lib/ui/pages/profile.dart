@@ -8,36 +8,30 @@ import 'package:get/get.dart';
 class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final authController = Get.find<AuthController>();
+    final user = authController.user;
+
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             const Padding(
               padding: EdgeInsets.fromLTRB(10, 60, 0, 30),
-              child: TitleText(
-                text: 'Profile',
-                fontSize: 20,
-              ),
+              child: TitleText('Profile', fontSize: 20),
             ),
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(14.0),
                 child: CircleAvatar(
-                  backgroundImage:
-                      NetworkImage(Get.find<AuthController>().user.photoUrl),
+                  backgroundImage: NetworkImage(user.photoUrl),
                   radius: 60,
                 ),
               ),
             ),
-            Center(
-              child:
-                  TitleText(text: Get.find<AuthController>().user.displayName),
-            ),
+            Center(child: TitleText(user.name)),
             const SizedBox(height: 40),
             Column(
               children: <Widget>[

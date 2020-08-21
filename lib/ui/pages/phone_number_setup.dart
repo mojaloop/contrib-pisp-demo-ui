@@ -14,18 +14,13 @@ class PhoneNumberSetup extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             const Padding(
               padding: EdgeInsets.fromLTRB(10, 60, 0, 30),
-              child: TitleText(
-                text: 'Mojapay Setup',
-                fontSize: 20,
-              ),
+              child: TitleText('Mojapay Setup', fontSize: 20),
             ),
             const SizedBox(height: 20),
             GetBuilder<SetupController>(

@@ -25,9 +25,7 @@ class SplashScreen extends StatelessWidget {
                   style: GoogleFonts.muli(
                     fontSize: 55,
                     fontWeight: FontWeight.w600,
-                    color: const Color(
-                      0xff000000,
-                    ),
+                    color: const Color(0xff000000),
                   ),
                 ),
               ),
@@ -42,9 +40,7 @@ class SplashScreen extends StatelessWidget {
                   style: GoogleFonts.muli(
                     fontSize: 25,
                     fontWeight: FontWeight.w600,
-                    color: const Color(
-                      0xff76797e,
-                    ),
+                    color: const Color(0xff76797e),
                   ),
                 ),
               ),
@@ -59,9 +55,7 @@ class SplashScreen extends StatelessWidget {
                   style: GoogleFonts.muli(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
-                    color: const Color(
-                      0xff76797e,
-                    ),
+                    color: const Color(0xff76797e),
                   ),
                   textAlign: TextAlign.left,
                 ),
@@ -73,9 +67,7 @@ class SplashScreen extends StatelessWidget {
                 color: Colors.white,
                 fontSize: 20,
               ),
-              () {
-                Get.find<SplashController>().onButtonClick();
-              },
+              onTap: () => Get.find<SplashController>().onButtonClick(),
             ),
           ],
         ),

@@ -29,8 +29,8 @@ class AuthController extends GetxController {
     update();
   }
 
-  void setUser(User u) {
-    user = u;
+  void setUser(User user) {
+    this.user = user;
     update();
   }
 }

@@ -19,9 +19,7 @@ class AccountDashboardAppBar extends StatelessWidget {
             return TitleText(text: value.selectedAccount.alias);
           },
         ),
-        const Expanded(
-          child: SizedBox(),
-        ),
+        const Expanded(child: SizedBox()),
         GestureDetector(
           onTap: _onTap,
           child: const Icon(Icons.short_text),

@@ -37,30 +37,21 @@ class TransactionBottomSheet extends StatelessWidget {
             decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(
-                  20.0,
-                ),
-                topRight: Radius.circular(
-                  20.0,
-                ),
+                topLeft: Radius.circular(20.0),
+                topRight: Radius.circular(20.0),
               ),
             ),
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(
-                    20.0,
-                  ),
+                  padding: const EdgeInsets.all(20.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Column(
                         children: <Widget>[
-                          Icon(
-                            _icon,
-                            size: 40,
-                          ),
+                          Icon(_transactionUIData.iconData, size: 40),
                           const SizedBox(height: 20),
                           TitleText(
                             text: _text,
@@ -68,40 +59,13 @@ class TransactionBottomSheet extends StatelessWidget {
                             color: _textColor,
                           ),
                           const SizedBox(height: 20),
-                          Padding(
-                            padding: const EdgeInsets.all(
-                              8.0,
-                            ),
-                            child: ButtonTheme(
-                              minWidth: Get.width * 0.6,
-                              height: 70.0,
-                              child: RaisedButton(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  side: const BorderSide(
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                                onPressed: () {},
-                                color: LightColor.navyBlue2,
-                                textColor: Colors.white,
-                                child: Text(
-                                  '${_transaction.amount.amount} \$',
-                                  style: const TextStyle(
-                                    fontSize: 28,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+                          _buildTransactionAmountWidget()
                         ],
                       ),
                     ],
                   ),
                 ),
-                const Divider(
-                  height: 8,
-                ),
+                const Divider(height: 8),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                   child: GetBuilder<AccountDashboardController>(
@@ -157,6 +121,29 @@ class TransactionBottomSheet extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildTransactionAmountWidget() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ButtonTheme(
+        minWidth: Get.width * 0.6,
+        height: 70.0,
+        child: RaisedButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18.0),
+            side: const BorderSide(color: Colors.grey),
+          ),
+          onPressed: () {},
+          color: LightColor.navyBlue2,
+          textColor: Colors.white,
+          child: Text(
+            '${_transaction.amount.currency} ${_transaction.amount.amount}',
+            style: const TextStyle(fontSize: 28),
+          ),
+        ),
       ),
     );
   }

@@ -1,12 +1,16 @@
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/app/account_controller.dart';
 import 'package:pispapp/models/account.dart';
-import 'package:pispapp/routes/custom_navigator.dart';
+import 'package:pispapp/routes/app_navigator.dart';
+import 'package:pispapp/models/transaction.dart';
 
-class PaymentFinalizeController extends GetxController {
-  String transactionAmount = '';
+class PaymentConfirmationController extends GetxController {
+  Money transactionAmount;
+
   bool transactionAmountPrompt = false;
+
   Account selectedAccount;
+
   bool noAccounts = false;
 
   @override
@@ -15,15 +19,13 @@ class PaymentFinalizeController extends GetxController {
     super.onInit();
   }
 
-  void onTransactionAmountChange(String amount) {
+  void onTransactionAmountChange(Money amount) {
     transactionAmount = amount;
-    transactionAmountPrompt = false;
-
     update();
   }
 
   void onRefresh() {
-    Get.find<AccountController>().getAllLinkedAccounts();
+    Get.find<AccountController>().getLinkedAccounts();
     if (Get.find<AccountController>().accounts.isEmpty) {
       noAccounts = true;
     } else {
@@ -34,8 +36,8 @@ class PaymentFinalizeController extends GetxController {
     update();
   }
 
-  void setSelectedAccount(Account acc) {
-    selectedAccount = acc;
+  void setSelectedAccount(Account account) {
+    selectedAccount = account;
     update();
   }
 
@@ -50,6 +52,6 @@ class PaymentFinalizeController extends GetxController {
       return;
     }
 
-    Get.find<CustomNavigator>().toNamed('/transfer/details');
+    Get.find<AppNavigator>().toNamed('/transfer/details');
   }
 }

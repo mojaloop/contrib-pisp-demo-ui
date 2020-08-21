@@ -17,7 +17,7 @@ Account _$AccountFromJson(Map<String, dynamic> json) {
         : PartyIdInfo.fromJson(json['partyInfo'] as Map<String, dynamic>),
     fspInfo: json['fspInfo'] == null
         ? null
-        : FspInfo.fromJson(json['fspInfo'] as Map<String, dynamic>),
+        : Fsp.fromJson(json['fspInfo'] as Map<String, dynamic>),
   );
 }
 
@@ -26,6 +26,6 @@ Map<String, dynamic> _$AccountToJson(Account instance) => <String, dynamic>{
       'consentId': instance.consentId,
       'alias': instance.alias,
       'sourceAccountId': instance.sourceAccountId,
-      'partyInfo': instance.partyInfo?.toJson(),
-      'fspInfo': instance.fspInfo?.toJson(),
+      'partyInfo': instance.partyInfo,
+      'fspInfo': instance.fspInfo,
     };

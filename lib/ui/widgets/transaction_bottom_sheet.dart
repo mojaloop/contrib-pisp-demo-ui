@@ -54,7 +54,7 @@ class TransactionBottomSheet extends StatelessWidget {
                           Icon(_transactionUIData.iconData, size: 40),
                           const SizedBox(height: 20),
                           TitleText(
-                            text: _text,
+                            _transactionUIData.textData,
                             fontSize: 28,
                             color: _textColor,
                           ),
@@ -72,13 +72,10 @@ class TransactionBottomSheet extends StatelessWidget {
                     builder: (value) {
                       return ListTile(
                         contentPadding: const EdgeInsets.symmetric(),
-                        title: const TitleText(
-                          text: 'From',
-                          fontSize: 14,
-                        ),
-                        subtitle: Text(value.selectedAccount.fspInfo.fspName),
+                        title: const TitleText('From', fontSize: 14),
+                        subtitle: Text(value.selectedAccount.fspInfo.name),
                         trailing: TitleText(
-                          text: value.selectedAccount.alias,
+                          value.selectedAccount.alias,
                           fontSize: 14,
                         ),
                       );
@@ -89,30 +86,21 @@ class TransactionBottomSheet extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                   child: ListTile(
                     contentPadding: const EdgeInsets.symmetric(),
-                    title: const TitleText(
-                      text: 'To',
-                      fontSize: 14,
-                    ),
+                    title: const TitleText('To', fontSize: 14),
                     subtitle: Text(
                       Utils.getSecretNumberFromString(
                           _transaction.payee.partyIdInfo.partyIdentifier),
                     ),
-                    trailing: TitleText(
-                      text: _transaction.payee.name,
-                      fontSize: 14,
-                    ),
+                    trailing: TitleText(_transaction.payee.name, fontSize: 14),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                   child: ListTile(
                     contentPadding: const EdgeInsets.symmetric(),
-                    title: const TitleText(
-                      text: 'Date',
-                      fontSize: 14,
-                    ),
+                    title: const TitleText('Date', fontSize: 14),
                     trailing: TitleText(
-                      text: _transaction.completedTimestamp ?? '',
+                      _transaction.completedTimestamp ?? '',
                       fontSize: 14,
                     ),
                   ),

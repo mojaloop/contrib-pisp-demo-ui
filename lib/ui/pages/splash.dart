@@ -63,7 +63,7 @@ class SplashScreen extends StatelessWidget {
             ),
             BottomButton(
               const TitleText(
-                text: "Let's get started",
+                "Let's get started",
                 color: Colors.white,
                 fontSize: 20,
               ),

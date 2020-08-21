@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pispapp/ui/theme/light_theme.dart';
 
-import '../theme/light_theme.dart';
 import 'title_text.dart';
 
 class Success extends StatelessWidget {
@@ -13,7 +13,7 @@ class Success extends StatelessWidget {
           SizedBox(height: 40),
           Icon(Icons.check_circle_outline, size: 40),
           TitleText(
-            text: 'Successful',
+            'Successful',
             color: LightColor.yellow2,
             fontSize: 28,
           ),

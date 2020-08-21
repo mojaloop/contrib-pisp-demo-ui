@@ -17,7 +17,7 @@ class AccountBottomSheetTile extends StatelessWidget {
         leading: const CircleAvatar(),
         contentPadding: const EdgeInsets.symmetric(),
         title: TitleText(
-          text: account.alias,
+          account.alias,
           fontSize: 14,
         ),
         subtitle: Text(account.fspInfo.fspName),

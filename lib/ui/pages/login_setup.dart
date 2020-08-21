@@ -19,7 +19,7 @@ class LoginSetup extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.fromLTRB(10, 60, 0, 30),
               child: TitleText(
-                text: 'Mojapay Setup',
+                'Mojapay Setup',
                 fontSize: 20,
               ),
             ),

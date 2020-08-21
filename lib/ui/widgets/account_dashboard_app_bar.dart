@@ -16,7 +16,7 @@ class AccountDashboardAppBar extends StatelessWidget {
         const SizedBox(width: 15),
         GetBuilder<AccountDashboardController>(
           builder: (value) {
-            return TitleText(text: value.selectedAccount.alias);
+            return TitleText(value.selectedAccount.alias);
           },
         ),
         const Expanded(child: SizedBox()),

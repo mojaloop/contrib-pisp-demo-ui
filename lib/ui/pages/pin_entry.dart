@@ -27,7 +27,7 @@ class PinEntry extends StatelessWidget {
       width: double.infinity,
       child: MojaButton(
           const TitleText(
-            text: 'Set PIN',
+            'Set PIN',
             color: Colors.white,
             fontSize: 20,
           ), () {

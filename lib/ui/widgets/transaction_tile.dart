@@ -41,10 +41,7 @@ class TransactionTile extends StatelessWidget {
         child: Icon(_icon, color: Colors.white),
       ),
       contentPadding: const EdgeInsets.symmetric(),
-      title: TitleText(
-        text: _transaction.payee.name,
-        fontSize: 14,
-      ),
+      title: TitleText(_transaction.payee.name, fontSize: 14),
       subtitle: Text(
         _transaction.completedTimestamp != null
             ? Utils.getDateFromDateTime(

@@ -1,10 +1,16 @@
 import 'package:get/get.dart';
+import 'package:pispapp/models/phone_number.dart';
 import 'package:pispapp/models/user.dart';
-import 'package:pispapp/repositories/auth_repository.dart';
+import 'package:pispapp/repositories/firebase/auth_repository.dart';
 
 class AuthController extends GetxController {
   AuthController(this._authRepository);
+
   AuthRepository _authRepository;
+
+  PhoneNumber phoneNumber;
+
+  User user;
 
   Future<User> signInWithGoogle() async {
     final user = await _authRepository.signInWithGoogle();
@@ -13,19 +19,12 @@ class AuthController extends GetxController {
   }
 
   Future<void> signOut() async {
-    await _authRepository.signOutGoogle();
+    await _authRepository.signOut(user);
     setUser(null);
   }
 
-  String phoneNumber = '';
-  String phoneIsoCode = '';
-
-  User user;
-
-  void setPhoneNumber(String number, String isoCode) {
-    phoneNumber = number;
-    phoneIsoCode = isoCode;
-
+  void setPhoneNumber(PhoneNumber phoneNumber) {
+    this.phoneNumber = phoneNumber;
     update();
   }
 

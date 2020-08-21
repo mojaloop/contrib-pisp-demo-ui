@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class CustomNavigator {
+class AppNavigator {
   void toNamed(String route) {
     Get.toNamed<dynamic>(route);
   }
@@ -8,5 +8,4 @@ class CustomNavigator {
   void offAllNamed(String route) {
     Get.offAllNamed<dynamic>(route);
   }
-
 }

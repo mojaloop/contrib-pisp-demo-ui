@@ -1,0 +1,180 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pispapp/controllers/ephemeral/payment/payment_confirmation_controller.dart';
+import 'package:pispapp/controllers/flow/payment_flow_controller.dart';
+import 'package:pispapp/models/account.dart';
+import 'package:pispapp/models/transaction.dart';
+import 'package:pispapp/ui/theme/light_theme.dart';
+import 'package:pispapp/ui/widgets/account_choosing_bottom_sheet.dart';
+import 'package:pispapp/ui/widgets/bottom_button.dart';
+import 'package:pispapp/ui/widgets/shadow_box.dart';
+import 'package:pispapp/ui/widgets/shadow_heading.dart';
+import 'package:pispapp/ui/widgets/title_text.dart';
+
+class PaymentConfirmation extends StatelessWidget {
+  PaymentConfirmation(this._paymentFlowController);
+
+  /// Controller that is passed between screens that handle
+  /// the payment flow.
+  final PaymentFlowController _paymentFlowController;
+
+  /// Controller that is used to manage the states in this page.
+  final _paymentConfirmationController = PaymentConfirmationController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomPadding: false,
+      body: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            const Padding(
+              padding: EdgeInsets.fromLTRB(10, 60, 0, 50),
+              child: TitleText('Pay Now', fontSize: 20),
+            ),
+            _buildPayeeSection(_paymentFlowController.transaction),
+            const SizedBox(height: 30),
+            _buildTransactionAmountSection(),
+            const SizedBox(height: 30),
+            _buildChooseAccountSection(),
+            const SizedBox(height: 30),
+            _buildActionSection()
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPayeeSection(Transaction transaction) {
+    return ShadowBox(
+      color: LightColor.navyBlue1,
+      child: Column(
+        children: <Widget>[
+          ShadowBoxHeading('Payee Name'),
+          Text(transaction.payee.name),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTransactionAmountSection() {
+    return GetBuilder<PaymentConfirmationController>(
+      init: _paymentConfirmationController,
+      builder: (controller) {
+        return ShadowBox(
+          color: LightColor.navyBlue1,
+          child: Column(
+            children: <Widget>[
+              ShadowBoxHeading('Transaction Amount'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    width: 170.0,
+                    child: TextField(
+                        textAlign: TextAlign.center,
+                        decoration: const InputDecoration(hintText: '0'),
+                        keyboardType: TextInputType.number,
+                        style: const TextStyle(
+                          fontSize: 40.0,
+                          height: 2.0,
+                          color: LightColor.navyBlue2,
+                        ),
+                        onChanged: (String value) {
+                          // TODO(kkzeng): Support for other currencies.
+                          controller.onUpdateAmount(Money(value, Currency.USD));
+                        }),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    // TODO(kkzeng): Support for other currencies.
+                    child: TitleText('USD', fontSize: 20),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildChooseAccountSection() {
+    return ShadowBox(
+      child: GetBuilder<PaymentConfirmationController>(
+        init: _paymentConfirmationController,
+        builder: (controller) {
+          return Column(
+            children: <Widget>[
+              ShadowBoxHeading('Choose Payment Account'),
+              ListTile(
+                leading: const CircleAvatar(),
+                contentPadding: const EdgeInsets.symmetric(),
+                title: TitleText(
+                  controller.selectedAccount.alias,
+                  fontSize: 18,
+                ),
+                subtitle: Text(controller.selectedAccount.fspInfo.name),
+                trailing: GestureDetector(
+                  onTap: () => _showAccountChoosingBottomSheet(),
+                  child: const Icon(Icons.keyboard_arrow_right),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildActionSection() {
+    return GetBuilder<PaymentFlowController>(
+      init: _paymentFlowController,
+      builder: (controller) {
+        if (!controller.isAwaitingUpdate) {
+          // The user is only allowed to click the button once.
+          // Afterward, the state of the payment flow controller will be updated
+          // to be awaiting for response. Once the response is received, the
+          // flow controller is expected to bring used to another page.
+          return BottomButton(
+            const TitleText(
+              'Next',
+              color: Colors.white,
+              fontSize: 20,
+            ),
+            onTap: () {
+              final amount = _paymentConfirmationController.transactionAmount;
+              final account = _paymentConfirmationController.selectedAccount;
+              // Confirm the transaction with the current value of transaction
+              // amount and selected account.
+              _paymentFlowController.confirm(amount, account);
+            },
+          );
+        } else {
+          // Once the user clicks the confirmation button, it will change to
+          // a circular progress indicator until the mobile app receives the
+          // response from the server which will include the transaction
+          // quote for the user to review and give authorization. The flow
+          // controller is responsible to bring the user to another page.
+          return BottomButton(
+            const CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  void _showAccountChoosingBottomSheet() {
+    Get.bottomSheet<void>(
+      AccountChoosingBottomSheet(
+        onTap: (Account account) {
+          _paymentConfirmationController.onAccountTileTap(account);
+        },
+      ),
+    );
+  }
+}

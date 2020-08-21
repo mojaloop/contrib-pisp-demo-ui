@@ -46,11 +46,11 @@ class Profile extends StatelessWidget {
             ),
             BottomButton(
               const TitleText(
-                text: 'Log out',
+                'Log out',
                 color: Colors.white,
                 fontSize: 20,
               ),
-              () async {
+              onTap: () async {
                 await Get.find<ProfileController>().onLogout();
               },
             ),

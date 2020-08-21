@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomIcon extends StatelessWidget {
-  CustomIcon(this.icon, this.text, this.onTap);
+  CustomIcon(this.icon, this.text, {this.onTap});
+
   final IconData icon;
+
   final String text;
+
   final void Function() onTap;
 
   @override
@@ -16,23 +19,14 @@ class CustomIcon extends StatelessWidget {
           child: Container(
             height: 80,
             width: 80,
-            margin: const EdgeInsets.symmetric(
-              vertical: 10,
-            ),
+            margin: const EdgeInsets.symmetric(vertical: 10),
             decoration: const BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.all(
-                Radius.circular(
-                  20,
-                ),
-              ),
+              borderRadius: BorderRadius.all(Radius.circular(20)),
               boxShadow: [
                 BoxShadow(
                   color: Color(0xfff3f3f3),
-                  offset: Offset(
-                    5,
-                    5,
-                  ),
+                  offset: Offset(5, 5),
                   blurRadius: 10,
                 )
               ],
@@ -45,9 +39,7 @@ class CustomIcon extends StatelessWidget {
           style: GoogleFonts.muli(
             fontSize: 15,
             fontWeight: FontWeight.w600,
-            color: const Color(
-              0xff76797e,
-            ),
+            color: const Color(0xff76797e),
           ),
         ),
       ],

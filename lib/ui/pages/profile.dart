@@ -35,22 +35,13 @@ class Profile extends StatelessWidget {
             const SizedBox(height: 40),
             Column(
               children: <Widget>[
-                // _headingTile(context, 'Payee Details'),
-
                 ListTile(
                   contentPadding: const EdgeInsets.symmetric(),
-                  title: const TitleText(text: 'Email'),
-                  trailing: Text(Get.find<AuthController>().user.email),
+                  title: const TitleText('Email'),
+                  trailing: Text(user.email),
                 ),
-                ListTile(
-                  contentPadding: const EdgeInsets.symmetric(),
-                  title: const TitleText(
-                    text: 'Phone Number',
-                    fontSize: 18,
-                  ),
-                  trailing: Text(Get.find<AuthController>().phoneIsoCode +
-                      Get.find<AuthController>().phoneNumber),
-                ),
+                // TODO(kkzeng): Fix state management to display
+                // phone number here.
               ],
             ),
             BottomButton(

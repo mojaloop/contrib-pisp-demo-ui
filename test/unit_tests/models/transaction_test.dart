@@ -1,10 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pispapp/models/authentication.dart';
-import 'package:pispapp/models/party_id_info.dart';
-import 'package:pispapp/models/payee.dart';
-import 'package:pispapp/models/quote.dart';
-import 'package:pispapp/models/amount.dart';
 import 'package:collection/collection.dart';
+import 'package:pispapp/models/party.dart';
 import 'package:pispapp/models/transaction.dart';
 
 void main() {
@@ -14,7 +10,7 @@ void main() {
     json = <String, dynamic>{
       'completedTimestamp': '2020-08-04T12:03:57.812Z',
       'consentId': '555',
-      'responseType': 'ENTERED',
+      'responseType': 'AUTHORIZED',
       'sourceAccountId': 'bob.fspB',
       'status': 'SUCCESS',
       'transactionId': '273a7307-27f8-40eb-a5eb-9a76374c8bee',
@@ -57,47 +53,37 @@ void main() {
     };
 
     transaction = Transaction(
-        completedTimestamp: '2020-08-04T12:03:57.812Z',
-        consentId: '555',
-        responseType: 'ENTERED',
-        sourceAccountId: 'bob.fspB',
-        status: 'SUCCESS',
-        transactionId: '273a7307-27f8-40eb-a5eb-9a76374c8bee',
-        transactionRequestId: '74987ec0-a5f1-4059-af06-f541dc70c379',
-        userId: 'vXiSsQglsFYXqVkOHNKKFhnuAAI2',
-        amount: Amount(
-          amount: '100',
-          currency: 'USD',
+      completedTimestamp: '2020-08-04T12:03:57.812Z',
+      consentId: '555',
+      responseType: ResponseType.authorized,
+      sourceAccountId: 'bob.fspB',
+      status: TransactionStatus.success,
+      transactionId: '273a7307-27f8-40eb-a5eb-9a76374c8bee',
+      transactionRequestId: '74987ec0-a5f1-4059-af06-f541dc70c379',
+      userId: 'vXiSsQglsFYXqVkOHNKKFhnuAAI2',
+      amount: Money('100', Currency.USD),
+      authentication: Authentication(
+        type: AuthenticationType.u2f,
+        value: 'asdAhasdkljassdaASD2131bA',
+      ),
+      payee: Party(
+        name: 'John Doe',
+        partyIdInfo: PartyIdInfo(
+          fspId: 'DJCICFQ1919',
+          partyIdType: 'MSISDN',
+          partyIdentifier: 'IN9999999999',
         ),
-        authentication: Authentication(
-          type: 'U2F',
-          value: 'asdAhasdkljassdaASD2131bA',
-        ),
-        payee: Payee(
-          name: 'John Doe',
-          partyIdInfo: PartyIdInfo(
-            fspId: 'DJCICFQ1919',
-            partyIdType: 'MSISDN',
-            partyIdentifier: 'IN9999999999',
-          ),
-        ),
-        quote: Quote(
-            condition: 'gbj027g5qlzw5v3x5083gtd5n35jqmoqkq0u84seb5v',
-            expiration: '1970-01-01T00:00:00.006Z',
-            ilpPacket:
-                '6pjc9xrf0zgdwkjbia74654wf39qpsz4w8sdqtiqzh0e7q5akkkl7v3wiiiwgzp19nqpgu',
-            transferAmount: Amount(
-              amount: '25',
-              currency: 'USD',
-            ),
-            payeeFspFee: Amount(
-              amount: '5',
-              currency: 'USD',
-            ),
-            payeeFspCommission: Amount(
-              amount: '5',
-              currency: 'USD',
-            )));
+      ),
+      quote: Quote(
+        condition: 'gbj027g5qlzw5v3x5083gtd5n35jqmoqkq0u84seb5v',
+        expiration: '1970-01-01T00:00:00.006Z',
+        ilpPacket:
+            '6pjc9xrf0zgdwkjbia74654wf39qpsz4w8sdqtiqzh0e7q5akkkl7v3wiiiwgzp19nqpgu',
+        transferAmount: Money('25', Currency.USD),
+        payeeFspFee: Money('5', Currency.USD),
+        payeeFspCommission: Money('5', Currency.USD),
+      ),
+    );
   });
 
   test('fromJson() makes correct object', () {

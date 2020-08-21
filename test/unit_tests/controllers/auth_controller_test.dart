@@ -2,7 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/models/user.dart';
-import 'package:pispapp/repositories/auth_repository.dart';
+import 'package:pispapp/repositories/firebase/auth_repository.dart';
+import 'package:pispapp/models/phone_number.dart';
 
 class MockAuthRepository extends Mock implements AuthRepository {}
 
@@ -23,8 +24,8 @@ void main() {
       when(authRepository.signInWithGoogle()).thenAnswer(
         (_) => Future.value(
           User(
-            uid: 'asd67aAhsda768AS',
-            displayName: 'John Doe',
+            id: 'asd67aAhsda768AS',
+            name: 'John Doe',
             email: 'jdoe@example.com',
           ),
         ),
@@ -34,8 +35,8 @@ void main() {
       // Verify the interaction.
       verify(authRepository.signInWithGoogle());
 
-      expect(authController.user.uid, 'asd67aAhsda768AS');
-      expect(authController.user.displayName, 'John Doe');
+      expect(authController.user.id, 'asd67aAhsda768AS');
+      expect(authController.user.name, 'John Doe');
       expect(authController.user.email, 'jdoe@example.com');
     },
   );
@@ -43,15 +44,16 @@ void main() {
   test(
     'signOut() sets user to null on success',
     () async {
+      final user = User(
+        id: 'asd67aAhsda768AS',
+        name: 'John Doe',
+        email: 'jdoe@example.com',
+        loginType: LoginType.google,
+      );
+
       // Interact with the mock object.
       when(authRepository.signInWithGoogle()).thenAnswer(
-        (_) => Future.value(
-          User(
-            uid: 'asd67aAhsda768AS',
-            displayName: 'John Doe',
-            email: 'jdoe@example.com',
-          ),
-        ),
+        (_) => Future.value(user),
       );
       await authController.signInWithGoogle();
 
@@ -64,7 +66,7 @@ void main() {
       await authController.signOut();
 
       // Verify the interaction.
-      verify(authRepository.signOutGoogle());
+      verify(authRepository.signOut(user));
 
       // sign out successful
       expect(authController.user, equals(null));
@@ -74,9 +76,9 @@ void main() {
   test(
     'setPhoneNumber() sets the phone number correctly',
     () {
-      authController.setPhoneNumber('9999999999', 'IN');
-      expect(authController.phoneIsoCode, 'IN');
-      expect(authController.phoneNumber, '9999999999');
+      authController.setPhoneNumber(PhoneNumber('IN', '9999999999'));
+      expect(authController.phoneNumber.countryCode, 'IN');
+      expect(authController.phoneNumber.number, '9999999999');
     },
   );
 
@@ -84,14 +86,15 @@ void main() {
     'setUser() sets the user correctly',
     () {
       final User user = User(
-        uid: 'asd67aAhsda768AS',
-        displayName: 'John Doe',
+        id: 'asd67aAhsda768AS',
+        name: 'John Doe',
         email: 'jdoe@example.com',
       );
+
       authController.setUser(user);
 
-      expect(authController.user.uid, 'asd67aAhsda768AS');
-      expect(authController.user.displayName, 'John Doe');
+      expect(authController.user.id, 'asd67aAhsda768AS');
+      expect(authController.user.name, 'John Doe');
       expect(authController.user.email, 'jdoe@example.com');
     },
   );

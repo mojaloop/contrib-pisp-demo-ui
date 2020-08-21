@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:pispapp/controllers/ephemeral/pin_entry_controller.dart';
-import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/moja_button.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
-import 'package:pispapp/utils/log_printer.dart';
 
 class PinEntry extends StatelessWidget {
   // Handles animation for error

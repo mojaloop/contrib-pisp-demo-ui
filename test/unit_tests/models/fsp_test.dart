@@ -1,28 +1,28 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pispapp/models/transaction.dart';
 import 'package:collection/collection.dart';
+import 'package:pispapp/models/fsp.dart';
 
 void main() {
   Map<String, dynamic> json;
-  Money money;
+  Fsp fsp;
 
   setUp(() {
     json = <String, dynamic>{
-      'amount': '100',
-      'currency': 'USD',
+      'id': 'DJCICFQ1919',
+      'name': 'Bank of India',
     };
 
-    money = Money('100', Currency.USD);
+    fsp = Fsp(id: 'DJCICFQ1919', name: 'Bank of India');
   });
 
   test('fromJson() makes correct object', () {
-    final Money moneyObject = Money.fromJson(json);
-    expect(money == moneyObject, true);
+    final Fsp fspObject = Fsp.fromJson(json);
+    expect(fsp == fspObject, true);
   });
 
   test('toJson() makes correct map', () {
     final Function eq = const DeepCollectionEquality().equals;
-    final Map<String, dynamic> jsonFromAmount = money.toJson();
-    expect(eq(json, jsonFromAmount), true);
+    final Map<String, dynamic> jsonFromFspInfo = fsp.toJson();
+    expect(eq(json, jsonFromFspInfo), true);
   });
 }

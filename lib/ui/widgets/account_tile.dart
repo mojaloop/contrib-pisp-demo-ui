@@ -21,7 +21,7 @@ class AccountBottomSheetTile extends StatelessWidget {
           account.alias,
           fontSize: 14,
         ),
-        subtitle: Text(account.fspInfo.fspName),
+        subtitle: Text(account.fspInfo.name),
       ),
     );
   }

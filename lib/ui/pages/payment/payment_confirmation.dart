@@ -32,7 +32,7 @@ class PaymentConfirmation extends StatelessWidget {
           children: <Widget>[
             const Padding(
               padding: EdgeInsets.fromLTRB(10, 60, 0, 50),
-              child: TitleText('Pay Now', fontSize: 20),
+              child: TitleText('Payment Confirmation', fontSize: 20),
             ),
             _buildPayeeSection(_paymentFlowController.transaction),
             const SizedBox(height: 30),
@@ -62,6 +62,7 @@ class PaymentConfirmation extends StatelessWidget {
   Widget _buildTransactionAmountSection() {
     return GetBuilder<PaymentConfirmationController>(
       init: _paymentConfirmationController,
+      global: false,
       builder: (controller) {
         return ShadowBox(
           color: LightColor.navyBlue1,
@@ -84,7 +85,9 @@ class PaymentConfirmation extends StatelessWidget {
                         ),
                         onChanged: (String value) {
                           // TODO(kkzeng): Support for other currencies.
-                          controller.onUpdateAmount(Money(value, Currency.USD));
+                          controller.onTransactionAmountUpdate(
+                            Money(value, Currency.USD),
+                          );
                         }),
                   ),
                   const Padding(
@@ -105,6 +108,7 @@ class PaymentConfirmation extends StatelessWidget {
     return ShadowBox(
       child: GetBuilder<PaymentConfirmationController>(
         init: _paymentConfirmationController,
+        global: false,
         builder: (controller) {
           return Column(
             children: <Widget>[
@@ -132,6 +136,7 @@ class PaymentConfirmation extends StatelessWidget {
   Widget _buildActionSection() {
     return GetBuilder<PaymentFlowController>(
       init: _paymentFlowController,
+      global: false,
       builder: (controller) {
         if (!controller.isAwaitingUpdate) {
           // The user is only allowed to click the button once.

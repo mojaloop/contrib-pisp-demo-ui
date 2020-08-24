@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:get/get.dart';
-import 'package:cloud_firestore/cloud_firestore.dart' show QuerySnapshot;
 
 import 'package:pispapp/controllers/app/auth_controller.dart';
+import 'package:pispapp/models/party.dart';
 import 'package:pispapp/models/phone_number.dart';
 import 'package:pispapp/models/transaction.dart';
 import 'package:pispapp/models/account.dart';
@@ -17,37 +17,42 @@ class PaymentFlowController extends GetxController {
 
   ITransactionRepository _transactionRepository;
 
-  bool isAwaitingUpdate;
+  bool isAwaitingUpdate = false;
 
   Transaction transaction;
+  String documentId;
 
   void Function() _unsubscriber;
 
   /// Initiates a transaction to the given phone number.
   Future<void> initiate(PhoneNumber phoneNumber) async {
+    _setAwaitingUpdate();
+
     final user = Get.find<AuthController>().user;
-    final id = await _transactionRepository.add(<String, dynamic>{
+    documentId = await _transactionRepository.add(<String, dynamic>{
       'userId': user.id,
       'payee': {
         'partyIdInfo': {
-          'partyIdType': 'MSISDN',
+          'partyIdType': PartyIdType.msisdn.toJsonString(),
           'partyIdentifier': phoneNumber.toString(),
         }
       }
     });
 
-    _startListening(id);
+    _startListening(documentId);
   }
 
   /// Confirms the payee of a proposed financial transaction and keys in necessary
   /// data to move forward with the transfer.
   Future<void> confirm(Money amount, Account account) async {
+    _setAwaitingUpdate();
+
     await _transactionRepository.updateData(transaction.id, <String, dynamic>{
       'sourceAccountId': account.sourceAccountId,
       'consentId': account.consentId,
       'amount': {
         'amount': amount.amount,
-        'currency': amount.currency,
+        'currency': amount.currency.toJsonString(),
       },
     });
   }
@@ -56,12 +61,7 @@ class PaymentFlowController extends GetxController {
   /// of the transaction must be equal to [TransactionStatus.authorizationRequired]
   /// upon calling this function.
   Future<void> authorize() async {
-    // Update the payment status to be waiting for further update.
-    // This is intended to inform the UI that the user is not expected to
-    // make any action and just need to wait. For example, a circular progress
-    // indicator could be displayed.
-    isAwaitingUpdate = true;
-    update();
+    _setAwaitingUpdate();
 
     // Ask user to provide their authentication. For example, the app could prompt
     // user to give their fingerprint.
@@ -81,7 +81,7 @@ class PaymentFlowController extends GetxController {
           'authentication': {
             'value': signature,
           },
-          'responseType': ResponseType.authorized,
+          'responseType': ResponseType.authorized.toJsonString(),
         },
         merge: true,
       );
@@ -98,7 +98,20 @@ class PaymentFlowController extends GetxController {
     _unsubscriber();
   }
 
+  void _setAwaitingUpdate() {
+    // Update the payment status to be waiting for further update.
+    // This is intended to inform the UI that the user is not expected to
+    // make any action and just need to wait. For example, a circular progress
+    // indicator could be displayed.
+    isAwaitingUpdate = true;
+    update();
+  }
+
   void _onValue(Transaction transaction) {
+    // Put the document id in the model object
+    transaction.id = documentId;
+
+    final oldValue = this.transaction;
     this.transaction = transaction;
 
     switch (transaction.status) {
@@ -112,7 +125,13 @@ class PaymentFlowController extends GetxController {
         // the time for us to ask the user whether the party information
         // (e.g., name) is correct. If yes, the user needs to key in some
         // other values (e.g, transaction amount) to continue the process.
-        Get.to<dynamic>(PaymentConfirmation(this));
+        if (oldValue.status == TransactionStatus.pendingPartyLookup) {
+          // The transaction data has been updated
+          isAwaitingUpdate = false;
+          update();
+
+          Get.to<dynamic>(PaymentConfirmation(this));
+        }
         break;
 
       case TransactionStatus.authorizationRequired:
@@ -120,15 +139,27 @@ class PaymentFlowController extends GetxController {
         // Here, the app has received the quote of the transaction from the server.
         // The user will be able to get information about the fee and commission
         // that are imposed by the FSPs and also more details about the transfer amount.
-        Get.to<dynamic>(PaymentAuthorization(this));
+        if (oldValue.status == TransactionStatus.pendingPayeeConfirmation) {
+          // The transaction data has been updated
+          isAwaitingUpdate = false;
+          update();
+
+          Get.to<dynamic>(PaymentAuthorization(this));
+        }
         break;
 
       case TransactionStatus.success:
         // The transaction has been marked as successful on the server-side.
-        Get.to<dynamic>(PaymentResult(this));
+        if (oldValue.status == TransactionStatus.authorizationRequired) {
+          // The transaction data has been updated
+          isAwaitingUpdate = false;
+          update();
 
-        // Stop listening for the updates of the transaction.
-        _stopListening();
+          Get.to<dynamic>(PaymentResult(this));
+
+          // Stop listening for the updates of the transaction.
+          _stopListening();
+        }
         break;
     }
   }

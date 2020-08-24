@@ -26,19 +26,23 @@ class PaymentInitiation extends StatelessWidget {
             child: TitleText('Pay Now', fontSize: 20),
           ),
           GetBuilder<PaymentInitiationController>(
-            builder: (controller) => ShadowBox(
-              color: LightColor.navyBlue1,
-              child: Column(
-                children: <Widget>[
-                  const PhoneNumberTile(heading: 'Payee Mobile Number'),
-                  PhoneNumberInput(
-                    hintText: 'Enter phone number',
-                    initialValue: controller.phoneNumber,
-                    onUpdate: controller.onPhoneNumberChange,
-                  ),
-                ],
-              ),
-            ),
+            init: _paymentInitiationController,
+            global: false,
+            builder: (controller) {
+              return ShadowBox(
+                color: LightColor.navyBlue1,
+                child: Column(
+                  children: <Widget>[
+                    const PhoneNumberTile(heading: 'Payee Mobile Number'),
+                    PhoneNumberInput(
+                      hintText: 'Enter phone number',
+                      initialValue: controller.phoneNumber,
+                      onUpdate: controller.onPhoneNumberChange,
+                    ),
+                  ],
+                ),
+              );
+            },
           ),
           _buildActionSection(),
         ],
@@ -49,6 +53,7 @@ class PaymentInitiation extends StatelessWidget {
   Widget _buildActionSection() {
     return GetBuilder<PaymentFlowController>(
       init: _paymentFlowController,
+      global: false,
       builder: (controller) {
         if (!controller.isAwaitingUpdate) {
           // The user is only allowed to click the button once.

@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/app/account_controller.dart';
 import 'package:pispapp/models/account.dart';
-import 'package:pispapp/routes/app_navigator.dart';
 import 'package:pispapp/models/transaction.dart';
 
 class PaymentConfirmationController extends GetxController {
@@ -15,43 +14,32 @@ class PaymentConfirmationController extends GetxController {
 
   @override
   void onInit() {
-    onRefresh();
+    _reloadAccounts();
     super.onInit();
   }
 
-  void onTransactionAmountChange(Money amount) {
+  void onTransactionAmountUpdate(Money amount) {
     transactionAmount = amount;
     update();
   }
 
-  void onRefresh() {
-    Get.find<AccountController>().getLinkedAccounts();
-    if (Get.find<AccountController>().accounts.isEmpty) {
-      noAccounts = true;
-    } else {
-      noAccounts = false;
-      setSelectedAccount(Get.find<AccountController>().accounts.elementAt(0));
-    }
-
+  Future<void> onRefresh() async {
+    await Get.find<AccountController>().getLinkedAccounts();
+    _reloadAccounts();
     update();
   }
 
-  void setSelectedAccount(Account account) {
+  void onAccountTileTap(Account account) {
     selectedAccount = account;
     update();
   }
 
-  void onAccountTileTap(Account acc) {
-    setSelectedAccount(acc);
-  }
-
-  void onTapReview() {
-    if (transactionAmount == '') {
-      transactionAmountPrompt = true;
-      update();
-      return;
+  void _reloadAccounts() {
+    if (Get.find<AccountController>().accounts.isEmpty) {
+      noAccounts = true;
+    } else {
+      noAccounts = false;
+      selectedAccount = Get.find<AccountController>().accounts.elementAt(0);
     }
-
-    Get.find<AppNavigator>().toNamed('/transfer/details');
   }
 }

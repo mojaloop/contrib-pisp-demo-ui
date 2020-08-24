@@ -17,9 +17,9 @@ class PhoneNumberInput extends StatelessWidget {
     return InternationalPhoneInput(
       hintText: hintText,
       enabledCountries: Countries.countryCodes,
-      initialPhoneNumber: initialValue.number,
-      initialSelection: initialValue.countryCode,
-      onPhoneNumberChange: (isoCode, _, phoneNumber) {
+      initialPhoneNumber: initialValue?.number,
+      initialSelection: initialValue?.countryCode,
+      onPhoneNumberChange: (phoneNumber, _, isoCode) {
         if (onUpdate != null) {
           onUpdate(PhoneNumber(isoCode, phoneNumber));
         }

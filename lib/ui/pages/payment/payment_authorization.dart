@@ -73,7 +73,7 @@ class PaymentAuthorization extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TitleText(
-              '${transferAmount.currency} ${transferAmount.amount}',
+              '${transferAmount.currency.toJsonString()} ${transferAmount.amount}',
               fontSize: 40,
             ),
           ),
@@ -112,6 +112,7 @@ class PaymentAuthorization extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: GetBuilder<PaymentFlowController>(
         init: _paymentFlowController,
+        global: false,
         builder: (controller) {
           return ButtonTheme(
             minWidth: Get.width,
@@ -128,7 +129,7 @@ class PaymentAuthorization extends StatelessWidget {
               //
               // TODO(kkzeng): what if the user wants to cancel the transaction?
               onPressed: () {
-                if (controller.isAwaitingUpdate) {
+                if (!controller.isAwaitingUpdate) {
                   // Only update Firebase to perform the authorization once.
                   _paymentFlowController.authorize();
                 }

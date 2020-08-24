@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pispapp/config/config.dart';
 import 'package:pispapp/controllers/app/account_controller.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/controllers/ephemeral/dashboard/dashboard_controller.dart';
-import 'package:pispapp/repositories/firebase/account_repository.dart';
 import 'package:pispapp/repositories/firebase/auth_repository.dart';
 import 'package:pispapp/repositories/stubs/stub_account_repository.dart';
 import 'package:pispapp/routes/app_pages.dart';
@@ -75,7 +73,7 @@ class _LifecycleAwareAppState extends State<LifecycleAwareApp>
 // Initialize controllers which maintain global app state
 void initAppControllers() {
   Get.put(AuthController(AuthRepository()));
-  Get.put(AccountController(AccountRepository()));
+  Get.put(AccountController(StubAccountRepository()));
   Get.put(DashboardController());
   Get.put(AppNavigator());
   Get.put(LocalAuthController());

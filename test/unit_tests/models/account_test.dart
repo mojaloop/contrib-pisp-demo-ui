@@ -33,7 +33,7 @@ void main() {
       userId: 'vXiSsQglsFYXqVkOHNKKFhnuAAI2',
       partyInfo: PartyIdInfo(
         fspId: 'DJCICFQ1919',
-        partyIdType: 'MSISDN',
+        partyIdType: PartyIdType.msisdn,
         partyIdentifier: 'IN9999999999',
       ),
       fspInfo: Fsp(

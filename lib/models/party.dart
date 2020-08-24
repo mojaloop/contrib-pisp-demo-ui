@@ -46,7 +46,7 @@ class PartyIdInfo implements JsonModel {
       _$PartyIdInfoFromJson(json);
 
   /// Type of the identifier.
-  String partyIdType;
+  PartyIdType partyIdType;
 
   /// An identifier for the Party.
   String partyIdentifier;
@@ -68,6 +68,12 @@ enum PartyIdType {
 
   @JsonValue('OPAQUE')
   opaque,
+}
+
+extension PartyIdTypeJson on PartyIdType {
+  String toJsonString() {
+    return _$PartyIdTypeEnumMap[this];
+  }
 }
 
 @JsonSerializable()

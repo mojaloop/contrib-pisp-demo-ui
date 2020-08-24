@@ -14,7 +14,7 @@ void main() {
 
     partyIdInfo = PartyIdInfo(
       fspId: 'DJCICFQ1919',
-      partyIdType: 'MSISDN',
+      partyIdType: PartyIdType.msisdn,
       partyIdentifier: 'IN9999999999',
     );
   });

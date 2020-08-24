@@ -159,6 +159,12 @@ enum Currency {
   USD,
 }
 
+extension CurrencyJson on Currency {
+  String toJsonString() {
+    return _$CurrencyEnumMap[this];
+  }
+}
+
 @JsonSerializable()
 class Authentication implements JsonModel {
   Authentication({this.type, this.value});
@@ -188,6 +194,12 @@ enum AuthenticationType {
   u2f,
 }
 
+extension AuthenticationTypeJson on AuthenticationType {
+  String toJsonString() {
+    return _$AuthenticationTypeEnumMap[this];
+  }
+}
+
 enum ResponseType {
   /// The user authorized the transaction.
   @JsonValue('AUTHORIZED')
@@ -196,4 +208,10 @@ enum ResponseType {
   /// The user rejected the transaction.
   @JsonValue('REJECTED')
   rejected,
+}
+
+extension ResponseTypeJson on ResponseType {
+  String toJsonString() {
+    return _$ResponseTypeEnumMap[this];
+  }
 }

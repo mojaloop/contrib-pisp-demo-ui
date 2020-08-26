@@ -29,15 +29,19 @@ class PaymentFlowController extends GetxController {
     _setAwaitingUpdate();
 
     final user = Get.find<AuthController>().user;
-    documentId = await _transactionRepository.add(<String, dynamic>{
-      'userId': user.id,
-      'payee': {
-        'partyIdInfo': {
-          'partyIdType': PartyIdType.msisdn.toJsonString(),
-          'partyIdentifier': phoneNumber.toString(),
-        }
-      }
-    });
+    print('TETSTSTDSATASD SADJASLJADSLADS WHYY');
+
+    documentId = await _transactionRepository.add(
+      Transaction(
+        userId: user.id,
+        payee: Party(
+          partyIdInfo: PartyIdInfo(
+            partyIdType: PartyIdType.msisdn,
+            partyIdentifier: phoneNumber.toString(),
+          ),
+        ),
+      ).toJson(),
+    );
 
     _startListening(documentId);
   }
@@ -47,14 +51,14 @@ class PaymentFlowController extends GetxController {
   Future<void> confirm(Money amount, Account account) async {
     _setAwaitingUpdate();
 
-    await _transactionRepository.updateData(transaction.id, <String, dynamic>{
-      'sourceAccountId': account.sourceAccountId,
-      'consentId': account.consentId,
-      'amount': {
-        'amount': amount.amount,
-        'currency': amount.currency.toJsonString(),
-      },
-    });
+    await _transactionRepository.updateData(
+      transaction.id,
+      Transaction(
+        sourceAccountId: account.sourceAccountId,
+        consentId: account.consentId,
+        amount: amount,
+      ).toJson(),
+    );
   }
 
   /// Authorizes the transaction that is currently managed by the controller. The status
@@ -77,12 +81,12 @@ class PaymentFlowController extends GetxController {
       // is the signature.
       _transactionRepository.setData(
         transaction.id,
-        <String, dynamic>{
-          'authentication': {
-            'value': signature,
-          },
-          'responseType': ResponseType.authorized.toJsonString(),
-        },
+        Transaction(
+          authentication: Authentication(
+            value: signature,
+          ),
+          responseType: ResponseType.authorized,
+        ).toJson(),
         merge: true,
       );
     } else {

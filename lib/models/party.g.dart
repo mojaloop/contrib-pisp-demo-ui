@@ -20,12 +20,22 @@ Party _$PartyFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$PartyToJson(Party instance) => <String, dynamic>{
-      'name': instance.name,
-      'partyIdInfo': instance.partyIdInfo,
-      'merchantClassificationCode': instance.merchantClassificationCode,
-      'personalInfo': instance.personalInfo,
-    };
+Map<String, dynamic> _$PartyToJson(Party instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  writeNotNull('partyIdInfo', instance.partyIdInfo?.toJson());
+  writeNotNull(
+      'merchantClassificationCode', instance.merchantClassificationCode);
+  writeNotNull('personalInfo', instance.personalInfo?.toJson());
+  return val;
+}
 
 PartyIdInfo _$PartyIdInfoFromJson(Map<String, dynamic> json) {
   return PartyIdInfo(
@@ -91,11 +101,19 @@ PartyPersonalInfo _$PartyPersonalInfoFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$PartyPersonalInfoToJson(PartyPersonalInfo instance) =>
-    <String, dynamic>{
-      'complexName': instance.complexName,
-      'dateOfBirth': instance.dateOfBirth,
-    };
+Map<String, dynamic> _$PartyPersonalInfoToJson(PartyPersonalInfo instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('complexName', instance.complexName?.toJson());
+  writeNotNull('dateOfBirth', instance.dateOfBirth);
+  return val;
+}
 
 PartyComplexName _$PartyComplexNameFromJson(Map<String, dynamic> json) {
   return PartyComplexName(
@@ -105,9 +123,17 @@ PartyComplexName _$PartyComplexNameFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$PartyComplexNameToJson(PartyComplexName instance) =>
-    <String, dynamic>{
-      'firstName': instance.firstName,
-      'middleName': instance.middleName,
-      'lastName': instance.lastName,
-    };
+Map<String, dynamic> _$PartyComplexNameToJson(PartyComplexName instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('firstName', instance.firstName);
+  writeNotNull('middleName', instance.middleName);
+  writeNotNull('lastName', instance.lastName);
+  return val;
+}

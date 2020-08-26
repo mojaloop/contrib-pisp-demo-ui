@@ -3,7 +3,7 @@ import 'package:pispapp/models/model.dart';
 
 part 'party.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class Party implements JsonModel {
   Party({
     this.name,
@@ -76,7 +76,7 @@ extension PartyIdTypeJson on PartyIdType {
   }
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class PartyPersonalInfo implements JsonModel {
   PartyPersonalInfo({
     this.complexName,
@@ -96,7 +96,7 @@ class PartyPersonalInfo implements JsonModel {
   Map<String, dynamic> toJson() => _$PartyPersonalInfoToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class PartyComplexName implements JsonModel {
   PartyComplexName({
     this.firstName,

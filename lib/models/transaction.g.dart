@@ -37,23 +37,31 @@ Transaction _$TransactionFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$TransactionToJson(Transaction instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'userId': instance.userId,
-      'payee': instance.payee,
-      'payer': instance.payer,
-      'sourceAccountId': instance.sourceAccountId,
-      'consentId': instance.consentId,
-      'amount': instance.amount,
-      'authentication': instance.authentication,
-      'transactionRequestId': instance.transactionRequestId,
-      'completedTimestamp': instance.completedTimestamp,
-      'transactionId': instance.transactionId,
-      'quote': instance.quote,
-      'responseType': _$ResponseTypeEnumMap[instance.responseType],
-      'status': _$TransactionStatusEnumMap[instance.status],
-    };
+Map<String, dynamic> _$TransactionToJson(Transaction instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('id', instance.id);
+  writeNotNull('userId', instance.userId);
+  writeNotNull('payee', instance.payee?.toJson());
+  writeNotNull('payer', instance.payer?.toJson());
+  writeNotNull('sourceAccountId', instance.sourceAccountId);
+  writeNotNull('consentId', instance.consentId);
+  writeNotNull('amount', instance.amount?.toJson());
+  writeNotNull('authentication', instance.authentication?.toJson());
+  writeNotNull('transactionRequestId', instance.transactionRequestId);
+  writeNotNull('completedTimestamp', instance.completedTimestamp);
+  writeNotNull('transactionId', instance.transactionId);
+  writeNotNull('quote', instance.quote?.toJson());
+  writeNotNull('responseType', _$ResponseTypeEnumMap[instance.responseType]);
+  writeNotNull('status', _$TransactionStatusEnumMap[instance.status]);
+  return val;
+}
 
 T _$enumDecode<T>(
   Map<T, dynamic> enumValues,
@@ -116,14 +124,23 @@ Quote _$QuoteFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$QuoteToJson(Quote instance) => <String, dynamic>{
-      'transferAmount': instance.transferAmount,
-      'payeeFspFee': instance.payeeFspFee,
-      'payeeFspCommission': instance.payeeFspCommission,
-      'expiration': instance.expiration,
-      'condition': instance.condition,
-      'ilpPacket': instance.ilpPacket,
-    };
+Map<String, dynamic> _$QuoteToJson(Quote instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('transferAmount', instance.transferAmount?.toJson());
+  writeNotNull('payeeFspFee', instance.payeeFspFee?.toJson());
+  writeNotNull('payeeFspCommission', instance.payeeFspCommission?.toJson());
+  writeNotNull('expiration', instance.expiration);
+  writeNotNull('condition', instance.condition);
+  writeNotNull('ilpPacket', instance.ilpPacket);
+  return val;
+}
 
 Money _$MoneyFromJson(Map<String, dynamic> json) {
   return Money(
@@ -132,10 +149,19 @@ Money _$MoneyFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$MoneyToJson(Money instance) => <String, dynamic>{
-      'amount': instance.amount,
-      'currency': _$CurrencyEnumMap[instance.currency],
-    };
+Map<String, dynamic> _$MoneyToJson(Money instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('amount', instance.amount);
+  writeNotNull('currency', _$CurrencyEnumMap[instance.currency]);
+  return val;
+}
 
 const _$CurrencyEnumMap = {
   Currency.SGD: 'SGD',
@@ -149,11 +175,19 @@ Authentication _$AuthenticationFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$AuthenticationToJson(Authentication instance) =>
-    <String, dynamic>{
-      'type': _$AuthenticationTypeEnumMap[instance.type],
-      'value': instance.value,
-    };
+Map<String, dynamic> _$AuthenticationToJson(Authentication instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('type', _$AuthenticationTypeEnumMap[instance.type]);
+  writeNotNull('value', instance.value);
+  return val;
+}
 
 const _$AuthenticationTypeEnumMap = {
   AuthenticationType.u2f: 'U2F',

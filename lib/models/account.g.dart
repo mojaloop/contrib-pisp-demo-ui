@@ -21,11 +21,20 @@ Account _$AccountFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$AccountToJson(Account instance) => <String, dynamic>{
-      'userId': instance.userId,
-      'consentId': instance.consentId,
-      'alias': instance.alias,
-      'sourceAccountId': instance.sourceAccountId,
-      'partyInfo': instance.partyInfo,
-      'fspInfo': instance.fspInfo,
-    };
+Map<String, dynamic> _$AccountToJson(Account instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('userId', instance.userId);
+  writeNotNull('consentId', instance.consentId);
+  writeNotNull('alias', instance.alias);
+  writeNotNull('sourceAccountId', instance.sourceAccountId);
+  writeNotNull('partyInfo', instance.partyInfo?.toJson());
+  writeNotNull('fspInfo', instance.fspInfo?.toJson());
+  return val;
+}

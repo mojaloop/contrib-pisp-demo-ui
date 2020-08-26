@@ -3,7 +3,7 @@ import 'package:pispapp/models/model.dart';
 
 part 'fsp.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class Fsp implements JsonModel {
   Fsp({this.id, this.name});
 

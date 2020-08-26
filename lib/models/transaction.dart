@@ -4,7 +4,7 @@ import 'package:pispapp/models/party.dart';
 
 part 'transaction.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class Transaction implements JsonModel {
   Transaction({
     this.id,
@@ -99,7 +99,7 @@ enum TransactionStatus {
   success,
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class Quote implements JsonModel {
   Quote({
     this.transferAmount,
@@ -136,7 +136,7 @@ class Quote implements JsonModel {
   Map<String, dynamic> toJson() => _$QuoteToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class Money implements JsonModel {
   Money(this.amount, this.currency);
 
@@ -165,7 +165,7 @@ extension CurrencyJson on Currency {
   }
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class Authentication implements JsonModel {
   Authentication({this.type, this.value});
 

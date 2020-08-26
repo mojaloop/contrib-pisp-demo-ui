@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pispapp/controllers/ephemeral/dashboard_controller.dart';
+import 'package:pispapp/controllers/ephemeral/dashboard/dashboard_controller.dart';
 
 void main() {
   DashboardController dashboardController;

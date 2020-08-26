@@ -1,27 +1,36 @@
-import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 import 'model.dart';
-part 'user.g.dart';
 
-@JsonSerializable()
-// ignore: must_be_immutable
-class User extends Equatable implements Model {
-  User({this.uid, this.displayName, this.email, this.photoUrl});
+class User implements Model {
+  User({this.id, this.name, this.email, this.photoUrl, this.loginType});
 
-  static User fromFirebaseUser(FirebaseUser user) {
-    return User(uid: user.uid, displayName: user.displayName, email: user.email, photoUrl: user.photoUrl);
+  static User fromFirebase(FirebaseUser user, LoginType type) {
+    return User(
+      id: user.uid,
+      name: user.displayName,
+      email: user.email,
+      photoUrl: user.photoUrl,
+      loginType: type,
+    );
   }
 
-  @override
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  /// A unique identifier for the user.
+  String id;
 
-  @override
-  Map<String, dynamic> toJson() => _$UserToJson(this);
+  /// Name of the user.
+  String name;
 
-  String displayName, email, photoUrl, uid;
+  /// Email of the user.
+  String email;
 
-  @override
-  List<Object> get props => [displayName, email, photoUrl, uid];
+  /// An endpoint that serves the photo of the user.
+  String photoUrl;
+
+  /// Login type of the user.
+  LoginType loginType;
+}
+
+enum LoginType {
+  google,
 }

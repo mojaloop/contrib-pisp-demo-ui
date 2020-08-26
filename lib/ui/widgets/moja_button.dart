@@ -6,6 +6,7 @@ class MojaButton extends StatelessWidget {
   MojaButton(this.child, this.onTap);
 
   final Widget child;
+
   final void Function() onTap;
 
   @override
@@ -18,9 +19,7 @@ class MojaButton extends StatelessWidget {
         child: RaisedButton(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18.0),
-            side: const BorderSide(
-              color: Colors.blue,
-            ),
+            side: const BorderSide(color: Colors.blue),
           ),
           onPressed: onTap,
           color: LightColor.navyBlue1,

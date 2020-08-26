@@ -1,40 +1,45 @@
 import 'package:get/get.dart';
 import 'package:pispapp/models/auxiliary_user_info.dart';
+import 'package:pispapp/models/phone_number.dart';
 import 'package:pispapp/models/user.dart';
-import 'package:pispapp/repositories/auth_repository.dart';
+import 'package:pispapp/repositories/firebase/auth_repository.dart';
 
 class AuthController extends GetxController {
   AuthController(this._authRepository);
+
   AuthRepository _authRepository;
+
+  PhoneNumber phoneNumber;
+
+  String registrationDate;
+
+  AuxiliaryUserInfo auxiliaryUserInfo;
+
+  User user;
 
   Future<User> signInWithGoogle() async {
     final user = await _authRepository.signInWithGoogle();
     setUser(user);
-    await loadAuxiliaryInfoForUser(user.uid);
+    await loadAuxiliaryInfoForUser(user.id);
     return user;
   }
 
   Future<void> signOut() async {
-    await _authRepository.signOutGoogle();
+    await _authRepository.signOut(user);
     setUser(null);
   }
-
-  String phoneNoIso;
-  String phoneNo;
-  String registrationDate;
-  User user;
 
   Future<void> loadAuxiliaryInfoForUser(String uid) async {
     final AuxiliaryUserInfo info = await _authRepository.loadAuxiliaryInfoForUser(uid);
     if(info != null) {
-      setPhoneNumber(info.phoneNo, info.phoneNoIso);
+      PhoneNumber p = PhoneNumber(info.phoneNoIso,info.phoneNo);
+      setPhoneNumber(p);
       setUserRegistrationDate(info.registrationDate);
     }
   }
 
-  void setPhoneNumber(String number, String isoCode) {
-    phoneNo = number;
-    phoneNoIso = isoCode;
+  void setPhoneNumber(PhoneNumber phoneNumber) {
+    this.phoneNumber = phoneNumber;
     update();
   }
 
@@ -43,11 +48,13 @@ class AuthController extends GetxController {
     update();
   }
 
-  void associatePhoneNumberWithUser(String number, String isoCode) {
-    _authRepository.associateUserWithPhoneNumber(user.uid, isoCode, number);
+  void associatePhoneNumberWithUser(PhoneNumber number, String isoCode) {
+    _authRepository.associateUserWithPhoneNumber(user.id, number);
   }
 
   String getFormattedPhoneNoForDisplay() {
+    final String phoneNoIso = phoneNumber.countryCode;
+    final String phoneNo = phoneNumber.number;
     if(phoneNoIso == null && phoneNo == null) {
       return 'n/a';
     }

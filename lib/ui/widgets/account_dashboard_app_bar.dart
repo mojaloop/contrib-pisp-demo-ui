@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pispapp/controllers/ephemeral/account_dashboard_controller.dart';
+import 'package:pispapp/controllers/ephemeral/dashboard/account_dashboard_controller.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
 
 class AccountDashboardAppBar extends StatelessWidget {
@@ -16,12 +16,10 @@ class AccountDashboardAppBar extends StatelessWidget {
         const SizedBox(width: 15),
         GetBuilder<AccountDashboardController>(
           builder: (value) {
-            return TitleText(text: value.selectedAccount.alias);
+            return TitleText(value.selectedAccount.alias);
           },
         ),
-        const Expanded(
-          child: SizedBox(),
-        ),
+        const Expanded(child: SizedBox()),
         GestureDetector(
           onTap: _onTap,
           child: const Icon(Icons.short_text),

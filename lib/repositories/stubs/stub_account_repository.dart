@@ -1,6 +1,6 @@
 import 'package:pispapp/models/account.dart';
-import 'package:pispapp/models/fsp_info.dart';
-import 'package:pispapp/models/party_id_info.dart';
+import 'package:pispapp/models/fsp.dart';
+import 'package:pispapp/models/party.dart';
 import 'package:pispapp/repositories/interfaces/i_account_repository.dart';
 
 final List<Account> accounts = <Account>[
@@ -10,7 +10,7 @@ final List<Account> accounts = <Account>[
       fspId: 'DJCICFQ1919',
       partyIdentifier: 'IN1233323987',
     ),
-    fspInfo: FspInfo(fspId: 'DJCICFQ1919', fspName: 'Bank of India'),
+    fspInfo: Fsp(id: 'DJCICFQ1919', name: 'Bank of India'),
     consentId: '555',
     userId: 'vXiSsQglsFYXqVkOHNKKFhnuAAI2',
     sourceAccountId: 'bob.fspA',
@@ -21,7 +21,7 @@ final List<Account> accounts = <Account>[
       fspId: 'AJCICFQ1919',
       partyIdentifier: 'IN1233323987',
     ),
-    fspInfo: FspInfo(fspId: 'AJCICFQ1919', fspName: 'Axis Bank'),
+    fspInfo: Fsp(id: 'AJCICFQ1919', name: 'Axis Bank'),
     consentId: '985',
     userId: 'vXiSsQglsFYXqVkOHNKKFhnuAAI2',
     sourceAccountId: 'bob.fspB',

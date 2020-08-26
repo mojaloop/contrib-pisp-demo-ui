@@ -39,8 +39,7 @@ class LocalAuth {
 
     try {
       isAuthenticated = await _localAuthentication.authenticateWithBiometrics(
-        localizedReason:
-            reason,
+        localizedReason: reason,
         useErrorDialogs: true,
         stickyAuth: true,
       );

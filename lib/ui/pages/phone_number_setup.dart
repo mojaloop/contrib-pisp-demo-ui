@@ -30,17 +30,17 @@ class PhoneNumberSetup extends StatelessWidget {
                   children: <Widget>[
                     PhoneNumberTile(
                       heading: 'Enter phone Number',
-                      trailingWidget: GetBuilder<SetupController>(
-                          builder: (value) => true // TODO(kkzeng): Handle valid phone number
-                              ? const Icon(
-                                  Icons.check_circle_outline,
-                                  color: Colors.green,
-                                )
-                              : Container()),
+                      trailingWidget: Obx(() {
+                        if(Get.find<SetupController>().validPhoneNumber.value) {
+                          return const Icon(Icons.check_circle_outline, color: Colors.green);
+                        }
+                        else {
+                          return const Text('');
+                        }
+                      }),
                     ),
                     // TODO(kkzeng): Handle invalid phone number and prevent
                     // the user to continue to the next screen.
-                    const PhoneNumberTile(heading: 'Enter phone Number'),
                     PhoneNumberInput(
                       hintText: 'Enter phone number',
                       initialValue: Get.find<SetupController>().phoneNumber,
@@ -56,7 +56,7 @@ class PhoneNumberSetup extends StatelessWidget {
                 color: Colors.white,
                 fontSize: 20,
               ),
-              onTap: () => Get.find<SetupController>().onLogin(),
+              onTap: () => Get.find<SetupController>().onPhoneNumberSubmitted(),
             ),
           ],
         ),

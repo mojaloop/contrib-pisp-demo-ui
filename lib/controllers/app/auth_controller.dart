@@ -25,17 +25,28 @@ class AuthController extends GetxController {
   }
 
   Future<void> signOut() async {
+    // Intentionally no update
+    phoneNumber = null;
+    registrationDate = null;
+    auxiliaryUserInfo = null;
     await _authRepository.signOut(user);
-    setUser(null);
+    user = null;
   }
 
   Future<void> loadAuxiliaryInfoForUser(String uid) async {
     final AuxiliaryUserInfo info = await _authRepository.loadAuxiliaryInfoForUser(uid);
-    if(info != null) {
-      PhoneNumber p = PhoneNumber(info.phoneNoIso,info.phoneNo);
-      setPhoneNumber(p);
-      setUserRegistrationDate(info.registrationDate);
+
+    if(info == null) {
+      return;
     }
+
+    // Info could be there but there may not be phone number data
+    // if the user never completed phone number setup previously
+    if(info.phoneNoIso != null && info.phoneNo != null) {
+      setPhoneNumber(PhoneNumber(info.phoneNoIso, info.phoneNo));
+    }
+
+    setUserRegistrationDate(info.registrationDate);
   }
 
   void setUser(User user) {
@@ -53,16 +64,21 @@ class AuthController extends GetxController {
     update();
   }
 
-  void associatePhoneNumberWithUser(PhoneNumber number, String isoCode) {
+  void associatePhoneNumberWithUser(PhoneNumber number) {
     _authRepository.associateUserWithPhoneNumber(user.id, number);
   }
 
   String getFormattedPhoneNoForDisplay() {
+    if(phoneNumber == null) {
+      return 'n/a';
+    }
+
     final String phoneNoIso = phoneNumber.countryCode;
     final String phoneNo = phoneNumber.number;
     if(phoneNoIso == null && phoneNo == null) {
       return 'n/a';
     }
+
     return (phoneNoIso ?? '') + (phoneNo ?? '');
   }
 

@@ -8,14 +8,10 @@ class AccountRepository implements IAccountRepository {
 
   @override
   Future<List<Account>> getUserAccounts(String userId) async {
-    final userAccounts =
-        await accounts.where('userId', isEqualTo: userId).getDocuments();
-
-    final List<Account> accountsList =
-        userAccounts.documents.map((DocumentSnapshot element) {
-      return Account.fromJson(element.data);
-    }).toList();
-
-    return accountsList;
+    return accounts.where('userId', isEqualTo: userId).getDocuments().then(
+          (snapshot) => snapshot.documents
+              .map((element) => Account.fromJson(element.data))
+              .toList(),
+        );
   }
 }

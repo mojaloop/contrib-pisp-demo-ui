@@ -11,12 +11,11 @@ class TransactionRepository implements ITransactionRepository {
 
   @override
   Future<List<Transaction>> getTransactions(String userId) async {
-    final transactionDocs =
-        await _colRef.where('userId', isEqualTo: userId).getDocuments();
-
-    return transactionDocs.documents
-        .map((element) => Transaction.fromJson(element.data))
-        .toList();
+    return _colRef.where('userId', isEqualTo: userId).getDocuments().then(
+          (snapshot) => snapshot.documents
+              .map((element) => Transaction.fromJson(element.data))
+              .toList(),
+        );
   }
 
   @override

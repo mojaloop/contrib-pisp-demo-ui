@@ -38,6 +38,11 @@ class AuthController extends GetxController {
     }
   }
 
+  void setUser(User user) {
+    this.user = user;
+    update();
+  }
+
   void setPhoneNumber(PhoneNumber phoneNumber) {
     this.phoneNumber = phoneNumber;
     update();
@@ -63,10 +68,5 @@ class AuthController extends GetxController {
 
   String getFormattedRegistrationDate() {
     return registrationDate == null ? 'n/a' : registrationDate.split('T')[0];
-  }
-
-  void setUser(User u) {
-    user = u;
-    update();
   }
 }

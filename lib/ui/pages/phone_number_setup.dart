@@ -31,12 +31,12 @@ class PhoneNumberSetup extends StatelessWidget {
                     PhoneNumberTile(
                       heading: 'Enter phone Number',
                       trailingWidget: GetBuilder<SetupController>(
-                          builder: (value) => value.validPhoneNumber
+                          builder: (value) => true // TODO(kkzeng): Handle valid phone number
                               ? const Icon(
                                   Icons.check_circle_outline,
                                   color: Colors.green,
                                 )
-                              : const Text('')),
+                              : Container()),
                     ),
                     // TODO(kkzeng): Handle invalid phone number and prevent
                     // the user to continue to the next screen.

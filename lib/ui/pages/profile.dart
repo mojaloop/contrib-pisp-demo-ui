@@ -38,14 +38,14 @@ class Profile extends StatelessWidget {
                 // _headingTile(context, 'Payee Details'),
                 ListTile(
                   contentPadding: const EdgeInsets.symmetric(),
-                  title: const TitleText(text: 'Email'),
+                  title: const TitleText('Email'),
                   trailing: Text(Get.find<AuthController>().user.email),
                 ),
                 GetBuilder<AuthController>(builder: (value) =>
                   ListTile(
                     contentPadding: const EdgeInsets.symmetric(),
                     title: const TitleText(
-                      text: 'Phone Number',
+                      'Phone Number',
                       fontSize: 18,
                     ),
                     trailing: Text(value.getFormattedPhoneNoForDisplay()),
@@ -55,14 +55,12 @@ class Profile extends StatelessWidget {
                     ListTile(
                       contentPadding: const EdgeInsets.symmetric(),
                       title: const TitleText(
-                        text: 'Registration Date',
+                        'Registration Date',
                         fontSize: 18,
                       ),
                       trailing: Text(value.getFormattedRegistrationDate()),
                     ),
                 ),
-                // TODO(kkzeng): Fix state management to display
-                // phone number here.
               ],
             ),
             BottomButton(

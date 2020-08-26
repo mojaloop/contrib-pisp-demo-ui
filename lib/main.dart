@@ -23,7 +23,8 @@ Future<void> main() async {
 
   final FirebaseUser currentUser = await FirebaseAuth.instance.currentUser();
   if(currentUser != null) {
-    Get.find<AuthController>().setUser(User.fromFirebaseUser(currentUser));
+    User u = User.fromFirebase(currentUser, LoginType.google);
+    Get.find<AuthController>().setUser(u);
     Get.find<AuthController>().loadAuxiliaryInfoForUser(currentUser.uid);
   }
 

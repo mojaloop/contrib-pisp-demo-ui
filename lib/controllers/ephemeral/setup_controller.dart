@@ -35,11 +35,11 @@ class SetupController extends GetxController {
       update();
       return;
     }
-    if(_ac.phoneNo != null) {
-      Get.find<CustomNavigator>().offAllNamed('/dashboard');
+    if(_ac.phoneNumber != null) {
+      Get.find<AppNavigator>().offAllNamed('/dashboard');
     }
     else {
-      Get.find<CustomNavigator>().toNamed('/phone_number');
+      Get.find<AppNavigator>().toNamed('/phone_number');
     }
   }
 

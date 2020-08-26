@@ -38,6 +38,7 @@ class LifecycleAwareApp extends StatefulWidget {
 }
 
 class _LifecycleAwareAppState extends State<LifecycleAwareApp>
+    // ignore: prefer_mixin
     with WidgetsBindingObserver {
   @override
   void initState() {

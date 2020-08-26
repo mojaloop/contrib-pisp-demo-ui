@@ -33,7 +33,7 @@ class Party implements JsonModel {
   Map<String, dynamic> toJson() => _$PartyToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class PartyIdInfo implements JsonModel {
   PartyIdInfo({
     this.fspId,

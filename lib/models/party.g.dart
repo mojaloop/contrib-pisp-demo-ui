@@ -46,13 +46,21 @@ PartyIdInfo _$PartyIdInfoFromJson(Map<String, dynamic> json) {
   )..partySubIdOrType = json['partySubIdOrType'] as String;
 }
 
-Map<String, dynamic> _$PartyIdInfoToJson(PartyIdInfo instance) =>
-    <String, dynamic>{
-      'partyIdType': _$PartyIdTypeEnumMap[instance.partyIdType],
-      'partyIdentifier': instance.partyIdentifier,
-      'partySubIdOrType': instance.partySubIdOrType,
-      'fspId': instance.fspId,
-    };
+Map<String, dynamic> _$PartyIdInfoToJson(PartyIdInfo instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('partyIdType', _$PartyIdTypeEnumMap[instance.partyIdType]);
+  writeNotNull('partyIdentifier', instance.partyIdentifier);
+  writeNotNull('partySubIdOrType', instance.partySubIdOrType);
+  writeNotNull('fspId', instance.fspId);
+  return val;
+}
 
 T _$enumDecode<T>(
   Map<T, dynamic> enumValues,

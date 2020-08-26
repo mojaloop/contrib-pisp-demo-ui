@@ -5,6 +5,7 @@ class PayeeTile extends StatelessWidget {
   const PayeeTile({Key key, this.payeeName, this.onTap}) : super(key: key);
 
   final String payeeName;
+
   final void Function() onTap;
 
   @override
@@ -14,7 +15,7 @@ class PayeeTile extends StatelessWidget {
       leading: const CircleAvatar(),
       contentPadding: const EdgeInsets.symmetric(),
       title: TitleText(
-        text: payeeName,
+        payeeName,
         fontSize: 14,
       ),
     );

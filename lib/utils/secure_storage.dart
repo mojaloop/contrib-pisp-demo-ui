@@ -10,21 +10,28 @@ class SecureStorage {
 
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
-  Future<void> _write({@required String key, @required String value, Duration timeoutDuration}) async {
+  Future<void> _write({
+    @required String key,
+    @required String value,
+    Duration timeoutDuration,
+  }) async {
     bool timeout = false;
     await Future.any([
       _storage.write(key: key, value: value),
-      Future.delayed(timeoutDuration, (){
+      Future.delayed(timeoutDuration, () {
         timeout = true;
       }),
     ]);
 
-    if(timeout) {
+    if (timeout) {
       throw TimeoutException('Operation to store the user PIN timed out!');
     }
   }
 
-  Future<String> _read({@required String key, Duration timeoutDuration = const Duration(milliseconds: 2000)}) async {
+  Future<String> _read({
+    @required String key,
+    Duration timeoutDuration = const Duration(milliseconds: 2000),
+  }) async {
     final String pin = await Future.any([
       _storage.read(key: key),
       Future.delayed(timeoutDuration, () {
@@ -35,11 +42,17 @@ class SecureStorage {
   }
 
   Future<String> readUserPIN() {
-    return _read(key: local_auth_pin_key, timeoutDuration: PINEntryController.timeoutDuration);
+    return _read(
+      key: local_auth_pin_key,
+      timeoutDuration: PINEntryController.timeoutDuration,
+    );
   }
 
   Future<void> writeUserPIN(String pin) {
-    _write(key: local_auth_pin_key, value: pin, timeoutDuration: PINEntryController.timeoutDuration);
+    return _write(
+      key: local_auth_pin_key,
+      value: pin,
+      timeoutDuration: PINEntryController.timeoutDuration,
+    );
   }
-
 }

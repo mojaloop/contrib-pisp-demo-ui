@@ -2,13 +2,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
 import 'package:pispapp/controllers/ephemeral/splash_controller.dart';
-import 'package:pispapp/routes/custom_navigator.dart';
+import 'package:pispapp/routes/app_navigator.dart';
 
-class MockCustomNavigator extends Mock implements CustomNavigator {}
+class MockCustomNavigator extends Mock implements AppNavigator {}
 
 void main() {
   SplashController controller;
-  CustomNavigator navigator;
+  AppNavigator navigator;
   setUp(() {
     controller = SplashController();
     navigator = MockCustomNavigator();

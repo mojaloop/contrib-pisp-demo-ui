@@ -7,8 +7,8 @@ class Operations extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-        CustomIcon(Icons.delete_sweep, 'Unlink', () {}),
-        CustomIcon(Icons.code, 'QR Pay', () {}),
+        CustomIcon(Icons.delete_sweep, 'Unlink'),
+        CustomIcon(Icons.code, 'QR Pay'),
       ],
     );
   }

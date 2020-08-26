@@ -1,12 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pispapp/models/account.dart';
-import 'package:pispapp/models/fsp_info.dart';
-import 'package:pispapp/models/party_id_info.dart';
 import 'package:collection/collection.dart';
+import 'package:pispapp/models/account.dart';
+import 'package:pispapp/models/party.dart';
+import 'package:pispapp/models/fsp.dart';
 
 void main() {
   Map<String, dynamic> json;
+
   Account account;
+
   setUp(() {
     json = <String, dynamic>{
       'alias': 'Personal',
@@ -19,9 +21,8 @@ void main() {
         'partyIdentifier': 'IN9999999999',
       },
       'fspInfo': {
-        'fspId': 'DJCICFQ1919',
-        'fspName': 'Bank of India',
-        'fspIconUrl': 'https://example.com/bankOfIndia',
+        'id': 'DJCICFQ1919',
+        'name': 'Bank of India',
       }
     };
 
@@ -32,13 +33,12 @@ void main() {
       userId: 'vXiSsQglsFYXqVkOHNKKFhnuAAI2',
       partyInfo: PartyIdInfo(
         fspId: 'DJCICFQ1919',
-        partyIdType: 'MSISDN',
+        partyIdType: PartyIdType.msisdn,
         partyIdentifier: 'IN9999999999',
       ),
-      fspInfo: FspInfo(
-        fspId: 'DJCICFQ1919',
-        fspName: 'Bank of India',
-        fspIconUrl: 'https://example.com/bankOfIndia',
+      fspInfo: Fsp(
+        id: 'DJCICFQ1919',
+        name: 'Bank of India',
       ),
     );
   });

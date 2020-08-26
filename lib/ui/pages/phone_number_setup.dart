@@ -6,7 +6,7 @@ import 'package:pispapp/ui/widgets/phone_number_tile.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
 import 'package:pispapp/ui/widgets/bottom_button.dart';
-import 'package:pispapp/ui/widgets/phone_number.dart';
+import 'package:pispapp/ui/widgets/phone_number_input.dart';
 
 class PhoneNumberSetup extends StatelessWidget {
   @override
@@ -14,39 +14,27 @@ class PhoneNumberSetup extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             const Padding(
               padding: EdgeInsets.fromLTRB(10, 60, 0, 30),
-              child: TitleText(
-                text: 'Mojapay Setup',
-                fontSize: 20,
-              ),
+              child: TitleText('Mojapay Setup', fontSize: 20),
             ),
             const SizedBox(height: 20),
             GetBuilder<SetupController>(
-              builder: (value) => ShadowBox(
-                color:
-                    value.phoneNumberPrompt ? Colors.red : LightColor.navyBlue1,
+              builder: (controller) => ShadowBox(
+                color: LightColor.navyBlue1,
                 child: Column(
                   children: <Widget>[
-                    PhoneNumberTile(
-                      heading: 'Enter phone Number',
-                      trailingWidget: GetBuilder<SetupController>(
-                          builder: (value) => value.validPhoneNumber
-                              ? const Icon(
-                                  Icons.check_circle_outline,
-                                )
-                              : const Text('')),
-                    ),
+                    // TODO(kkzeng): Handle invalid phone number and prevent
+                    // the user to continue to the next screen.
+                    const PhoneNumberTile(heading: 'Enter phone Number'),
                     PhoneNumberInput(
-                      value.onPhoneNumberChange,
-                      'Enter phone number',
-                      Get.find<SetupController>().phoneNumber,
+                      hintText: 'Enter phone number',
+                      initialValue: Get.find<SetupController>().phoneNumber,
+                      onUpdate: controller.onPhoneNumberChange,
                     ),
                   ],
                 ),
@@ -54,11 +42,11 @@ class PhoneNumberSetup extends StatelessWidget {
             ),
             BottomButton(
               const TitleText(
-                text: 'Login',
+                'Login',
                 color: Colors.white,
                 fontSize: 20,
               ),
-              () => Get.find<SetupController>().onLogin(),
+              onTap: () => Get.find<SetupController>().onLogin(),
             ),
           ],
         ),

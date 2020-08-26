@@ -12,16 +12,14 @@ class LoginSetup extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             const Padding(
               padding: EdgeInsets.fromLTRB(10, 60, 0, 30),
               child: TitleText(
-                text: 'Mojapay Setup',
+                'Mojapay Setup',
                 fontSize: 20,
               ),
             ),
@@ -34,16 +32,10 @@ class LoginSetup extends StatelessWidget {
                     LoginWithGoogleTile(
                       trailingWidget: GetBuilder<SetupController>(
                         builder: (value) => value.googleLogin
-                            ? const Icon(
-                                Icons.check_circle_outline,
-                              )
+                            ? const Icon(Icons.check_circle_outline)
                             : GestureDetector(
-                                onTap: () async {
-                                  await value.onLinkGoogleAccount();
-                                },
-                                child: const Icon(
-                                  Icons.keyboard_arrow_right,
-                                ),
+                                child: const Icon(Icons.keyboard_arrow_right),
+                                onTap: () => value.onLinkGoogleAccount(),
                               ),
                       ),
                     ),

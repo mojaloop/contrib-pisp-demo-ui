@@ -1,6 +1,5 @@
-abstract class Model {
-  // ignore: avoid_unused_constructor_parameters
-  Model.fromJson(Map<String, dynamic> json);
+abstract class Model {}
 
+abstract class JsonModel extends Model {
   Map<String, dynamic> toJson();
 }

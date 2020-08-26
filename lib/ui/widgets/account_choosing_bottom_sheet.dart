@@ -19,33 +19,25 @@ class AccountChoosingBottomSheet extends StatelessWidget {
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(
-              20.0,
-            ),
-            topRight: Radius.circular(
-              20.0,
-            ),
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
           ),
         ),
         child: GetX<AccountController>(
-          builder: (value) {
+          builder: (controller) {
             return ListView(
               children: <Widget>[
                 const Padding(
-                  padding: EdgeInsets.all(
-                    20.0,
+                  padding: EdgeInsets.all(20.0),
+                  child: TitleText('Accounts'),
+                ),
+                const Divider(height: 20),
+                ...controller.accounts.value.map(
+                  (account) => AccountBottomSheetTile(
+                    account,
+                    onTap: () => onTap(account),
                   ),
-                  child: TitleText(text: 'Accounts'),
-                ),
-                const Divider(
-                  height: 20,
-                ),
-                for (var acc in value.accounts.value)
-                  AccountBottomSheetTile(
-                      account: acc,
-                      onTap: () {
-                        onTap(acc);
-                      })
+                )
               ],
             );
           },

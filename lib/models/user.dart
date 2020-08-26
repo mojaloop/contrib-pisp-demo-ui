@@ -15,24 +15,19 @@ class User implements Model {
     );
   }
 
-  ///
-  ///
+  /// A unique identifier for the user.
   String id;
 
-  ///
-  ///
+  /// Name of the user.
   String name;
 
-  ///
-  ///
+  /// Email of the user.
   String email;
 
-  ///
-  ///
+  /// An endpoint that serves the photo of the user.
   String photoUrl;
 
-  ///
-  ///
+  /// Login type of the user.
   LoginType loginType;
 }
 

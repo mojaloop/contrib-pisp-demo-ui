@@ -23,13 +23,9 @@ Future<void> main() async {
 
   initAppControllers();
 
-  final FirebaseUser currentUser = await FirebaseAuth.instance.currentUser();
-  if(currentUser != null) {
-    final User user = User.fromFirebase(currentUser, LoginType.google);
-    Get.find<AuthController>().setUser(user);
-    final UserDataController _userDataController = Get.put(UserDataController(UserDataRepository(), user));
-    await _userDataController.loadAuxiliaryInfoForUser();
-  }
+  // Important to wait for this setup before starting the application
+  // (determine starting page)
+  await setupCurrentUser();
 
   runApp(LifecycleAwareApp());
 }
@@ -75,11 +71,37 @@ class _LifecycleAwareAppState extends State<LifecycleAwareApp>
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Get.find<AuthController>().user == null ? '/' : 'dashboard', // TODO(kkzeng): goes to phone number if needed
+      initialRoute: determineStartingPage(),
       theme: appThemeData,
       defaultTransition: Transition.fade,
       getPages: AppPages.pages,
     );
+  }
+}
+
+Future<void> setupCurrentUser() async {
+  final FirebaseUser currentUser = await FirebaseAuth.instance.currentUser();
+  if(currentUser != null) {
+    final User user = User.fromFirebase(currentUser, LoginType.google);
+    Get.find<AuthController>().setUser(user);
+    final UserDataController _userDataController = Get.put(UserDataController(UserDataRepository(), user));
+    await _userDataController.loadAuxiliaryInfoForUser();
+  }
+}
+
+String determineStartingPage() {
+  if(Get.find<AuthController>().user == null) {
+    return '/';
+  }
+  else {
+    print(Get.find<UserDataController>().phoneNumberAssociated);
+    if(Get.find<UserDataController>().phoneNumberAssociated) {
+      return '/dashboard';
+    }
+    else {
+      // Redirect user to phone number setup if user has no number in DB
+      return '/phone_number';
+    }
   }
 }
 

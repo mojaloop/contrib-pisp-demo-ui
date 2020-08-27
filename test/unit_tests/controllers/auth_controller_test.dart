@@ -74,15 +74,6 @@ void main() {
   );
 
   test(
-    'setPhoneNumber() sets the phone number correctly',
-    () {
-      authController.setPhoneNumber(PhoneNumber('IN', '9999999999'));
-      expect(authController.phoneNumber.countryCode, 'IN');
-      expect(authController.phoneNumber.number, '9999999999');
-    },
-  );
-
-  test(
     'setUser() sets the user correctly',
     () {
       final User user = User(

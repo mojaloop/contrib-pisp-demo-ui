@@ -1,9 +1,7 @@
 import 'package:get/get.dart';
-import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/models/auxiliary_user_info.dart';
 import 'package:pispapp/models/phone_number.dart';
 import 'package:pispapp/models/user.dart';
-import 'package:pispapp/repositories/firebase/auth_repository.dart';
 import 'package:pispapp/repositories/firebase/user_data_repository.dart';
 
 /// Single user

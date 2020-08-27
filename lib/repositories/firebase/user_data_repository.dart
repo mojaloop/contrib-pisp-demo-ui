@@ -1,11 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pispapp/models/auxiliary_user_info.dart';
 import 'package:pispapp/models/phone_number.dart';
 
-import 'package:pispapp/models/user.dart';
-import 'package:pispapp/repositories/interfaces/i_auth_repository.dart';
 import 'package:pispapp/repositories/interfaces/i_user_data_repository.dart';
 import 'package:pispapp/utils/log_printer.dart';
 
@@ -21,7 +17,7 @@ class UserDataRepository implements IUserDataRepository {
   @override
   Future<void> createUserEntryInDB(String uid) async {
     // Check for existing user (if this is not the first sign on)
-    QuerySnapshot s = await _firestore.collection('users').getDocuments();
+    final QuerySnapshot s = await _firestore.collection('users').getDocuments();
     final bool userExists = s.documents.where((document) => document.documentID == uid).isNotEmpty;
     if(!userExists) {
       final Map<String, dynamic> data = <String, dynamic>{

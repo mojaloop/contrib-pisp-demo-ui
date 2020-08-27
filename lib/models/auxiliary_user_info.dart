@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:pispapp/models/phone_number.dart';
 
 import 'model.dart';
 
+// ignore: must_be_immutable
 class AuxiliaryUserInfo extends Equatable implements Model {
   AuxiliaryUserInfo({this.registrationDate, this.phoneNumber});
 

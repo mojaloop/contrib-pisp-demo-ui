@@ -3,7 +3,6 @@ import 'package:mockito/mockito.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/models/user.dart';
 import 'package:pispapp/repositories/firebase/auth_repository.dart';
-import 'package:pispapp/models/phone_number.dart';
 
 class MockAuthRepository extends Mock implements AuthRepository {}
 

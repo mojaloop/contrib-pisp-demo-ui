@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:pispapp/controllers/ephemeral/dashboard/account_dashboard_controller.dart';
-import 'package:pispapp/controllers/ephemeral/payment/payment_initiation_controller.dart';
 import 'package:pispapp/controllers/ephemeral/profile_controller.dart';
 import 'package:pispapp/repositories/firebase/transaction_repository.dart';
 

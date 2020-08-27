@@ -12,7 +12,6 @@ class SetupController extends GetxController {
   bool googleLogin = false;
   bool googleLoginPrompt = false;
 
-  final UserDataController _userDataController = Get.find();
   void defaultState() {
     googleLogin = false;
     googleLoginPrompt = false;
@@ -49,7 +48,7 @@ class SetupController extends GetxController {
     // If phone number information has been previously associated then
     // skip the phone number setup
     // Otherwise proceed with phone number setup
-    if(_userDataController.phoneNumberAssociated) {
+    if(Get.find<UserDataController>().phoneNumberAssociated) {
       Get.find<AppNavigator>().offAllNamed('/dashboard');
     }
     else {

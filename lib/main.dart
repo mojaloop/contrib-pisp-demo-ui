@@ -28,7 +28,7 @@ Future<void> main() async {
     final User user = User.fromFirebase(currentUser, LoginType.google);
     Get.find<AuthController>().setUser(user);
     final UserDataController _userDataController = Get.put(UserDataController(UserDataRepository(), user));
-    _userDataController.loadAuxiliaryInfoForUser();
+    await _userDataController.loadAuxiliaryInfoForUser();
   }
 
   runApp(LifecycleAwareApp());

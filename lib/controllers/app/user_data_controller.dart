@@ -13,7 +13,7 @@ class UserDataController extends GetxController {
 
   UserDataRepository _userDataRepository;
   User _user;
-  AuxiliaryUserInfo userInfo;
+  AuxiliaryUserInfo userInfo = AuxiliaryUserInfo();
 
   bool get phoneNumberAssociated => userInfo?.phoneNumber != null;
   ///
@@ -26,26 +26,12 @@ class UserDataController extends GetxController {
   Future<void> createUserEntryInDB() =>_userDataRepository.createUserEntryInDB(_user.id);
 
   void setPhoneNumber(PhoneNumber phoneNumber) {
-    if(userInfo == null) {
-      userInfo = AuxiliaryUserInfo(phoneNumber: phoneNumber);
-    }
-    else {
-      userInfo.phoneNumber = phoneNumber;
-    }
+    userInfo.phoneNumber = phoneNumber;
     update();
   }
 
   void setUserRegistrationDate(String date) {
-    if(userInfo == null) {
-      userInfo = AuxiliaryUserInfo(registrationDate: date);
-    }
-    else {
-      userInfo.registrationDate = date;
-    }
+    userInfo.registrationDate = date;
     update();
-  }
-
-  void clearCache() {
-    userInfo = null;
   }
 }

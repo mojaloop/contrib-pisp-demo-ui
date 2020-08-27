@@ -35,15 +35,15 @@ class UserDataRepository implements IUserDataRepository {
   @override
   Future<AuxiliaryUserInfo> loadAuxiliaryInfoForUser(String uid) async {
     return _firestore.collection('users').document(uid).get().then((userEntry) {
-      if(userEntry == null) {
-        return null;
+      if(userEntry?.data == null) {
+        return AuxiliaryUserInfo();
       }
       final Map<String, dynamic> userData = userEntry.data;
       // Currently only phone number but can be extended to populate other fields
       final String phoneNo = userData[UserDataRepository.PHONE_NO_KEY] as String;
       final String countryCode = userData[UserDataRepository.PHONE_NO_COUNTRY_CODE_KEY] as String;
       final String dateRegistered = userData[UserDataRepository.REGISTRATION_DATE_KEY] as String;
-      final PhoneNumber number = phoneNo == null || countryCode == null ? null : PhoneNumber(countryCode, phoneNo);
+      final PhoneNumber number = (phoneNo == null || countryCode == null) ? null : PhoneNumber(countryCode, phoneNo);
       return AuxiliaryUserInfo(phoneNumber: number, registrationDate: dateRegistered);
     });
   }

@@ -26,7 +26,7 @@ class AuthController extends GetxController {
   Future<void> signOut() async {
     await _authRepository.signOut(user);
     user = null;
-    Get.find<UserDataController>().clearCache();
+    await Get.delete<UserDataController>();
   }
 
   void setUser(User user) {

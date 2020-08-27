@@ -5,12 +5,14 @@ import 'package:pispapp/controllers/app/account_controller.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/controllers/ephemeral/dashboard/dashboard_controller.dart';
 import 'package:pispapp/repositories/firebase/auth_repository.dart';
+import 'package:pispapp/repositories/firebase/user_data_repository.dart';
 import 'package:pispapp/repositories/stubs/stub_account_repository.dart';
 import 'package:pispapp/routes/app_pages.dart';
 import 'package:pispapp/routes/app_navigator.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'controllers/app/account_controller.dart';
 import 'controllers/app/auth_controller.dart';
+import 'controllers/app/user_data_controller.dart';
 import 'controllers/ephemeral/local_auth_controller.dart';
 import 'models/user.dart';
 
@@ -23,9 +25,10 @@ Future<void> main() async {
 
   final FirebaseUser currentUser = await FirebaseAuth.instance.currentUser();
   if(currentUser != null) {
-    User u = User.fromFirebase(currentUser, LoginType.google);
-    Get.find<AuthController>().setUser(u);
-    Get.find<AuthController>().loadAuxiliaryInfoForUser(currentUser.uid);
+    final User user = User.fromFirebase(currentUser, LoginType.google);
+    Get.find<AuthController>().setUser(user);
+    final UserDataController _userDataController = Get.put(UserDataController(UserDataRepository(), user));
+    _userDataController.loadAuxiliaryInfoForUser();
   }
 
   runApp(LifecycleAwareApp());
@@ -72,7 +75,7 @@ class _LifecycleAwareAppState extends State<LifecycleAwareApp>
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Get.find<AuthController>().user == null ? '/' : 'dashboard',
+      initialRoute: Get.find<AuthController>().user == null ? '/' : 'dashboard', // TODO(kkzeng): goes to phone number if needed
       theme: appThemeData,
       defaultTransition: Transition.fade,
       getPages: AppPages.pages,

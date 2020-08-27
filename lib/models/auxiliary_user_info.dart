@@ -1,22 +1,26 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:pispapp/models/phone_number.dart';
 
 import 'model.dart';
-part 'auxiliary_user_info.g.dart';
-@JsonSerializable()
-// ignore: must_be_immutable
-class AuxiliaryUserInfo extends Equatable implements Model {
-  AuxiliaryUserInfo({this.registrationDate, this.phoneNoIso, this.phoneNo});
 
-  factory AuxiliaryUserInfo.fromJson(Map<String, dynamic> json) => _$AuxiliaryUserInfoFromJson(json);
+class AuxiliaryUserInfo extends Equatable implements Model {
+  AuxiliaryUserInfo({this.registrationDate, this.phoneNumber});
 
   String registrationDate;
-  String phoneNoIso;
-  String phoneNo;
+  PhoneNumber phoneNumber;
 
   @override
-  Map<String, dynamic> toJson() => _$AuxiliaryUserInfoToJson(this);
+  List<Object> get props => [registrationDate, phoneNumber];
 
-  @override
-  List<Object> get props => [registrationDate, phoneNoIso, phoneNo];
+  String getFormattedPhoneNoForDisplay() {
+    if(phoneNumber == null || (phoneNumber.countryCode == null && phoneNumber.number == null)) {
+      return 'n/a';
+    }
+    return (phoneNumber.countryCode ?? '') + (phoneNumber.number ?? '');
+  }
+
+  String getFormattedRegistrationDateForDisplay() {
+    return registrationDate == null ? 'n/a' : registrationDate.split('T')[0];
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
+import 'package:pispapp/controllers/app/user_data_controller.dart';
 import 'package:pispapp/controllers/ephemeral/profile_controller.dart';
 import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
@@ -41,24 +42,24 @@ class Profile extends StatelessWidget {
                   title: const TitleText('Email'),
                   trailing: Text(Get.find<AuthController>().user.email),
                 ),
-                GetBuilder<AuthController>(builder: (value) =>
+                GetBuilder<UserDataController>(builder: (value) =>
                   ListTile(
                     contentPadding: const EdgeInsets.symmetric(),
                     title: const TitleText(
                       'Phone Number',
                       fontSize: 18,
                     ),
-                    trailing: Text(value.getFormattedPhoneNoForDisplay()),
+                    trailing: Text(value.userInfo.getFormattedPhoneNoForDisplay()),
                   ),
                 ),
-                GetBuilder<AuthController>(builder: (value) =>
+                GetBuilder<UserDataController>(builder: (value) =>
                     ListTile(
                       contentPadding: const EdgeInsets.symmetric(),
                       title: const TitleText(
                         'Registration Date',
                         fontSize: 18,
                       ),
-                      trailing: Text(value.getFormattedRegistrationDate()),
+                      trailing: Text(value.userInfo.getFormattedRegistrationDateForDisplay()),
                     ),
                 ),
               ],

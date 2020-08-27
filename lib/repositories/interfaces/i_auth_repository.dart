@@ -14,9 +14,4 @@ abstract class IAuthRepository {
   /// user. If the user signed in using their Google account, then
   /// the execution will also handle the sign out of their Google account.
   Future<void> signOut(User user);
-
-  /// Create an entry for the user in the DB.
-  /// This will store [AuxiliaryUserInfo] related to the user such as
-  /// phone number, date of registration etc.
-  Future<void> createUserEntryInDB(String userId);
 }

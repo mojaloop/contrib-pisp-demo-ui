@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:international_phone_input/international_phone_input.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
+import 'package:pispapp/controllers/app/user_data_controller.dart';
 import 'package:pispapp/models/phone_number.dart';
 import 'package:pispapp/routes/app_navigator.dart';
 
@@ -11,7 +12,7 @@ class SetupController extends GetxController {
   bool googleLogin = false;
   bool googleLoginPrompt = false;
 
-  final AuthController _ac = Get.find<AuthController>();
+  final UserDataController _userDataController = Get.find();
   void defaultState() {
     googleLogin = false;
     googleLoginPrompt = false;
@@ -21,7 +22,7 @@ class SetupController extends GetxController {
   void onPhoneNumberChange(PhoneNumber phoneNumber) {
     this.phoneNumber = phoneNumber;
     _checkNumberValidity();
-    Get.find<AuthController>().setPhoneNumber(phoneNumber);
+    Get.find<UserDataController>().setPhoneNumber(phoneNumber);
     update();
   }
 
@@ -45,9 +46,10 @@ class SetupController extends GetxController {
       return;
     }
 
-    // If phone number information is unknown, setup.
-    // Otherwise skip straight to dashboard
-    if(_ac.phoneNumber != null) {
+    // If phone number information has been previously associated then
+    // skip the phone number setup
+    // Otherwise proceed with phone number setup
+    if(_userDataController.phoneNumberAssociated) {
       Get.find<AppNavigator>().offAllNamed('/dashboard');
     }
     else {
@@ -56,7 +58,7 @@ class SetupController extends GetxController {
   }
 
   void onPhoneNumberSubmitted() {
-    Get.find<AuthController>().associatePhoneNumberWithUser(phoneNumber);
+    Get.find<UserDataController>().associatePhoneNumberWithUser(phoneNumber);
     Get.find<AppNavigator>().offAllNamed('/dashboard');
   }
 

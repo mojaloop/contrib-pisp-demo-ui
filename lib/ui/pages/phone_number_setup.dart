@@ -39,8 +39,6 @@ class PhoneNumberSetup extends StatelessWidget {
                         }
                       }),
                     ),
-                    // TODO(kkzeng): Handle invalid phone number and prevent
-                    // the user to continue to the next screen.
                     PhoneNumberInput(
                       hintText: 'Enter phone number',
                       initialValue: Get.find<SetupController>().phoneNumber,
@@ -50,14 +48,17 @@ class PhoneNumberSetup extends StatelessWidget {
                 ),
               ),
             ),
-            BottomButton(
-              const TitleText(
-                'Login',
-                color: Colors.white,
-                fontSize: 20,
-              ),
-              onTap: () => Get.find<SetupController>().onPhoneNumberSubmitted(),
-            ),
+            Obx(() {
+              return BottomButton(
+                const TitleText(
+                  'Login',
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+                onTap: Get.find<SetupController>().validPhoneNumber.value ?
+                    () => Get.find<SetupController>().onPhoneNumberSubmitted() : null
+              );
+            }),
           ],
         ),
       ),

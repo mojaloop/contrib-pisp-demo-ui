@@ -21,7 +21,7 @@ class AccountLinkingFlowController extends GetxController {
   /// PISP server to initiate discovery on the accounts
   /// linked to this [opaqueId]
   Future<void> initiateDiscovery(String opaqueId, String fspId) async {
-    _setAwaitingUpdate();
+    _setAwaitingUpdate(true);
 
     final User user = Get.find<AuthController>().user;
 
@@ -42,6 +42,10 @@ class AccountLinkingFlowController extends GetxController {
     _startListening(documentId);
   }
 
+  Future<void> confirmAccounts() async {
+
+  }
+
   void _startListening(String id) {
     _unsubscriber = _consentRepository.listen(id, onValue: _onValue);
   }
@@ -55,29 +59,37 @@ class AccountLinkingFlowController extends GetxController {
     consent.id = documentId;
 
     final oldValue = this.consent;
+    // Update consent with latest change
     this.consent = consent;
 
     // TODO: (kkzeng) Figure out what needs to be done in each state
     switch(consent.status) {
       case ConsentStatus.pendingPartyLookup:
         break;
-      case ConsentStatus.active:
+      case ConsentStatus.pendingPayeeConfirmation:
+        if (oldValue.status == ConsentStatus.pendingPartyLookup) {
+          // The consent data has been updated
+          _setAwaitingUpdate(false);
+
+          // TODO(kkzeng): Display screen with list of accounts to link here
+        }
         break;
       case ConsentStatus.authorizationRequired:
         break;
-      case ConsentStatus.pendingPayeeConfirmation:
+      case ConsentStatus.active:
+        _stopListening();
         break;
       case ConsentStatus.revoked:
+        _stopListening();
         break;
     }
   }
 
-  void _setAwaitingUpdate() {
-    // Update the payment status to be waiting for further update.
+  void _setAwaitingUpdate(bool isAwaitingUpdate) {
     // This is intended to inform the UI that the user is not expected to
     // make any action and just need to wait. For example, a circular progress
     // indicator could be displayed.
-    isAwaitingUpdate = true;
+    this.isAwaitingUpdate = isAwaitingUpdate;
     update();
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pispapp/controllers/ephemeral/account-linking/available_fsp_controller.dart';
+import 'package:pispapp/ui/pages/account-linking/account_discovery.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
 
@@ -15,6 +16,7 @@ class AvailableFSPScreen extends StatelessWidget {
         child: ListTile(
           trailing: const Icon(Icons.arrow_forward_ios),
           title: Text(fspName),
+          onTap: () => Get.to<dynamic>(AccountDiscovery('fspId', fspName)),
         ),
       ),
     );

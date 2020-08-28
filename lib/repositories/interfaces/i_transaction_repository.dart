@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:pispapp/models/transaction.dart';
 
+typedef TransactionHandler = void Function(Transaction);
+
 /// Abstraction for methods related to read/write transaction
 /// information from external data sources.
 abstract class ITransactionRepository {

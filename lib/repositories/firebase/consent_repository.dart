@@ -15,7 +15,6 @@ class ConsentRepository implements IConsentRepository {
     await _consentRef.document(id).updateData(data);
   }
 
-  /// Listen to Firebase changes
   @override
   void Function() listen(String id, {ConsentHandler onValue}) {
     final subscription = _consentRef.document(id).snapshots().listen((event) {

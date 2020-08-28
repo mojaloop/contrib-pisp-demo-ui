@@ -3,9 +3,10 @@ import 'package:pispapp/models/account.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
 
 class AccountBottomSheetTile extends StatelessWidget {
-  const AccountBottomSheetTile({this.account, this.onTap});
+  const AccountBottomSheetTile(this.account, {this.onTap});
 
   final Account account;
+
   final void Function() onTap;
 
   @override
@@ -17,10 +18,10 @@ class AccountBottomSheetTile extends StatelessWidget {
         leading: const CircleAvatar(),
         contentPadding: const EdgeInsets.symmetric(),
         title: TitleText(
-          text: account.alias,
+          account.alias,
           fontSize: 14,
         ),
-        subtitle: Text(account.fspInfo.fspName),
+        subtitle: Text(account.fspInfo.name),
       ),
     );
   }

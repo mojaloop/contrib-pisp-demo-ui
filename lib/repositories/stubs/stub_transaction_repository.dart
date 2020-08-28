@@ -1,93 +1,72 @@
 import 'dart:async';
 
-import 'package:pispapp/models/account.dart';
-import 'package:pispapp/models/amount.dart';
-import 'package:pispapp/models/party_id_info.dart';
-import 'package:pispapp/models/payee.dart';
+import 'package:pispapp/models/party.dart';
 import 'package:pispapp/models/transaction.dart';
 import 'package:pispapp/repositories/interfaces/i_transaction_repository.dart';
 
-List<Transaction> transactions = <Transaction>[
+List<Transaction> _stubTransactionData = <Transaction>[
   Transaction(
-    amount: Amount(
-      amount: '100',
-      currency: 'USD',
-    ),
+    amount: Money('100', Currency.USD),
     completedTimestamp: '2020-08-04T02:38:56.779Z',
-    payee: Payee(
+    payee: Party(
       name: 'Mark Doe',
       partyIdInfo: PartyIdInfo(partyIdentifier: 'IN1233323987'),
     ),
-    status: 'SUCCESS',
+    status: TransactionStatus.success,
     sourceAccountId: 'bob.fspA',
   ),
   Transaction(
-    amount: Amount(
-      amount: '100',
-      currency: 'USD',
-    ),
+    amount: Money('100', Currency.USD),
     completedTimestamp: '2020-08-04T02:38:56.779Z',
-    payee: Payee(
+    payee: Party(
       name: 'John Doe',
       partyIdInfo: PartyIdInfo(partyIdentifier: 'IN9876564738'),
     ),
-    status: 'PENDING',
+    status: TransactionStatus.success,
     sourceAccountId: 'bob.fspA',
   ),
   Transaction(
-    amount: Amount(
-      amount: '100',
-      currency: 'USD',
-    ),
+    amount: Money('100', Currency.USD),
     completedTimestamp: '2020-08-04T02:38:56.779Z',
-    payee: Payee(
+    payee: Party(
       name: 'Lily Doe',
       partyIdInfo: PartyIdInfo(partyIdentifier: 'IN1238748576'),
     ),
-    status: 'ERROR',
+    status: TransactionStatus.success,
     sourceAccountId: 'bob.fspA',
   ),
   Transaction(
-    amount: Amount(
-      amount: '100',
-      currency: 'USD',
-    ),
+    amount: Money('100', Currency.USD),
     completedTimestamp: '2020-08-04T02:38:56.779Z',
-    payee: Payee(
+    payee: Party(
       name: 'Mark Doe',
       partyIdInfo: PartyIdInfo(partyIdentifier: 'IN1233323987'),
     ),
-    status: 'SUCCESS',
+    status: TransactionStatus.success,
     sourceAccountId: 'bob.fspB',
   ),
 ];
 
 class StubTransactionRepository implements ITransactionRepository {
   @override
-  Future<List<Transaction>> getTransactions(
-      String userId, String accountId) async {
-    return Future<List<Transaction>>.value(transactions
-        .where((Transaction element) => element.sourceAccountId == accountId)
-        .toList());
-  }
-
-  @override
-  Future<String> initiateTransaction(
-      String userId, String phoneIsoCode, String phoneNumber) {
-    const String val = 'asdAhasdkljassdaASD2131bA';
-    return Future<String>.value(val);
+  Future<List<Transaction>> getTransactions(String userId) async {
+    return Future<List<Transaction>>.value(_stubTransactionData.toList());
   }
 
   @override
   // ignore: missing_return
-  StreamSubscription setupTransactionStream(String transactionid) {}
+  void Function() listen(String id, {TransactionHandler onValue}) {}
 
   @override
   // ignore: missing_return
-  Future<void> finalizePayment(
-      String transactionId, String amount, Account payerAccount) {}
+  Future<String> add(Map<String, dynamic> data) {}
 
   @override
   // ignore: missing_return
-  Future<void> authorizePayment(String transactionId, String signedString) {}
+  Future<void> updateData(String id, Map<String, dynamic> data) {}
+
+  @override
+  // ignore: missing_return
+  Future<void> setData(String id, Map<String, dynamic> data,
+      {bool merge = false}) {}
 }

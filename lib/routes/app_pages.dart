@@ -1,18 +1,11 @@
 import 'package:get/get.dart';
-import 'package:pispapp/ui/pages/account-linking/available_fsp.dart';
-import 'package:pispapp/bindings/lookup_payee_bindings.dart';
-import 'package:pispapp/bindings/payment_details_bindings.dart';
-import 'package:pispapp/bindings/payment_finalize_bindings.dart';
-import 'package:pispapp/bindings/payment_verdict_bindings.dart';
 import 'package:pispapp/bindings/setup_bindings.dart';
 import 'package:pispapp/bindings/splash_bindings.dart';
-import 'package:pispapp/controllers/ephemeral/account_dashboard_controller.dart';
+import 'package:pispapp/controllers/ephemeral/dashboard/account_dashboard_controller.dart';
+import 'package:pispapp/ui/pages/account-linking/available_fsp.dart';
 import 'package:pispapp/ui/pages/dashboard.dart';
 import 'package:pispapp/ui/pages/login_setup.dart';
-import 'package:pispapp/ui/pages/lookup_payee.dart';
-import 'package:pispapp/ui/pages/payment_details.dart';
-import 'package:pispapp/ui/pages/payment_finalize.dart';
-import 'package:pispapp/ui/pages/payment_verdict.dart';
+import 'package:pispapp/ui/pages/payment/payment_initiation.dart';
 import 'package:pispapp/ui/pages/phone_number_setup.dart';
 import 'package:pispapp/ui/pages/pin_entry.dart';
 import 'package:pispapp/ui/pages/splash.dart';
@@ -41,29 +34,13 @@ abstract class AppPages {
     GetPage(
       name: Routes.DASHBOARD,
       page: () {
-        Get.find<AccountDashboardController>().onRefresh();
+        Get.find<AccountDashboardController>().refresh();
         return Dashboard();
       },
     ),
     GetPage(
-      name: Routes.TRANSFER_LOOKUP,
-      page: () => LookupPayee(),
-      binding: LookupPayeeBinding(),
-    ),
-    GetPage(
-      name: Routes.TRANSFER_FINALIZE,
-      page: () => PaymentFinalize(),
-      binding: PaymentFinalizeBinding(),
-    ),
-    GetPage(
-      name: Routes.TRANSFER_DETAILS,
-      page: () => PaymentDetails(),
-      binding: PaymentDetailsBinding(),
-    ),
-    GetPage(
-      name: Routes.TRANSFER_VERDICT,
-      page: () => PaymentVerdict(),
-      binding: PaymentVerdictBinding(),
+      name: Routes.PAYMENT_INITIATION,
+      page: () => PaymentInitiation(),
     ),
     GetPage(
       name: Routes.PIN_ENTRY,

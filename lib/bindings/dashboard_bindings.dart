@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:pispapp/controllers/ephemeral/dashboard_controller.dart';
+import 'package:pispapp/controllers/ephemeral/dashboard/dashboard_controller.dart';
 
 class DashboardBinding implements Bindings {
   @override

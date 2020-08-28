@@ -5,12 +5,14 @@ import 'package:pispapp/repositories/interfaces/i_account_repository.dart';
 
 class AccountController extends GetxController {
   AccountController(this._accountRepository);
+
   var accounts = <Account>[].obs;
 
   IAccountRepository _accountRepository;
 
-  Future<void> getAllLinkedAccounts() async {
-    accounts.value = await _accountRepository
-        .getUserAccounts(Get.find<AuthController>().user.uid);
+  Future<void> getLinkedAccounts() async {
+    accounts.value = await _accountRepository.getUserAccounts(
+      Get.find<AuthController>().user.id,
+    );
   }
 }

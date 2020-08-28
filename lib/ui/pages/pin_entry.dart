@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:pispapp/controllers/ephemeral/pin_entry_controller.dart';
-import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/moja_button.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
-import 'package:pispapp/utils/log_printer.dart';
 
 class PinEntry extends StatelessWidget {
   // Handles animation for error
@@ -27,7 +25,7 @@ class PinEntry extends StatelessWidget {
       width: double.infinity,
       child: MojaButton(
           const TitleText(
-            text: 'Set PIN',
+            'Set PIN',
             color: Colors.white,
             fontSize: 20,
           ), () {
@@ -76,6 +74,7 @@ class PinEntry extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
             child: PinCodeTextField(
               length: PINEntryController.PINlength,
+              onChanged: (value) {},
               onCompleted: (value) {
                 // Only validate PIN when the user has set a PIN,
                 // otherwise the user is able to save the PIN using
@@ -112,9 +111,9 @@ class PinEntry extends StatelessWidget {
             ),
           ),
           GetBuilder<PINEntryController>(
-              builder: (c) => c.userSetPIN
-                  ? Container(width: 0.0, height: 0.0)
-                  : buildWidthFillingButton()
+            builder: (c) => c.userSetPIN
+                ? Container(width: 0.0, height: 0.0)
+                : buildWidthFillingButton(),
           ),
         ],
       ),

@@ -4,10 +4,11 @@ import 'package:mockito/mockito.dart';
 import 'package:pispapp/controllers/app/account_controller.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/models/user.dart';
-import 'package:pispapp/repositories/auth_repository.dart';
+import 'package:pispapp/repositories/firebase/auth_repository.dart';
 import 'package:pispapp/repositories/interfaces/i_account_repository.dart';
 
 class MockAccountRepository extends Mock implements IAccountRepository {}
+
 class MockAuthRepository extends Mock implements AuthRepository {}
 
 void main() {
@@ -15,6 +16,7 @@ void main() {
   AccountController accountController;
   IAccountRepository accountRepository;
   AuthController authController;
+
   setUp(
     () async {
       authRepository = MockAuthRepository();
@@ -27,12 +29,13 @@ void main() {
       when(authRepository.signInWithGoogle()).thenAnswer(
         (_) => Future.value(
           User(
-            uid: 'asd67aAhsda768AS',
-            displayName: 'John Doe',
+            id: 'asd67aAhsda768AS',
+            name: 'John Doe',
             email: 'jdoe@example.com',
           ),
         ),
       );
+
       await authController.signInWithGoogle();
     },
   );
@@ -41,10 +44,10 @@ void main() {
     'getAllLinkedAccounts() calls the AccountRepository.getUserAccounts() with signed in user uid',
     () async {
       // Call required function
-      await accountController.getAllLinkedAccounts();
+      await accountController.getLinkedAccounts();
 
       // Check if the repository function was called with right arguments
-      verify(accountRepository.getUserAccounts(authController.user.uid));
+      verify(accountRepository.getUserAccounts(authController.user.id));
     },
   );
 }

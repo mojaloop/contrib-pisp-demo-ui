@@ -1,17 +1,21 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pispapp/models/authentication.dart';
 import 'package:collection/collection.dart';
+import 'package:pispapp/models/transaction.dart';
 
 void main() {
   Map<String, dynamic> json;
   Authentication auth;
+
   setUp(() {
     json = <String, dynamic>{
       'type': 'U2F',
       'value': 'asdAhasdkljassdaASD2131bA',
     };
 
-    auth = Authentication(type: 'U2F', value: 'asdAhasdkljassdaASD2131bA');
+    auth = Authentication(
+      type: AuthenticationType.u2f,
+      value: 'asdAhasdkljassdaASD2131bA',
+    );
   });
 
   test('fromJson() makes correct object', () {

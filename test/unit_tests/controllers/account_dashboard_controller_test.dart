@@ -3,14 +3,17 @@ import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
 import 'package:pispapp/controllers/app/account_controller.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
-import 'package:pispapp/controllers/ephemeral/account_dashboard_controller.dart';
+import 'package:pispapp/controllers/ephemeral/dashboard/account_dashboard_controller.dart';
 import 'package:pispapp/models/account.dart';
 import 'package:pispapp/models/user.dart';
-import 'package:pispapp/repositories/auth_repository.dart';
+import 'package:pispapp/repositories/firebase/auth_repository.dart';
 import 'package:pispapp/repositories/interfaces/i_transaction_repository.dart';
 
-class MockTransactionRepository extends Mock implements ITransactionRepository {}
+class MockTransactionRepository extends Mock implements ITransactionRepository {
+}
+
 class MockAccountController extends Mock implements AccountController {}
+
 class MockAuthRepository extends Mock implements AuthRepository {}
 
 void main() {
@@ -36,8 +39,8 @@ void main() {
       when(authRepository.signInWithGoogle()).thenAnswer(
         (_) => Future.value(
           User(
-            uid: 'asd67aAhsda768AS',
-            displayName: 'John Doe',
+            id: 'asd67aAhsda768AS',
+            name: 'John Doe',
             email: 'jdoe@example.com',
           ),
         ),
@@ -51,7 +54,7 @@ void main() {
     () async {
       await accDashboardController.getLinkedAccounts();
 
-      verify(accountController.getAllLinkedAccounts());
+      verify(accountController.getLinkedAccounts());
     },
   );
 
@@ -70,8 +73,7 @@ void main() {
       expect(accDashboardController.selectedAccount.sourceAccountId,
           account.sourceAccountId);
 
-      verify(transactionRepository.getTransactions(
-          authController.user.uid, account.sourceAccountId));
+      verify(transactionRepository.getTransactions(authController.user.id));
     },
   );
 }

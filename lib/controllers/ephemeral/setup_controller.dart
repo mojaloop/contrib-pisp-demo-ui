@@ -1,41 +1,23 @@
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
-import 'package:pispapp/routes/custom_navigator.dart';
+import 'package:pispapp/models/phone_number.dart';
+import 'package:pispapp/routes/app_navigator.dart';
 
 class SetupController extends GetxController {
-  String phoneNumber = '';
-  String phoneIsoCode = '';
+  PhoneNumber phoneNumber;
 
   bool googleLogin = false;
-  bool validPhoneNumber = false;
-
   bool googleLoginPrompt = false;
-  bool phoneNumberPrompt = false;
 
   void defaultState() {
     googleLogin = false;
-    validPhoneNumber = false;
-
     googleLoginPrompt = false;
-    phoneNumberPrompt = false;
     update();
   }
 
-  void onPhoneNumberChange(
-      String number, String internationalizedPhoneNumber, String isoCode) {
-    phoneNumber = number;
-    phoneIsoCode = isoCode;
-
-    if (number.length == 10) {
-      validPhoneNumber = true;
-      Get.find<AuthController>().setPhoneNumber(number, isoCode);
-    } else {
-      validPhoneNumber = false;
-      Get.find<AuthController>().setPhoneNumber('', '');
-    }
-
-    phoneNumberPrompt = false;
-
+  void onPhoneNumberChange(PhoneNumber phoneNumber) {
+    this.phoneNumber = phoneNumber;
+    Get.find<AuthController>().setPhoneNumber(phoneNumber);
     update();
   }
 
@@ -52,10 +34,10 @@ class SetupController extends GetxController {
       update();
       return;
     }
-    Get.find<CustomNavigator>().toNamed('/phone_number');
+    Get.find<AppNavigator>().toNamed('/phone_number');
   }
 
   void onLogin() {
-    Get.find<CustomNavigator>().offAllNamed('/dashboard');
+    Get.find<AppNavigator>().offAllNamed('/dashboard');
   }
 }

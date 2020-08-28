@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:pispapp/models/consent.dart';
 import 'package:pispapp/repositories/interfaces/i_consent_repository.dart';
 
 class ConsentRepository implements IConsentRepository {
@@ -18,7 +19,7 @@ class ConsentRepository implements IConsentRepository {
   @override
   void Function() listen(String id, {ConsentHandler onValue}) {
     final subscription = _consentRef.document(id).snapshots().listen((event) {
-      // onValue(Consent.fromJson(event.data));
+      onValue(Consent.fromJson(event.data));
     });
 
     return () => subscription.cancel();

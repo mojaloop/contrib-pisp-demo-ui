@@ -25,4 +25,3 @@ abstract class IConsentRepository {
   Future<void> setData(String id, Map<String, dynamic> data,
       {bool merge = false});
 }
-}

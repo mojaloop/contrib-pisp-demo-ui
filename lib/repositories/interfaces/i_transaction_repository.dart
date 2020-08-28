@@ -30,5 +30,3 @@ abstract class ITransactionRepository {
   Future<void> setData(String id, Map<String, dynamic> data,
       {bool merge = false});
 }
-
-typedef TransactionHandler = void Function(Transaction);

@@ -29,7 +29,6 @@ class PaymentFlowController extends GetxController {
     _setAwaitingUpdate();
 
     final user = Get.find<AuthController>().user;
-    print('TETSTSTDSATASD SADJASLJADSLADS WHYY');
 
     documentId = await _transactionRepository.add(
       Transaction(

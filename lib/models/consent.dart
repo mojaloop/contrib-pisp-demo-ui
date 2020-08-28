@@ -176,7 +176,7 @@ enum ConsentStatus {
   /// Waiting for the user to confirm payee information and provide more
   /// details about the transaction.
   @JsonValue('PENDING_PAYEE_CONFIRMATION')
-  pendingPayeeConfirmation,
+  pendingPayeeConfirmation, // TODO(Change this!!)
 
   /// Waiting for the user to authorize the transaction.
   @JsonValue('AUTHORIZATION_REQUIRED')

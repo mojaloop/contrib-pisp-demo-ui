@@ -62,11 +62,11 @@ class AccountLinkingFlowController extends GetxController {
     // Update consent with latest change
     this.consent = consent;
 
-    // TODO: (kkzeng) Figure out what needs to be done in each state
+    // TODO(kkzeng): Figure out what needs to be done in each state and explore state machine library use
     switch(consent.status) {
       case ConsentStatus.pendingPartyLookup:
         break;
-      case ConsentStatus.pendingPayeeConfirmation:
+      case ConsentStatus.pendingPartyConfirmation:
         if (oldValue.status == ConsentStatus.pendingPartyLookup) {
           // The consent data has been updated
           _setAwaitingUpdate(false);
@@ -75,6 +75,10 @@ class AccountLinkingFlowController extends GetxController {
         }
         break;
       case ConsentStatus.authorizationRequired:
+        break;
+      case ConsentStatus.consentGranted:
+        break;
+      case ConsentStatus.challengeGenerated:
         break;
       case ConsentStatus.active:
         _stopListening();

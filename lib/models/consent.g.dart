@@ -7,34 +7,35 @@ part of 'consent.dart';
 // **************************************************************************
 
 Consent _$ConsentFromJson(Map<String, dynamic> json) {
-  return Consent()
-    ..id = json['id'] as String
-    ..consentId = json['consentId'] as String
-    ..party = json['party'] == null
+  return Consent(
+    id: json['id'] as String,
+    consentId: json['consentId'] as String,
+    party: json['party'] == null
         ? null
-        : Party.fromJson(json['party'] as Map<String, dynamic>)
-    ..status = _$enumDecodeNullable(_$ConsentStatusEnumMap, json['status'])
-    ..userId = json['userId'] as String
-    ..consentRequestId = json['consentRequestId'] as String
-    ..accounts = (json['accounts'] as List)
+        : Party.fromJson(json['party'] as Map<String, dynamic>),
+    status: _$enumDecodeNullable(_$ConsentStatusEnumMap, json['status']),
+    userId: json['userId'] as String,
+    consentRequestId: json['consentRequestId'] as String,
+    accounts: (json['accounts'] as List)
         ?.map((e) =>
             e == null ? null : Account.fromJson(e as Map<String, dynamic>))
-        ?.toList()
-    ..authChannels = (json['authChannels'] as List)
+        ?.toList(),
+    authChannels: (json['authChannels'] as List)
         ?.map((e) => _$enumDecodeNullable(_$TAuthChannelEnumMap, e))
-        ?.toList()
-    ..authUri = json['authUri'] as String
-    ..authToken = json['authToken'] as String
-    ..initiatorId = json['initiatorId'] as String
-    ..participantId = json['participantId'] as String
-    ..scopes = (json['scopes'] as List)
+        ?.toList(),
+    authUri: json['authUri'] as String,
+    authToken: json['authToken'] as String,
+    initiatorId: json['initiatorId'] as String,
+    participantId: json['participantId'] as String,
+    scopes: (json['scopes'] as List)
         ?.map((e) => e == null
             ? null
             : TCredentialScope.fromJson(e as Map<String, dynamic>))
-        ?.toList()
-    ..credential = json['credential'] == null
+        ?.toList(),
+    credential: json['credential'] == null
         ? null
-        : TCredential.fromJson(json['credential'] as Map<String, dynamic>);
+        : TCredential.fromJson(json['credential'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$ConsentToJson(Consent instance) {
@@ -99,8 +100,10 @@ T _$enumDecodeNullable<T>(
 
 const _$ConsentStatusEnumMap = {
   ConsentStatus.pendingPartyLookup: 'PENDING_PARTY_LOOKUP',
-  ConsentStatus.pendingPayeeConfirmation: 'PENDING_PAYEE_CONFIRMATION',
+  ConsentStatus.pendingPartyConfirmation: 'PENDING_PARTY_CONFIRMATION',
   ConsentStatus.authorizationRequired: 'AUTHORIZATION_REQUIRED',
+  ConsentStatus.consentGranted: 'CONSENT_GRANTED',
+  ConsentStatus.challengeGenerated: 'CHALLENGE_GENERATED',
   ConsentStatus.active: 'ACTIVE',
   ConsentStatus.revoked: 'REVOKED',
 };
@@ -111,14 +114,15 @@ const _$TAuthChannelEnumMap = {
 };
 
 TCredential _$TCredentialFromJson(Map<String, dynamic> json) {
-  return TCredential()
-    ..id = json['id'] as String
-    ..credentialType =
-        _$enumDecodeNullable(_$TCredentialTypeEnumMap, json['credentialType'])
-    ..status = _$enumDecodeNullable(_$TCredentialStatusEnumMap, json['status'])
-    ..challenge = json['challenge'] == null
+  return TCredential(
+    id: json['id'] as String,
+    credentialType:
+        _$enumDecodeNullable(_$TCredentialTypeEnumMap, json['credentialType']),
+    status: _$enumDecodeNullable(_$TCredentialStatusEnumMap, json['status']),
+    challenge: json['challenge'] == null
         ? null
-        : Challenge.fromJson(json['challenge'] as Map<String, dynamic>);
+        : Challenge.fromJson(json['challenge'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$TCredentialToJson(TCredential instance) {
@@ -148,9 +152,10 @@ const _$TCredentialStatusEnumMap = {
 };
 
 Challenge _$ChallengeFromJson(Map<String, dynamic> json) {
-  return Challenge()
-    ..payload = json['payload'] as String
-    ..signature = json['signature'] as String;
+  return Challenge(
+    payload: json['payload'] as String,
+    signature: json['signature'] as String,
+  );
 }
 
 Map<String, dynamic> _$ChallengeToJson(Challenge instance) {
@@ -168,9 +173,10 @@ Map<String, dynamic> _$ChallengeToJson(Challenge instance) {
 }
 
 TCredentialScope _$TCredentialScopeFromJson(Map<String, dynamic> json) {
-  return TCredentialScope()
-    ..scope = json['scope'] as String
-    ..accountId = json['accountId'] as String;
+  return TCredentialScope(
+    scope: json['scope'] as String,
+    accountId: json['accountId'] as String,
+  );
 }
 
 Map<String, dynamic> _$TCredentialScopeToJson(TCredentialScope instance) {
@@ -188,9 +194,10 @@ Map<String, dynamic> _$TCredentialScopeToJson(TCredentialScope instance) {
 }
 
 Account _$AccountFromJson(Map<String, dynamic> json) {
-  return Account()
-    ..id = json['id'] as String
-    ..currency = _$enumDecodeNullable(_$CurrencyEnumMap, json['currency']);
+  return Account(
+    id: json['id'] as String,
+    currency: _$enumDecodeNullable(_$CurrencyEnumMap, json['currency']),
+  );
 }
 
 Map<String, dynamic> _$AccountToJson(Account instance) {

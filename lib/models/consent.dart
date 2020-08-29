@@ -169,23 +169,34 @@ extension TCredentialStatusJson on TCredentialStatus {
 }
 
 enum ConsentStatus {
-  /// Waiting for a callback from Mojaloop to give the payee information.
+  /// Waiting for a callback from Mojaloop to give the consent/account information.
   @JsonValue('PENDING_PARTY_LOOKUP')
   pendingPartyLookup,
 
-  /// Waiting for the user to confirm payee information and provide more
-  /// details about the transaction.
-  @JsonValue('PENDING_PAYEE_CONFIRMATION')
-  pendingPayeeConfirmation, // TODO(Change this!!)
+  /// Waiting for the user to confirm party lookup information and select
+  /// accounts to link
+  @JsonValue('PENDING_PARTY_CONFIRMATION')
+  pendingPartyConfirmation,
 
-  /// Waiting for the user to authorize the transaction.
+  /// Waiting for the user to authorize the account linking.
   @JsonValue('AUTHORIZATION_REQUIRED')
   authorizationRequired,
 
-  /// The transaction is successful.
+  /// Mojaloop has notified the server that consent has been granted.
+  /// The user has authorized themselves.
+  @JsonValue('CONSENT_GRANTED')
+  consentGranted,
+
+  /// The server has requested that Mojaloop present a challenge
+  /// for the FIDO registration process.
+  @JsonValue('CHALLENGE_GENERATED')
+  challengeGenerated,
+
+  /// The account linking was successful.
   @JsonValue('ACTIVE')
   active,
 
+  /// The consent was successfully revoked by the user.
   @JsonValue('REVOKED')
   revoked,
 }

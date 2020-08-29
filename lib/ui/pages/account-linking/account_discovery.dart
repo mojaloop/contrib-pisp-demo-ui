@@ -4,8 +4,11 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pispapp/controllers/ephemeral/account-linking/account_discovery_controller.dart';
 import 'package:pispapp/controllers/ephemeral/account-linking/available_fsp_controller.dart';
+import 'package:pispapp/controllers/flow/account_linking_flow_controller.dart';
 import 'package:pispapp/models/account.dart';
+import 'package:pispapp/repositories/firebase/consent_repository.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
+import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/moja_button.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
@@ -15,7 +18,46 @@ class AccountDiscovery extends StatelessWidget {
 
   final String fspId;
   final String fspName;
-  final AccountDiscoveryController _controller = AccountDiscoveryController();
+  final AccountDiscoveryController _accountDiscoveryController = AccountDiscoveryController();
+  final AccountLinkingFlowController _accountLinkingFlowController = AccountLinkingFlowController(ConsentRepository());
+
+  Widget _buildActionSection() {
+    return GetBuilder<AccountLinkingFlowController>(
+      init: _accountLinkingFlowController,
+      global: false,
+      builder: (controller) {
+        if (!controller.isAwaitingUpdate) {
+          // The user is only allowed to click the button once.
+          // Afterward, the state of the payment flow controller will be updated
+          // to be awaiting for response. Once the response is received, the
+          // flow controller is expected to bring used to another page.
+          return BottomButton(
+            const TitleText(
+              'Lookup Account(s)',
+              color: Colors.white,
+              fontSize: 20,
+            ),
+            onTap: () {
+              // Start discovering accounts associated to opaqueId
+              final opaqueId = _accountDiscoveryController.opaqueId;
+              _accountLinkingFlowController.initiateDiscovery(opaqueId, fspId);
+            },
+          );
+        } else {
+          // Once the user clicks the button, it will change to a circular progress
+          // indicator until the mobile app receives the response from the server
+          // which will include the payee information. The flow controller is
+          // responsible to bring user to another screen that displays the payee
+          // information.
+          return BottomButton(
+            const CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            ),
+          );
+        }
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,16 +77,9 @@ class AccountDiscovery extends StatelessWidget {
                   color: LightColor.navyBlue2,
                 ),
                 onChanged: (String value) {
-                  _controller.onIDChange(value);
+                  _accountDiscoveryController.onIDChange(value);
                 }),
-            MojaButton(
-                const TitleText(
-                  'Confirm',
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
-                    () => _controller.initiateLookup(fspId),
-            ),
+            _buildActionSection(),
           ],
         ));
   }

@@ -60,7 +60,6 @@ class AvailableFSPScreen extends StatelessWidget {
         ],
       ),
     );
-
   }
 
   Widget _buildDescText() {

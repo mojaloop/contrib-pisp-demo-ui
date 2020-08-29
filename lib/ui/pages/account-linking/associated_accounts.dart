@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pispapp/controllers/ephemeral/account-linking/associated_accounts_controller.dart';
 import 'package:pispapp/controllers/flow/account_linking_flow_controller.dart';
 import 'package:pispapp/models/consent.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
@@ -8,9 +10,12 @@ import 'package:pispapp/ui/widgets/shadow_box.dart';
 
 // ignore: must_be_immutable
 class AssociatedAccounts extends StatelessWidget {
-  AssociatedAccounts(this._accountLinkingFlowController);
+  AssociatedAccounts(this._accountLinkingFlowController) {
+    _associatedAccountsController = AssociatedAccountsController(_accountLinkingFlowController.consent.accounts);
+  }
 
   final AccountLinkingFlowController _accountLinkingFlowController;
+  AssociatedAccountsController _associatedAccountsController;
 
   // For when there are no accounts associated with the opaque id
   Widget _buildEmptyDisplay() {
@@ -39,9 +44,18 @@ class AssociatedAccounts extends StatelessWidget {
       child: ShadowBox(
         color: LightColor.navyBlue1,
         child: ListTile(
-          trailing: const Icon(Icons.check_box_outline_blank), // TODO(kkzeng): Make tap select the account
+          trailing:
+        GetBuilder<AssociatedAccountsController>(
+            init: _associatedAccountsController,
+            global: false,
+            builder: (controller) {
+              return controller.isAccSelected(acc.id) ?
+              const Icon(Icons.check_box_outline_blank) :
+              const Icon(Icons.check_box);
+            }),
           title: Text(acc.id),
           subtitle: Text(acc.currency.toJsonString()),
+          onTap: () => _associatedAccountsController.onTap(acc.id),
         ),
       ),
     );

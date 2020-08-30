@@ -59,28 +59,60 @@ class AccountDiscovery extends StatelessWidget {
     );
   }
 
+  Widget _buildInstructions() {
+    return const Padding(
+      padding: EdgeInsets.symmetric(vertical: 15),
+      child: Text(
+        'Please enter the ID of the account you are trying to link.',
+        style: TextStyle(
+          fontSize: 15.0,
+          color: LightColor.navyBlue2,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildIDTextField() {
+    return TextField(
+      textAlign: TextAlign.center,
+      decoration: const InputDecoration(hintText: 'Account ID'),
+      style: const TextStyle(
+        fontSize: 15.0,
+        height: 2.0,
+        color: LightColor.navyBlue2,
+      ),
+      onChanged: (String value) {
+        _accountDiscoveryController.onIDChange(value);
+      },
+    );
+  }
+
+  Widget _buildAccountIcon() {
+    return const Icon(
+        Icons.account_circle,
+        size: 120,
+        color: LightColor.lightNavyBlue,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text(fspName),
         ),
-        body: Column(
-          children: [
-            const Text('Enter the ID of the account you are trying to link.'),
-            TextField(
-                textAlign: TextAlign.left,
-                decoration: const InputDecoration(hintText: 'Account ID'),
-                style: const TextStyle(
-                  fontSize: 10.0,
-                  height: 2.0,
-                  color: LightColor.navyBlue2,
-                ),
-                onChanged: (String value) {
-                  _accountDiscoveryController.onIDChange(value);
-                }),
-            _buildActionSection(),
-          ],
-        ));
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Column(
+            children: [
+              const SizedBox(height: 30),
+              _buildAccountIcon(),
+              _buildInstructions(),
+              _buildIDTextField(),
+              _buildActionSection(),
+            ],
+          ),
+        )
+    );
   }
 }

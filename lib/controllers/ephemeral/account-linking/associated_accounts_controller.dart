@@ -15,10 +15,11 @@ class AssociatedAccountsController extends GetxController {
     else {
       _selectAcc(accId);
     }
+    update();
   }
 
   bool isAccSelected(String accId) {
-    _selectedAccIds.contains(accId);
+    return _selectedAccIds.contains(accId);
   }
 
   List<Account> getSelectedAccounts() {

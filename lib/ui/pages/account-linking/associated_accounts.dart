@@ -6,7 +6,9 @@ import 'package:pispapp/controllers/ephemeral/account-linking/associated_account
 import 'package:pispapp/controllers/flow/account_linking_flow_controller.dart';
 import 'package:pispapp/models/consent.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
+import 'package:pispapp/ui/widgets/moja_button.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
+import 'package:pispapp/ui/widgets/title_text.dart';
 
 // ignore: must_be_immutable
 class AssociatedAccounts extends StatelessWidget {
@@ -61,16 +63,56 @@ class AssociatedAccounts extends StatelessWidget {
     );
   }
 
+  Widget _buildActionButton() {
+    return GetBuilder<AccountLinkingFlowController>(
+      init: _accountLinkingFlowController,
+      global: false,
+      builder: (controller) {
+        if(!controller.isAwaitingUpdate) {
+          return MojaButton(
+              const TitleText(
+                'Set PIN',
+                color: Colors.white,
+                fontSize: 20,
+              ),
+              onTap: () {
+                // TODO(kkzeng): Proceed to consent request stage
+              }
+          );
+        }
+        else {
+          return MojaButton(
+            const CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            ),
+          );
+        }
+      },
+    );
+  }
+
   Widget _buildList() {
     final List<Account> associatedAccounts =
         _accountLinkingFlowController.consent.accounts;
     if (associatedAccounts.isEmpty) {
       return _buildEmptyDisplay();
     }
+
+    final int listLength = associatedAccounts.length + 2;
     return ListView.builder(
-      itemCount: associatedAccounts.length,
+      itemCount: listLength,
       itemBuilder: (BuildContext ctxt, int index) {
-        return _buildListItem(associatedAccounts[index]);
+        // Top shows a description
+        if(index == 0) {
+          return const Text('Please select the account(s) you want to link');
+        }
+        // Bottom part is a "Link Account(s)" button
+        else if(index == listLength - 1) {
+          return _buildActionButton();
+        }
+        else {
+          return _buildListItem(associatedAccounts[index - 1]);
+        }
       },
     );
   }
@@ -83,7 +125,7 @@ class AssociatedAccounts extends StatelessWidget {
       ),
       body:
       SizedBox.expand(
-        child: _buildList(),
+        child:_buildList(),
       ),
     );
   }

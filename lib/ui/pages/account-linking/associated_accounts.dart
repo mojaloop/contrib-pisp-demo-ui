@@ -43,15 +43,18 @@ class AssociatedAccounts extends StatelessWidget {
       child: ShadowBox(
         color: LightColor.navyBlue1,
         child: ListTile(
+          leading: const Icon(Icons.account_circle,
+              size: 50,
+              color: LightColor.navyBlue1),
           trailing:
-        GetBuilder<AssociatedAccountsController>(
-            init: _associatedAccountsController,
-            global: false,
-            builder: (controller) {
-              return controller.isAccSelected(acc.id) ?
-              const Icon(Icons.check_box_outline_blank) :
-              const Icon(Icons.check_box);
-            }),
+          GetBuilder<AssociatedAccountsController>(
+              init: _associatedAccountsController,
+              global: false,
+              builder: (controller) {
+                return controller.isAccSelected(acc.id) ?
+                const Icon(Icons.check_circle_outline, color: LightColor.navyBlue1) :
+                const Text('');
+              }),
           title: Text(acc.id),
           subtitle: Text(acc.currency.toJsonString()),
           onTap: () => _associatedAccountsController.onTap(acc.id),
@@ -88,6 +91,14 @@ class AssociatedAccounts extends StatelessWidget {
     );
   }
 
+  Widget _buildInstructions() {
+    return const Padding(
+      padding: EdgeInsets.symmetric(vertical: 15),
+      child: Text('Please select the account(s) you want to link.',
+          textAlign: TextAlign.center),
+    );
+  }
+
   Widget _buildList() {
     final List<Account> associatedAccounts =
         _accountLinkingFlowController.consent.accounts;
@@ -101,7 +112,7 @@ class AssociatedAccounts extends StatelessWidget {
       itemBuilder: (BuildContext ctxt, int index) {
         // Top shows a description
         if(index == 0) {
-          return const Text('Please select the account(s) you want to link');
+          return _buildInstructions();
         }
         // Bottom part is a "Link Account(s)" button
         else if(index == listLength - 1) {
@@ -118,7 +129,7 @@ class AssociatedAccounts extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Associated accounts'),
+        title: const Text('Associated Accounts'),
       ),
       body:
       SizedBox.expand(

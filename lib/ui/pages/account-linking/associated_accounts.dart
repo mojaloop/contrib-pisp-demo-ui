@@ -38,8 +38,10 @@ class AssociatedAccounts extends StatelessWidget {
   }
 
   Widget _buildListItem(Account acc) {
+    final String accId = acc?.id ?? 'Unknown Account';
+    final String currencyStr = acc?.currency?.toJsonString() ?? 'Unknown Currency';
     return Container(
-      padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: ShadowBox(
         color: LightColor.navyBlue1,
         child: ListTile(
@@ -51,13 +53,13 @@ class AssociatedAccounts extends StatelessWidget {
               init: _associatedAccountsController,
               global: false,
               builder: (controller) {
-                return controller.isAccSelected(acc.id) ?
+                return controller.isAccSelected(accId) ?
                 const Icon(Icons.check_circle_outline, color: LightColor.navyBlue1) :
                 const Text('');
               }),
-          title: Text(acc.id),
-          subtitle: Text(acc.currency.toJsonString()),
-          onTap: () => _associatedAccountsController.onTap(acc.id),
+          title: Text(accId),
+          subtitle: Text(currencyStr),
+          onTap: () => _associatedAccountsController.onTap(accId),
         ),
       ),
     );

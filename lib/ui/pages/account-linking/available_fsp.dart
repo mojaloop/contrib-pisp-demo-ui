@@ -17,7 +17,7 @@ class AvailableFSPScreen extends StatelessWidget {
         child: ListTile(
           trailing: const Icon(Icons.arrow_forward_ios),
           title: Text(fspName),
-          onTap: () => Get.to<dynamic>(AccountDiscovery('fspId', fspName)),
+          onTap: () => Get.to<dynamic>(AccountDiscovery('fspId', fspName)), // TODO(kkzeng): Pass actual fspId
         ),
       ),
     );

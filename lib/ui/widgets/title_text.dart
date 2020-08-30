@@ -4,11 +4,13 @@ import 'package:pispapp/ui/theme/light_theme.dart';
 
 class TitleText extends StatelessWidget {
   const TitleText(
-    this.data, {
-    Key key,
-    this.fontSize = 18,
-    this.color = LightColor.navyBlue2,
-  }) : super(key: key);
+      this.data,
+      {
+        Key key,
+        this.fontSize = 18,
+        this.color = LightColor.navyBlue2,
+        this.textAlign = TextAlign.left,
+      }) : super(key: key);
 
   final String data;
 
@@ -16,6 +18,7 @@ class TitleText extends StatelessWidget {
 
   final Color color;
 
+  final TextAlign textAlign;
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -25,6 +28,7 @@ class TitleText extends StatelessWidget {
         fontWeight: FontWeight.w800,
         color: color,
       ),
+      textAlign: textAlign,
     );
   }
 }

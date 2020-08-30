@@ -6,6 +6,7 @@ import 'package:pispapp/controllers/ephemeral/account-linking/available_fsp_cont
 import 'package:pispapp/ui/pages/account-linking/account_discovery.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
+import 'package:pispapp/ui/widgets/title_text.dart';
 
 class AvailableFSPScreen extends StatelessWidget {
   Widget _buildListItem(String fspName) {
@@ -49,12 +50,10 @@ class AvailableFSPScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Icon(Icons.warning, size: 80, color: LightColor.lightNavyBlue),
-          Text('Oops...no financial providers are supported currently!',
-            style: GoogleFonts.muli(
-              fontSize: 20,
-            ),
+        children: const [
+          Icon(Icons.warning, size: 80, color: LightColor.lightNavyBlue),
+          TitleText(
+            'Oops...no financial providers are supported currently!',
             textAlign: TextAlign.center,
           ),
         ],

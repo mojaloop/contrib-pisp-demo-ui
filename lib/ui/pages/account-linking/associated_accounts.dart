@@ -26,13 +26,10 @@ class AssociatedAccounts extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Icon(Icons.warning, size: 80, color: LightColor.lightNavyBlue),
-          Text(
+        children: const [
+          Icon(Icons.warning, size: 80, color: LightColor.lightNavyBlue),
+          TitleText(
             'Oops...there are no accounts associated with that ID!',
-            style: GoogleFonts.muli(
-              fontSize: 20,
-            ),
             textAlign: TextAlign.center,
           ),
         ],

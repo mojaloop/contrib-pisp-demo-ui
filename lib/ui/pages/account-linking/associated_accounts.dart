@@ -78,7 +78,8 @@ class AssociatedAccounts extends StatelessWidget {
                 fontSize: 20,
               ),
               onTap: () {
-                // TODO(kkzeng): Proceed to consent request stage
+                final List<Account> selected = _associatedAccountsController.getSelectedAccounts();
+                controller.initiateConsentRequest(selected);
               }
           );
         }

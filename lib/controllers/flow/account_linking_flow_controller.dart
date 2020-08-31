@@ -43,6 +43,16 @@ class AccountLinkingFlowController extends GetxController {
     _startListening(documentId);
   }
 
+  Future<void> initiateConsentRequest(List<Account> accsToLink) async {
+    _setAwaitingUpdate(true);
+
+    final Consent updated = Consent(
+      authChannels: [TAuthChannel.web, TAuthChannel.otp],
+      accounts: accsToLink
+    );
+    await _consentRepository.updateData(documentId, updated.toJson());
+  }
+
   Future<void> confirmAccounts() async {
 
   }
@@ -78,6 +88,12 @@ class AccountLinkingFlowController extends GetxController {
         }
         break;
       case ConsentStatus.authorizationRequired:
+        if (oldValue.status == ConsentStatus.pendingPartyConfirmation) {
+          // The consent data has been updated
+          _setAwaitingUpdate(false);
+
+          // TODO(kkzeng): Direct user to relevant authentication (Web or OTP)
+        }
         break;
       case ConsentStatus.consentGranted:
         break;

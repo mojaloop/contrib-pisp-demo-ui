@@ -5,6 +5,7 @@ import 'package:pispapp/models/party.dart';
 import 'package:pispapp/models/user.dart';
 import 'package:pispapp/repositories/interfaces/i_consent_repository.dart';
 import 'package:pispapp/ui/pages/account-linking/associated_accounts.dart';
+import 'package:pispapp/ui/pages/account-linking/otp_auth.dart';
 
 class AccountLinkingFlowController extends GetxController {
   AccountLinkingFlowController(this._consentRepository);
@@ -93,6 +94,15 @@ class AccountLinkingFlowController extends GetxController {
           _setAwaitingUpdate(false);
 
           // TODO(kkzeng): Direct user to relevant authentication (Web or OTP)
+          switch(consent.authChannels[0]) {
+            case TAuthChannel.otp:
+              Get.to<dynamic>(OTPAuth(this));
+              break;
+            case TAuthChannel.web:
+              break;
+            default:
+              // not supported
+          }
         }
         break;
       case ConsentStatus.consentGranted:

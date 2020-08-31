@@ -54,8 +54,11 @@ class AccountLinkingFlowController extends GetxController {
     await _consentRepository.updateData(documentId, updated.toJson());
   }
 
-  Future<void> confirmAccounts() async {
+  Future<void> sendAuthToken(String authToken) async {
+    _setAwaitingUpdate(true);
 
+    final Consent updated = Consent(authToken: authToken);
+    await _consentRepository.updateData(documentId, updated.toJson());
   }
 
   void _startListening(String id) {
@@ -93,12 +96,12 @@ class AccountLinkingFlowController extends GetxController {
           // The consent data has been updated
           _setAwaitingUpdate(false);
 
-          // TODO(kkzeng): Direct user to relevant authentication (Web or OTP)
           switch(consent.authChannels[0]) {
             case TAuthChannel.otp:
               Get.to<dynamic>(OTPAuth(this));
               break;
             case TAuthChannel.web:
+            // TODO(kkzeng): Direct user to relevant web auth process
               break;
             default:
               // not supported

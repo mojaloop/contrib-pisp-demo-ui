@@ -29,7 +29,8 @@ class OTPAuth extends StatelessWidget {
               fontSize: 20,
             ),
             onTap: () {
-              // TODO(kkzeng): Send OTP back for verification purposes
+              // Send auth token back to demo server for verification
+              _accountLinkingFlowController.sendAuthToken(_authController.otp);
             },
           );
         } else {

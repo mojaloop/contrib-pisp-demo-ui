@@ -6,6 +6,7 @@ import 'package:pispapp/models/user.dart';
 import 'package:pispapp/repositories/interfaces/i_consent_repository.dart';
 import 'package:pispapp/ui/pages/account-linking/associated_accounts.dart';
 import 'package:pispapp/ui/pages/account-linking/otp_auth.dart';
+import 'package:pispapp/ui/pages/account-linking/web_auth.dart';
 
 class AccountLinkingFlowController extends GetxController {
   AccountLinkingFlowController(this._consentRepository);
@@ -101,7 +102,7 @@ class AccountLinkingFlowController extends GetxController {
               Get.to<dynamic>(OTPAuth(this));
               break;
             case TAuthChannel.web:
-            // TODO(kkzeng): Direct user to relevant web auth process
+              Get.to<dynamic>(WebAuth(this));
               break;
             default:
               // not supported

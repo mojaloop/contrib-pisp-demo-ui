@@ -10,7 +10,7 @@ class OTPAuth extends StatelessWidget {
   OTPAuth(this._accountLinkingFlowController);
 
   final AccountLinkingFlowController _accountLinkingFlowController;
-  final OTPAuthController _authController;
+  final OTPAuthController _authController = OTPAuthController();
 
   Widget _buildActionSection() {
     return GetBuilder<AccountLinkingFlowController>(

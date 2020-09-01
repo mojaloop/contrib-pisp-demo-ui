@@ -14,14 +14,12 @@ class UserDataController extends GetxController {
   AuxiliaryUserInfo userInfo = AuxiliaryUserInfo();
 
   bool get phoneNumberAssociated => userInfo?.phoneNumber != null;
-  ///
+
   Future<void> loadAuxiliaryInfoForUser() async => userInfo = await _userDataRepository.loadAuxiliaryInfoForUser(_user.id);
 
-  ///
-  Future<void> associatePhoneNumberWithUser(PhoneNumber number) => _userDataRepository.associateUserWithPhoneNumber(_user.id, number);
+  Future<void> associatePhoneNumberWithUser(PhoneNumber number) => _userDataRepository.associatePhoneNumberWithUser(_user.id, number);
 
-  ///
-  Future<void> createUserEntryInDB() =>_userDataRepository.createUserEntryInDB(_user.id);
+  Future<void> createUserEntryInDB() => _userDataRepository.createUserEntryInDB(_user.id);
 
   void setPhoneNumber(PhoneNumber phoneNumber) {
     userInfo.phoneNumber = phoneNumber;

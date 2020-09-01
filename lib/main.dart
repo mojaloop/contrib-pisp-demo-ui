@@ -81,7 +81,7 @@ class _LifecycleAwareAppState extends State<LifecycleAwareApp>
 
 Future<void> setupCurrentUser() async {
   final FirebaseUser currentUser = await FirebaseAuth.instance.currentUser();
-  if(currentUser != null) {
+  if (currentUser != null) {
     final User user = User.fromFirebase(currentUser, LoginType.google);
     Get.find<AuthController>().setUser(user);
     final UserDataController _userDataController = Get.put(UserDataController(UserDataRepository(), user));
@@ -90,11 +90,10 @@ Future<void> setupCurrentUser() async {
 }
 
 String determineStartingPage() {
-  if(Get.find<AuthController>().user == null) {
+  if (Get.find<AuthController>().user == null) {
     return '/';
   }
   else {
-    print(Get.find<UserDataController>().phoneNumberAssociated);
     if(Get.find<UserDataController>().phoneNumberAssociated) {
       return '/dashboard';
     }

@@ -14,6 +14,9 @@ class UserDataRepository implements IUserDataRepository {
 
   final Firestore _firestore = Firestore.instance;
 
+  /// Creates a user entry in the database where the document ID is
+  /// equal to the user id assigned by Firebase Auth.
+  /// We will be able to store [AuxiliaryUserInfo] here later.
   @override
   Future<void> createUserEntryInDB(String uid) async {
     // Check for existing user (if this is not the first sign on)
@@ -28,6 +31,8 @@ class UserDataRepository implements IUserDataRepository {
     }
   }
 
+  /// Loads any [AuxiliaryUserInfo] for the user that we may want to store
+  /// such as phone number, date of registration etc.
   @override
   Future<AuxiliaryUserInfo> loadAuxiliaryInfoForUser(String uid) async {
     return _firestore.collection('users').document(uid).get().then((userEntry) {
@@ -43,7 +48,10 @@ class UserDataRepository implements IUserDataRepository {
       return AuxiliaryUserInfo(phoneNumber: number, registrationDate: dateRegistered);
     });
   }
-  Future<void> associateUserWithPhoneNumber(String uid, PhoneNumber num) async {
+
+  /// Associates the user with a particular phone number. Used to persist
+  /// user phone number data across sessions.
+  Future<void> associatePhoneNumberWithUser(String uid, PhoneNumber num) async {
     final Map<String, dynamic> phoneNumberData = <String, dynamic>{
       PHONE_NO_KEY : num.number,
       PHONE_NO_COUNTRY_CODE_KEY : num.countryCode

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
+import 'package:pispapp/controllers/app/user_data_controller.dart';
 import 'package:pispapp/controllers/ephemeral/profile_controller.dart';
 import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
@@ -35,13 +36,32 @@ class Profile extends StatelessWidget {
             const SizedBox(height: 40),
             Column(
               children: <Widget>[
+                // _headingTile(context, 'Payee Details'),
                 ListTile(
                   contentPadding: const EdgeInsets.symmetric(),
                   title: const TitleText('Email'),
-                  trailing: Text(user.email),
+                  trailing: Text(Get.find<AuthController>().user.email),
                 ),
-                // TODO(kkzeng): Fix state management to display
-                // phone number here.
+                GetBuilder<UserDataController>(builder: (value) =>
+                  ListTile(
+                    contentPadding: const EdgeInsets.symmetric(),
+                    title: const TitleText(
+                      'Phone Number',
+                      fontSize: 18,
+                    ),
+                    trailing: Text(value.userInfo.getFormattedPhoneNoForDisplay()),
+                  ),
+                ),
+                GetBuilder<UserDataController>(builder: (value) =>
+                    ListTile(
+                      contentPadding: const EdgeInsets.symmetric(),
+                      title: const TitleText(
+                        'Registration Date',
+                        fontSize: 18,
+                      ),
+                      trailing: Text(value.userInfo.getFormattedRegistrationDateForDisplay()),
+                    ),
+                ),
               ],
             ),
             BottomButton(

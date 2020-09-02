@@ -3,6 +3,7 @@ import 'package:pispapp/bindings/setup_bindings.dart';
 import 'package:pispapp/bindings/splash_bindings.dart';
 import 'package:pispapp/controllers/ephemeral/dashboard/account_dashboard_controller.dart';
 import 'package:pispapp/ui/pages/account-linking/available_fsp.dart';
+import 'package:pispapp/controllers/ephemeral/dashboard/dashboard_controller.dart';
 import 'package:pispapp/ui/pages/dashboard.dart';
 import 'package:pispapp/ui/pages/login_setup.dart';
 import 'package:pispapp/ui/pages/payment/payment_initiation.dart';
@@ -34,6 +35,7 @@ abstract class AppPages {
     GetPage(
       name: Routes.DASHBOARD,
       page: () {
+        Get.find<DashboardController>().showAccountsPage();
         Get.find<AccountDashboardController>().refresh();
         return Dashboard();
       },

@@ -4,8 +4,13 @@ import 'package:pispapp/models/phone_number.dart';
 import 'package:pispapp/models/user.dart';
 import 'package:pispapp/repositories/firebase/user_data_repository.dart';
 
-/// Single user
-/// Created either upon sign in or app startup
+/// Controls user data for a single user
+/// Created either upon sign in (in signInWithGoogle() from
+/// auth_controller.dart) OR during app startup (in setupCurrentUser()
+///  in main.dart)
+///
+/// This controller is created after a user exists in the context of the app.
+/// i.e. User has logged in.
 class UserDataController extends GetxController {
   UserDataController(this._userDataRepository, this._user);
 

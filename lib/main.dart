@@ -84,16 +84,20 @@ Future<void> setupCurrentUser() async {
   if (currentUser != null) {
     final User user = User.fromFirebase(currentUser, LoginType.google);
     Get.find<AuthController>().setUser(user);
+    // Since it has been determined that the user is logged in
+    // we can create the user data controller.
     final UserDataController _userDataController = Get.put(UserDataController(UserDataRepository(), user));
     await _userDataController.loadAuxiliaryInfoForUser();
   }
 }
 
 String determineStartingPage() {
-  if (Get.find<AuthController>().user == null) {
+  if (!Get.find<AuthController>().userSignedIn) {
     return '/';
   }
   else {
+    // At this point, the user is signed in, so it is guaranteed that
+    // UserDataController has been created and is available to use.
     if(Get.find<UserDataController>().phoneNumberAssociated) {
       return '/dashboard';
     }

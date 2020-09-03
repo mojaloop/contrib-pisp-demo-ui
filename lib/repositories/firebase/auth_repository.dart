@@ -40,7 +40,6 @@ class AuthRepository implements IAuthRepository {
         await _googleSignIn.signOut();
         break;
     }
-
     logger.i('User ${user.id} signed out.');
   }
 }

@@ -101,10 +101,11 @@ T _$enumDecodeNullable<T>(
 const _$ConsentStatusEnumMap = {
   ConsentStatus.pendingPartyLookup: 'PENDING_PARTY_LOOKUP',
   ConsentStatus.pendingPartyConfirmation: 'PENDING_PARTY_CONFIRMATION',
-  ConsentStatus.authorizationRequired: 'AUTHORIZATION_REQUIRED',
+  ConsentStatus.authenticationRequired: 'AUTHENTICATION_REQUIRED',
   ConsentStatus.consentGranted: 'CONSENT_GRANTED',
   ConsentStatus.challengeGenerated: 'CHALLENGE_GENERATED',
   ConsentStatus.active: 'ACTIVE',
+  ConsentStatus.revokeRequested: 'REVOKE_REQUESTED',
   ConsentStatus.revoked: 'REVOKED',
 };
 

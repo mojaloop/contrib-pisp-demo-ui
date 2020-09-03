@@ -74,7 +74,7 @@ class AccountLinkingFlowController extends GetxController {
           // TODO(kkzeng): Display screen with list of accounts to link here
         }
         break;
-      case ConsentStatus.authorizationRequired:
+      case ConsentStatus.authenticationRequired:
         break;
       case ConsentStatus.consentGranted:
         break;

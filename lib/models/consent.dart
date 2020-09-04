@@ -179,8 +179,8 @@ enum ConsentStatus {
   pendingPartyConfirmation,
 
   /// Waiting for the user to authorize the account linking.
-  @JsonValue('AUTHORIZATION_REQUIRED')
-  authorizationRequired,
+  @JsonValue('AUTHENTICATION_REQUIRED')
+  authenticationRequired,
 
   /// Mojaloop has notified the server that consent has been granted.
   /// The user has authorized themselves.
@@ -195,6 +195,9 @@ enum ConsentStatus {
   /// The account linking was successful.
   @JsonValue('ACTIVE')
   active,
+
+  @JsonValue('REVOKE_REQUESTED')
+  revokeRequested,
 
   /// The consent was successfully revoked by the user.
   @JsonValue('REVOKED')

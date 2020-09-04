@@ -33,7 +33,9 @@ class WebAuth extends StatelessWidget {
             onTap: () async {
               final String result = await FlutterWebAuth.authenticate(url: controller.consent.authUri, callbackUrlScheme: WebAuthController.customScheme);
               final String authToken = _authController.extractAuthTokenFromResult(result);
-              _accountLinkingFlowController.sendAuthToken(authToken);
+              if(authToken != null) {
+                _accountLinkingFlowController.sendAuthToken(authToken);
+              }
             },
           );
         } else {

@@ -1,0 +1,33 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Web Authentication Test Page</title>
+  <meta name="description" content="A test page for web login">
+  <meta name="author" content="kkzeng">
+
+  <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+    <div class="login-page">
+        <div class="form">
+          <form class="login-form">
+            <input type="text" id="auth_token" placeholder="auth token"/>
+            <input type="text" placeholder="username"/>
+            <button id="login_btn">login</button>
+          </form>
+        </div>
+      </div>
+
+    <script type="text/javascript">
+        document.getElementById('login_btn').onclick = function () {
+            var token = document.getElementById('auth_token').value;
+            console.log(token);
+            location.href = 'pisp://success?token=' + token;
+        };
+    </script>
+</body>
+</html>

@@ -64,7 +64,7 @@ class WebAuth extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('OTP Authentication'),
+          title: const Text('Web Authentication'),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),

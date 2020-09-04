@@ -3,7 +3,17 @@ import 'package:pispapp/models/consent.dart';
 import 'package:pispapp/repositories/interfaces/i_consent_repository.dart';
 
 class ConsentRepository implements IConsentRepository {
-  final CollectionReference _consentRef = Firestore.instance.collection('consents');
+  final CollectionReference _consentRef =
+      Firestore.instance.collection('consents');
+
+  @override
+  Future<List<Consent>> getConsents(String userId) {
+    return _consentRef.where('userId', isEqualTo: userId).getDocuments().then(
+          (snapshot) => snapshot.documents
+              .map((element) => Consent.fromJson(element.data))
+              .toList(),
+        );
+  }
 
   @override
   Future<String> add(Map<String, dynamic> data) async {

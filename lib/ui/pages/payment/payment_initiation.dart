@@ -60,18 +60,20 @@ class PaymentInitiation extends StatelessWidget {
           // Afterward, the state of the payment flow controller will be updated
           // to be awaiting for response. Once the response is received, the
           // flow controller is expected to bring used to another page.
-          return BottomButton(
-            const TitleText(
-              'Make A Transfer',
-              color: Colors.white,
-              fontSize: 20,
-            ),
-            onTap: () {
-              final phoneNumber = _paymentInitiationController.phoneNumber;
-              // Initiate a transfer to the given phone number.
-              _paymentFlowController.initiate(phoneNumber);
-            },
-          );
+          return Obx(() {
+            return BottomButton(
+              const TitleText(
+                'Make A Transfer',
+                color: Colors.white,
+                fontSize: 20,
+              ),
+              onTap: _paymentInitiationController.validPhoneNumber.value ? () {
+                final phoneNumber = _paymentInitiationController.phoneNumber;
+                // Initiate a transfer to the given phone number.
+                _paymentFlowController.initiate(phoneNumber);
+              } : null
+            );
+          });
         } else {
           // Once the user clicks the button, it will change to a circular progress
           // indicator until the mobile app receives the response from the server

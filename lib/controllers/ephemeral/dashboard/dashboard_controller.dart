@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pispapp/controllers/ephemeral/account-linking/available_fsp_controller.dart';
 import 'package:pispapp/controllers/ephemeral/dashboard/account_dashboard_controller.dart';
 import 'package:pispapp/controllers/ephemeral/profile_controller.dart';
+import 'package:pispapp/repositories/firebase/participant_repository.dart';
 import 'package:pispapp/repositories/firebase/transaction_repository.dart';
 import 'package:pispapp/ui/pages/account-linking/available_fsp.dart';
 
@@ -31,7 +32,7 @@ class DashboardController extends GetxController {
     );
 
     Get.put<AvailableFSPController>(
-      AvailableFSPController(),
+      AvailableFSPController(ParticipantRepository()),
     );
   }
 

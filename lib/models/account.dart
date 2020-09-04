@@ -41,6 +41,5 @@ class Account implements Model {
 
   Fsp fspInfo;
 
-  @override
   Map<String, dynamic> toJson() => _$AccountToJson(this);
 }

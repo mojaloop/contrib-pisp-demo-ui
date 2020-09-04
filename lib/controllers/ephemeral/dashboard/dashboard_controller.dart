@@ -39,6 +39,11 @@ class DashboardController extends GetxController {
   @override
   void onClose() {}
 
+  void showAccountsPage() {
+    selectedIndex = 0;
+    update();
+  }
+
   void onItemTapped(int index) {
     selectedIndex = index;
     update();

@@ -6,9 +6,13 @@ import 'package:pispapp/models/consent.dart';
 typedef ConsentHandler = void Function(Consent);
 
 abstract class IConsentRepository {
-  /// Returns the list of [Consent] that are associated with
+  /// Returns the list of all [Consent] that are associated with
   /// a particular user.
   Future<List<Consent>> getConsents(String userId);
+
+  /// Returns the list of active [Consent] that are associated with
+  /// a particular user. i.e. not including revoked consents
+  Future<List<Consent>> getActiveConsents(String userId);
 
   /// Adds a new consent document to the database.
   Future<String> add(Map<String, dynamic> data);

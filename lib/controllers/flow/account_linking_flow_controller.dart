@@ -92,7 +92,7 @@ class AccountLinkingFlowController extends GetxController {
           Get.to<dynamic>(AssociatedAccounts(this));
         }
         break;
-      case ConsentStatus.authorizationRequired:
+      case ConsentStatus.authenticationRequired:
         if (oldValue.status == ConsentStatus.pendingPartyConfirmation) {
           // The consent data has been updated
           _setAwaitingUpdate(false);
@@ -116,8 +116,8 @@ class AccountLinkingFlowController extends GetxController {
       case ConsentStatus.active:
         _stopListening();
         break;
-      case ConsentStatus.revoked:
-        _stopListening();
+      default:
+        // a case not handled by this acc controller
         break;
     }
   }

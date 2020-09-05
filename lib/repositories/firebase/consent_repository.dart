@@ -9,10 +9,19 @@ class ConsentRepository implements IConsentRepository {
   @override
   Future<List<Consent>> getConsents(String userId) {
     return _consentRef.where('userId', isEqualTo: userId).getDocuments().then(
-          (snapshot) => snapshot.documents
-              .map((element) => Consent.fromJson(element.data))
-              .toList(),
+          (snapshot) => snapshot.documents.map((element) {
+            final Consent c = Consent.fromJson(element.data);
+            c.id = element.documentID;
+            return c;
+          }).toList(),
         );
+  }
+
+  @override
+  Future<List<Consent>> getActiveConsents(String userId) {
+    return getConsents(userId).then((consents) {
+      return consents.where((c) => c.status != ConsentStatus.revoked).toList();
+    });
   }
 
   @override

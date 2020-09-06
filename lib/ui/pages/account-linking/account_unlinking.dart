@@ -72,24 +72,26 @@ class AccountUnlinking extends StatelessWidget {
   }
 
   Widget _buildList() {
-    final List<Account> associatedAccounts =
-        _accountUnlinkingController.accounts;
-    if (associatedAccounts.isEmpty) {
-      return _buildEmptyDisplay();
-    }
+    return Obx(() {
+      final List<Account> associatedAccounts =
+          _accountUnlinkingController.accounts.value;
+      if (associatedAccounts.isEmpty) {
+        return _buildEmptyDisplay();
+      }
 
-    final int listLength = associatedAccounts.length + 1;
-    return ListView.builder(
-      itemCount: listLength,
-      itemBuilder: (BuildContext ctxt, int index) {
-        // Top shows a description
-        if (index == 0) {
-          return _buildInstructions();
-        } else {
-          return _buildListItem(associatedAccounts[index - 1]);
-        }
-      },
-    );
+      final int listLength = associatedAccounts.length + 1;
+      return ListView.builder(
+        itemCount: listLength,
+        itemBuilder: (BuildContext ctxt, int index) {
+          // Top shows a description
+          if (index == 0) {
+            return _buildInstructions();
+          } else {
+            return _buildListItem(associatedAccounts[index - 1]);
+          }
+        },
+      );
+    });
   }
 
   @override

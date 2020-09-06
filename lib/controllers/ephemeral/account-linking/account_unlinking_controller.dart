@@ -12,10 +12,11 @@ class AccountUnlinkingController extends GetxController {
 
   bool isAwaitingUpdate = false;
 
-  RxList<Consent> consents = <Consent>[].obs;
+  // Observable list of consents
+  List<Consent> consents;
 
   // Used to display accounts for removal
-  List<Account> accounts;
+  RxList<Account> accounts = <Account>[].obs;
 
   // Consent that was selected for revocation
   Consent selectedConsent;
@@ -28,7 +29,7 @@ class AccountUnlinkingController extends GetxController {
     await _loadActiveConsents();
 
     // Flatten the consents into the list of accounts
-    accounts = consents.expand((element) => element.accounts).toList();
+    accounts.value = consents.expand((element) => element.accounts).toList();
 
     super.onInit();
   }
@@ -36,6 +37,7 @@ class AccountUnlinkingController extends GetxController {
   // Handles onTap for an account
   void onTap(String accId) {
     selectedAccountId = accId;
+
     // Display dialog for confirmation
     Get.defaultDialog<dynamic>(
       title: 'Remove Account?',
@@ -52,7 +54,7 @@ class AccountUnlinkingController extends GetxController {
   Future<void> _loadActiveConsents() async {
     // Fetch all consents and create list of accounts with it
     final String currentUserId = Get.find<AuthController>().user.id;
-    consents.value = await _consentRepository.getActiveConsents(currentUserId);
+    consents = await _consentRepository.getActiveConsents(currentUserId);
   }
 
   /// Revokes a particular consent object associated with an accId
@@ -96,6 +98,10 @@ class AccountUnlinkingController extends GetxController {
 
       // Remove consent that was just successfully revoked
       consents.removeWhere((consent) => consent.id == selectedConsent.id);
+
+      // Flatten the consents into the list of accounts
+      accounts.value = consents.expand((element) => element.accounts).toList();
+
       selectedConsent = null;
       selectedAccountId = null;
     }

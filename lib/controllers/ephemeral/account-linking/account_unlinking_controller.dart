@@ -1,12 +1,9 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/models/consent.dart';
-import 'package:pispapp/models/party.dart';
-import 'package:pispapp/models/user.dart';
 import 'package:pispapp/repositories/interfaces/i_consent_repository.dart';
-import 'package:pispapp/ui/pages/account-linking/associated_accounts.dart';
-import 'package:pispapp/ui/pages/account-linking/otp_auth.dart';
-import 'package:pispapp/ui/pages/account-linking/web_auth.dart';
 
 class AccountUnlinkingController extends GetxController {
   AccountUnlinkingController(this._consentRepository);
@@ -23,6 +20,9 @@ class AccountUnlinkingController extends GetxController {
   // Consent that was selected for revocation
   Consent selectedConsent;
 
+  // Account that was selected specifically
+  String selectedAccountId;
+
   @override
   Future<void> onInit() async {
     await _loadActiveConsents();
@@ -31,6 +31,22 @@ class AccountUnlinkingController extends GetxController {
     accounts = consents.expand((element) => element.accounts).toList();
 
     super.onInit();
+  }
+
+  // Handles onTap for an account
+  void onTap(String accId) {
+    selectedAccountId = accId;
+    // Display dialog for confirmation
+    Get.defaultDialog<dynamic>(
+      title: 'Remove Account?',
+      content: const Text('Are you sure you wish to unlink this account?'),
+      onConfirm: () {
+        initiateRevocation(accId);
+      },
+      onCancel: () {
+        selectedAccountId = null;
+      },
+    );
   }
 
   Future<void> _loadActiveConsents() async {
@@ -50,8 +66,8 @@ class AccountUnlinkingController extends GetxController {
     // TODO(kkzeng): Explore removing an account but not revoking Consent for multiple acc consents
 
     // Update status to be revokeRequested
-    _consentRepository.updateData(
-        selectedConsent.id, Consent(status: ConsentStatus.revokeRequested).toJson());
+    _consentRepository.updateData(selectedConsent.id,
+        Consent(status: ConsentStatus.revokeRequested).toJson());
 
     // Listen for when the revoke request is fulfilled
     _startListening(selectedConsent.id);
@@ -73,7 +89,7 @@ class AccountUnlinkingController extends GetxController {
     // Update consent with latest change
     selectedConsent = consent;
 
-    if(consent.status == ConsentStatus.revoked &&
+    if (consent.status == ConsentStatus.revoked &&
         oldValue.status == ConsentStatus.revokeRequested) {
       _setAwaitingUpdate(false);
       _stopListening();
@@ -81,6 +97,7 @@ class AccountUnlinkingController extends GetxController {
       // Remove consent that was just successfully revoked
       consents.removeWhere((consent) => consent.id == selectedConsent.id);
       selectedConsent = null;
+      selectedAccountId = null;
     }
   }
 

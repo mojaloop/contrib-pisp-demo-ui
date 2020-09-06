@@ -13,7 +13,7 @@ class AccountUnlinkingController extends GetxController {
 
   IConsentRepository _consentRepository;
 
-  bool isAwaitingUpdate = false;
+  RxBool isAwaitingUpdate = false.obs;
 
   // Observable list of consents
   List<Consent> consents;
@@ -29,6 +29,13 @@ class AccountUnlinkingController extends GetxController {
 
   // Handles onTap for an account
   void onTap(String accId) {
+    // If there is another account was selected for unlinking
+    // (and still in the process of unlinking), do not initiate
+    // another unlinking
+    if(selectedAccountId != null) {
+      return;
+    }
+
     selectedAccountId = accId;
 
     // Display dialog for confirmation
@@ -78,25 +85,23 @@ class AccountUnlinkingController extends GetxController {
   void Function() _cancelListener;
 
   void _startListening(String id) {
-    _cancelListener = _consentRepository.listen(id, onValue: _onValue);
+    _cancelListener = _consentRepository.listen(id, onValue: _onConsentChange);
   }
 
   void _stopListening() {
     _cancelListener();
   }
 
-  void _onValue(Consent consent) {
+  // Listen for updates in the Consent we are listening to
+  void _onConsentChange(Consent consent) {
     // If consent has been successfully revoked
     if (consent.status == ConsentStatus.revoked) {
+      // Inform UI of
       _setAwaitingUpdate(false);
       _stopListening();
 
-      print('Consent len ${consents.length}');
-
       // Remove consent that was just successfully revoked
       consents.removeWhere((consent) => consent.id == selectedConsent.id);
-
-      print('Consent len ${consents.length}');
 
       // Update the account list as well
       accounts.value = consents.expand((element) => element.accounts).toList();
@@ -107,11 +112,8 @@ class AccountUnlinkingController extends GetxController {
     }
   }
 
-  void _setAwaitingUpdate(bool isAwaitingUpdate) {
-    // This is intended to inform the UI that the user is not expected to
-    // make any action and just need to wait. For example, a circular progress
-    // indicator could be displayed.
-    this.isAwaitingUpdate = isAwaitingUpdate;
-    update();
-  }
+  // This is intended to inform the UI that the user is not expected to
+  // make any action and just need to wait. For example, a circular progress
+  // indicator could be displayed.
+  void _setAwaitingUpdate(bool isAwaitingUpdate) => this.isAwaitingUpdate.value = isAwaitingUpdate;
 }

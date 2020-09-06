@@ -20,7 +20,7 @@ class ConsentRepository implements IConsentRepository {
   @override
   Future<List<Consent>> getActiveConsents(String userId) {
     return getConsents(userId).then((consents) {
-      return consents.where((c) => c.status != ConsentStatus.revoked).toList();
+      return consents.where((c) => c.status == ConsentStatus.active).toList();
     });
   }
 

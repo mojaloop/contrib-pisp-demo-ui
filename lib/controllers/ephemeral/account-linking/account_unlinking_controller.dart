@@ -4,9 +4,12 @@ import 'package:get/get.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/models/consent.dart';
 import 'package:pispapp/repositories/interfaces/i_consent_repository.dart';
+import 'package:pispapp/ui/theme/light_theme.dart';
 
 class AccountUnlinkingController extends GetxController {
-  AccountUnlinkingController(this._consentRepository);
+  AccountUnlinkingController(this._consentRepository) {
+    _loadActiveConsents();
+  }
 
   IConsentRepository _consentRepository;
 
@@ -24,16 +27,6 @@ class AccountUnlinkingController extends GetxController {
   // Account that was selected specifically
   String selectedAccountId;
 
-  @override
-  Future<void> onInit() async {
-    await _loadActiveConsents();
-
-    // Flatten the consents into the list of accounts
-    accounts.value = consents.expand((element) => element.accounts).toList();
-
-    super.onInit();
-  }
-
   // Handles onTap for an account
   void onTap(String accId) {
     selectedAccountId = accId;
@@ -41,9 +34,13 @@ class AccountUnlinkingController extends GetxController {
     // Display dialog for confirmation
     Get.defaultDialog<dynamic>(
       title: 'Remove Account?',
-      content: const Text('Are you sure you wish to unlink this account?'),
+      confirmTextColor: Colors.white,
+      cancelTextColor: LightColor.navyBlue1,
+      content: const Padding(child: Text('Are you sure you wish to unlink this account?'),
+          padding: EdgeInsets.all(10)),
       onConfirm: () {
         initiateRevocation(accId);
+        Get.back();
       },
       onCancel: () {
         selectedAccountId = null;
@@ -55,6 +52,9 @@ class AccountUnlinkingController extends GetxController {
     // Fetch all consents and create list of accounts with it
     final String currentUserId = Get.find<AuthController>().user.id;
     consents = await _consentRepository.getActiveConsents(currentUserId);
+
+    // Flatten the consents into the list of accounts
+    accounts.value = consents.expand((element) => element.accounts).toList();
   }
 
   /// Revokes a particular consent object associated with an accId
@@ -88,20 +88,23 @@ class AccountUnlinkingController extends GetxController {
   void _onValue(Consent consent) {
     // Save old value for state information
     final oldValue = selectedConsent;
-    // Update consent with latest change
-    selectedConsent = consent;
 
     if (consent.status == ConsentStatus.revoked &&
         oldValue.status == ConsentStatus.revokeRequested) {
       _setAwaitingUpdate(false);
       _stopListening();
 
+      print('Consent len ${consents.length}');
+
       // Remove consent that was just successfully revoked
       consents.removeWhere((consent) => consent.id == selectedConsent.id);
 
-      // Flatten the consents into the list of accounts
+      print('Consent len ${consents.length}');
+
+      // Update the account list as well
       accounts.value = consents.expand((element) => element.accounts).toList();
 
+      // No selected consent or account since it has been revoked already
       selectedConsent = null;
       selectedAccountId = null;
     }

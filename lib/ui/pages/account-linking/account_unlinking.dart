@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/ephemeral/account-linking/account_unlinking_controller.dart';
 import 'package:pispapp/models/consent.dart';
+import 'package:pispapp/repositories/firebase/consent_repository.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
 
 // ignore: must_be_immutable
 class AccountUnlinking extends StatelessWidget {
-  AccountUnlinking(this._accountUnlinkingController);
-
-  final AccountUnlinkingController _accountUnlinkingController;
+  final AccountUnlinkingController _accountUnlinkingController =
+      AccountUnlinkingController(ConsentRepository());
 
   // For when there are no accounts associated with the opaque id
   Widget _buildEmptyDisplay() {
@@ -28,6 +28,12 @@ class AccountUnlinking extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildSpinner() {
+    return const CircularProgressIndicator(
+      valueColor: AlwaysStoppedAnimation<Color>(LightColor.lightNavyBlue),
     );
   }
 
@@ -48,10 +54,9 @@ class AccountUnlinking extends StatelessWidget {
               builder: (controller) {
                 return _accountUnlinkingController.isAwaitingUpdate &&
                         _accountUnlinkingController.selectedAccountId == accId
-                    ? const CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                      )
-                    : const Icon(Icons.remove_circle, color: Colors.red);
+                    ? Container(child: _buildSpinner(), height: 25, width: 25)
+                    : const Icon(Icons.remove_circle_outline,
+                        color: Colors.red, size: 25);
               }),
           title: Text(accId),
           subtitle: Text(currencyStr),
@@ -65,9 +70,9 @@ class AccountUnlinking extends StatelessWidget {
 
   Widget _buildInstructions() {
     return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 15),
-      child:
-          Text('Tap on an account to remove it', textAlign: TextAlign.center),
+      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+      child: Text('Please tap on the account you would like to remove:',
+          textAlign: TextAlign.left),
     );
   }
 
@@ -98,7 +103,7 @@ class AccountUnlinking extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Remove Account(s)'),
+        title: const Text('Remove Account'),
       ),
       body: SizedBox.expand(
         child: _buildList(),

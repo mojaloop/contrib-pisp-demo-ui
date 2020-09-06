@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -48,21 +50,33 @@ class AccountUnlinking extends StatelessWidget {
         child: ListTile(
           leading: const Icon(Icons.account_circle,
               size: 50, color: LightColor.navyBlue1),
-          trailing: GetBuilder<AccountUnlinkingController>(
-              init: _accountUnlinkingController,
-              global: false,
-              builder: (controller) {
-                return _accountUnlinkingController.isAwaitingUpdate &&
-                        _accountUnlinkingController.selectedAccountId == accId
-                    ? Container(child: _buildSpinner(), height: 25, width: 25)
-                    : const Icon(Icons.remove_circle_outline,
-                        color: Colors.red, size: 25);
-              }),
+          trailing: Obx(() =>
+              _accountUnlinkingController.isAwaitingUpdate.value &&
+                      _accountUnlinkingController.selectedAccountId == accId
+                  ? Container(child: _buildSpinner(), height: 25, width: 25)
+                  : const Icon(Icons.remove_circle_outline,
+                      color: Colors.red, size: 25)),
           title: Text(accId),
           subtitle: Text(currencyStr),
-          onTap: _accountUnlinkingController.selectedAccountId == null
-              ? () => _accountUnlinkingController.onTap(accId)
-              : null,
+          onTap: () => _accountUnlinkingController.onTap(accId),
+        ),
+      ),
+    );
+  }
+
+  // Shown when an account is being removed
+  Widget _buildBlurOverlay() {
+    const double _sigmaX = 0.2;
+    const double _sigmaY = 0.2;
+    const double _opacity = 0.5;
+
+    return Container(
+      width: Get.width,
+      height: Get.height,
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: _sigmaX, sigmaY: _sigmaY),
+        child: Container(
+          color: Colors.black.withOpacity(_opacity),
         ),
       ),
     );
@@ -105,9 +119,21 @@ class AccountUnlinking extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Remove Account'),
       ),
-      body: SizedBox.expand(
-        child: _buildList(),
-      ),
+      body: Obx(() {
+        final Widget expandedList = SizedBox.expand(
+          child: _buildList(),
+        );
+        if(_accountUnlinkingController.isAwaitingUpdate.value) {
+          // Have an overlay on top of the list when revocation is in progress
+          return Stack(children: [
+            expandedList,
+            _buildBlurOverlay(),
+          ]);
+        }
+        else {
+          return expandedList;
+        }
+      }),
     );
   }
 }

@@ -86,11 +86,8 @@ class AccountUnlinkingController extends GetxController {
   }
 
   void _onValue(Consent consent) {
-    // Save old value for state information
-    final oldValue = selectedConsent;
-
-    if (consent.status == ConsentStatus.revoked &&
-        oldValue.status == ConsentStatus.revokeRequested) {
+    // If consent has been successfully revoked
+    if (consent.status == ConsentStatus.revoked) {
       _setAwaitingUpdate(false);
       _stopListening();
 

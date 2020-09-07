@@ -8,4 +8,5 @@ abstract class Routes {
   static const PIN_ENTRY = '/pin';
   static const PAYMENT_INITIATION = '/payment/initiation';
   static const AVAILABLE_FSP = '/available-fsps';
+  static const ACCOUNT_UNLINKING = '/account-unlinking';
 }

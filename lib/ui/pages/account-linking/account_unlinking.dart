@@ -25,7 +25,7 @@ class AccountUnlinking extends StatelessWidget {
         children: const [
           Icon(Icons.warning, size: 80, color: LightColor.lightNavyBlue),
           TitleText(
-            'Oops...there are no accounts associated with that ID!',
+            'Oops...there are no accounts associated with your ID!',
             textAlign: TextAlign.center,
           ),
         ],

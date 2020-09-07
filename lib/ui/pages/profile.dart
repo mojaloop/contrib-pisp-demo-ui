@@ -71,7 +71,7 @@ class Profile extends StatelessWidget {
                     fontSize: 18,
                   ),
                   trailing: const Icon(Icons.arrow_forward),
-                  onTap: () => Get.to<dynamic>(AccountUnlinking())
+                  onTap: () => Get.toNamed<dynamic>('/account-unlinking')
                 )
               ],
             ),

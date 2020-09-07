@@ -2,36 +2,18 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:pispapp/models/fsp.dart';
+import 'package:pispapp/repositories/firebase/participant_repository.dart';
 
 class AvailableFSPController extends GetxController {
-  RxList<String> fsps = <String>[].obs;
+  AvailableFSPController(this._participantRepository);
+
+  final ParticipantRepository _participantRepository;
+  RxList<Fsp> availableFsps = <Fsp>[].obs;
 
   @override
-  void onInit() {
-    fsps.bindStream(listenForFSPs());
+  Future<void> onInit() async {
+    availableFsps.value = await _participantRepository.loadAvailableFSPs();
     super.onInit();
-  }
-
-  // Retrieve list of FSPs
-  // Fetches only once
-  Stream<Iterable<String>> loadFSPs() {
-    final CollectionReference fspRef = Firestore.instance.collection('participants');
-    return fspRef.getDocuments().then((value) {
-      return value.documents.map<String>((e) {
-        final String s = e.data['name'] as String;
-        return s;
-      }).toList();
-    }).asStream();
-  }
-
-  // Retrieve list of FSPs
-  // This updates in real time
-  Stream<Iterable<String>> listenForFSPs() {
-    return Firestore.instance.collection('participants').snapshots().map((event) {
-      final List<String> fspList = event.documents.map((e){
-      final String s = e.data['name'] as String;
-      return s;
-    }).toList();
-      return fspList ?? []; });
   }
 }

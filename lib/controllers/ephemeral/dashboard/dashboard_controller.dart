@@ -1,8 +1,11 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:pispapp/controllers/ephemeral/account-linking/available_fsp_controller.dart';
 import 'package:pispapp/controllers/ephemeral/dashboard/account_dashboard_controller.dart';
 import 'package:pispapp/controllers/ephemeral/profile_controller.dart';
+import 'package:pispapp/repositories/firebase/participant_repository.dart';
 import 'package:pispapp/repositories/firebase/transaction_repository.dart';
+import 'package:pispapp/ui/pages/account-linking/available_fsp.dart';
 
 import 'package:pispapp/ui/pages/account_dashboard.dart';
 import 'package:pispapp/ui/pages/payment/payment_initiation.dart';
@@ -13,7 +16,7 @@ class DashboardController extends GetxController {
 
   List<Widget> widgetOptions = <Widget>[
     AccountDashboard(),
-    const Center(child: Text('Account Linking')),
+    AvailableFSPScreen(),
     PaymentInitiation(),
     Profile(),
   ];
@@ -28,7 +31,9 @@ class DashboardController extends GetxController {
       ProfileController(),
     );
 
-    // TODO(kkzeng): add account linking controller once it's created
+    Get.put<AvailableFSPController>(
+      AvailableFSPController(ParticipantRepository()),
+    );
   }
 
   @override

@@ -7,4 +7,5 @@ abstract class Routes {
   static const DASHBOARD = '/dashboard';
   static const PIN_ENTRY = '/pin';
   static const PAYMENT_INITIATION = '/payment/initiation';
+  static const AVAILABLE_FSP = '/available-fsps';
 }

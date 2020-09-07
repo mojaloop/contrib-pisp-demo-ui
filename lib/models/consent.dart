@@ -1,6 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:pispapp/models/model.dart';
-import 'package:pispapp/models/party.dart';
+
+import 'currency.dart';
+import 'model.dart';
+import 'party.dart';
 
 part 'consent.g.dart';
 
@@ -221,16 +223,5 @@ enum TAuthChannel {
 extension TAuthChannelJson on TAuthChannel {
   String toJsonString() {
     return _$TAuthChannelEnumMap[this];
-  }
-}
-
-enum Currency {
-  SGD,
-  USD,
-}
-
-extension CurrencyJson on Currency {
-  String toJsonString() {
-    return _$CurrencyEnumMap[this];
   }
 }

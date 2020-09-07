@@ -6,6 +6,8 @@ import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
 import 'package:get/get.dart';
 
+import 'account-linking/account_unlinking.dart';
+
 class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -62,6 +64,15 @@ class Profile extends StatelessWidget {
                       trailing: Text(value.userInfo.getFormattedRegistrationDateForDisplay()),
                     ),
                 ),
+                ListTile(
+                  contentPadding: const EdgeInsets.symmetric(),
+                  title: const TitleText(
+                    'Remove Accounts',
+                    fontSize: 18,
+                  ),
+                  trailing: const Icon(Icons.arrow_forward),
+                  onTap: () => Get.to<dynamic>(AccountUnlinking())
+                )
               ],
             ),
             BottomButton(

@@ -33,8 +33,8 @@ class AccountLinkingFlowController extends GetxController {
           partyIdType: PartyIdType.opaque,
           partyIdentifier: opaqueId,
           fspId: fspId,
-        )
-      )
+        ),
+      ),
     );
 
     documentId = await _consentRepository.add(newConsent.toJson());
@@ -42,9 +42,7 @@ class AccountLinkingFlowController extends GetxController {
     _startListening(documentId);
   }
 
-  Future<void> confirmAccounts() async {
-
-  }
+  Future<void> confirmAccounts() async {}
 
   void _startListening(String id) {
     _unsubscriber = _consentRepository.listen(id, onValue: _onValue);
@@ -63,7 +61,7 @@ class AccountLinkingFlowController extends GetxController {
     this.consent = consent;
 
     // TODO(kkzeng): Figure out what needs to be done in each state and explore state machine library use
-    switch(consent.status) {
+    switch (consent.status) {
       case ConsentStatus.pendingPartyLookup:
         break;
       case ConsentStatus.pendingPartyConfirmation:

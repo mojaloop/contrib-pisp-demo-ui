@@ -26,10 +26,9 @@ class PaymentFlowController extends GetxController {
 
   /// Initiates a transaction to the given phone number.
   Future<void> initiate(PhoneNumber phoneNumber) async {
-    _setAwaitingUpdate();
+    _setAwaitingUpdate(true);
 
     final user = Get.find<AuthController>().user;
-    print('TETSTSTDSATASD SADJASLJADSLADS WHYY');
 
     documentId = await _transactionRepository.add(
       Transaction(
@@ -49,7 +48,7 @@ class PaymentFlowController extends GetxController {
   /// Confirms the payee of a proposed financial transaction and keys in necessary
   /// data to move forward with the transfer.
   Future<void> confirm(Money amount, Account account) async {
-    _setAwaitingUpdate();
+    _setAwaitingUpdate(true);
 
     await _transactionRepository.updateData(
       transaction.id,
@@ -65,7 +64,7 @@ class PaymentFlowController extends GetxController {
   /// of the transaction must be equal to [TransactionStatus.authorizationRequired]
   /// upon calling this function.
   Future<void> authorize() async {
-    _setAwaitingUpdate();
+    _setAwaitingUpdate(true);
 
     // Ask user to provide their authentication. For example, the app could prompt
     // user to give their fingerprint.
@@ -102,12 +101,12 @@ class PaymentFlowController extends GetxController {
     _unsubscriber();
   }
 
-  void _setAwaitingUpdate() {
+  void _setAwaitingUpdate(bool isAwaitingUpdate) {
     // Update the payment status to be waiting for further update.
     // This is intended to inform the UI that the user is not expected to
     // make any action and just need to wait. For example, a circular progress
     // indicator could be displayed.
-    isAwaitingUpdate = true;
+    this.isAwaitingUpdate = isAwaitingUpdate;
     update();
   }
 
@@ -131,8 +130,7 @@ class PaymentFlowController extends GetxController {
         // other values (e.g, transaction amount) to continue the process.
         if (oldValue.status == TransactionStatus.pendingPartyLookup) {
           // The transaction data has been updated
-          isAwaitingUpdate = false;
-          update();
+          _setAwaitingUpdate(false);
 
           Get.to<dynamic>(PaymentConfirmation(this));
         }
@@ -145,8 +143,7 @@ class PaymentFlowController extends GetxController {
         // that are imposed by the FSPs and also more details about the transfer amount.
         if (oldValue.status == TransactionStatus.pendingPayeeConfirmation) {
           // The transaction data has been updated
-          isAwaitingUpdate = false;
-          update();
+          _setAwaitingUpdate(false);
 
           Get.to<dynamic>(PaymentAuthorization(this));
         }
@@ -156,8 +153,7 @@ class PaymentFlowController extends GetxController {
         // The transaction has been marked as successful on the server-side.
         if (oldValue.status == TransactionStatus.authorizationRequired) {
           // The transaction data has been updated
-          isAwaitingUpdate = false;
-          update();
+          _setAwaitingUpdate(false);
 
           Get.to<dynamic>(PaymentResult(this));
 

@@ -7,7 +7,7 @@ import 'package:pispapp/models/fsp.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
 
-class AvailableFSPScreen extends StatelessWidget {
+class AccountLinkingInitiation extends StatelessWidget {
   Widget _buildListItem(Fsp fsp) {
     return Container(
       padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
@@ -25,12 +25,12 @@ class AvailableFSPScreen extends StatelessWidget {
     return Obx(() {
       final AvailableFSPController fspController =
           Get.find<AvailableFSPController>();
-      if (fspController.availableFsps.value.isEmpty) {
+      if (fspController.availableFsps.isEmpty) {
         return _buildEmptyDisplay();
       }
 
       return ListView.builder(
-        itemCount: fspController.availableFsps.value.length + 2,
+        itemCount: fspController.availableFsps.length + 2,
         itemBuilder: (BuildContext ctxt, int index) {
           switch (index) {
             case 0:
@@ -40,8 +40,7 @@ class AvailableFSPScreen extends StatelessWidget {
               return _buildDescText();
               break;
             default:
-              return _buildListItem(
-                  fspController.availableFsps.value[index - 2]);
+              return _buildListItem(fspController.availableFsps[index - 2]);
           }
         },
       );

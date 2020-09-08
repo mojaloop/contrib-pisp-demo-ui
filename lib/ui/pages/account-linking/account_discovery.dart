@@ -18,8 +18,10 @@ class AccountDiscovery extends StatelessWidget {
 
   final String fspId;
   final String fspName;
-  final AccountDiscoveryController _accountDiscoveryController = AccountDiscoveryController();
-  final AccountLinkingFlowController _accountLinkingFlowController = AccountLinkingFlowController(ConsentRepository());
+  final AccountDiscoveryController _accountDiscoveryController =
+      AccountDiscoveryController();
+  final AccountLinkingFlowController _accountLinkingFlowController =
+      AccountLinkingFlowController(ConsentRepository());
 
   Widget _buildActionSection() {
     return GetBuilder<AccountLinkingFlowController>(
@@ -89,9 +91,9 @@ class AccountDiscovery extends StatelessWidget {
 
   Widget _buildAccountIcon() {
     return const Icon(
-        Icons.account_circle,
-        size: 120,
-        color: LightColor.lightNavyBlue,
+      Icons.account_circle,
+      size: 120,
+      color: LightColor.lightNavyBlue,
     );
   }
 
@@ -112,7 +114,6 @@ class AccountDiscovery extends StatelessWidget {
               _buildActionSection(),
             ],
           ),
-        )
-    );
+        ));
   }
 }

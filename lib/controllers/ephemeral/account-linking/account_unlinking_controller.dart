@@ -27,61 +27,6 @@ class AccountUnlinkingController extends GetxController {
   // Account that was selected specifically
   String selectedAccountId;
 
-  // Handles onTap for an account
-  void onTap(String accId) {
-    // If there is another account was selected for unlinking
-    // (and still in the process of unlinking), do not initiate
-    // another unlinking
-    if (selectedAccountId != null) {
-      return;
-    }
-
-    final Consent toRevoke = findConsentToRevoke(accId);
-
-    // Display dialog for confirmation
-    Get.defaultDialog<dynamic>(
-      title: 'Remove Account?',
-      confirmTextColor: Colors.white,
-      cancelTextColor: LightColor.navyBlue1,
-      content: Padding(
-        child: _buildDialogContent(toRevoke),
-        padding: const EdgeInsets.all(10),
-      ),
-      onConfirm: () {
-        selectedAccountId = accId;
-        initiateRevocation(toRevoke);
-        Get.back();
-      },
-      onCancel: () {
-        selectedAccountId = null;
-      },
-    );
-  }
-
-  Widget _buildDialogContent(Consent toRevoke) {
-    // If the consent is associated with multiple accounts
-    // inform the user that other accounts will be deleted
-    // along with this one.
-    // Since we revoke the consent, we revoke the consent for all the accounts.
-    Widget content =
-        const Text('Are you sure you wish to unlink this account?');
-    if (toRevoke.accounts.length > 1) {
-      content = Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          content,
-          const SizedBox(height: 10),
-          const Text('Please note that the following accounts will be removed:'),
-          const SizedBox(height: 10),
-          // Add list of accounts that will be removed
-          ...toRevoke.accounts
-              .map((acc) => Text('• ${acc.id}', textAlign: TextAlign.left)),
-        ],
-      );
-    }
-    return content;
-  }
-
   Future<void> _loadActiveConsents() async {
     // Fetch all consents and create list of accounts with it
     final String currentUserId = Get.find<AuthController>().user.id;

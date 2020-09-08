@@ -58,10 +58,65 @@ class AccountUnlinking extends StatelessWidget {
                       color: Colors.red, size: 25)),
           title: Text(accId),
           subtitle: Text(currencyStr),
-          onTap: () => _accountUnlinkingController.onTap(accId),
+          onTap: () => _onTap(accId),
         ),
       ),
     );
+  }
+
+  // Handles onTap for an account
+  void _onTap(String accId) {
+    // If there is another account was selected for unlinking
+    // (and still in the process of unlinking), do not initiate
+    // another unlinking
+    if (_accountUnlinkingController.selectedAccountId != null) {
+      return;
+    }
+
+    final Consent toRevoke = _accountUnlinkingController.findConsentToRevoke(accId);
+
+    // Display dialog for confirmation
+    Get.defaultDialog<dynamic>(
+      title: 'Remove Account?',
+      confirmTextColor: Colors.white,
+      cancelTextColor: LightColor.navyBlue1,
+      content: Padding(
+        child: _buildDialogContent(toRevoke),
+        padding: const EdgeInsets.all(10),
+      ),
+      onConfirm: () {
+        _accountUnlinkingController.selectedAccountId = accId;
+        _accountUnlinkingController.initiateRevocation(toRevoke);
+        Get.back();
+      },
+      onCancel: () {
+        _accountUnlinkingController.selectedAccountId = null;
+      },
+    );
+  }
+
+  Widget _buildDialogContent(Consent toRevoke) {
+    // If the consent is associated with multiple accounts
+    // inform the user that other accounts will be deleted
+    // along with this one.
+    // Since we revoke the consent, we revoke the consent for all the accounts.
+    Widget content =
+    const Text('Are you sure you wish to unlink this account?');
+    if (toRevoke.accounts.length > 1) {
+      content = Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          content,
+          const SizedBox(height: 10),
+          const Text('Please note that the following accounts will be removed:'),
+          const SizedBox(height: 10),
+          // Add list of accounts that will be removed
+          ...toRevoke.accounts
+              .map((acc) => Text('• ${acc.id}', textAlign: TextAlign.left)),
+        ],
+      );
+    }
+    return content;
   }
 
   // Shown when an account is being removed

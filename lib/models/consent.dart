@@ -52,7 +52,7 @@ class Consent implements JsonModel {
   List<Account> accounts;
 
   /// List of channels available for a user to authenticate themselves with
-  List<TAuthChannel> authChannels;
+  List<AuthChannel> authChannels;
 
   /// If authentication channel chosed is WEB, then this is the url which a user
   /// must visit to authenticate themselves
@@ -69,10 +69,10 @@ class Consent implements JsonModel {
 
   /// Array of Scope objects - which inform what actions are allowed
   /// for a given user account
-  List<TCredentialScope> scopes;
+  List<CredentialScope> scopes;
 
   /// Credential object used for authentication of consent
-  TCredential credential;
+  Credential credential;
 
   @override
   Map<String, dynamic> toJson() => _$ConsentToJson(this);
@@ -80,8 +80,8 @@ class Consent implements JsonModel {
 
 //TODO(kkzeng): Adapt model once changes to auth-service finalized
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class TCredential implements JsonModel {
-  TCredential({
+class Credential implements JsonModel {
+  Credential({
     this.id,
     this.credentialType,
     this.status,
@@ -89,15 +89,15 @@ class TCredential implements JsonModel {
   });
 
   @override
-  factory TCredential.fromJson(Map<String, dynamic> json) => _$TCredentialFromJson(json);
+  factory Credential.fromJson(Map<String, dynamic> json) => _$CredentialFromJson(json);
 
   String id;
-  TCredentialType credentialType;
-  TCredentialStatus status;
+  CredentialType credentialType;
+  CredentialStatus status;
   Challenge challenge;
 
   @override
-  Map<String, dynamic> toJson() => _$TCredentialToJson(this);
+  Map<String, dynamic> toJson() => _$CredentialToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
@@ -115,17 +115,17 @@ class Challenge implements JsonModel {
 }
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class TCredentialScope implements JsonModel {
-  TCredentialScope({this.scope, this.accountId});
+class CredentialScope implements JsonModel {
+  CredentialScope({this.scope, this.accountId});
 
   @override
-  factory TCredentialScope.fromJson(Map<String, dynamic> json) => _$TCredentialScopeFromJson(json);
+  factory CredentialScope.fromJson(Map<String, dynamic> json) => _$CredentialScopeFromJson(json);
 
   String scope;
   String accountId;
 
   @override
-  Map<String, dynamic> toJson() => _$TCredentialScopeToJson(this);
+  Map<String, dynamic> toJson() => _$CredentialScopeToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
@@ -145,18 +145,18 @@ class Account implements JsonModel {
   Map<String, dynamic> toJson() => _$AccountToJson(this);
 }
 
-enum TCredentialType {
+enum CredentialType {
   @JsonValue('FIDO')
   fido,
 }
 
-extension TCredentialTypeJson on TCredentialType {
+extension CredentialTypeJson on CredentialType {
   String toJsonString() {
-    return _$TCredentialTypeEnumMap[this];
+    return _$CredentialTypeEnumMap[this];
   }
 }
 
-enum TCredentialStatus {
+enum CredentialStatus {
   @JsonValue('PENDING')
   pending,
 
@@ -164,9 +164,9 @@ enum TCredentialStatus {
   active,
 }
 
-extension TCredentialStatusJson on TCredentialStatus {
+extension CredentialStatusJson on CredentialStatus {
   String toJsonString() {
-    return _$TCredentialStatusEnumMap[this];
+    return _$CredentialStatusEnumMap[this];
   }
 }
 
@@ -212,7 +212,7 @@ extension ConsentStatusJson on ConsentStatus {
   }
 }
 
-enum TAuthChannel {
+enum AuthChannel {
   @JsonValue('WEB')
   web,
 
@@ -220,8 +220,8 @@ enum TAuthChannel {
   otp,
 }
 
-extension TAuthChannelJson on TAuthChannel {
+extension AuthChannelJson on AuthChannel {
   String toJsonString() {
-    return _$TAuthChannelEnumMap[this];
+    return _$AuthChannelEnumMap[this];
   }
 }

@@ -1,6 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:pispapp/models/model.dart';
-import 'package:pispapp/models/party.dart';
+
+import 'currency.dart';
+import 'model.dart';
+import 'party.dart';
 
 part 'transaction.g.dart';
 
@@ -151,18 +153,6 @@ class Money implements JsonModel {
 
   @override
   Map<String, dynamic> toJson() => _$MoneyToJson(this);
-}
-
-/// Enumeration of the current supported currencies.
-enum Currency {
-  SGD,
-  USD,
-}
-
-extension CurrencyJson on Currency {
-  String toJsonString() {
-    return _$CurrencyEnumMap[this];
-  }
 }
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)

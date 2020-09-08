@@ -21,7 +21,7 @@ Consent _$ConsentFromJson(Map<String, dynamic> json) {
             e == null ? null : Account.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     authChannels: (json['authChannels'] as List)
-        ?.map((e) => _$enumDecodeNullable(_$TAuthChannelEnumMap, e))
+        ?.map((e) => _$enumDecodeNullable(_$AuthChannelEnumMap, e))
         ?.toList(),
     authUri: json['authUri'] as String,
     authToken: json['authToken'] as String,
@@ -30,11 +30,11 @@ Consent _$ConsentFromJson(Map<String, dynamic> json) {
     scopes: (json['scopes'] as List)
         ?.map((e) => e == null
             ? null
-            : TCredentialScope.fromJson(e as Map<String, dynamic>))
+            : CredentialScope.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     credential: json['credential'] == null
         ? null
-        : TCredential.fromJson(json['credential'] as Map<String, dynamic>),
+        : Credential.fromJson(json['credential'] as Map<String, dynamic>),
   );
 }
 
@@ -56,7 +56,7 @@ Map<String, dynamic> _$ConsentToJson(Consent instance) {
   writeNotNull(
       'accounts', instance.accounts?.map((e) => e?.toJson())?.toList());
   writeNotNull('authChannels',
-      instance.authChannels?.map((e) => _$TAuthChannelEnumMap[e])?.toList());
+      instance.authChannels?.map((e) => _$AuthChannelEnumMap[e])?.toList());
   writeNotNull('authUri', instance.authUri);
   writeNotNull('authToken', instance.authToken);
   writeNotNull('initiatorId', instance.initiatorId);
@@ -101,31 +101,32 @@ T _$enumDecodeNullable<T>(
 const _$ConsentStatusEnumMap = {
   ConsentStatus.pendingPartyLookup: 'PENDING_PARTY_LOOKUP',
   ConsentStatus.pendingPartyConfirmation: 'PENDING_PARTY_CONFIRMATION',
-  ConsentStatus.authorizationRequired: 'AUTHORIZATION_REQUIRED',
+  ConsentStatus.authenticationRequired: 'AUTHENTICATION_REQUIRED',
   ConsentStatus.consentGranted: 'CONSENT_GRANTED',
   ConsentStatus.challengeGenerated: 'CHALLENGE_GENERATED',
   ConsentStatus.active: 'ACTIVE',
+  ConsentStatus.revokeRequested: 'REVOKE_REQUESTED',
   ConsentStatus.revoked: 'REVOKED',
 };
 
-const _$TAuthChannelEnumMap = {
-  TAuthChannel.web: 'WEB',
-  TAuthChannel.otp: 'OTP',
+const _$AuthChannelEnumMap = {
+  AuthChannel.web: 'WEB',
+  AuthChannel.otp: 'OTP',
 };
 
-TCredential _$TCredentialFromJson(Map<String, dynamic> json) {
-  return TCredential(
+Credential _$CredentialFromJson(Map<String, dynamic> json) {
+  return Credential(
     id: json['id'] as String,
     credentialType:
-        _$enumDecodeNullable(_$TCredentialTypeEnumMap, json['credentialType']),
-    status: _$enumDecodeNullable(_$TCredentialStatusEnumMap, json['status']),
+        _$enumDecodeNullable(_$CredentialTypeEnumMap, json['credentialType']),
+    status: _$enumDecodeNullable(_$CredentialStatusEnumMap, json['status']),
     challenge: json['challenge'] == null
         ? null
         : Challenge.fromJson(json['challenge'] as Map<String, dynamic>),
   );
 }
 
-Map<String, dynamic> _$TCredentialToJson(TCredential instance) {
+Map<String, dynamic> _$CredentialToJson(Credential instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -136,19 +137,19 @@ Map<String, dynamic> _$TCredentialToJson(TCredential instance) {
 
   writeNotNull('id', instance.id);
   writeNotNull(
-      'credentialType', _$TCredentialTypeEnumMap[instance.credentialType]);
-  writeNotNull('status', _$TCredentialStatusEnumMap[instance.status]);
+      'credentialType', _$CredentialTypeEnumMap[instance.credentialType]);
+  writeNotNull('status', _$CredentialStatusEnumMap[instance.status]);
   writeNotNull('challenge', instance.challenge?.toJson());
   return val;
 }
 
-const _$TCredentialTypeEnumMap = {
-  TCredentialType.fido: 'FIDO',
+const _$CredentialTypeEnumMap = {
+  CredentialType.fido: 'FIDO',
 };
 
-const _$TCredentialStatusEnumMap = {
-  TCredentialStatus.pending: 'PENDING',
-  TCredentialStatus.active: 'ACTIVE',
+const _$CredentialStatusEnumMap = {
+  CredentialStatus.pending: 'PENDING',
+  CredentialStatus.active: 'ACTIVE',
 };
 
 Challenge _$ChallengeFromJson(Map<String, dynamic> json) {
@@ -172,14 +173,14 @@ Map<String, dynamic> _$ChallengeToJson(Challenge instance) {
   return val;
 }
 
-TCredentialScope _$TCredentialScopeFromJson(Map<String, dynamic> json) {
-  return TCredentialScope(
+CredentialScope _$CredentialScopeFromJson(Map<String, dynamic> json) {
+  return CredentialScope(
     scope: json['scope'] as String,
     accountId: json['accountId'] as String,
   );
 }
 
-Map<String, dynamic> _$TCredentialScopeToJson(TCredentialScope instance) {
+Map<String, dynamic> _$CredentialScopeToJson(CredentialScope instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {

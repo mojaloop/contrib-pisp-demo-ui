@@ -32,7 +32,7 @@ class LoginSetup extends StatelessWidget {
                     LoginWithGoogleTile(
                       trailingWidget: GetBuilder<SetupController>(
                         builder: (value) => value.googleLogin
-                            ? const Icon(Icons.check_circle_outline)
+                            ? const Icon(Icons.check_circle_outline, color: Colors.green)
                             : GestureDetector(
                                 child: const Icon(Icons.keyboard_arrow_right),
                                 onTap: () => value.onLinkGoogleAccount(),
@@ -50,7 +50,7 @@ class LoginSetup extends StatelessWidget {
         onPressed: () {
           Get.find<SetupController>().onTapNext();
         },
-        tooltip: 'Increment',
+        tooltip: 'Continue setup',
         child: const Icon(Icons.arrow_forward),
       ),
     );

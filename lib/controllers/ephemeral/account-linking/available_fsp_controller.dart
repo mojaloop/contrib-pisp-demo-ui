@@ -11,10 +11,9 @@ class AvailableFSPController extends GetxController {
   final ParticipantRepository _participantRepository;
   RxList<Fsp> availableFsps = <Fsp>[].obs;
 
-
   @override
-  void onInit() {
-    availableFsps.bindStream(_participantRepository.listenForAvailableFSPs());
+  Future<void> onInit() async {
+    availableFsps.value = await _participantRepository.loadAvailableFSPs();
     super.onInit();
   }
 }

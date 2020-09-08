@@ -37,31 +37,16 @@ class AccountUnlinkingController extends GetxController {
     }
 
     final Consent toRevoke = findConsentToRevoke(accId);
-    final List<String> accIdList =
-        toRevoke.accounts.map((acc) => acc.id).toList();
-
-    // If the consent is associated with multiple accounts
-    // inform the user that other accounts will be deleted
-    // along with this one.
-    Widget content =
-        const Text('Are you sure you wish to unlink this account?');
-    if (accIdList.length > 1) {
-      content = Column(
-        children: [
-          content,
-          const Text('Note: The following accounts will be removed:'),
-          // Add list of accs that will be removed
-          ...accIdList.map((id) => Text('• $id')),
-        ],
-      );
-    }
 
     // Display dialog for confirmation
     Get.defaultDialog<dynamic>(
       title: 'Remove Account?',
       confirmTextColor: Colors.white,
       cancelTextColor: LightColor.navyBlue1,
-      content: Padding(child: content, padding: const EdgeInsets.all(10)),
+      content: Padding(
+        child: _buildDialogContent(toRevoke),
+        padding: const EdgeInsets.all(10),
+      ),
       onConfirm: () {
         selectedAccountId = accId;
         initiateRevocation(toRevoke);
@@ -71,6 +56,30 @@ class AccountUnlinkingController extends GetxController {
         selectedAccountId = null;
       },
     );
+  }
+
+  Widget _buildDialogContent(Consent toRevoke) {
+    // If the consent is associated with multiple accounts
+    // inform the user that other accounts will be deleted
+    // along with this one.
+    // Since we revoke the consent, we revoke the consent for all the accounts.
+    Widget content =
+        const Text('Are you sure you wish to unlink this account?');
+    if (toRevoke.accounts.length > 1) {
+      content = Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          content,
+          const SizedBox(height: 10),
+          const Text('Please note that the following accounts will be removed:'),
+          const SizedBox(height: 10),
+          // Add list of accounts that will be removed
+          ...toRevoke.accounts
+              .map((acc) => Text('• ${acc.id}', textAlign: TextAlign.left)),
+        ],
+      );
+    }
+    return content;
   }
 
   Future<void> _loadActiveConsents() async {

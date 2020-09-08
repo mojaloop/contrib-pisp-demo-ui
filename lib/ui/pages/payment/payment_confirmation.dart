@@ -10,6 +10,7 @@ import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
 import 'package:pispapp/ui/widgets/shadow_heading.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
+import 'package:pispapp/models/currency.dart';
 
 class PaymentConfirmation extends StatelessWidget {
   PaymentConfirmation(this._paymentFlowController);

@@ -32,21 +32,39 @@ class AccountUnlinkingController extends GetxController {
     // If there is another account was selected for unlinking
     // (and still in the process of unlinking), do not initiate
     // another unlinking
-    if(selectedAccountId != null) {
+    if (selectedAccountId != null) {
       return;
     }
 
-    selectedAccountId = accId;
+    final Consent toRevoke = findConsentToRevoke(accId);
+    final List<String> accIdList =
+        toRevoke.accounts.map((acc) => acc.id).toList();
+
+    // If the consent is associated with multiple accounts
+    // inform the user that other accounts will be deleted
+    // along with this one.
+    Widget content =
+        const Text('Are you sure you wish to unlink this account?');
+    if (accIdList.length > 1) {
+      content = Column(
+        children: [
+          content,
+          const Text('Note: The following accounts will be removed:'),
+          // Add list of accs that will be removed
+          ...accIdList.map((id) => Text('• $id')),
+        ],
+      );
+    }
 
     // Display dialog for confirmation
     Get.defaultDialog<dynamic>(
       title: 'Remove Account?',
       confirmTextColor: Colors.white,
       cancelTextColor: LightColor.navyBlue1,
-      content: const Padding(child: Text('Are you sure you wish to unlink this account?'),
-          padding: EdgeInsets.all(10)),
+      content: Padding(child: content, padding: const EdgeInsets.all(10)),
       onConfirm: () {
-        initiateRevocation(accId);
+        selectedAccountId = accId;
+        initiateRevocation(toRevoke);
         Get.back();
       },
       onCancel: () {
@@ -64,15 +82,17 @@ class AccountUnlinkingController extends GetxController {
     accounts.value = consents.expand((element) => element.accounts).toList();
   }
 
+  Consent findConsentToRevoke(String accId) {
+    // Find Consent object linked to this accId - this is guaranteed to exist
+    return consents.firstWhere((consent) =>
+        consent.accounts.where((account) => account.id == accId).isNotEmpty);
+  }
+
   /// Revokes a particular consent object associated with an accId
-  Future<void> initiateRevocation(String accId) async {
+  Future<void> initiateRevocation(Consent toRevoke) async {
     _setAwaitingUpdate(true);
 
-    // Find Consent object linked to this accId - this is guaranteed to exist
-    selectedConsent = consents.firstWhere((consent) =>
-        consent.accounts.where((account) => account.id == accId).isNotEmpty);
-
-    // TODO(kkzeng): Explore removing an account but not revoking Consent for multiple acc consents
+    selectedConsent = toRevoke;
 
     // Update status to be revokeRequested
     _consentRepository.updateData(selectedConsent.id,
@@ -115,5 +135,6 @@ class AccountUnlinkingController extends GetxController {
   // This is intended to inform the UI that the user is not expected to
   // make any action and just need to wait. For example, a circular progress
   // indicator could be displayed.
-  void _setAwaitingUpdate(bool isAwaitingUpdate) => this.isAwaitingUpdate.value = isAwaitingUpdate;
+  void _setAwaitingUpdate(bool isAwaitingUpdate) =>
+      this.isAwaitingUpdate.value = isAwaitingUpdate;
 }

@@ -7,11 +7,13 @@ import 'package:pispapp/controllers/ephemeral/dashboard/dashboard_controller.dar
 import 'package:pispapp/repositories/firebase/auth_repository.dart';
 import 'package:pispapp/repositories/firebase/user_data_repository.dart';
 import 'package:pispapp/repositories/stubs/stub_account_repository.dart';
-import 'package:pispapp/routes/app_pages.dart';
 import 'package:pispapp/routes/app_navigator.dart';
+import 'package:pispapp/routes/app_pages.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
+
 import 'controllers/app/account_controller.dart';
 import 'controllers/app/auth_controller.dart';
+import 'controllers/app/connectivity_controller.dart';
 import 'controllers/app/user_data_controller.dart';
 import 'controllers/ephemeral/local_auth_controller.dart';
 import 'models/user.dart';
@@ -39,17 +41,20 @@ class LifecycleAwareApp extends StatefulWidget {
 class _LifecycleAwareAppState extends State<LifecycleAwareApp>
     // ignore: prefer_mixin
     with WidgetsBindingObserver {
+
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
     // Show verification screen when app first starts
     Get.find<LocalAuthController>().appWasResumed();
+    Get.find<ConnectivityController>().startListenForConnectionStatus();
     super.initState();
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    Get.find<ConnectivityController>().stopListeningForConnectionStatus();
     super.dispose();
   }
 
@@ -58,9 +63,11 @@ class _LifecycleAwareAppState extends State<LifecycleAwareApp>
     switch (state) {
       case AppLifecycleState.resumed:
         Get.find<LocalAuthController>().appWasResumed();
+        Get.find<ConnectivityController>().startListenForConnectionStatus();
         break;
       case AppLifecycleState.paused:
         Get.find<LocalAuthController>().appWasPaused();
+        Get.find<ConnectivityController>().stopListeningForConnectionStatus();
         break;
       default:
         break;
@@ -115,4 +122,5 @@ void initAppControllers() {
   Get.put(DashboardController());
   Get.put(AppNavigator());
   Get.put(LocalAuthController());
+  Get.put(ConnectivityController());
 }

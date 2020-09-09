@@ -10,7 +10,6 @@ import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
 
-// ignore: must_be_immutable
 class AccountUnlinking extends StatelessWidget {
   final AccountUnlinkingController _accountUnlinkingController =
       AccountUnlinkingController(ConsentRepository());
@@ -65,7 +64,7 @@ class AccountUnlinking extends StatelessWidget {
   }
 
   // Handles onTap for an account
-  void _onTap(String accId) {
+  Future<void> _onTap(String accId) async {
     // If there is another account was selected for unlinking
     // (and still in the process of unlinking), do not initiate
     // another unlinking
@@ -75,24 +74,34 @@ class AccountUnlinking extends StatelessWidget {
 
     final Consent toRevoke = _accountUnlinkingController.findConsentToRevoke(accId);
 
+    // Used to keep track of whether or not the user wishes to continue with
+    // the consent revocation
+    bool userConfirmed = false;
+
     // Display dialog for confirmation
-    Get.defaultDialog<dynamic>(
+    await Get.defaultDialog<dynamic>(
       title: 'Remove Account?',
       confirmTextColor: Colors.white,
       cancelTextColor: LightColor.navyBlue1,
+      textCancel: 'No',
+      textConfirm: 'Yes',
       content: Padding(
         child: _buildDialogContent(toRevoke),
         padding: const EdgeInsets.all(10),
       ),
       onConfirm: () {
+        userConfirmed = true;
         _accountUnlinkingController.selectedAccountId = accId;
         _accountUnlinkingController.initiateRevocation(toRevoke);
         Get.back();
       },
-      onCancel: () {
-        _accountUnlinkingController.selectedAccountId = null;
-      },
     );
+
+    // When dialog closes and it is not because user confirmed,
+    // selected account id should be set to null
+    if(!userConfirmed) {
+      _accountUnlinkingController.selectedAccountId = null;
+    }
   }
 
   Widget _buildDialogContent(Consent toRevoke) {

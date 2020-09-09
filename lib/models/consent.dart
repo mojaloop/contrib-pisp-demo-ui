@@ -78,7 +78,7 @@ class Consent implements JsonModel {
   Map<String, dynamic> toJson() => _$ConsentToJson(this);
 }
 
-//TODO(kkzeng): Adapt model once changes to auth-service finalized
+// TODO(kkzeng): Adapt model once changes to auth-service finalized
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 class Credential implements JsonModel {
   Credential({

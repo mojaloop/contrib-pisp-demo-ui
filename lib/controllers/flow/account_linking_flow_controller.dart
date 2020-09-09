@@ -87,6 +87,9 @@ class AccountLinkingFlowController extends GetxController {
       case ConsentStatus.revoked:
         _stopListening();
         break;
+      default:
+        // we don't care about the other statuses
+        break;
     }
   }
 

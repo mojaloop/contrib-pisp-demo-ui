@@ -4,7 +4,7 @@
 analyzer:
   strong-mode:
     implicit-casts: false
-    implicit-dynamic: false
+    implicit-dynamic: true
   errors:
     missing_required_param: warning
     missing_return: warning

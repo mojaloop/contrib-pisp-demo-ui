@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pispapp/controllers/ephemeral/account-linking/available_fsp_controller.dart';
+import 'package:pispapp/ui/pages/account-linking/account_lookup_screen.dart';
 import 'package:pispapp/models/fsp.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
+import 'package:pispapp/ui/widgets/title_text.dart';
 
 class AccountLinkingInitiation extends StatelessWidget {
   Widget _buildListItem(Fsp fsp) {
@@ -16,6 +18,7 @@ class AccountLinkingInitiation extends StatelessWidget {
         child: ListTile(
           trailing: const Icon(Icons.arrow_forward_ios),
           title: Text(fsp.name),
+          onTap: () => Get.to<dynamic>(AccountLookupScreen(fsp)),
         ),
       ),
     );

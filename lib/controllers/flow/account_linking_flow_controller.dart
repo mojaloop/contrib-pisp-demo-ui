@@ -4,6 +4,7 @@ import 'package:pispapp/models/consent.dart';
 import 'package:pispapp/models/party.dart';
 import 'package:pispapp/models/user.dart';
 import 'package:pispapp/repositories/interfaces/i_consent_repository.dart';
+import 'package:pispapp/ui/pages/account-linking/account_selection_screen.dart';
 
 class AccountLinkingFlowController extends GetxController {
   AccountLinkingFlowController(this._consentRepository);
@@ -69,7 +70,9 @@ class AccountLinkingFlowController extends GetxController {
           // The consent data has been updated
           _setAwaitingUpdate(false);
 
-          // TODO(kkzeng): Display screen with list of accounts to link here
+          // Redirect to the next stage in account linking flow
+          // Display list of associated accounts
+          Get.to<dynamic>(AccountSelectionScreen(this));
         }
         break;
       case ConsentStatus.authenticationRequired:

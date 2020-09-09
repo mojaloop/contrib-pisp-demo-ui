@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pispapp/models/transaction.dart';
+import 'package:pispapp/models/currency.dart';
 import 'package:collection/collection.dart';
 
 void main() {

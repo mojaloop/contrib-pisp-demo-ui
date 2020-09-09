@@ -1,25 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pispapp/controllers/ephemeral/account-linking/account_discovery_controller.dart';
-import 'package:pispapp/controllers/ephemeral/account-linking/available_fsp_controller.dart';
 import 'package:pispapp/controllers/flow/account_linking_flow_controller.dart';
-import 'package:pispapp/models/account.dart';
+import 'package:pispapp/models/fsp.dart';
 import 'package:pispapp/repositories/firebase/consent_repository.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/bottom_button.dart';
-import 'package:pispapp/ui/widgets/moja_button.dart';
-import 'package:pispapp/ui/widgets/shadow_box.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
 
-class AccountDiscovery extends StatelessWidget {
-  AccountDiscovery(this.fspId, this.fspName);
+class AccountLookupScreen extends StatelessWidget {
+  AccountLookupScreen(this.fsp);
 
-  final String fspId;
-  final String fspName;
-  final AccountDiscoveryController _accountDiscoveryController = AccountDiscoveryController();
-  final AccountLinkingFlowController _accountLinkingFlowController = AccountLinkingFlowController(ConsentRepository());
+  final Fsp fsp;
+
+  final AccountLookupController _accountLookupController =
+      AccountLookupController();
+  final AccountLinkingFlowController _accountLinkingFlowController =
+      AccountLinkingFlowController(ConsentRepository());
 
   Widget _buildActionSection() {
     return GetBuilder<AccountLinkingFlowController>(
@@ -30,7 +28,7 @@ class AccountDiscovery extends StatelessWidget {
           // The user is only allowed to click the button once.
           // Afterward, the state of the payment flow controller will be updated
           // to be awaiting for response. Once the response is received, the
-          // flow controller is expected to bring used to another page.
+          // flow controller is expected to bring user to another page.
           return BottomButton(
             const TitleText(
               'Lookup Account(s)',
@@ -39,8 +37,8 @@ class AccountDiscovery extends StatelessWidget {
             ),
             onTap: () {
               // Start discovering accounts associated to opaqueId
-              final opaqueId = _accountDiscoveryController.opaqueId;
-              _accountLinkingFlowController.initiateDiscovery(opaqueId, fspId);
+              final opaqueId = _accountLookupController.opaqueId;
+              _accountLinkingFlowController.initiateDiscovery(opaqueId, fsp.id);
             },
           );
         } else {
@@ -82,37 +80,37 @@ class AccountDiscovery extends StatelessWidget {
         color: LightColor.navyBlue2,
       ),
       onChanged: (String value) {
-        _accountDiscoveryController.onIDChange(value);
+        _accountLookupController.onIDChange(value);
       },
     );
   }
 
   Widget _buildAccountIcon() {
     return const Icon(
-        Icons.account_circle,
-        size: 120,
-        color: LightColor.lightNavyBlue,
+      Icons.account_circle,
+      size: 120,
+      color: LightColor.lightNavyBlue,
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(fspName),
+      appBar: AppBar(
+        title: Text(fsp.name),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        child: Column(
+          children: [
+            const SizedBox(height: 30),
+            _buildAccountIcon(),
+            _buildInstructions(),
+            _buildIDTextField(),
+            _buildActionSection(),
+          ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: Column(
-            children: [
-              const SizedBox(height: 30),
-              _buildAccountIcon(),
-              _buildInstructions(),
-              _buildIDTextField(),
-              _buildActionSection(),
-            ],
-          ),
-        )
+      ),
     );
   }
 }

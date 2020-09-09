@@ -4,7 +4,7 @@ import 'package:pispapp/models/consent.dart';
 import 'package:pispapp/models/party.dart';
 import 'package:pispapp/models/user.dart';
 import 'package:pispapp/repositories/interfaces/i_consent_repository.dart';
-import 'package:pispapp/ui/pages/account-linking/associated_accounts.dart';
+import 'package:pispapp/ui/pages/account-linking/account_selection_screen.dart';
 import 'package:pispapp/ui/pages/account-linking/otp_auth.dart';
 import 'package:pispapp/ui/pages/account-linking/web_auth.dart';
 
@@ -36,8 +36,8 @@ class AccountLinkingFlowController extends GetxController {
           partyIdType: PartyIdType.opaque,
           partyIdentifier: opaqueId,
           fspId: fspId,
-        )
-      )
+        ),
+      ),
     );
 
     documentId = await _consentRepository.add(newConsent.toJson());
@@ -49,7 +49,7 @@ class AccountLinkingFlowController extends GetxController {
     _setAwaitingUpdate(true);
 
     final Consent updated = Consent(
-      authChannels: [TAuthChannel.web, TAuthChannel.otp],
+      authChannels: [AuthChannel.web, AuthChannel.otp],
       accounts: accsToLink
     );
     await _consentRepository.updateData(documentId, updated.toJson());
@@ -79,7 +79,7 @@ class AccountLinkingFlowController extends GetxController {
     this.consent = consent;
 
     // TODO(kkzeng): Figure out what needs to be done in each state and explore state machine library use
-    switch(consent.status) {
+    switch (consent.status) {
       case ConsentStatus.pendingPartyLookup:
         break;
       case ConsentStatus.pendingPartyConfirmation:
@@ -89,19 +89,19 @@ class AccountLinkingFlowController extends GetxController {
 
           // Redirect to the next stage in account linking flow
           // Display list of associated accounts
-          Get.to<dynamic>(AssociatedAccounts(this));
+          Get.to<dynamic>(AccountSelectionScreen(this));
         }
         break;
-      case ConsentStatus.authorizationRequired:
+      case ConsentStatus.authenticationRequired:
         if (oldValue.status == ConsentStatus.pendingPartyConfirmation) {
           // The consent data has been updated
           _setAwaitingUpdate(false);
 
           switch(consent.authChannels[0]) {
-            case TAuthChannel.otp:
+            case AuthChannel.otp:
               Get.to<dynamic>(OTPAuth(this));
               break;
-            case TAuthChannel.web:
+            case AuthChannel.web:
               Get.to<dynamic>(WebAuth(this));
               break;
             default:
@@ -118,6 +118,9 @@ class AccountLinkingFlowController extends GetxController {
         break;
       case ConsentStatus.revoked:
         _stopListening();
+        break;
+      default:
+        // Not a state we care about
         break;
     }
   }

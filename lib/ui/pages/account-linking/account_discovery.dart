@@ -19,7 +19,8 @@ class AccountDiscovery extends StatelessWidget {
   final String fspId;
   final String fspName;
   final AccountDiscoveryController _accountDiscoveryController = AccountDiscoveryController();
-  final AccountLinkingFlowController _accountLinkingFlowController = AccountLinkingFlowController(ConsentRepository());
+  final AccountLinkingFlowController _accountLinkingFlowController =
+  AccountLinkingFlowController(Get.find<ConsentRepository>());
 
   Widget _buildActionSection() {
     return GetBuilder<AccountLinkingFlowController>(

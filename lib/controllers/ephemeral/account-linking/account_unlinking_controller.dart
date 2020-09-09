@@ -30,7 +30,10 @@ class AccountUnlinkingController extends GetxController {
   Future<void> _loadActiveConsents() async {
     // Fetch all consents and create list of accounts with it
     final String currentUserId = Get.find<AuthController>().user.id;
-    consents = await _consentRepository.getActiveConsents(currentUserId);
+
+    // Prefer the cached version but if not possible, load again
+    consents = _consentRepository.getCachedActiveConsents() ??
+        await _consentRepository.getActiveConsents(currentUserId);
 
     // Flatten the consents into the list of accounts
     accounts.value = consents.expand((element) => element.accounts).toList();

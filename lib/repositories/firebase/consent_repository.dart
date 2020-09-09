@@ -1,20 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 import 'package:pispapp/models/consent.dart';
 import 'package:pispapp/repositories/interfaces/i_consent_repository.dart';
 
-class ConsentRepository implements IConsentRepository {
+class ConsentRepository extends GetxService implements IConsentRepository {
   final CollectionReference _consentRef =
       Firestore.instance.collection('consents');
+
+  List<Consent> cache;
 
   @override
   Future<List<Consent>> getConsents(String userId) {
     return _consentRef.where('userId', isEqualTo: userId).getDocuments().then(
-          (snapshot) => snapshot.documents.map((element) {
-            final Consent c = Consent.fromJson(element.data);
-            c.id = element.documentID;
-            return c;
-          }).toList(),
-        );
+      (snapshot) {
+        cache = snapshot.documents.map((element) {
+          final Consent c = Consent.fromJson(element.data);
+          c.id = element.documentID;
+          return c;
+        }).toList();
+        return cache;
+      },
+    );
   }
 
   @override
@@ -22,6 +28,18 @@ class ConsentRepository implements IConsentRepository {
     return getConsents(userId).then((consents) {
       return consents.where((c) => c.status == ConsentStatus.active).toList();
     });
+  }
+
+  @override
+  List<Consent> getCachedConsents() {
+    return cache;
+  }
+
+  @override
+  List<Consent> getCachedActiveConsents() {
+    return getCachedConsents()
+        ?.where((c) => c.status == ConsentStatus.active)
+        ?.toList();
   }
 
   @override

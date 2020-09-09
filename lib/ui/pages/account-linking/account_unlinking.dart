@@ -12,7 +12,7 @@ import 'package:pispapp/ui/widgets/title_text.dart';
 
 class AccountUnlinking extends StatelessWidget {
   final AccountUnlinkingController _accountUnlinkingController =
-      AccountUnlinkingController(ConsentRepository());
+      AccountUnlinkingController(Get.find<ConsentRepository>());
 
   // For when there are no accounts associated with the opaque id
   Widget _buildEmptyDisplay() {

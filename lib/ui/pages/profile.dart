@@ -6,8 +6,6 @@ import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
 import 'package:get/get.dart';
 
-import 'account-linking/account_unlinking.dart';
-
 class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

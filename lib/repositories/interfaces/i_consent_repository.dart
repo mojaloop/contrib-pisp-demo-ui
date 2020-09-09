@@ -14,6 +14,16 @@ abstract class IConsentRepository {
   /// a particular user. i.e. not including revoked consents
   Future<List<Consent>> getActiveConsents(String userId);
 
+  /// Returns the last result of calling [getConsents()] or null if there
+  /// was no previous call to [getConsents()]
+  List<Consent> getCachedConsents();
+
+  /// Returns the last result of calling [getConsents()] filtered where consent
+  /// status is [ConsentStatus.active] or null if there was no previous call to
+  /// [getConsents()]
+  List<Consent> getCachedActiveConsents();
+
+
   /// Adds a new consent document to the database.
   Future<String> add(Map<String, dynamic> data);
 

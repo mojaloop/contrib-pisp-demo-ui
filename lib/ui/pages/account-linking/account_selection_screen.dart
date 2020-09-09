@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pispapp/controllers/ephemeral/account-linking/associated_accounts_controller.dart';
+import 'package:pispapp/controllers/ephemeral/account-linking/account_selection_controller.dart';
 import 'package:pispapp/controllers/flow/account_linking_flow_controller.dart';
 import 'package:pispapp/models/consent.dart';
 import 'package:pispapp/models/currency.dart';
@@ -10,13 +10,13 @@ import 'package:pispapp/ui/widgets/moja_button.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
 
-class DiscoveredAccountsScreen extends StatelessWidget {
-  DiscoveredAccountsScreen(this._accountLinkingFlowController)
-      : _discoveredAccountsController = DiscoveredAccountsController(
+class AccountSelectionScreen extends StatelessWidget {
+  AccountSelectionScreen(this._accountLinkingFlowController)
+      : _accountSelectionScreen = AccountSelectionController(
             _accountLinkingFlowController.consent.accounts);
 
   final AccountLinkingFlowController _accountLinkingFlowController;
-  final DiscoveredAccountsController _discoveredAccountsController;
+  final AccountSelectionController _accountSelectionScreen;
 
   // For when there are no accounts associated with the opaque id
   Widget _buildEmptyDisplay() {
@@ -47,8 +47,8 @@ class DiscoveredAccountsScreen extends StatelessWidget {
         child: ListTile(
           leading: const Icon(Icons.account_circle,
               size: 50, color: LightColor.navyBlue1),
-          trailing: GetBuilder<DiscoveredAccountsController>(
-              init: _discoveredAccountsController,
+          trailing: GetBuilder<AccountSelectionController>(
+              init: _accountSelectionScreen,
               global: false,
               builder: (controller) {
                 return controller.isAccSelected(accId)
@@ -58,7 +58,7 @@ class DiscoveredAccountsScreen extends StatelessWidget {
               }),
           title: Text(accId),
           subtitle: Text(currencyStr),
-          onTap: () => _discoveredAccountsController.onTap(accId),
+          onTap: () => _accountSelectionScreen.onTap(accId),
         ),
       ),
     );
@@ -99,7 +99,7 @@ class DiscoveredAccountsScreen extends StatelessWidget {
 
   Widget _buildList() {
     final List<Account> associatedAccounts =
-        _discoveredAccountsController.associatedAccounts;
+        _accountSelectionScreen.associatedAccounts;
     if (associatedAccounts.isEmpty) {
       return _buildEmptyDisplay();
     }
@@ -126,7 +126,7 @@ class DiscoveredAccountsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Associated Accounts'),
+        title: const Text('Select Your Accounts'),
       ),
       body: SizedBox.expand(
         child: _buildList(),

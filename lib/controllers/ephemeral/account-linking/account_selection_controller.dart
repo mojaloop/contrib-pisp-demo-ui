@@ -3,8 +3,8 @@ import 'package:pispapp/models/consent.dart';
 
 import 'package:get/get.dart';
 
-class DiscoveredAccountsController extends GetxController {
-  DiscoveredAccountsController(this.associatedAccounts);
+class AccountSelectionController extends GetxController {
+  AccountSelectionController(this.associatedAccounts);
   final List<Account> associatedAccounts;
   final HashSet<String> _selectedAccIds = HashSet();
 

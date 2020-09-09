@@ -4,7 +4,7 @@ import 'package:pispapp/models/consent.dart';
 import 'package:pispapp/models/party.dart';
 import 'package:pispapp/models/user.dart';
 import 'package:pispapp/repositories/interfaces/i_consent_repository.dart';
-import 'package:pispapp/ui/pages/account-linking/discovered_accounts_screen.dart';
+import 'package:pispapp/ui/pages/account-linking/account_selection_screen.dart';
 
 class AccountLinkingFlowController extends GetxController {
   AccountLinkingFlowController(this._consentRepository);
@@ -72,7 +72,7 @@ class AccountLinkingFlowController extends GetxController {
 
           // Redirect to the next stage in account linking flow
           // Display list of associated accounts
-          Get.to<dynamic>(DiscoveredAccountsScreen(this));
+          Get.to<dynamic>(AccountSelectionScreen(this));
         }
         break;
       case ConsentStatus.authenticationRequired:

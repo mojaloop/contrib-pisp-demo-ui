@@ -7,6 +7,7 @@ import 'package:pispapp/ui/theme/light_theme.dart';
 
 class ConnectivityController extends GetxController {
   bool isDialogShowing = false;
+
   // Note: Connectivity checks connection to google.com, may not be available
   // in countries that ban google such as China
   final Connectivity _connectivity = Connectivity();
@@ -23,13 +24,16 @@ class ConnectivityController extends GetxController {
     await Get.defaultDialog<dynamic>(
       title: 'No internet connection',
       textCancel: 'Dismiss',
-      cancelTextColor: LightColor.lightBlue1,
+      cancelTextColor: LightColor.navyBlue1,
       content: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(children: const [
           Icon(Icons.wifi_off, size: 80, color: LightColor.lightBlue1),
           SizedBox(height: 10),
-          Text('Please make sure you turn on your Wifi or Cellular Data!'),
+          Text(
+            'Please make sure you turn on your Wifi or Cellular Data!',
+            style: TextStyle(color: LightColor.navyBlue1),
+          ),
         ]),
       ),
     );

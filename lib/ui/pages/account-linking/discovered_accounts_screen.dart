@@ -10,15 +10,13 @@ import 'package:pispapp/ui/widgets/moja_button.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
 
-// ignore: must_be_immutable
-class AssociatedAccounts extends StatelessWidget {
-  AssociatedAccounts(this._accountLinkingFlowController) {
-    _associatedAccountsController = AssociatedAccountsController(
-        _accountLinkingFlowController.consent.accounts);
-  }
+class DiscoveredAccountsScreen extends StatelessWidget {
+  DiscoveredAccountsScreen(this._accountLinkingFlowController)
+      : _discoveredAccountsController = DiscoveredAccountsController(
+            _accountLinkingFlowController.consent.accounts);
 
   final AccountLinkingFlowController _accountLinkingFlowController;
-  AssociatedAccountsController _associatedAccountsController;
+  final DiscoveredAccountsController _discoveredAccountsController;
 
   // For when there are no accounts associated with the opaque id
   Widget _buildEmptyDisplay() {
@@ -49,8 +47,8 @@ class AssociatedAccounts extends StatelessWidget {
         child: ListTile(
           leading: const Icon(Icons.account_circle,
               size: 50, color: LightColor.navyBlue1),
-          trailing: GetBuilder<AssociatedAccountsController>(
-              init: _associatedAccountsController,
+          trailing: GetBuilder<DiscoveredAccountsController>(
+              init: _discoveredAccountsController,
               global: false,
               builder: (controller) {
                 return controller.isAccSelected(accId)
@@ -60,7 +58,7 @@ class AssociatedAccounts extends StatelessWidget {
               }),
           title: Text(accId),
           subtitle: Text(currencyStr),
-          onTap: () => _associatedAccountsController.onTap(accId),
+          onTap: () => _discoveredAccountsController.onTap(accId),
         ),
       ),
     );
@@ -101,7 +99,7 @@ class AssociatedAccounts extends StatelessWidget {
 
   Widget _buildList() {
     final List<Account> associatedAccounts =
-        _accountLinkingFlowController.consent.accounts;
+        _discoveredAccountsController.associatedAccounts;
     if (associatedAccounts.isEmpty) {
       return _buildEmptyDisplay();
     }

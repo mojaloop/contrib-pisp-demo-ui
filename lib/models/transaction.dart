@@ -8,6 +8,7 @@ import 'party.dart';
 part 'transaction.g.dart';
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
+// ignore: must_be_immutable
 class Transaction extends Equatable implements JsonModel {
   Transaction({
     this.id,
@@ -92,9 +93,9 @@ class Transaction extends Equatable implements JsonModel {
         consentId,
         amount,
         authentication,
+        transactionId,
         transactionRequestId,
         completedTimestamp,
-        transactionId,
         quote,
         responseType,
         status

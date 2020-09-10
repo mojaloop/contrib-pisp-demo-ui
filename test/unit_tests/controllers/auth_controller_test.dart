@@ -7,6 +7,8 @@ import 'package:pispapp/repositories/firebase/auth_repository.dart';
 class MockAuthRepository extends Mock implements AuthRepository {}
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   AuthRepository authRepository;
   AuthController authController;
   setUp(

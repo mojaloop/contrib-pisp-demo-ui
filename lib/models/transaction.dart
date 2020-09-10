@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'currency.dart';
@@ -7,7 +8,7 @@ import 'party.dart';
 part 'transaction.g.dart';
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class Transaction implements JsonModel {
+class Transaction extends Equatable implements JsonModel {
   Transaction({
     this.id,
     this.userId,
@@ -80,6 +81,24 @@ class Transaction implements JsonModel {
 
   @override
   Map<String, dynamic> toJson() => _$TransactionToJson(this);
+
+  @override
+  List<Object> get props => [
+        id,
+        userId,
+        payee,
+        payer,
+        sourceAccountId,
+        consentId,
+        amount,
+        authentication,
+        transactionRequestId,
+        completedTimestamp,
+        transactionId,
+        quote,
+        responseType,
+        status
+      ];
 }
 
 enum TransactionStatus {
@@ -102,7 +121,7 @@ enum TransactionStatus {
 }
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class Quote implements JsonModel {
+class Quote extends Equatable implements JsonModel {
   Quote({
     this.transferAmount,
     this.payeeFspFee,
@@ -136,10 +155,20 @@ class Quote implements JsonModel {
 
   @override
   Map<String, dynamic> toJson() => _$QuoteToJson(this);
+
+  @override
+  List<Object> get props => [
+        transferAmount,
+        payeeFspFee,
+        payeeFspCommission,
+        expiration,
+        condition,
+        ilpPacket
+      ];
 }
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class Money implements JsonModel {
+class Money extends Equatable implements JsonModel {
   Money(this.amount, this.currency);
 
   @override
@@ -153,10 +182,13 @@ class Money implements JsonModel {
 
   @override
   Map<String, dynamic> toJson() => _$MoneyToJson(this);
+
+  @override
+  List<Object> get props => [amount, currency];
 }
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class Authentication implements JsonModel {
+class Authentication extends Equatable implements JsonModel {
   Authentication({this.type, this.value});
 
   @override
@@ -173,6 +205,9 @@ class Authentication implements JsonModel {
 
   @override
   Map<String, dynamic> toJson() => _$AuthenticationToJson(this);
+
+  @override
+  List<Object> get props => [type, value];
 }
 
 /// Enumeration allowed for AuthenticationType. At the moment, U2F is the

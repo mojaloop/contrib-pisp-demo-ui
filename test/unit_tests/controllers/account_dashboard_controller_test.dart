@@ -17,6 +17,8 @@ class MockAccountController extends Mock implements AccountController {}
 class MockAuthRepository extends Mock implements AuthRepository {}
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   ITransactionRepository transactionRepository;
   AccountDashboardController accDashboardController;
   AccountController accountController;

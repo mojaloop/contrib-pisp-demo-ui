@@ -136,23 +136,23 @@ class Quote extends Equatable implements JsonModel {
   factory Quote.fromJson(Map<String, dynamic> json) => _$QuoteFromJson(json);
 
   /// The amount of money that the Payee FSP should receive.
-  Money transferAmount;
+  final Money transferAmount;
 
   /// Payee FSP’s part of the transaction fee.
-  Money payeeFspFee;
+  final Money payeeFspFee;
 
   /// Transaction commission from the Payee FSP.
-  Money payeeFspCommission;
+  final Money payeeFspCommission;
 
   /// Date and time until when the quotation is valid and can be honored when used
   /// in the subsequent transaction.
-  String expiration;
+  final String expiration;
 
   /// Condition that must be attached to a transfer by the Payer.
-  String condition;
+  final String condition;
 
   /// Information for recipient (transport layer information).
-  String ilpPacket;
+  final String ilpPacket;
 
   @override
   Map<String, dynamic> toJson() => _$QuoteToJson(this);
@@ -176,10 +176,10 @@ class Money extends Equatable implements JsonModel {
   factory Money.fromJson(Map<String, dynamic> json) => _$MoneyFromJson(json);
 
   /// Amount of money.
-  String amount;
+  final String amount;
 
   /// Currency of the amount.
-  Currency currency;
+  final Currency currency;
 
   @override
   Map<String, dynamic> toJson() => _$MoneyToJson(this);
@@ -198,11 +198,11 @@ class Authentication extends Equatable implements JsonModel {
 
   /// The type of authentication that is required to authorize the proposed
   /// financial transaction.
-  AuthenticationType type;
+  final AuthenticationType type;
 
   /// The value of authentication that is provided by payer to authorize the
   /// proposed financial transaction.
-  String value;
+  final String value;
 
   @override
   Map<String, dynamic> toJson() => _$AuthenticationToJson(this);

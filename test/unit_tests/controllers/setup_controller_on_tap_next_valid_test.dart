@@ -21,6 +21,9 @@ void main() {
       navigator = MockAppNavigator();
       userDataController = MockUserDataController();
 
+      setupController.googleLogin = true;
+      setupController.googleLoginPrompt = false;
+
       Get.put(userDataController);
       Get.put(navigator);
     },
@@ -30,9 +33,8 @@ void main() {
     'onTapNext() no phone number entered, goes to phone number entry screen',
     () {
       reset(userDataController);
+      reset(navigator);
       when(userDataController.phoneNumberAssociated).thenReturn(false);
-      setupController.googleLogin = true;
-      setupController.googleLoginPrompt = false;
       setupController.onTapNext();
       expect(setupController.googleLoginPrompt, false);
       verify(navigator.toNamed('/phone_number'));
@@ -43,9 +45,8 @@ void main() {
     'onTapNext() previously entered phone number, goes straight to dashboard',
     () {
       reset(userDataController);
+      reset(navigator);
       when(userDataController.phoneNumberAssociated).thenReturn(true);
-      setupController.googleLogin = true;
-      setupController.googleLoginPrompt = false;
       setupController.onTapNext();
       expect(setupController.googleLoginPrompt, false);
       verify(navigator.offAllNamed('/dashboard'));

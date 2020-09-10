@@ -24,17 +24,23 @@ void main() {
       setupController.googleLogin = true;
       setupController.googleLoginPrompt = false;
 
-      Get.put(userDataController);
       Get.put(navigator);
+      Get.put(userDataController);
     },
   );
 
+  tearDown(
+      () {
+        Get.delete<UserDataController>();
+        Get.delete<AppNavigator>();
+      },
+  );
+
   test(
-    'onTapNext() no phone number entered, goes to phone number entry screen',
+    'onTapNext() - no phone number entered, goes to phone number entry screen',
     () {
-      reset(userDataController);
-      reset(navigator);
-      when(userDataController.phoneNumberAssociated).thenReturn(false);
+      when(userDataController.phoneNumberAssociated)
+          .thenReturn(false);
       setupController.onTapNext();
       expect(setupController.googleLoginPrompt, false);
       verify(navigator.toNamed('/phone_number'));
@@ -42,11 +48,10 @@ void main() {
   );
 
   test(
-    'onTapNext() previously entered phone number, goes straight to dashboard',
+    'onTapNext() - previously entered phone number, goes straight to dashboard',
     () {
-      reset(userDataController);
-      reset(navigator);
-      when(userDataController.phoneNumberAssociated).thenReturn(true);
+      when(userDataController.phoneNumberAssociated)
+          .thenReturn(true);
       setupController.onTapNext();
       expect(setupController.googleLoginPrompt, false);
       verify(navigator.offAllNamed('/dashboard'));

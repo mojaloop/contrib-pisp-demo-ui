@@ -64,6 +64,11 @@ class PaymentAuthorization extends StatelessWidget {
   Widget _buildTransferAmountSection(Transaction transaction) {
     final transferAmount = transaction.quote.transferAmount;
 
+
+    final name = transaction.payee.name;
+    final fee = transaction.quote.payeeFspFee;
+    final receiveAmount = transaction.quote.payeeReceiveAmount;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -77,6 +82,15 @@ class PaymentAuthorization extends StatelessWidget {
               fontSize: 40,
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TitleText(
+              '[fee: ${fee.amount}]\n[total to ${name}: ${receiveAmount.amount}]',
+              fontSize: 20,
+            ),
+          ),
+
+
           const Icon(Icons.arrow_downward),
           const Icon(Icons.arrow_downward),
         ]),

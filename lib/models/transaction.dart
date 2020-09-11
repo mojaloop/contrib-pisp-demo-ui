@@ -104,6 +104,7 @@ class Quote implements JsonModel {
   Quote({
     this.transferAmount,
     this.payeeFspFee,
+    this.payeeReceiveAmount,
     this.payeeFspCommission,
     this.expiration,
     this.condition,
@@ -113,11 +114,14 @@ class Quote implements JsonModel {
   @override
   factory Quote.fromJson(Map<String, dynamic> json) => _$QuoteFromJson(json);
 
-  /// The amount of money that the Payee FSP should receive.
+  /// The amount of money that the user will send
   Money transferAmount;
 
   /// Payee FSP’s part of the transaction fee.
   Money payeeFspFee;
+
+  /// The amount of money that the Payee FSP should receive.
+  Money payeeReceiveAmount;
 
   /// Transaction commission from the Payee FSP.
   Money payeeFspCommission;

@@ -84,9 +84,9 @@ class PaymentAuthorization extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: TitleText(
-              '[fee: ${fee.amount}]\n[total to ${name}: ${receiveAmount.amount}]',
-              fontSize: 20,
+            child: Text(
+              'Including a fee of: ${fee.amount}\n${name} will receive: ${receiveAmount.amount}',
+                style: TextStyle(fontStyle: FontStyle.italic)
             ),
           ),
 

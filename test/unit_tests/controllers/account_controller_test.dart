@@ -58,7 +58,7 @@ void main() {
       await accountController.getLinkedAccounts();
 
       // Check if the repository function was called with right arguments
-      verify(accountRepository.getUserAccounts(any));
+      verify(accountRepository.getUserAccounts(authController.user.id));
     },
   );
 }

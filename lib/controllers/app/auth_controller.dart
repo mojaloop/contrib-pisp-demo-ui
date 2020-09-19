@@ -16,12 +16,12 @@ class AuthController extends GetxController {
 
   // NOTE: Should only be called after user login
   @visibleForTesting
-  Future<void> createUserDataControllerAndCreateUserEntity(User u) async {
-    assert(u != null);
+  Future<void> createUserDataControllerAndCreateUserEntity(User user) async {
+    assert(user != null);
 
     // Since it has been determined that the user is logged in
     // we can create the user data controller.
-    final UserDataController _userDataController = Get.put(UserDataController(UserDataRepository(), u));
+    final UserDataController _userDataController = Get.put(UserDataController(UserDataRepository(), user));
 
     // Create a user entity in the database if it does not exist already
     await _userDataController.createUserEntryInDB();

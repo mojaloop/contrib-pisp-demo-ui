@@ -10,7 +10,6 @@ import 'package:pispapp/ui/widgets/title_text.dart';
 class WebAuth extends StatelessWidget {
   WebAuth(this._accountLinkingFlowController);
 
-
   final AccountLinkingFlowController _accountLinkingFlowController;
   final WebAuthController _authController = WebAuthController();
 
@@ -31,9 +30,12 @@ class WebAuth extends StatelessWidget {
               fontSize: 15,
             ),
             onTap: () async {
-              final String result = await FlutterWebAuth.authenticate(url: controller.consent.authUri, callbackUrlScheme: WebAuthController.customScheme);
-              final String authToken = _authController.extractAuthTokenFromResult(result);
-              if(authToken != null) {
+              final String result = await FlutterWebAuth.authenticate(
+                  url: controller.consent.authUri,
+                  callbackUrlScheme: WebAuthController.customScheme);
+              final String authToken =
+                  _authController.extractAuthTokenFromResult(result);
+              if (authToken != null) {
                 _accountLinkingFlowController.sendAuthToken(authToken);
               }
             },
@@ -77,7 +79,6 @@ class WebAuth extends StatelessWidget {
               _buildActionSection(),
             ],
           ),
-        )
-    );
+        ));
   }
 }

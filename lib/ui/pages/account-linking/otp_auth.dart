@@ -102,7 +102,6 @@ class OTPAuth extends StatelessWidget {
               _buildActionSection(),
             ],
           ),
-        )
-    );
+        ));
   }
 }

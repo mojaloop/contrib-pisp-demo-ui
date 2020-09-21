@@ -6,13 +6,27 @@ import 'package:pispapp/repositories/firebase/auth_repository.dart';
 
 class MockAuthRepository extends Mock implements AuthRepository {}
 
+/// NOTE: We are overriding only the part of the controller that is dependent
+/// on Firestore. We are still testing the other implementations in
+/// [AuthController].
+class TestAuthController extends AuthController {
+  TestAuthController(AuthRepository authRepository) : super(authRepository);
+
+  @override
+  Future<void> createUserDataControllerAndCreateUserEntity(User u) async {
+    // do nothing in tests
+  }
+}
+
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   AuthRepository authRepository;
   AuthController authController;
   setUp(
     () {
       authRepository = MockAuthRepository();
-      authController = AuthController(authRepository);
+      authController = TestAuthController(authRepository);
     },
   );
 

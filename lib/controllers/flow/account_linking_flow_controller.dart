@@ -7,9 +7,13 @@ import 'package:pispapp/repositories/interfaces/i_consent_repository.dart';
 import 'package:pispapp/ui/pages/account-linking/account_selection_screen.dart';
 import 'package:pispapp/ui/pages/account-linking/otp_auth.dart';
 import 'package:pispapp/ui/pages/account-linking/web_auth.dart';
+import 'package:pispapp/utils/log_printer.dart';
 
 class AccountLinkingFlowController extends GetxController {
+
   AccountLinkingFlowController(this._consentRepository);
+
+  static final logger =  getLogger('AccountLinkingFlowController');
 
   IConsentRepository _consentRepository;
 
@@ -120,7 +124,8 @@ class AccountLinkingFlowController extends GetxController {
         _stopListening();
         break;
       default:
-        // Not a state we care about
+        // we are not interested in other statuses
+        logger.w('The consent had an unexpected status: ${consent.status}');
         break;
     }
   }

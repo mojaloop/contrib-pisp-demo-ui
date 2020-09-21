@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/app/user_data_controller.dart';
 import 'package:pispapp/models/user.dart';
@@ -13,9 +14,10 @@ class AuthController extends GetxController {
 
   bool get userSignedIn => user != null;
 
-  Future<User> signInWithGoogle() async {
-    final user = await _authRepository.signInWithGoogle();
-    setUser(user);
+  // NOTE: Should only be called after user login
+  @visibleForTesting
+  Future<void> createUserDataControllerAndCreateUserEntity(User user) async {
+    assert(user != null);
 
     // Since it has been determined that the user is logged in
     // we can create the user data controller.
@@ -24,6 +26,13 @@ class AuthController extends GetxController {
     // Create a user entity in the database if it does not exist already
     await _userDataController.createUserEntryInDB();
     await _userDataController.loadAuxiliaryInfoForUser();
+  }
+
+  Future<User> signInWithGoogle() async {
+    final user = await _authRepository.signInWithGoogle();
+    setUser(user);
+
+    createUserDataControllerAndCreateUserEntity(user);
 
     return user;
   }

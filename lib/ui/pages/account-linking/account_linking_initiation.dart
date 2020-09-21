@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pispapp/controllers/ephemeral/account-linking/available_fsp_controller.dart';
 import 'package:pispapp/ui/pages/account-linking/account_lookup_screen.dart';
 import 'package:pispapp/models/fsp.dart';
@@ -57,13 +56,10 @@ class AccountLinkingInitiation extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Icon(Icons.warning, size: 80, color: LightColor.lightNavyBlue),
-          Text(
+        children: const [
+          Icon(Icons.warning, size: 80, color: LightColor.lightNavyBlue),
+          TitleText(
             'Oops...no financial providers are supported currently!',
-            style: GoogleFonts.muli(
-              fontSize: 20,
-            ),
             textAlign: TextAlign.center,
           ),
         ],

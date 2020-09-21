@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'currency.dart';
@@ -7,7 +8,8 @@ import 'party.dart';
 part 'transaction.g.dart';
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class Transaction implements JsonModel {
+// ignore: must_be_immutable
+class Transaction extends Equatable implements JsonModel {
   Transaction({
     this.id,
     this.userId,
@@ -80,6 +82,24 @@ class Transaction implements JsonModel {
 
   @override
   Map<String, dynamic> toJson() => _$TransactionToJson(this);
+
+  @override
+  List<Object> get props => [
+        id,
+        userId,
+        payee,
+        payer,
+        sourceAccountId,
+        consentId,
+        amount,
+        authentication,
+        transactionId,
+        transactionRequestId,
+        completedTimestamp,
+        quote,
+        responseType,
+        status
+      ];
 }
 
 enum TransactionStatus {
@@ -102,7 +122,7 @@ enum TransactionStatus {
 }
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class Quote implements JsonModel {
+class Quote extends Equatable implements JsonModel {
   Quote({
     this.transferAmount,
     this.payeeFspFee,
@@ -116,47 +136,60 @@ class Quote implements JsonModel {
   factory Quote.fromJson(Map<String, dynamic> json) => _$QuoteFromJson(json);
 
   /// The amount of money that the Payee FSP should receive.
-  Money transferAmount;
+  final Money transferAmount;
 
   /// Payee FSP’s part of the transaction fee.
-  Money payeeFspFee;
+  final Money payeeFspFee;
 
   /// Transaction commission from the Payee FSP.
-  Money payeeFspCommission;
+  final Money payeeFspCommission;
 
   /// Date and time until when the quotation is valid and can be honored when used
   /// in the subsequent transaction.
-  String expiration;
+  final String expiration;
 
   /// Condition that must be attached to a transfer by the Payer.
-  String condition;
+  final String condition;
 
   /// Information for recipient (transport layer information).
-  String ilpPacket;
+  final String ilpPacket;
 
   @override
   Map<String, dynamic> toJson() => _$QuoteToJson(this);
+
+  @override
+  List<Object> get props => [
+        transferAmount,
+        payeeFspFee,
+        payeeFspCommission,
+        expiration,
+        condition,
+        ilpPacket
+      ];
 }
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class Money implements JsonModel {
+class Money extends Equatable implements JsonModel {
   Money(this.amount, this.currency);
 
   @override
   factory Money.fromJson(Map<String, dynamic> json) => _$MoneyFromJson(json);
 
   /// Amount of money.
-  String amount;
+  final String amount;
 
   /// Currency of the amount.
-  Currency currency;
+  final Currency currency;
 
   @override
   Map<String, dynamic> toJson() => _$MoneyToJson(this);
+
+  @override
+  List<Object> get props => [amount, currency];
 }
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class Authentication implements JsonModel {
+class Authentication extends Equatable implements JsonModel {
   Authentication({this.type, this.value});
 
   @override
@@ -165,14 +198,17 @@ class Authentication implements JsonModel {
 
   /// The type of authentication that is required to authorize the proposed
   /// financial transaction.
-  AuthenticationType type;
+  final AuthenticationType type;
 
   /// The value of authentication that is provided by payer to authorize the
   /// proposed financial transaction.
-  String value;
+  final String value;
 
   @override
   Map<String, dynamic> toJson() => _$AuthenticationToJson(this);
+
+  @override
+  List<Object> get props => [type, value];
 }
 
 /// Enumeration allowed for AuthenticationType. At the moment, U2F is the

@@ -32,7 +32,7 @@ class AccountChoosingBottomSheet extends StatelessWidget {
                   child: TitleText('Accounts'),
                 ),
                 const Divider(height: 20),
-                ...controller.accounts.value.map(
+                ...controller.accounts.map(
                   (account) => AccountBottomSheetTile(
                     account,
                     onTap: () => onTap(account),

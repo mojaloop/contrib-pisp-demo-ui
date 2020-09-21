@@ -1,10 +1,11 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:pispapp/models/model.dart';
 
 part 'party.g.dart';
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class Party implements JsonModel {
+class Party extends Equatable implements JsonModel {
   Party({
     this.name,
     this.partyIdInfo,
@@ -16,28 +17,33 @@ class Party implements JsonModel {
   factory Party.fromJson(Map<String, dynamic> json) => _$PartyFromJson(json);
 
   /// Display name of the Party, could be a real name or a nick name.
-  String name;
+  final String name;
 
   /// Party Id type, id, sub ID or type, and FSP Id.
-  PartyIdInfo partyIdInfo;
+  final PartyIdInfo partyIdInfo;
 
   /// Used in the context of Payee Information, where the Payee happens
   /// to be a merchant accepting merchant payments.
-  String merchantClassificationCode;
+  final String merchantClassificationCode;
 
   /// Personal information used to verify identity of Party such as
   /// first, middle, last name and date of birth.
-  PartyPersonalInfo personalInfo;
+  final PartyPersonalInfo personalInfo;
 
   @override
   Map<String, dynamic> toJson() => _$PartyToJson(this);
+
+  @override
+  List<Object> get props =>
+      [name, partyIdInfo, merchantClassificationCode, personalInfo];
 }
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class PartyIdInfo implements JsonModel {
+class PartyIdInfo extends Equatable implements JsonModel {
   PartyIdInfo({
     this.fspId,
     this.partyIdType,
+    this.partySubIdOrType,
     this.partyIdentifier,
   });
 
@@ -46,19 +52,22 @@ class PartyIdInfo implements JsonModel {
       _$PartyIdInfoFromJson(json);
 
   /// Type of the identifier.
-  PartyIdType partyIdType;
+  final PartyIdType partyIdType;
 
   /// An identifier for the Party.
-  String partyIdentifier;
+  final String partyIdentifier;
 
   /// A sub-identifier or sub-type for the Party.
-  String partySubIdOrType;
+  final String partySubIdOrType;
 
   /// FSP ID.
-  String fspId;
+  final String fspId;
 
   @override
   Map<String, dynamic> toJson() => _$PartyIdInfoToJson(this);
+
+  @override
+  List<Object> get props => [fspId, partyIdType, partySubIdOrType, partyIdentifier];
 }
 
 /// Current allowed enumerations for the type of party id.

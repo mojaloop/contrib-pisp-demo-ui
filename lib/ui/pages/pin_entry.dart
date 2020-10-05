@@ -104,7 +104,7 @@ class PinEntry extends StatelessWidget {
               enableActiveFill: true,
               backgroundColor: Colors.transparent,
               textInputType: TextInputType.number,
-              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               // Allow only numbers
               animationType: AnimationType.fade,
               animationDuration: const Duration(milliseconds: 200),

@@ -52,11 +52,11 @@ class AccountLinkingFlowController extends GetxController {
   Future<void> initiateConsentRequest(List<Account> accsToLink) async {
     _setAwaitingUpdate(true);
 
-    final Consent updated = Consent(
+    final Consent updatedConsent = Consent(
       authChannels: [AuthChannel.web, AuthChannel.otp],
       accounts: accsToLink
     );
-    await _consentRepository.updateData(documentId, updated.toJson());
+    await _consentRepository.updateData(documentId, updatedConsent.toJson());
   }
 
   Future<void> sendAuthToken(String authToken) async {

@@ -71,14 +71,16 @@ class AccountSelectionScreen extends StatelessWidget {
       builder: (controller) {
         if (!controller.isAwaitingUpdate) {
           return MojaButton(
-              const TitleText(
-                'Set PIN',
-                color: Colors.white,
-                fontSize: 20,
-              ), onTap: () {
-            controller.initiateConsentRequest(
-                _accountSelectionScreen.getSelectedAccounts());
-          });
+            const TitleText(
+              'Set PIN',
+              color: Colors.white,
+              fontSize: 20,
+            ),
+            onTap: () {
+              controller.initiateConsentRequest(
+                  _accountSelectionScreen.getSelectedAccounts());
+            },
+          );
         } else {
           return MojaButton(
             const CircularProgressIndicator(

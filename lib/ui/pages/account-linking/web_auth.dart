@@ -38,6 +38,11 @@ class WebAuth extends StatelessWidget {
               if (authToken != null) {
                 _accountLinkingFlowController.sendAuthToken(authToken);
               }
+              else {
+                // TODO(kkzeng): Handle what happens when authToken is null
+                // This means user has not been authenticated OR DFSP didn't
+                // implement the scheme correctly
+              }
             },
           );
         } else {

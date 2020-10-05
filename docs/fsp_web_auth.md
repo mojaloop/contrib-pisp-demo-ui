@@ -4,7 +4,9 @@ The FSP must ensure that when creating their web login, the web login redirects 
 
 The URI that the login page must redirect the user to upon successful login is of the format:
 
+```
 pisp://...?token={auth_token}
+```
 
 The important thing is that:
 
@@ -15,4 +17,4 @@ The important thing is that:
 
 As long as those two conditions are met, the app will be able to successfully retrieve the auth token from the login.
 
-Please see the web_auth_example to see an example of a barebones working login page.
+Please see the [web_auth_example](../web_auth_example) to see an example of a barebones working login page.

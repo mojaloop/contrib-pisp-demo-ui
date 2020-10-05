@@ -12,11 +12,11 @@ import 'package:pispapp/ui/widgets/title_text.dart';
 
 class AccountSelectionScreen extends StatelessWidget {
   AccountSelectionScreen(this._accountLinkingFlowController)
-      : _accountSelectionScreen = AccountSelectionController(
+      : _accountSelectionController = AccountSelectionController(
             _accountLinkingFlowController.consent.accounts);
 
   final AccountLinkingFlowController _accountLinkingFlowController;
-  final AccountSelectionController _accountSelectionScreen;
+  final AccountSelectionController _accountSelectionController;
 
   // For when there are no accounts associated with the opaque id
   Widget _buildEmptyDisplay() {
@@ -48,17 +48,17 @@ class AccountSelectionScreen extends StatelessWidget {
           leading: const Icon(Icons.account_circle,
               size: 50, color: LightColor.navyBlue1),
           trailing: GetBuilder<AccountSelectionController>(
-              init: _accountSelectionScreen,
+              init: _accountSelectionController,
               global: false,
               builder: (controller) {
-                return controller.isAccSelected(accId)
+                return controller.isAccSelected(acc)
                     ? const Icon(Icons.check_circle_outline,
                         color: LightColor.navyBlue1)
                     : const Text('');
               }),
           title: Text(accId),
           subtitle: Text(currencyStr),
-          onTap: () => _accountSelectionScreen.onTap(accId),
+          onTap: () => _accountSelectionController.onTap(acc),
         ),
       ),
     );
@@ -71,13 +71,16 @@ class AccountSelectionScreen extends StatelessWidget {
       builder: (controller) {
         if (!controller.isAwaitingUpdate) {
           return MojaButton(
-              const TitleText(
-                'Set PIN',
-                color: Colors.white,
-                fontSize: 20,
-              ), onTap: () {
-            // TODO(kkzeng): Proceed to consent request stage
-          });
+            const TitleText(
+              'Set PIN',
+              color: Colors.white,
+              fontSize: 20,
+            ),
+            onTap: () {
+              controller.initiateConsentRequest(
+                  _accountSelectionController.getSelectedAccounts());
+            },
+          );
         } else {
           return MojaButton(
             const CircularProgressIndicator(
@@ -99,7 +102,7 @@ class AccountSelectionScreen extends StatelessWidget {
 
   Widget _buildList() {
     final List<Account> associatedAccounts =
-        _accountSelectionScreen.associatedAccounts;
+        _accountSelectionController.associatedAccounts;
     if (associatedAccounts.isEmpty) {
       return _buildEmptyDisplay();
     }

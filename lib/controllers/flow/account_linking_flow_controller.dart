@@ -5,6 +5,8 @@ import 'package:pispapp/models/party.dart';
 import 'package:pispapp/models/user.dart';
 import 'package:pispapp/repositories/interfaces/i_consent_repository.dart';
 import 'package:pispapp/ui/pages/account-linking/account_selection_screen.dart';
+import 'package:pispapp/ui/pages/account-linking/otp_auth.dart';
+import 'package:pispapp/ui/pages/account-linking/web_auth.dart';
 import 'package:pispapp/utils/log_printer.dart';
 
 class AccountLinkingFlowController extends GetxController {
@@ -47,7 +49,22 @@ class AccountLinkingFlowController extends GetxController {
     _startListening(documentId);
   }
 
-  Future<void> confirmAccounts() async {}
+  Future<void> initiateConsentRequest(List<Account> accsToLink) async {
+    _setAwaitingUpdate(true);
+
+    final Consent updatedConsent = Consent(
+      authChannels: [AuthChannel.web, AuthChannel.otp],
+      accounts: accsToLink
+    );
+    await _consentRepository.updateData(documentId, updatedConsent.toJson());
+  }
+
+  Future<void> sendAuthToken(String authToken) async {
+    _setAwaitingUpdate(true);
+
+    final Consent updatedConsent = Consent(authToken: authToken);
+    await _consentRepository.updateData(documentId, updatedConsent.toJson());
+  }
 
   void _startListening(String id) {
     _unsubscriber = _consentRepository.listen(id, onValue: _onValue);
@@ -80,6 +97,21 @@ class AccountLinkingFlowController extends GetxController {
         }
         break;
       case ConsentStatus.authenticationRequired:
+        if (oldValue.status == ConsentStatus.pendingPartyConfirmation) {
+          // The consent data has been updated
+          _setAwaitingUpdate(false);
+
+          switch(consent.authChannels[0]) {
+            case AuthChannel.otp:
+              Get.to<dynamic>(OTPAuth(this));
+              break;
+            case AuthChannel.web:
+              Get.to<dynamic>(WebAuth(this));
+              break;
+            default:
+              // not supported
+          }
+        }
         break;
       case ConsentStatus.consentGranted:
         break;

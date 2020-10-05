@@ -62,8 +62,8 @@ class AccountLinkingFlowController extends GetxController {
   Future<void> sendAuthToken(String authToken) async {
     _setAwaitingUpdate(true);
 
-    final Consent updated = Consent(authToken: authToken);
-    await _consentRepository.updateData(documentId, updated.toJson());
+    final Consent updatedConsent = Consent(authToken: authToken);
+    await _consentRepository.updateData(documentId, updatedConsent.toJson());
   }
 
   void _startListening(String id) {

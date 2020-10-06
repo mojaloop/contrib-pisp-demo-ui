@@ -6,32 +6,32 @@ import 'package:get/get.dart';
 class AccountSelectionController extends GetxController {
   AccountSelectionController(this.associatedAccounts);
   final List<Account> associatedAccounts;
-  final HashSet<String> _selectedAccIds = HashSet();
+  final HashSet<Account> _selectedAccounts = HashSet();
 
-  void onTap(String accId) {
-    if (isAccSelected(accId)) {
-      _unselectAcc(accId);
+  void onTap(Account acc) {
+    if (isAccSelected(acc)) {
+      _unselectAcc(acc);
     } else {
-      _selectAcc(accId);
+      _selectAcc(acc);
     }
     update();
   }
 
-  bool isAccSelected(String accId) {
-    return _selectedAccIds.contains(accId);
+  bool isAccSelected(Account acc) {
+    return _selectedAccounts.contains(acc);
   }
 
   List<Account> getSelectedAccounts() {
     return associatedAccounts
-        .where((account) => _selectedAccIds.contains(account.id))
+        .where((account) => _selectedAccounts.contains(account))
         .toList();
   }
 
-  void _selectAcc(String accId) {
-    _selectedAccIds.add(accId);
+  void _selectAcc(Account acc) {
+    _selectedAccounts.add(acc);
   }
 
-  void _unselectAcc(String accId) {
-    _selectedAccIds.remove(accId);
+  void _unselectAcc(Account acc) {
+    _selectedAccounts.remove(acc);
   }
 }

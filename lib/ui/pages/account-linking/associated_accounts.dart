@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:pispapp/controllers/ephemeral/account-linking/associated_accounts_controller.dart';
 import 'package:pispapp/controllers/flow/account_linking_flow_controller.dart';
 import 'package:pispapp/models/consent.dart';
+import 'package:pispapp/models/currency.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/moja_button.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';

@@ -15,27 +15,19 @@ class Dashboard extends StatelessWidget {
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.account_balance),
-                title: Text(
-                  'Accounts',
-                ),
+                label: 'Accounts',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.add_box),
-                title: Text(
-                  'Link',
-                ),
+                label: 'Link',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.transfer_within_a_station),
-                title: Text(
-                  'Transfer',
-                ),
+                label: 'Transfer',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person_outline),
-                title: Text(
-                  'Profile',
-                ),
+                label: 'Profile'
               ),
             ],
             currentIndex: value.selectedIndex,

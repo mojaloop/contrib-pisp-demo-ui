@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class AccountDiscoveryController extends GetxController {
+class AccountLookupController extends GetxController {
   String opaqueId;
 
   void onIDChange(String opaqueId) {

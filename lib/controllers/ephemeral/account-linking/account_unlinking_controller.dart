@@ -1,10 +1,7 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/models/consent.dart';
 import 'package:pispapp/repositories/interfaces/i_consent_repository.dart';
-import 'package:pispapp/ui/theme/light_theme.dart';
 
 class AccountUnlinkingController extends GetxController {
   AccountUnlinkingController(this._consentRepository) {

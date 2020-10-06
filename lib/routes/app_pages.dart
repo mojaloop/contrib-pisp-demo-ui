@@ -3,7 +3,7 @@ import 'package:pispapp/bindings/setup_bindings.dart';
 import 'package:pispapp/bindings/splash_bindings.dart';
 import 'package:pispapp/controllers/ephemeral/dashboard/account_dashboard_controller.dart';
 import 'package:pispapp/ui/pages/account-linking/account_unlinking.dart';
-import 'package:pispapp/ui/pages/account-linking/available_fsp.dart';
+import 'package:pispapp/ui/pages/account-linking/account_linking_initiation.dart';
 import 'package:pispapp/controllers/ephemeral/dashboard/dashboard_controller.dart';
 import 'package:pispapp/ui/pages/dashboard.dart';
 import 'package:pispapp/ui/pages/login_setup.dart';
@@ -50,8 +50,8 @@ abstract class AppPages {
       page: () => PinEntry(),
     ),
     GetPage(
-      name: Routes.AVAILABLE_FSP,
-      page: () => AvailableFSPScreen(),
+      name: Routes.ACCOUNT_LINKING_INITIATION,
+      page: () => AccountLinkingInitiation(),
     ),
     GetPage(
       name: Routes.ACCOUNT_UNLINKING,

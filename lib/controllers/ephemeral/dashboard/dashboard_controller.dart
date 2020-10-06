@@ -5,7 +5,7 @@ import 'package:pispapp/controllers/ephemeral/dashboard/account_dashboard_contro
 import 'package:pispapp/controllers/ephemeral/profile_controller.dart';
 import 'package:pispapp/repositories/firebase/participant_repository.dart';
 import 'package:pispapp/repositories/firebase/transaction_repository.dart';
-import 'package:pispapp/ui/pages/account-linking/available_fsp.dart';
+import 'package:pispapp/ui/pages/account-linking/account_linking_initiation.dart';
 
 import 'package:pispapp/ui/pages/account_dashboard.dart';
 import 'package:pispapp/ui/pages/payment/payment_initiation.dart';
@@ -16,7 +16,7 @@ class DashboardController extends GetxController {
 
   List<Widget> widgetOptions = <Widget>[
     AccountDashboard(),
-    AvailableFSPScreen(),
+    AccountLinkingInitiation(),
     PaymentInitiation(),
     Profile(),
   ];
@@ -35,9 +35,6 @@ class DashboardController extends GetxController {
       AvailableFSPController(ParticipantRepository()),
     );
   }
-
-  @override
-  void onClose() {}
 
   void showAccountsPage() {
     selectedIndex = 0;

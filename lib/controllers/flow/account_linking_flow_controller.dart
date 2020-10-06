@@ -4,12 +4,14 @@ import 'package:pispapp/models/consent.dart';
 import 'package:pispapp/models/party.dart';
 import 'package:pispapp/models/user.dart';
 import 'package:pispapp/repositories/interfaces/i_consent_repository.dart';
-import 'package:pispapp/ui/pages/account-linking/associated_accounts.dart';
-import 'package:pispapp/ui/pages/account-linking/otp_auth.dart';
-import 'package:pispapp/ui/pages/account-linking/web_auth.dart';
+import 'package:pispapp/ui/pages/account-linking/account_selection_screen.dart';
+import 'package:pispapp/utils/log_printer.dart';
 
 class AccountLinkingFlowController extends GetxController {
+
   AccountLinkingFlowController(this._consentRepository);
+
+  static final logger =  getLogger('AccountLinkingFlowController');
 
   IConsentRepository _consentRepository;
 
@@ -36,8 +38,8 @@ class AccountLinkingFlowController extends GetxController {
           partyIdType: PartyIdType.opaque,
           partyIdentifier: opaqueId,
           fspId: fspId,
-        )
-      )
+        ),
+      ),
     );
 
     documentId = await _consentRepository.add(newConsent.toJson());
@@ -45,22 +47,7 @@ class AccountLinkingFlowController extends GetxController {
     _startListening(documentId);
   }
 
-  Future<void> initiateConsentRequest(List<Account> accsToLink) async {
-    _setAwaitingUpdate(true);
-
-    final Consent updated = Consent(
-      authChannels: [TAuthChannel.web, TAuthChannel.otp],
-      accounts: accsToLink
-    );
-    await _consentRepository.updateData(documentId, updated.toJson());
-  }
-
-  Future<void> sendAuthToken(String authToken) async {
-    _setAwaitingUpdate(true);
-
-    final Consent updated = Consent(authToken: authToken);
-    await _consentRepository.updateData(documentId, updated.toJson());
-  }
+  Future<void> confirmAccounts() async {}
 
   void _startListening(String id) {
     _unsubscriber = _consentRepository.listen(id, onValue: _onValue);
@@ -79,7 +66,7 @@ class AccountLinkingFlowController extends GetxController {
     this.consent = consent;
 
     // TODO(kkzeng): Figure out what needs to be done in each state and explore state machine library use
-    switch(consent.status) {
+    switch (consent.status) {
       case ConsentStatus.pendingPartyLookup:
         break;
       case ConsentStatus.pendingPartyConfirmation:
@@ -89,25 +76,10 @@ class AccountLinkingFlowController extends GetxController {
 
           // Redirect to the next stage in account linking flow
           // Display list of associated accounts
-          Get.to<dynamic>(AssociatedAccounts(this));
+          Get.to<dynamic>(AccountSelectionScreen(this));
         }
         break;
       case ConsentStatus.authenticationRequired:
-        if (oldValue.status == ConsentStatus.pendingPartyConfirmation) {
-          // The consent data has been updated
-          _setAwaitingUpdate(false);
-
-          switch(consent.authChannels[0]) {
-            case TAuthChannel.otp:
-              Get.to<dynamic>(OTPAuth(this));
-              break;
-            case TAuthChannel.web:
-              Get.to<dynamic>(WebAuth(this));
-              break;
-            default:
-              // not supported
-          }
-        }
         break;
       case ConsentStatus.consentGranted:
         break;
@@ -116,8 +88,12 @@ class AccountLinkingFlowController extends GetxController {
       case ConsentStatus.active:
         _stopListening();
         break;
+      case ConsentStatus.revoked:
+        _stopListening();
+        break;
       default:
-        // a case not handled by this acc controller
+        // we are not interested in other statuses
+        logger.w('The consent had an unexpected status: ${consent.status}');
         break;
     }
   }

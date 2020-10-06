@@ -1,22 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pispapp/controllers/ephemeral/account-linking/associated_accounts_controller.dart';
+import 'package:pispapp/controllers/ephemeral/account-linking/account_selection_controller.dart';
 import 'package:pispapp/controllers/flow/account_linking_flow_controller.dart';
 import 'package:pispapp/models/consent.dart';
+import 'package:pispapp/models/currency.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/moja_button.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
 
-// ignore: must_be_immutable
-class AssociatedAccounts extends StatelessWidget {
-  AssociatedAccounts(this._accountLinkingFlowController) {
-    _associatedAccountsController = AssociatedAccountsController(_accountLinkingFlowController.consent.accounts);
-  }
+class AccountSelectionScreen extends StatelessWidget {
+  AccountSelectionScreen(this._accountLinkingFlowController)
+      : _accountSelectionScreen = AccountSelectionController(
+            _accountLinkingFlowController.consent.accounts);
 
   final AccountLinkingFlowController _accountLinkingFlowController;
-  AssociatedAccountsController _associatedAccountsController;
+  final AccountSelectionController _accountSelectionScreen;
 
   // For when there are no accounts associated with the opaque id
   Widget _buildEmptyDisplay() {
@@ -38,27 +38,27 @@ class AssociatedAccounts extends StatelessWidget {
 
   Widget _buildListItem(Account acc) {
     final String accId = acc?.id ?? 'Unknown Account';
-    final String currencyStr = acc?.currency?.toJsonString() ?? 'Unknown Currency';
+    final String currencyStr =
+        acc?.currency?.toJsonString() ?? 'Unknown Currency';
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: ShadowBox(
         color: LightColor.navyBlue1,
         child: ListTile(
           leading: const Icon(Icons.account_circle,
-              size: 50,
-              color: LightColor.navyBlue1),
-          trailing:
-          GetBuilder<AssociatedAccountsController>(
-              init: _associatedAccountsController,
+              size: 50, color: LightColor.navyBlue1),
+          trailing: GetBuilder<AccountSelectionController>(
+              init: _accountSelectionScreen,
               global: false,
               builder: (controller) {
-                return controller.isAccSelected(accId) ?
-                const Icon(Icons.check_circle_outline, color: LightColor.navyBlue1) :
-                const Text('');
+                return controller.isAccSelected(accId)
+                    ? const Icon(Icons.check_circle_outline,
+                        color: LightColor.navyBlue1)
+                    : const Text('');
               }),
           title: Text(accId),
           subtitle: Text(currencyStr),
-          onTap: () => _associatedAccountsController.onTap(accId),
+          onTap: () => _accountSelectionScreen.onTap(accId),
         ),
       ),
     );
@@ -69,20 +69,16 @@ class AssociatedAccounts extends StatelessWidget {
       init: _accountLinkingFlowController,
       global: false,
       builder: (controller) {
-        if(!controller.isAwaitingUpdate) {
+        if (!controller.isAwaitingUpdate) {
           return MojaButton(
               const TitleText(
                 'Set PIN',
                 color: Colors.white,
                 fontSize: 20,
-              ),
-              onTap: () {
-                final List<Account> selected = _associatedAccountsController.getSelectedAccounts();
-                controller.initiateConsentRequest(selected);
-              }
-          );
-        }
-        else {
+              ), onTap: () {
+            // TODO(kkzeng): Proceed to consent request stage
+          });
+        } else {
           return MojaButton(
             const CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
@@ -103,7 +99,7 @@ class AssociatedAccounts extends StatelessWidget {
 
   Widget _buildList() {
     final List<Account> associatedAccounts =
-        _accountLinkingFlowController.consent.accounts;
+        _accountSelectionScreen.associatedAccounts;
     if (associatedAccounts.isEmpty) {
       return _buildEmptyDisplay();
     }
@@ -113,14 +109,13 @@ class AssociatedAccounts extends StatelessWidget {
       itemCount: listLength,
       itemBuilder: (BuildContext ctxt, int index) {
         // Top shows a description
-        if(index == 0) {
+        if (index == 0) {
           return _buildInstructions();
         }
         // Bottom part is a "Link Account(s)" button
-        else if(index == listLength - 1) {
+        else if (index == listLength - 1) {
           return _buildActionButton();
-        }
-        else {
+        } else {
           return _buildListItem(associatedAccounts[index - 1]);
         }
       },
@@ -131,11 +126,10 @@ class AssociatedAccounts extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Associated Accounts'),
+        title: const Text('Select Your Accounts'),
       ),
-      body:
-      SizedBox.expand(
-        child:_buildList(),
+      body: SizedBox.expand(
+        child: _buildList(),
       ),
     );
   }

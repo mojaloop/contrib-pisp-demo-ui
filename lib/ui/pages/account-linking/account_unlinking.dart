@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/ephemeral/account-linking/account_unlinking_controller.dart';
 import 'package:pispapp/models/consent.dart';
+import 'package:pispapp/models/currency.dart';
 import 'package:pispapp/repositories/firebase/consent_repository.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
@@ -157,7 +158,7 @@ class AccountUnlinking extends StatelessWidget {
   Widget _buildList() {
     return Obx(() {
       final List<Account> associatedAccounts =
-          _accountUnlinkingController.accounts.value;
+          _accountUnlinkingController.accounts;
       if (associatedAccounts.isEmpty) {
         return _buildEmptyDisplay();
       }

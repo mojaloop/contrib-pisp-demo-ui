@@ -6,7 +6,4 @@ import 'package:pispapp/models/fsp.dart';
 abstract class IParticipantRepository {
   /// Fetches the list of participating FSPs
   Future<List<Fsp>> loadAvailableFSPs();
-
-  /// Listen to the live list of participating FSPs
-  Stream<List<Fsp>> listenForAvailableFSPs();
 }

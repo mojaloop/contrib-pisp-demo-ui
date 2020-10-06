@@ -27,7 +27,7 @@ class Dashboard extends StatelessWidget {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person_outline),
-                label: 'Profile'
+                label: 'Profile',
               ),
             ],
             currentIndex: value.selectedIndex,

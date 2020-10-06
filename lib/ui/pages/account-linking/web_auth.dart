@@ -10,7 +10,6 @@ import 'package:pispapp/ui/widgets/title_text.dart';
 class WebAuth extends StatelessWidget {
   WebAuth(this._accountLinkingFlowController);
 
-
   final AccountLinkingFlowController _accountLinkingFlowController;
   final WebAuthController _authController = WebAuthController();
 
@@ -31,9 +30,19 @@ class WebAuth extends StatelessWidget {
               fontSize: 15,
             ),
             onTap: () async {
-              final String result = await FlutterWebAuth.authenticate(url: controller.consent.authUri, callbackUrlScheme: WebAuthController.customScheme);
-              final String authToken = _authController.extractAuthTokenFromResult(result);
-              _accountLinkingFlowController.sendAuthToken(authToken);
+              final String result = await FlutterWebAuth.authenticate(
+                  url: controller.consent.authUri,
+                  callbackUrlScheme: WebAuthController.customScheme);
+              final String authToken =
+                  _authController.extractAuthTokenFromResult(result);
+              if (authToken != null) {
+                _accountLinkingFlowController.sendAuthToken(authToken);
+              }
+              else {
+                // TODO(kkzeng): Handle what happens when authToken is null
+                // This means user has not been authenticated OR DFSP didn't
+                // implement the scheme correctly
+              }
             },
           );
         } else {
@@ -64,7 +73,7 @@ class WebAuth extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('OTP Authentication'),
+          title: const Text('Web Authentication'),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -75,7 +84,6 @@ class WebAuth extends StatelessWidget {
               _buildActionSection(),
             ],
           ),
-        )
-    );
+        ));
   }
 }

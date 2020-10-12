@@ -10,6 +10,8 @@
 
 The goal of this document is to serve as a good starting point for someone onboarding onto Mojapay. The document talks about the architecture, design and decisions made in the app and also how one might proceed to add a new feature.
 
+## Warning: As of now, only Android is supported!
+
 ## Tech Stack
 
 1. Mojapay uses flutter for the frontend and uses firebase as a datastore and for authentication.

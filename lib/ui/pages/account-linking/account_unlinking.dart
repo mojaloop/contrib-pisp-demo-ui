@@ -73,7 +73,8 @@ class AccountUnlinking extends StatelessWidget {
       return;
     }
 
-    final Consent toRevoke = _accountUnlinkingController.findConsentToRevoke(accId);
+    final Consent toRevoke =
+        _accountUnlinkingController.findConsentToRevoke(accId);
 
     // Used to keep track of whether or not the user wishes to continue with
     // the consent revocation
@@ -100,7 +101,7 @@ class AccountUnlinking extends StatelessWidget {
 
     // When dialog closes and it is not because user confirmed,
     // selected account id should be set to null
-    if(!userConfirmed) {
+    if (!userConfirmed) {
       _accountUnlinkingController.selectedAccountId = null;
     }
   }
@@ -111,14 +112,15 @@ class AccountUnlinking extends StatelessWidget {
     // along with this one.
     // Since we revoke the consent, we revoke the consent for all the accounts.
     Widget content =
-    const Text('Are you sure you wish to unlink this account?');
+        const Text('Are you sure you wish to unlink this account?');
     if (toRevoke.accounts.length > 1) {
       content = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           content,
           const SizedBox(height: 10),
-          const Text('Please note that the following accounts will be removed:'),
+          const Text(
+              'Please note that the following accounts will be removed:'),
           const SizedBox(height: 10),
           // Add list of accounts that will be removed
           ...toRevoke.accounts
@@ -188,14 +190,13 @@ class AccountUnlinking extends StatelessWidget {
         final Widget expandedList = SizedBox.expand(
           child: _buildList(),
         );
-        if(_accountUnlinkingController.isAwaitingUpdate.value) {
+        if (_accountUnlinkingController.isAwaitingUpdate.value) {
           // Have an overlay on top of the list when revocation is in progress
           return Stack(children: [
             expandedList,
             _buildBlurOverlay(),
           ]);
-        }
-        else {
+        } else {
           return expandedList;
         }
       }),

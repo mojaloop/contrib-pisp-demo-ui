@@ -8,21 +8,18 @@ typedef ConsentHandler = void Function(Consent);
 abstract class IConsentRepository {
   /// Returns the list of all [Consent] that are associated with
   /// a particular user.
-  Future<List<Consent>> getConsents(String userId);
+  /// The param [preferCached] dictates whether or not the repository uses
+  /// its cached consents. Note that if there is no cache, then regardless of
+  /// what [preferCached] is set to, a fresh set of results will be retrieved.
+  Future<List<Consent>> getConsents(String userId, {bool preferCached = false});
 
   /// Returns the list of active [Consent] that are associated with
   /// a particular user. i.e. not including revoked consents
-  Future<List<Consent>> getActiveConsents(String userId);
-
-  /// Returns the last result of calling [getConsents()] or null if there
-  /// was no previous call to [getConsents()]
-  List<Consent> getCachedConsents();
-
-  /// Returns the last result of calling [getConsents()] filtered where consent
-  /// status is [ConsentStatus.active] or null if there was no previous call to
-  /// [getConsents()]
-  List<Consent> getCachedActiveConsents();
-
+  /// The param [preferCached] dictates whether or not the repository uses
+  /// its cached consents. Note that if there is no cache, then regardless of
+  /// what [preferCached] is set to, a fresh set of results will be retrieved.
+  Future<List<Consent>> getActiveConsents(String userId,
+      {bool preferCached = false});
 
   /// Adds a new consent document to the database.
   Future<String> add(Map<String, dynamic> data);

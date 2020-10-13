@@ -6,6 +6,21 @@ import 'package:pispapp/models/consent.dart';
 typedef ConsentHandler = void Function(Consent);
 
 abstract class IConsentRepository {
+  /// Returns the list of all [Consent] that are associated with
+  /// a particular user.
+  /// The param [preferCached] dictates whether or not the repository uses
+  /// its cached consents. Note that if there is no cache, then regardless of
+  /// what [preferCached] is set to, a fresh set of results will be retrieved.
+  Future<List<Consent>> getConsents(String userId, {bool preferCached = false});
+
+  /// Returns the list of active [Consent] that are associated with
+  /// a particular user. i.e. not including revoked consents
+  /// The param [preferCached] dictates whether or not the repository uses
+  /// its cached consents. Note that if there is no cache, then regardless of
+  /// what [preferCached] is set to, a fresh set of results will be retrieved.
+  Future<List<Consent>> getActiveConsents(String userId,
+      {bool preferCached = false});
+
   /// Adds a new consent document to the database.
   Future<String> add(Map<String, dynamic> data);
 

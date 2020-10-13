@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:pispapp/bindings/setup_bindings.dart';
 import 'package:pispapp/bindings/splash_bindings.dart';
 import 'package:pispapp/controllers/ephemeral/dashboard/account_dashboard_controller.dart';
+import 'package:pispapp/ui/pages/account-linking/account_unlinking.dart';
 import 'package:pispapp/ui/pages/account-linking/account_linking_initiation.dart';
 import 'package:pispapp/controllers/ephemeral/dashboard/dashboard_controller.dart';
 import 'package:pispapp/ui/pages/dashboard.dart';
@@ -52,5 +53,9 @@ abstract class AppPages {
       name: Routes.ACCOUNT_LINKING_INITIATION,
       page: () => AccountLinkingInitiation(),
     ),
+    GetPage(
+      name: Routes.ACCOUNT_UNLINKING,
+      page: () => AccountUnlinking(),
+    )
   ];
 }

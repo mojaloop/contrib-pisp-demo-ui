@@ -5,6 +5,7 @@ import 'package:pispapp/controllers/app/account_controller.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/controllers/ephemeral/dashboard/dashboard_controller.dart';
 import 'package:pispapp/repositories/firebase/auth_repository.dart';
+import 'package:pispapp/repositories/firebase/consent_repository.dart';
 import 'package:pispapp/repositories/firebase/user_data_repository.dart';
 import 'package:pispapp/repositories/stubs/stub_account_repository.dart';
 import 'package:pispapp/routes/app_navigator.dart';
@@ -123,4 +124,7 @@ void initAppControllers() {
   Get.put(AppNavigator());
   Get.put(LocalAuthController());
   Get.put(ConnectivityController());
+
+  // Put repositories
+  Get.put(ConsentRepository());
 }

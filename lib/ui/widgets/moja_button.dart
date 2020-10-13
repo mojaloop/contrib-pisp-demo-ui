@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:get/get.dart';
 
+// ignore: must_be_immutable
 class MojaButton extends StatelessWidget {
-  MojaButton(this.child, this.onTap);
+  MojaButton(this.child, {this.onTap});
 
   final Widget child;
 
-  final void Function() onTap;
+  void Function() onTap;
 
   @override
   Widget build(BuildContext context) {

@@ -28,13 +28,14 @@ class PinEntry extends StatelessWidget {
             'Set PIN',
             color: Colors.white,
             fontSize: 20,
-          ), () {
-        final String enteredPIN = _textEditingController.text;
-        if (enteredPIN.length == PINEntryController.PINlength) {
-          _pinEntryController.storeNewPIN(enteredPIN);
-          _textEditingController.clear();
-        }
-      }),
+          ),
+          onTap: () {
+            final String enteredPIN = _textEditingController.text;
+            if (enteredPIN.length == PINEntryController.PINlength) {
+              _pinEntryController.storeNewPIN(enteredPIN);
+              _textEditingController.clear();
+            }
+          }),
     );
   }
 
@@ -103,7 +104,7 @@ class PinEntry extends StatelessWidget {
               enableActiveFill: true,
               backgroundColor: Colors.transparent,
               textInputType: TextInputType.number,
-              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               // Allow only numbers
               animationType: AnimationType.fade,
               animationDuration: const Duration(milliseconds: 200),

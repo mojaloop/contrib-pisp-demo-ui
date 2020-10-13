@@ -16,7 +16,18 @@ class MockAccountController extends Mock implements AccountController {}
 
 class MockAuthRepository extends Mock implements AuthRepository {}
 
+class TestAuthController extends AuthController {
+  TestAuthController(AuthRepository authRepository) : super(authRepository);
+
+  @override
+  Future<void> createUserDataControllerAndCreateUserEntity(User u) async {
+    // do nothing in tests
+  }
+}
+
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   ITransactionRepository transactionRepository;
   AccountDashboardController accDashboardController;
   AccountController accountController;
@@ -32,9 +43,10 @@ void main() {
       Get.put(accountController);
 
       authRepository = MockAuthRepository();
-      authController = AuthController(authRepository);
+      authController = TestAuthController(authRepository);
 
       Get.put(authController);
+
       // sign into google
       when(authRepository.signInWithGoogle()).thenAnswer(
         (_) => Future.value(

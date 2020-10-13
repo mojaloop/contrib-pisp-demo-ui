@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:pispapp/models/fsp.dart';
 import 'package:pispapp/models/model.dart';
@@ -6,7 +7,7 @@ import 'package:pispapp/models/party.dart';
 part 'account.g.dart';
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class Account implements Model {
+class Account extends Equatable implements Model {
   Account({
     this.alias,
     this.userId,
@@ -21,25 +22,29 @@ class Account implements Model {
 
   ///
   ///
-  String userId;
+  final String userId;
 
   ///
   ///
-  String consentId;
+  final String consentId;
 
   ///
   ///
-  String alias;
+  final String alias;
 
   ///
   ///
-  String sourceAccountId;
+  final String sourceAccountId;
 
   ///
   ///
-  PartyIdInfo partyInfo;
+  final PartyIdInfo partyInfo;
 
-  Fsp fspInfo;
+  final Fsp fspInfo;
 
   Map<String, dynamic> toJson() => _$AccountToJson(this);
+
+  @override
+  List<Object> get props => [alias, userId, consentId, sourceAccountId,
+    partyInfo, fspInfo];
 }

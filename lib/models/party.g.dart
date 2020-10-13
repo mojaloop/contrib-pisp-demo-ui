@@ -42,8 +42,9 @@ PartyIdInfo _$PartyIdInfoFromJson(Map<String, dynamic> json) {
     fspId: json['fspId'] as String,
     partyIdType:
         _$enumDecodeNullable(_$PartyIdTypeEnumMap, json['partyIdType']),
+    partySubIdOrType: json['partySubIdOrType'] as String,
     partyIdentifier: json['partyIdentifier'] as String,
-  )..partySubIdOrType = json['partySubIdOrType'] as String;
+  );
 }
 
 Map<String, dynamic> _$PartyIdInfoToJson(PartyIdInfo instance) {

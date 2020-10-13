@@ -13,7 +13,7 @@ class BottomButton extends StatelessWidget {
     return Expanded(
       child: Align(
         alignment: Alignment.bottomRight,
-        child: MojaButton(child, onTap),
+        child: MojaButton(child, onTap: onTap),
       ),
     );
   }

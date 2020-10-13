@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:pispapp/models/party.dart';
 import 'package:pispapp/models/transaction.dart';
+import 'package:pispapp/models/currency.dart';
 import 'package:pispapp/repositories/interfaces/i_transaction_repository.dart';
 
 List<Transaction> _stubTransactionData = <Transaction>[

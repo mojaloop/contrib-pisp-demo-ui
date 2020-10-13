@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:collection/collection.dart';
 import 'package:pispapp/models/transaction.dart';
+import 'package:pispapp/models/currency.dart';
 
 void main() {
   Map<String, dynamic> json;

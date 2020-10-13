@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'currency.dart';
@@ -78,7 +79,7 @@ class Consent implements JsonModel {
   Map<String, dynamic> toJson() => _$ConsentToJson(this);
 }
 
-//TODO(kkzeng): Adapt model once changes to auth-service finalized
+// TODO(kkzeng): Adapt model once changes to auth-service finalized
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 class Credential implements JsonModel {
   Credential({
@@ -129,7 +130,8 @@ class CredentialScope implements JsonModel {
 }
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
-class Account implements JsonModel {
+// ignore: must_be_immutable
+class Account extends Equatable implements JsonModel {
   Account({this.id, this.currency});
 
   @override
@@ -143,6 +145,9 @@ class Account implements JsonModel {
 
   @override
   Map<String, dynamic> toJson() => _$AccountToJson(this);
+
+  @override
+  List<Object> get props => [id];
 }
 
 enum CredentialType {

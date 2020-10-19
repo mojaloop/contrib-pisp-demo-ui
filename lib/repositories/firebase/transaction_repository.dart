@@ -4,8 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart' show Firestore;
 import 'package:pispapp/models/transaction.dart';
 import 'package:pispapp/repositories/interfaces/i_transaction_repository.dart';
 
-typedef TransactionHandler = void Function(Transaction);
-
 class TransactionRepository implements ITransactionRepository {
   final _colRef = Firestore.instance.collection('transactions');
 

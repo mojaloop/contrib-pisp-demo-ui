@@ -62,6 +62,15 @@ class Profile extends StatelessWidget {
                       trailing: Text(value.userInfo.getFormattedRegistrationDateForDisplay()),
                     ),
                 ),
+                ListTile(
+                  contentPadding: const EdgeInsets.symmetric(),
+                  title: const TitleText(
+                    'Remove Accounts',
+                    fontSize: 18,
+                  ),
+                  trailing: const Icon(Icons.arrow_forward),
+                  onTap: () => Get.toNamed<dynamic>('/account-unlinking')
+                )
               ],
             ),
             BottomButton(

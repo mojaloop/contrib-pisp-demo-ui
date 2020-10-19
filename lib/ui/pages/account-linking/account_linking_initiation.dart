@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pispapp/controllers/ephemeral/account-linking/available_fsp_controller.dart';
+import 'package:pispapp/ui/pages/account-linking/account_lookup_screen.dart';
 import 'package:pispapp/models/fsp.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
+import 'package:pispapp/ui/widgets/title_text.dart';
 
-class AvailableFSPScreen extends StatelessWidget {
+class AccountLinkingInitiation extends StatelessWidget {
   Widget _buildListItem(Fsp fsp) {
     return Container(
       padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
@@ -16,6 +17,7 @@ class AvailableFSPScreen extends StatelessWidget {
         child: ListTile(
           trailing: const Icon(Icons.arrow_forward_ios),
           title: Text(fsp.name),
+          onTap: () => Get.to<dynamic>(AccountLookupScreen(fsp)),
         ),
       ),
     );
@@ -25,12 +27,12 @@ class AvailableFSPScreen extends StatelessWidget {
     return Obx(() {
       final AvailableFSPController fspController =
           Get.find<AvailableFSPController>();
-      if (fspController.availableFsps.value.isEmpty) {
+      if (fspController.availableFsps.isEmpty) {
         return _buildEmptyDisplay();
       }
 
       return ListView.builder(
-        itemCount: fspController.availableFsps.value.length + 2,
+        itemCount: fspController.availableFsps.length + 2,
         itemBuilder: (BuildContext ctxt, int index) {
           switch (index) {
             case 0:
@@ -40,8 +42,7 @@ class AvailableFSPScreen extends StatelessWidget {
               return _buildDescText();
               break;
             default:
-              return _buildListItem(
-                  fspController.availableFsps.value[index - 2]);
+              return _buildListItem(fspController.availableFsps[index - 2]);
           }
         },
       );
@@ -55,13 +56,10 @@ class AvailableFSPScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Icon(Icons.warning, size: 80, color: LightColor.lightNavyBlue),
-          Text(
+        children: const [
+          Icon(Icons.warning, size: 80, color: LightColor.lightNavyBlue),
+          TitleText(
             'Oops...no financial providers are supported currently!',
-            style: GoogleFonts.muli(
-              fontSize: 20,
-            ),
             textAlign: TextAlign.center,
           ),
         ],

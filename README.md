@@ -11,6 +11,8 @@
 
 The goal of this document is to serve as a good starting point for someone onboarding onto Mojapay. The document talks about the architecture, design and decisions made in the app and also how one might proceed to add a new feature.
 
+## Warning: As of now, only Android is supported!
+
 ## Tech Stack
 
 1. Mojapay uses flutter for the frontend and uses firebase as a datastore and for authentication.
@@ -36,6 +38,12 @@ keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -sto
 ```
 
 
+8. Make sure you enter the app's SHA-1 fingerprint under the [Settings page](https://console.firebase.google.com/u/0/project/_/settings/general) of your Firebase console as this is required to ensure that Google sign-in functions properly. You can get the app's debug SHA-1 fingerprint by running this command: `keytool -list -v -alias androiddebugkey -keystore %USERPROFILE%\.android\debug.keystore`.
+9. Connect device/ emulator and run the app.
+
+## JSON Serialization
+
+To generate the files that handle JSON encoding/decoding for model objects (e.g. consent.g.dart), run `flutter pub run build_runner build` in the project directory.
    
 ## Docs
 

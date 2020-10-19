@@ -8,6 +8,5 @@ jobs:
       - run: flutter doctor
       - run: flutter analyze lib
       - run: flutter test
-      # TODO: To be added later after encrypting google-services.json secret
-      # - run: flutter -v build apk
+      # Missing google secrets json file: - run: flutter build apk --debug
 

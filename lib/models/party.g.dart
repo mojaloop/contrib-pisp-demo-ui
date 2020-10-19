@@ -43,7 +43,9 @@ PartyIdInfo _$PartyIdInfoFromJson(Map<String, dynamic> json) {
     partyIdType:
         _$enumDecodeNullable(_$PartyIdTypeEnumMap, json['partyIdType']),
     partyIdentifier: json['partyIdentifier'] as String,
-  )..partySubIdOrType = json['partySubIdOrType'] as String;
+  );
+  // TODO: hack - for some reason this stopped compiling
+  // )..partySubIdOrType = json['partySubIdOrType'] as String;
 }
 
 Map<String, dynamic> _$PartyIdInfoToJson(PartyIdInfo instance) {

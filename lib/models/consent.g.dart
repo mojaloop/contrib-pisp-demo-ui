@@ -178,7 +178,7 @@ Map<String, dynamic> _$ChallengeToJson(Challenge instance) {
 
 CredentialScope _$CredentialScopeFromJson(Map<String, dynamic> json) {
   return CredentialScope(
-    scope: json['scope'] as String,
+    actions: json['scope'] as List<String>,
     accountId: json['accountId'] as String,
   );
 }
@@ -192,7 +192,7 @@ Map<String, dynamic> _$CredentialScopeToJson(CredentialScope instance) {
     }
   }
 
-  writeNotNull('scope', instance.scope);
+  writeNotNull('actions', instance.actions);
   writeNotNull('accountId', instance.accountId);
   return val;
 }

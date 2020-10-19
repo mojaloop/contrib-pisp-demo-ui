@@ -48,12 +48,14 @@ class AccountLinkingFlowController extends GetxController {
     _startListening(documentId);
   }
 
-  Future<void> initiateConsentRequest(List<Account> accsToLink) async {
+  Future<void> initiateConsentRequest(
+      List<Account> accsToLink, List<CredentialScope> scopes) async {
     _setAwaitingUpdate(true);
 
     final Consent updatedConsent = Consent(
         authChannels: [AuthChannel.web, AuthChannel.otp],
         accounts: accsToLink,
+        scopes: scopes,
         // TODO: scopes here as well?
         status: ConsentStatus.partyConfirmed);
     logger.v('updated consent is:' + updatedConsent.toJson().toString());
@@ -99,7 +101,7 @@ class AccountLinkingFlowController extends GetxController {
         }
         break;
       case ConsentStatus.authenticationRequired:
-        if (oldValue.status == ConsentStatus.pendingPartyConfirmation) {
+        if (oldValue.status == ConsentStatus.partyConfirmed) {
           // The consent data has been updated
           _setAwaitingUpdate(false);
 

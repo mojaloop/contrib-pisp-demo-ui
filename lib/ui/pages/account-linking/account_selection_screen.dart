@@ -78,7 +78,9 @@ class AccountSelectionScreen extends StatelessWidget {
             ),
             onTap: () {
               controller.initiateConsentRequest(
-                  _accountSelectionController.getSelectedAccounts());
+                _accountSelectionController.getSelectedAccounts(),
+                _accountSelectionController.getSelectedScopes(),
+              );
             },
           );
         } else {

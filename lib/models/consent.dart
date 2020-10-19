@@ -120,13 +120,13 @@ class Challenge implements JsonModel {
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 class CredentialScope implements JsonModel {
-  CredentialScope({this.scope, this.accountId});
+  CredentialScope({this.actions, this.accountId});
 
   @override
   factory CredentialScope.fromJson(Map<String, dynamic> json) =>
       _$CredentialScopeFromJson(json);
 
-  String scope;
+  List<String> actions;
   String accountId;
 
   @override

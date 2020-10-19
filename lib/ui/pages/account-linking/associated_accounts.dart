@@ -78,9 +78,9 @@ class AssociatedAccounts extends StatelessWidget {
                 color: Colors.white,
                 fontSize: 20,
               ), onTap: () {
-            final List<Account> selected =
-                _associatedAccountsController.getSelectedAccounts();
-            controller.initiateConsentRequest(selected);
+            controller.initiateConsentRequest(
+                _associatedAccountsController.getSelectedAccounts(),
+                _associatedAccountsController.getSelectedScopes());
           });
         } else {
           return MojaButton(

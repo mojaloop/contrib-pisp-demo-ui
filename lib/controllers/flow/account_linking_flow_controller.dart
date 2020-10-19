@@ -52,7 +52,11 @@ class AccountLinkingFlowController extends GetxController {
     _setAwaitingUpdate(true);
 
     final Consent updatedConsent = Consent(
-        authChannels: [AuthChannel.web, AuthChannel.otp], accounts: accsToLink);
+        authChannels: [AuthChannel.web, AuthChannel.otp],
+        accounts: accsToLink,
+        // TODO: scopes here as well?
+        status: ConsentStatus.partyConfirmed);
+    logger.v('updated consent is:' + updatedConsent.toJson().toString());
     await _consentRepository.updateData(documentId, updatedConsent.toJson());
   }
 

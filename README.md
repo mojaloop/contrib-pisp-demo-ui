@@ -58,6 +58,9 @@ The linking diagrams are [here](https://github.com/mojaloop/pisp-demo-server/tre
 # upgrade dependencies
 flutter pub upgrade
 
+# rebuild generated files
+flutter pub run build_runner build --delete-conflicting-outputs
+
 # specify a flutter version to use
 flutter version v1.9.1+hotfix.3
 ```

@@ -193,9 +193,17 @@ enum ConsentStatus {
   @JsonValue('PENDING_PARTY_CONFIRMATION')
   pendingPartyConfirmation,
 
+  /// User has confirmed party
+  @JsonValue('PARTY_CONFIRMED')
+  partyConfirmed,
+
   /// Waiting for the user to authorize the account linking.
   @JsonValue('AUTHENTICATION_REQUIRED')
   authenticationRequired,
+
+  /// Waiting for the user to authorize the account linking.
+  @JsonValue('AUTHENTICATION_COMPLETE')
+  authenticationComplete,
 
   /// Mojaloop has notified the server that consent has been granted.
   /// The user has authorized themselves.
@@ -206,6 +214,11 @@ enum ConsentStatus {
   /// for the FIDO registration process.
   @JsonValue('CHALLENGE_GENERATED')
   challengeGenerated,
+
+  /// The server has requested that Mojaloop present a challenge
+  /// for the FIDO registration process.
+  @JsonValue('CHALLENGE_SIGNED')
+  challengeSigned,
 
   /// The account linking was successful.
   @JsonValue('ACTIVE')

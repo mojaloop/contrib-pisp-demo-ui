@@ -4,6 +4,7 @@ import 'package:pispapp/models/consent.dart';
 import 'package:pispapp/models/party.dart';
 import 'package:pispapp/models/user.dart';
 import 'package:pispapp/repositories/interfaces/i_consent_repository.dart';
+import 'package:pispapp/ui/pages/account-linking/linking_result.dart';
 import 'package:pispapp/ui/pages/account-linking/account_selection_screen.dart';
 import 'package:pispapp/ui/pages/account-linking/otp_auth.dart';
 import 'package:pispapp/ui/pages/account-linking/register_credential.dart';
@@ -148,9 +149,13 @@ class AccountLinkingFlowController extends GetxController {
         _stopListening();
         // TODO: display some alert?
         // go back to homescreen with toast?
+        // Get.find<AppNavigator>().toNamed('/dashboard');
+        Get.to<dynamic>(LinkingResult(this));
         break;
       case ConsentStatus.revoked:
         _stopListening();
+
+        Get.to<dynamic>(LinkingResult(this));
         break;
       default:
         // we are not interested in other statuses

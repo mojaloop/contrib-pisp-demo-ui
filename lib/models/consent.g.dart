@@ -120,8 +120,8 @@ const _$AuthChannelEnumMap = {
 Credential _$CredentialFromJson(Map<String, dynamic> json) {
   return Credential(
     id: json['id'] as String,
-    credentialType:
-        _$enumDecodeNullable(_$CredentialTypeEnumMap, json['credentialType']),
+    payload: json['payload'] as String,
+    type: _$enumDecodeNullable(_$CredentialTypeEnumMap, json['type']),
     status: _$enumDecodeNullable(_$CredentialStatusEnumMap, json['status']),
     challenge: json['challenge'] == null
         ? null
@@ -139,8 +139,8 @@ Map<String, dynamic> _$CredentialToJson(Credential instance) {
   }
 
   writeNotNull('id', instance.id);
-  writeNotNull(
-      'credentialType', _$CredentialTypeEnumMap[instance.credentialType]);
+  writeNotNull('payload', instance.payload);
+  writeNotNull('type', _$CredentialTypeEnumMap[instance.type]);
   writeNotNull('status', _$CredentialStatusEnumMap[instance.status]);
   writeNotNull('challenge', instance.challenge?.toJson());
   return val;
@@ -152,7 +152,7 @@ const _$CredentialTypeEnumMap = {
 
 const _$CredentialStatusEnumMap = {
   CredentialStatus.pending: 'PENDING',
-  CredentialStatus.active: 'ACTIVE',
+  CredentialStatus.verified: 'VERIFIED',
 };
 
 Challenge _$ChallengeFromJson(Map<String, dynamic> json) {

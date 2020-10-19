@@ -25,7 +25,7 @@ class RegisterCredential extends StatelessWidget {
           // flow controller is expected to bring used to another page.
           return BottomButton(
             const TitleText(
-              'Verify',
+              'Link',
               color: Colors.white,
               fontSize: 20,
             ),
@@ -58,7 +58,7 @@ class RegisterCredential extends StatelessWidget {
     return const Padding(
       padding: EdgeInsets.symmetric(vertical: 15),
       child: Text(
-        'Please enter the One Time Password provided to you by your financial service provider.',
+        'Link your fingerprint with your chosen accounts',
         style: TextStyle(
           fontSize: 15.0,
           color: LightColor.navyBlue2,
@@ -67,22 +67,22 @@ class RegisterCredential extends StatelessWidget {
     );
   }
 
-  Widget _buildIDTextField() {
-    return TextField(
-      textAlign: TextAlign.center,
-      decoration: const InputDecoration(hintText: 'One Time Password'),
-      style: const TextStyle(
-        fontSize: 15.0,
-        height: 2.0,
-        color: LightColor.navyBlue2,
-      ),
-      onChanged: (String value) {},
-    );
-  }
+  // Widget _buildIDTextField() {
+  //   return TextField(
+  //     textAlign: TextAlign.center,
+  //     decoration: const InputDecoration(hintText: 'todo'),
+  //     style: const TextStyle(
+  //       fontSize: 15.0,
+  //       height: 2.0,
+  //       color: LightColor.navyBlue2,
+  //     ),
+  //     onChanged: (String value) {},
+  //   );
+  // }
 
   Widget _buildAccountIcon() {
     return const Icon(
-      Icons.account_circle,
+      Icons.fingerprint,
       size: 120,
       color: LightColor.lightNavyBlue,
     );
@@ -92,7 +92,7 @@ class RegisterCredential extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('OTP Authentication'),
+          title: const Text('Set up your Credential'),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -101,7 +101,6 @@ class RegisterCredential extends StatelessWidget {
               const SizedBox(height: 30),
               _buildAccountIcon(),
               _buildInstructions(),
-              _buildIDTextField(),
               _buildActionSection(),
             ],
           ),

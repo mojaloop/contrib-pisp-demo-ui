@@ -6,6 +6,7 @@ import 'package:pispapp/models/user.dart';
 import 'package:pispapp/repositories/interfaces/i_consent_repository.dart';
 import 'package:pispapp/ui/pages/account-linking/account_selection_screen.dart';
 import 'package:pispapp/ui/pages/account-linking/otp_auth.dart';
+import 'package:pispapp/ui/pages/account-linking/register_credential.dart';
 import 'package:pispapp/ui/pages/account-linking/web_auth.dart';
 import 'package:pispapp/utils/log_printer.dart';
 
@@ -75,12 +76,14 @@ class AccountLinkingFlowController extends GetxController {
     // maybe we can just fill in a fake credential or something
     final Credential updatedCredential = Credential(
         id: 'keyHandleId',
-        credentialType: CredentialType.fido,
+        payload: 'todo get the payload...',
+        type: CredentialType.fido,
         status: CredentialStatus.pending,
         challenge: Challenge(
             payload: 'hmm we should not be sending this',
             signature: signedChallenge));
-    final Consent updatedConsent = Consent(credential: updatedCredential);
+    final Consent updatedConsent = Consent(
+        credential: updatedCredential, status: ConsentStatus.challengeSigned);
     await _consentRepository.updateData(documentId, updatedConsent.toJson());
   }
 
@@ -135,11 +138,16 @@ class AccountLinkingFlowController extends GetxController {
       case ConsentStatus.consentGranted:
         break;
       case ConsentStatus.challengeGenerated:
-        // Surely we need to do something here...
-        // TODO: redirect to register_credential_controller
+        // The consent data has been updated
+        _setAwaitingUpdate(false);
+
+        // Redirect to register_credential_controller
+        Get.to<dynamic>(RegisterCredential(this));
         break;
       case ConsentStatus.active:
         _stopListening();
+        // TODO: display some alert?
+        // go back to homescreen with toast?
         break;
       case ConsentStatus.revoked:
         _stopListening();

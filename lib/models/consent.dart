@@ -85,7 +85,8 @@ class Consent implements JsonModel {
 class Credential implements JsonModel {
   Credential({
     this.id,
-    this.credentialType,
+    this.payload,
+    this.type,
     this.status,
     this.challenge,
   });
@@ -95,7 +96,8 @@ class Credential implements JsonModel {
       _$CredentialFromJson(json);
 
   String id;
-  CredentialType credentialType;
+  String payload;
+  CredentialType type;
   CredentialStatus status;
   Challenge challenge;
 
@@ -173,8 +175,8 @@ enum CredentialStatus {
   @JsonValue('PENDING')
   pending,
 
-  @JsonValue('ACTIVE')
-  active,
+  @JsonValue('VERIFIED')
+  verified,
 }
 
 extension CredentialStatusJson on CredentialStatus {

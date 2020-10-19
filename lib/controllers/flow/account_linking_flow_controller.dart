@@ -65,7 +65,22 @@ class AccountLinkingFlowController extends GetxController {
   Future<void> sendAuthToken(String authToken) async {
     _setAwaitingUpdate(true);
 
-    final Consent updatedConsent = Consent(authToken: authToken);
+    final Consent updatedConsent = Consent(
+        authToken: authToken, status: ConsentStatus.authenticationComplete);
+    await _consentRepository.updateData(documentId, updatedConsent.toJson());
+  }
+
+  Future<void> signChallenge(String signedChallenge) async {
+    // TODO: not sure what to do here...
+    // maybe we can just fill in a fake credential or something
+    final Credential updatedCredential = Credential(
+        id: 'keyHandleId',
+        credentialType: CredentialType.fido,
+        status: CredentialStatus.pending,
+        challenge: Challenge(
+            payload: 'hmm we should not be sending this',
+            signature: signedChallenge));
+    final Consent updatedConsent = Consent(credential: updatedCredential);
     await _consentRepository.updateData(documentId, updatedConsent.toJson());
   }
 
@@ -120,6 +135,8 @@ class AccountLinkingFlowController extends GetxController {
       case ConsentStatus.consentGranted:
         break;
       case ConsentStatus.challengeGenerated:
+        // Surely we need to do something here...
+        // TODO: redirect to register_credential_controller
         break;
       case ConsentStatus.active:
         _stopListening();

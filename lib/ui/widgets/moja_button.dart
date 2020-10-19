@@ -19,7 +19,7 @@ class MojaButton extends StatelessWidget {
         height: 70.0,
         child: RaisedButton(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18.0),
+            borderRadius: BorderRadius.circular(5.0),
             side: const BorderSide(color: Colors.blue),
           ),
           onPressed: onTap,

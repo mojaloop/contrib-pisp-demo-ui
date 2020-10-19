@@ -4,5 +4,5 @@ class Config {
   static const LOCAL_AUTH_PROMPT_ENABLED = false;
 
   // TODO: set to what we have defined in the TTK
-  static const MOCK_CONSENT_ID = "e94b9110-f6c9-44cf-bdc0-895430f1ca9c";
+  static const MOCK_CONSENT_ID = "9d553d59-610f-44aa-b7ec-b483af24e98a";
 }

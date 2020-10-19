@@ -49,3 +49,15 @@ To generate the files that handle JSON encoding/decoding for model objects (e.g.
 
 Read the docs [here](docs/)
 The linking diagrams are [here](https://github.com/mojaloop/pisp-demo-server/tree/master/docs/assets/diagrams/transfer)
+
+
+## Flutter handy snippets
+
+
+```bash
+# upgrade dependencies
+flutter pub upgrade
+
+# specify a flutter version to use
+flutter version v1.9.1+hotfix.3
+```

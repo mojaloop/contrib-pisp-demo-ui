@@ -27,7 +27,8 @@ class Consent implements JsonModel {
   });
 
   @override
-  factory Consent.fromJson(Map<String, dynamic> json) => _$ConsentFromJson(json);
+  factory Consent.fromJson(Map<String, dynamic> json) =>
+      _$ConsentFromJson(json);
 
   /// Internal id that is used to identify the transaction.
   String id;
@@ -62,7 +63,7 @@ class Consent implements JsonModel {
   /// Secret token generated upon authentication
   String authToken;
 
-   /// Id of initiation party e.g - PISP
+  /// Id of initiation party e.g - PISP
   String initiatorId;
 
   /// Id of participant PISP/DFSP/party
@@ -90,7 +91,8 @@ class Credential implements JsonModel {
   });
 
   @override
-  factory Credential.fromJson(Map<String, dynamic> json) => _$CredentialFromJson(json);
+  factory Credential.fromJson(Map<String, dynamic> json) =>
+      _$CredentialFromJson(json);
 
   String id;
   CredentialType credentialType;
@@ -106,7 +108,8 @@ class Challenge implements JsonModel {
   Challenge({this.payload, this.signature});
 
   @override
-  factory Challenge.fromJson(Map<String, dynamic> json) => _$ChallengeFromJson(json);
+  factory Challenge.fromJson(Map<String, dynamic> json) =>
+      _$ChallengeFromJson(json);
 
   String payload;
   String signature;
@@ -120,7 +123,8 @@ class CredentialScope implements JsonModel {
   CredentialScope({this.scope, this.accountId});
 
   @override
-  factory CredentialScope.fromJson(Map<String, dynamic> json) => _$CredentialScopeFromJson(json);
+  factory CredentialScope.fromJson(Map<String, dynamic> json) =>
+      _$CredentialScopeFromJson(json);
 
   String scope;
   String accountId;
@@ -132,13 +136,17 @@ class CredentialScope implements JsonModel {
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 // ignore: must_be_immutable
 class Account extends Equatable implements JsonModel {
-  Account({this.id, this.currency});
+  Account({this.address, this.description, this.currency});
 
   @override
-  factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
+  factory Account.fromJson(Map<String, dynamic> json) =>
+      _$AccountFromJson(json);
 
   /// Address of the bank account.
-  String id;
+  String address;
+
+  /// user readable description
+  String description;
 
   /// Currency of the bank account.
   Currency currency;
@@ -147,7 +155,7 @@ class Account extends Equatable implements JsonModel {
   Map<String, dynamic> toJson() => _$AccountToJson(this);
 
   @override
-  List<Object> get props => [id];
+  List<Object> get props => [address];
 }
 
 enum CredentialType {

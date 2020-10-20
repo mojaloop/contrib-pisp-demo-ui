@@ -10,6 +10,7 @@ import 'package:pispapp/ui/pages/account-linking/otp_auth.dart';
 import 'package:pispapp/ui/pages/account-linking/register_credential.dart';
 import 'package:pispapp/ui/pages/account-linking/web_auth.dart';
 import 'package:pispapp/utils/log_printer.dart';
+import 'package:pispapp/utils/local_auth.dart';
 
 class AccountLinkingFlowController extends GetxController {
   AccountLinkingFlowController(this._consentRepository);
@@ -75,7 +76,7 @@ class AccountLinkingFlowController extends GetxController {
   Future<void> signChallenge(String signedChallenge) async {
     // TODO: this is a hack - we're not actually doing any fido, just mimicking an unlock action
     await LocalAuth.authenticateUser(
-      'Please authorize to continue the transaction.',
+      'Please authorize to complete the linking process.',
     );
     // TODO: not sure what to do here...
     // maybe we can just fill in a fake credential or something

@@ -73,6 +73,10 @@ class AccountLinkingFlowController extends GetxController {
   }
 
   Future<void> signChallenge(String signedChallenge) async {
+    // TODO: this is a hack - we're not actually doing any fido, just mimicking an unlock action
+    await LocalAuth.authenticateUser(
+      'Please authorize to continue the transaction.',
+    );
     // TODO: not sure what to do here...
     // maybe we can just fill in a fake credential or something
     final Credential updatedCredential = Credential(

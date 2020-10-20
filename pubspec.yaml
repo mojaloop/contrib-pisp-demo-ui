@@ -46,6 +46,7 @@ dependencies:
   equatable: ^0.6.0
   flutter_web_auth: ^0.2.4
   cross_connectivity: ^1.0.2
+  shared_preferences: ^0.5.10
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

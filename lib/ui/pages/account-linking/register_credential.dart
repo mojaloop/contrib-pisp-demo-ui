@@ -1,109 +1,81 @@
+import 'dart:convert';
+import 'dart:math';
+
+import 'package:fido2_client/fido2_client.dart';
+import 'package:fido2_client/registration_result.dart';
+import 'package:fido2_example_app/key_repository.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:pispapp/controllers/ephemeral/account-linking/register_credential_controller.dart';
-import 'package:pispapp/controllers/flow/account_linking_flow_controller.dart';
-import 'package:pispapp/ui/theme/light_theme.dart';
-import 'package:pispapp/ui/widgets/bottom_button.dart';
-import 'package:pispapp/ui/widgets/title_text.dart';
 
-class RegisterCredential extends StatelessWidget {
-  RegisterCredential(this._accountLinkingFlowController);
+import 'auth_api.dart';
 
-  final AccountLinkingFlowController _accountLinkingFlowController;
-  final RegisterCredentialController _registerCredentialController =
-      RegisterCredentialController();
+class RegisterCredential extends StatefulWidget {
+  RegisterCredential({Key key, this.loggedInUser}) : super(key: key);
+  String loggedInUser;
+  @override
+  _FidoRegistrationState createState() => _FidoRegistrationState();
+}
 
-  Widget _buildActionSection() {
-    return GetBuilder<AccountLinkingFlowController>(
-      init: _accountLinkingFlowController,
-      global: false,
-      builder: (controller) {
-        if (!controller.isAwaitingUpdate) {
-          // The user is only allowed to click the button once.
-          // Afterward, the state of the payment flow controller will be updated
-          // to be awaiting for response. Once the response is received, the
-          // flow controller is expected to bring used to another page.
-          return BottomButton(
-            const TitleText(
-              'Link',
-              color: Colors.white,
-              fontSize: 20,
-            ),
-            onTap: () {
-              // TODO: popup and ask user for their fingerprint!
+class _FidoRegistrationState extends State<RegisterCredential> {
+  AuthApi _api = AuthApi();
+  RegisterOptions _registerOptions;
+  String status = 'Not started';
 
-              _registerCredentialController.signedChallenge = '12345';
-              // Send auth token back to demo server for verification
-              _accountLinkingFlowController
-                  .signChallenge(_registerCredentialController.signedChallenge);
-            },
-          );
-        } else {
-          // Once the user clicks the button, it will change to a circular progress
-          // indicator until the mobile app receives the response from the server
-          // which will include the payee information. The flow controller is
-          // responsible to bring user to another screen that displays the payee
-          // information.
-          return BottomButton(
-            const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-            ),
-          );
-        }
-      },
-    );
-  }
-
-  Widget _buildInstructions() {
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 15),
-      child: Text(
-        'Link your fingerprint with your chosen accounts',
-        style: TextStyle(
-          fontSize: 15.0,
-          color: LightColor.navyBlue2,
-        ),
-      ),
-    );
-  }
-
-  // Widget _buildIDTextField() {
-  //   return TextField(
-  //     textAlign: TextAlign.center,
-  //     decoration: const InputDecoration(hintText: 'todo'),
-  //     style: const TextStyle(
-  //       fontSize: 15.0,
-  //       height: 2.0,
-  //       color: LightColor.navyBlue2,
-  //     ),
-  //     onChanged: (String value) {},
-  //   );
-  // }
-
-  Widget _buildAccountIcon() {
-    return const Icon(
-      Icons.fingerprint,
-      size: 120,
-      color: LightColor.lightNavyBlue,
-    );
-  }
+  get loggedInUser => widget.loggedInUser;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Set up your Credential'),
+          title: Text('Register credentials for $loggedInUser'),
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: Column(
-            children: [
-              const SizedBox(height: 30),
-              _buildAccountIcon(),
-              _buildInstructions(),
-              _buildActionSection(),
-            ],
-          ),
-        ));
+        body: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text('REGISTRATION STATUS: $status'),
+            RaisedButton(
+                child: Text('Press to request registration options'),
+                onPressed: () async {
+                  setState(() {
+                    status = 'Retrieving registration options...';
+                  });
+                  _registerOptions = await _api.registerRequest(loggedInUser);
+                  setState(() {
+                    status = 'Registration options retrieved';
+                  });
+                }),
+            RaisedButton(
+                child: Text('Press to register credentials'),
+                onPressed: () async {
+                  Fido2Client f = Fido2Client();
+                  RegistrationResult r = await f.initiateRegistration(
+                      _registerOptions.challenge,
+                      _registerOptions.userId,
+                      _registerOptions.username,
+                      _registerOptions.rpId,
+                      _registerOptions.rpName,
+                      _registerOptions.algoId);
+                  await KeyRepository.storeKeyHandle(r.keyHandle, loggedInUser);
+                  User u = await _api.registerResponse(
+                      loggedInUser,
+                      _registerOptions.challenge,
+                      r.keyHandle,
+                      r.clientData,
+                      r.attestationObj);
+                  if (u.error == null) {
+                    setState(() {
+                      status = 'Success!';
+                      Navigator.of(context).pop();
+                    });
+                  } else {
+                    setState(() {
+                      status = 'Error!';
+                    });
+                  }
+                }),
+          ],
+        )));
   }
 }

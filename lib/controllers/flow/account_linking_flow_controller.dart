@@ -147,12 +147,14 @@ class AccountLinkingFlowController extends GetxController {
         break;
       case ConsentStatus.active:
         _stopListening();
+        _setAwaitingUpdate(false);
         // TODO: display some alert?
         // go back to homescreen with toast?
         // Get.find<AppNavigator>().toNamed('/dashboard');
         Get.to<dynamic>(LinkingResult(this));
         break;
       case ConsentStatus.revoked:
+        _setAwaitingUpdate(false);
         _stopListening();
 
         Get.to<dynamic>(LinkingResult(this));

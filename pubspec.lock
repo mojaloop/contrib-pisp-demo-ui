@@ -253,6 +253,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.3"
+  fido2_client:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "547a74b1fbce96bdda9fea7d674e44986c3ae474"
+      url: "git://github.com/mojaloop/fido2-client-plugin"
+    source: git
+    version: "0.0.1"
   file:
     dependency: transitive
     description:

@@ -26,6 +26,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  fido2_client:
+    git:
+      url: git://github.com/mojaloop/fido2-client-plugin
   logger: ^0.6.0
   international_phone_input: ^1.0.4
   local_auth: ^0.6.2+3

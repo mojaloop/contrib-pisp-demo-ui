@@ -13,7 +13,8 @@ class Profile extends StatelessWidget {
     final user = authController.user;
 
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      // resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
@@ -42,35 +43,36 @@ class Profile extends StatelessWidget {
                   title: const TitleText('Email'),
                   trailing: Text(Get.find<AuthController>().user.email),
                 ),
-                GetBuilder<UserDataController>(builder: (value) =>
-                  ListTile(
+                GetBuilder<UserDataController>(
+                  builder: (value) => ListTile(
                     contentPadding: const EdgeInsets.symmetric(),
                     title: const TitleText(
                       'Phone Number',
                       fontSize: 18,
                     ),
-                    trailing: Text(value.userInfo.getFormattedPhoneNoForDisplay()),
+                    trailing:
+                        Text(value.userInfo.getFormattedPhoneNoForDisplay()),
                   ),
                 ),
-                GetBuilder<UserDataController>(builder: (value) =>
-                    ListTile(
-                      contentPadding: const EdgeInsets.symmetric(),
-                      title: const TitleText(
-                        'Registration Date',
-                        fontSize: 18,
-                      ),
-                      trailing: Text(value.userInfo.getFormattedRegistrationDateForDisplay()),
+                GetBuilder<UserDataController>(
+                  builder: (value) => ListTile(
+                    contentPadding: const EdgeInsets.symmetric(),
+                    title: const TitleText(
+                      'Registration Date',
+                      fontSize: 18,
                     ),
+                    trailing: Text(value.userInfo
+                        .getFormattedRegistrationDateForDisplay()),
+                  ),
                 ),
                 ListTile(
-                  contentPadding: const EdgeInsets.symmetric(),
-                  title: const TitleText(
-                    'Remove Accounts',
-                    fontSize: 18,
-                  ),
-                  trailing: const Icon(Icons.arrow_forward),
-                  onTap: () => Get.toNamed<dynamic>('/account-unlinking')
-                )
+                    contentPadding: const EdgeInsets.symmetric(),
+                    title: const TitleText(
+                      'Remove Accounts',
+                      fontSize: 18,
+                    ),
+                    trailing: const Icon(Icons.arrow_forward),
+                    onTap: () => Get.toNamed<dynamic>('/account-unlinking'))
               ],
             ),
             BottomButton(

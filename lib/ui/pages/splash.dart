@@ -11,7 +11,8 @@ class SplashScreen extends StatelessWidget {
     return Container(
       color: Colors.white,
       child: Scaffold(
-        resizeToAvoidBottomPadding: false,
+        // resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         body: Column(
           children: <Widget>[

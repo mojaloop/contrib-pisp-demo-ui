@@ -25,7 +25,8 @@ class PaymentConfirmation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      // resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(

@@ -19,7 +19,8 @@ class PaymentAuthorization extends StatelessWidget {
     final transaction = _paymentFlowController.transaction;
 
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      // resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

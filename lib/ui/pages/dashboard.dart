@@ -9,7 +9,8 @@ class Dashboard extends StatelessWidget {
     return GetBuilder<DashboardController>(
       builder: (value) {
         return Scaffold(
-          resizeToAvoidBottomPadding: false,
+          // resizeToAvoidBottomPadding: false,
+          resizeToAvoidBottomInset: false,
           body: value.widgetOptions.elementAt(value.selectedIndex),
           bottomNavigationBar: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[

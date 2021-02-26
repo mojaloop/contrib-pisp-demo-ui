@@ -29,6 +29,24 @@ The goal of this document is to serve as a good starting point for someone onboa
 8. Make sure you enter the app's SHA-1 fingerprint under the [Settings page](https://console.firebase.google.com/u/0/project/_/settings/general) of your Firebase console as this is required to ensure that Google sign-in functions properly. You can get the app's debug SHA-1 fingerprint by running this command: `keytool -list -v -alias androiddebugkey -keystore %USERPROFILE%\.android\debug.keystore`.
 9. Connect device/ emulator and run the app.
 
+
+### Local Setup - Flutter Web
+
+1. Make sure you have flutter web enabled. See [this guide](https://flutter.dev/docs/get-started/web) for steps
+2. Ensure that `flutter devices` outputs the following:
+
+```
+1 connected device:
+
+Chrome (web) • chrome • web-javascript • Google Chrome 88.0.4324.182
+```
+
+```bash
+git clone git@github.com:mojaloop/pisp-demo-app-flutter.git
+cd pisp-demo-app-flutter
+flutter run -d chrome
+```
+
 ## JSON Serialization
 
 To generate the files that handle JSON encoding/decoding for model objects (e.g. consent.g.dart), run `flutter pub run build_runner build` in the project directory.

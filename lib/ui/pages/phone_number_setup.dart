@@ -12,7 +12,8 @@ class PhoneNumberSetup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      // resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
@@ -31,10 +32,12 @@ class PhoneNumberSetup extends StatelessWidget {
                     PhoneNumberTile(
                       heading: 'Enter phone Number',
                       trailingWidget: Obx(() {
-                        if(Get.find<SetupController>().validPhoneNumber.value) {
-                          return const Icon(Icons.check_circle_outline, color: Colors.green);
-                        }
-                        else {
+                        if (Get.find<SetupController>()
+                            .validPhoneNumber
+                            .value) {
+                          return const Icon(Icons.check_circle_outline,
+                              color: Colors.green);
+                        } else {
                           return const Text('');
                         }
                       }),
@@ -50,14 +53,15 @@ class PhoneNumberSetup extends StatelessWidget {
             ),
             Obx(() {
               return BottomButton(
-                const TitleText(
-                  'Login',
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
-                onTap: Get.find<SetupController>().validPhoneNumber.value ?
-                    () => Get.find<SetupController>().onPhoneNumberSubmitted() : null
-              );
+                  const TitleText(
+                    'Login',
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                  onTap: Get.find<SetupController>().validPhoneNumber.value
+                      ? () =>
+                          Get.find<SetupController>().onPhoneNumberSubmitted()
+                      : null);
             }),
           ],
         ),

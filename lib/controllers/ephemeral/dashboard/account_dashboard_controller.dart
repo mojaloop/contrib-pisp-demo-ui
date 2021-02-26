@@ -18,23 +18,24 @@ class AccountDashboardController extends GetxController {
 
   bool noAccounts = true;
 
+  @override
   Future<void> refresh() async {
-    isLoading = true;
-    update();
+    // isLoading = true;
+    // update();
 
-    await getLinkedAccounts();
+    // await getLinkedAccounts();
 
-    if (Get.find<AccountController>().accounts.isEmpty) {
-      noAccounts = true;
-    } else {
-      noAccounts = false;
-      await setSelectedAccount(
-        Get.find<AccountController>().accounts.elementAt(0),
-      );
-    }
-    isLoading = false;
+    // if (Get.find<AccountController>().accounts.isEmpty) {
+    //   noAccounts = true;
+    // } else {
+    //   noAccounts = false;
+    //   await setSelectedAccount(
+    //     Get.find<AccountController>().accounts.elementAt(0),
+    //   );
+    // }
+    // isLoading = false;
 
-    update();
+    // update();
   }
 
   Future<void> setSelectedAccount(Account acc) async {

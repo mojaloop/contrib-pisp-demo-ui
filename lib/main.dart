@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/app/account_controller.dart';
@@ -41,8 +42,8 @@ class LifecycleAwareApp extends StatefulWidget {
 
 class _LifecycleAwareAppState extends State<LifecycleAwareApp>
     // ignore: prefer_mixin
-    with WidgetsBindingObserver {
-
+    with
+        WidgetsBindingObserver {
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
@@ -94,7 +95,8 @@ Future<void> setupCurrentUser() async {
     Get.find<AuthController>().setUser(user);
     // Since it has been determined that the user is logged in
     // we can create the user data controller.
-    final UserDataController _userDataController = Get.put(UserDataController(UserDataRepository(), user));
+    final UserDataController _userDataController =
+        Get.put(UserDataController(UserDataRepository(), user));
     await _userDataController.loadAuxiliaryInfoForUser();
   }
 }
@@ -102,14 +104,12 @@ Future<void> setupCurrentUser() async {
 String determineStartingPage() {
   if (!Get.find<AuthController>().userSignedIn) {
     return '/';
-  }
-  else {
+  } else {
     // At this point, the user is signed in, so it is guaranteed that
     // UserDataController has been created and is available to use.
-    if(Get.find<UserDataController>().phoneNumberAssociated) {
+    if (Get.find<UserDataController>().phoneNumberAssociated) {
       return '/dashboard';
-    }
-    else {
+    } else {
       // Redirect user to phone number setup if user has no number in DB
       return '/phone_number';
     }

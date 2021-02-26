@@ -1,12 +1,3 @@
 {
-  "type": "service_account",
-  "project_id": "mojapay-dev",
-  "private_key_id": "___",
-  "private_key": "___",
-  "client_email": "___",
-  "client_id": "___",
-  "auth_uri": "",
-  "token_uri": "",
-  "auth_provider_x509_cert_url": "",
-  "client_x509_cert_url": ""
+  "//":"put your google services file here!"
 }

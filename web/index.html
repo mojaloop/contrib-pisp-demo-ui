@@ -40,6 +40,32 @@
       });
     }
   </script>
+  <!-- Add web support for firebase -->
+  <!-- support is still limited, so let's see how we go -->
+  <!-- we might want to look at these values: -->
+  <!-- https://github.com/FirebaseExtended/firebase-dart/issues/192#issuecomment-736885018 -->
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-auth.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyCGsSZOEwnHu6cXeeTK3_UFUfyBxi2x250",
+      authDomain: "mojapay-dev.firebaseapp.com",
+      databaseURL: "https://mojapay-dev.firebaseio.com",
+      projectId: "mojapay-dev",
+      storageBucket: "mojapay-dev.appspot.com",
+      messagingSenderId: "513289562245",
+      appId: "1:513289562245:web:b93c85180a1cd0fbcd61ec"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
+  <meta name="google-signin-client_id" content="513289562245-7rag6nsec35vu4rjgab993jqebqdosrc.apps.googleusercontent.com">
+
+
   <script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>

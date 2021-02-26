@@ -26,7 +26,7 @@ dependencies:
   logger: ^0.6.0
   international_phone_input: ^1.0.4
   local_auth: ^0.6.2+3
-  get: ^3.4.0
+  get: ^3.25.4
   google_fonts: ^1.1.0
   firebase_auth: ^0.16.1
   cloud_firestore: ^0.13.7

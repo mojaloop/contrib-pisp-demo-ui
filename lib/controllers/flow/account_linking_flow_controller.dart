@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:fido2_client/fido2_client_web.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/models/consent.dart';
 import 'package:pispapp/models/party.dart';
@@ -74,10 +75,15 @@ class AccountLinkingFlowController extends GetxController {
   }
 
   Future<void> signChallenge(String signedChallenge) async {
+    final Fido2ClientWeb f = Fido2ClientWeb();
+    // Fido2Client f = Fido2Client();
+    f.consoleLog('HELLO WORLD!');
+    f.initiateRegistration('Registering credential!');
+
     // TODO: this is a hack - we're not actually doing any fido, just mimicking an unlock action
-    await LocalAuth.authenticateUser(
-      'Please authorize to complete the linking process.',
-    );
+    // await LocalAuth.authenticateUser(
+    //   'Please authorize to complete the linking process.',
+    // );
     // TODO: not sure what to do here...
     // maybe we can just fill in a fake credential or something
     final Credential updatedCredential = Credential(

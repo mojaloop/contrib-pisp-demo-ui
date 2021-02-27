@@ -10,10 +10,11 @@ class ConsentRepository extends GetxService implements IConsentRepository {
   List<Consent> cache;
 
   @override
-  Future<List<Consent>> getConsents(String userId, {bool preferCached = false}) {
-    if(preferCached) {
+  Future<List<Consent>> getConsents(String userId,
+      {bool preferCached = false}) {
+    if (preferCached) {
       final List<Consent> cached = _getCachedConsents();
-      if(cached != null) {
+      if (cached != null) {
         return Future.value(cached);
       }
     }
@@ -31,12 +32,12 @@ class ConsentRepository extends GetxService implements IConsentRepository {
     );
   }
 
-
   @override
-  Future<List<Consent>> getActiveConsents(String userId, {bool preferCached = false}) {
-    if(preferCached) {
+  Future<List<Consent>> getActiveConsents(String userId,
+      {bool preferCached = false}) {
+    if (preferCached) {
       final List<Consent> cached = _getCachedActiveConsents();
-      if(cached != null) {
+      if (cached != null) {
         return Future.value(cached);
       }
     }
@@ -69,7 +70,7 @@ class ConsentRepository extends GetxService implements IConsentRepository {
 
   @override
   Future<void> updateData(String id, Map<String, dynamic> data) async {
-    await _consentRef.document(id).updateData(data);
+    await _consentRef.document(id).setData(data, merge: true);
   }
 
   @override

@@ -8,6 +8,8 @@ import 'package:pispapp/models/account.dart';
 import 'package:pispapp/models/user.dart';
 import 'package:pispapp/repositories/firebase/auth_repository.dart';
 import 'package:pispapp/repositories/interfaces/i_transaction_repository.dart';
+import 'package:pispapp/config/config.dart';
+
 
 class MockTransactionRepository extends Mock implements ITransactionRepository {
 }
@@ -75,7 +77,7 @@ void main() {
     () {
       final Account account = Account(
         alias: 'Personal',
-        consentId: '555',
+        consentId: Config.MOCK_CONSENT_ID,
         userId: 'vXiSsQglsFYXqVkOHNKKFhnuAAI2',
         sourceAccountId: 'bob.fspA',
       );

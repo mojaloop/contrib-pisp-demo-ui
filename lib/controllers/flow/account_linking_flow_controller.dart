@@ -4,10 +4,13 @@ import 'package:pispapp/models/consent.dart';
 import 'package:pispapp/models/party.dart';
 import 'package:pispapp/models/user.dart';
 import 'package:pispapp/repositories/interfaces/i_consent_repository.dart';
+import 'package:pispapp/ui/pages/account-linking/linking_result.dart';
 import 'package:pispapp/ui/pages/account-linking/account_selection_screen.dart';
 import 'package:pispapp/ui/pages/account-linking/otp_auth.dart';
+import 'package:pispapp/ui/pages/account-linking/register_credential.dart';
 import 'package:pispapp/ui/pages/account-linking/web_auth.dart';
 import 'package:pispapp/utils/log_printer.dart';
+import 'package:pispapp/utils/local_auth.dart';
 
 class AccountLinkingFlowController extends GetxController {
   AccountLinkingFlowController(this._consentRepository);
@@ -48,19 +51,45 @@ class AccountLinkingFlowController extends GetxController {
     _startListening(documentId);
   }
 
-  Future<void> initiateConsentRequest(List<Account> accsToLink) async {
+  Future<void> initiateConsentRequest(
+      List<Account> accsToLink, List<CredentialScope> scopes) async {
     _setAwaitingUpdate(true);
     logger.w('Initiating consent request!');
 
     final Consent updatedConsent = Consent(
-        authChannels: [AuthChannel.web, AuthChannel.otp], accounts: accsToLink);
+        authChannels: [AuthChannel.web, AuthChannel.otp],
+        accounts: accsToLink,
+        scopes: scopes,
+        status: ConsentStatus.partyConfirmed);
+    logger.v('updated consent is:' + updatedConsent.toJson().toString());
     await _consentRepository.updateData(documentId, updatedConsent.toJson());
   }
 
   Future<void> sendAuthToken(String authToken) async {
     _setAwaitingUpdate(true);
 
-    final Consent updatedConsent = Consent(authToken: authToken);
+    final Consent updatedConsent = Consent(
+        authToken: authToken, status: ConsentStatus.authenticationComplete);
+    await _consentRepository.updateData(documentId, updatedConsent.toJson());
+  }
+
+  Future<void> signChallenge(String signedChallenge) async {
+    // TODO: this is a hack - we're not actually doing any fido, just mimicking an unlock action
+    await LocalAuth.authenticateUser(
+      'Please authorize to complete the linking process.',
+    );
+    // TODO: not sure what to do here...
+    // maybe we can just fill in a fake credential or something
+    final Credential updatedCredential = Credential(
+        id: 'keyHandleId',
+        payload: 'todo get the payload...',
+        type: CredentialType.fido,
+        status: CredentialStatus.pending,
+        challenge: Challenge(
+            payload: 'hmm we should not be sending this',
+            signature: signedChallenge));
+    final Consent updatedConsent = Consent(
+        credential: updatedCredential, status: ConsentStatus.challengeSigned);
     await _consentRepository.updateData(documentId, updatedConsent.toJson());
   }
 
@@ -73,6 +102,7 @@ class AccountLinkingFlowController extends GetxController {
   }
 
   void _onValue(Consent consent) {
+    logger.w('account_linking_flow_controller - _onValue called');
     // Put the document id in the model object
     consent.id = documentId;
 
@@ -97,7 +127,7 @@ class AccountLinkingFlowController extends GetxController {
         }
         break;
       case ConsentStatus.authenticationRequired:
-        if (oldValue.status == ConsentStatus.pendingPartyConfirmation) {
+        if (oldValue.status == ConsentStatus.partyConfirmed) {
           // The consent data has been updated
           _setAwaitingUpdate(false);
 
@@ -116,12 +146,25 @@ class AccountLinkingFlowController extends GetxController {
       case ConsentStatus.consentGranted:
         break;
       case ConsentStatus.challengeGenerated:
+        // The consent data has been updated
+        _setAwaitingUpdate(false);
+
+        // Redirect to register_credential_controller
+        Get.to<dynamic>(RegisterCredential(this));
         break;
       case ConsentStatus.active:
         _stopListening();
+        _setAwaitingUpdate(false);
+        // TODO: display some alert?
+        // go back to homescreen with toast?
+        // Get.find<AppNavigator>().toNamed('/dashboard');
+        Get.to<dynamic>(LinkingResult(this));
         break;
       case ConsentStatus.revoked:
+        _setAwaitingUpdate(false);
         _stopListening();
+
+        Get.to<dynamic>(LinkingResult(this));
         break;
       default:
         // we are not interested in other statuses

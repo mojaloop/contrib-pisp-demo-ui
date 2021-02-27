@@ -37,7 +37,7 @@ class AccountSelectionScreen extends StatelessWidget {
   }
 
   Widget _buildListItem(Account acc) {
-    final String accId = acc?.id ?? 'Unknown Account';
+    final String accId = acc?.description ?? 'Unknown Account';
     final String currencyStr =
         acc?.currency?.toJsonString() ?? 'Unknown Currency';
     return Container(
@@ -78,7 +78,9 @@ class AccountSelectionScreen extends StatelessWidget {
             ),
             onTap: () {
               controller.initiateConsentRequest(
-                  _accountSelectionController.getSelectedAccounts());
+                _accountSelectionController.getSelectedAccounts(),
+                _accountSelectionController.getSelectedScopes(),
+              );
             },
           );
         } else {

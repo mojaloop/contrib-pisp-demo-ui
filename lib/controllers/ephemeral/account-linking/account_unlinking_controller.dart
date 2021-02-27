@@ -29,7 +29,8 @@ class AccountUnlinkingController extends GetxController {
     final String currentUserId = Get.find<AuthController>().user.id;
 
     // Prefer the cached version but if not possible, load again
-    consents = await _consentRepository.getActiveConsents(currentUserId, preferCached: true);
+    consents = await _consentRepository.getActiveConsents(currentUserId,
+        preferCached: true);
 
     // Flatten the consents into the list of accounts
     accounts.value = consents.expand((element) => element.accounts).toList();
@@ -37,8 +38,9 @@ class AccountUnlinkingController extends GetxController {
 
   Consent findConsentToRevoke(String accId) {
     // Find Consent object linked to this accId - this is guaranteed to exist
-    return consents.firstWhere((consent) =>
-        consent.accounts.where((account) => account.id == accId).isNotEmpty);
+    return consents.firstWhere((consent) => consent.accounts
+        .where((account) => account.address == accId)
+        .isNotEmpty);
   }
 
   /// Revokes a particular consent object associated with an accId

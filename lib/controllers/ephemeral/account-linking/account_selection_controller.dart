@@ -27,6 +27,14 @@ class AccountSelectionController extends GetxController {
         .toList();
   }
 
+  List<CredentialScope> getSelectedScopes() {
+    return associatedAccounts
+        .where((account) => _selectedAccounts.contains(account))
+        .map((e) => CredentialScope(
+            actions: ['accounts.transfer'], accountId: e.address))
+        .toList();
+  }
+
   void _selectAcc(Account acc) {
     _selectedAccounts.add(acc);
   }

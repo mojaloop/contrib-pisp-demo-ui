@@ -101,9 +101,12 @@ T _$enumDecodeNullable<T>(
 const _$ConsentStatusEnumMap = {
   ConsentStatus.pendingPartyLookup: 'PENDING_PARTY_LOOKUP',
   ConsentStatus.pendingPartyConfirmation: 'PENDING_PARTY_CONFIRMATION',
+  ConsentStatus.partyConfirmed: 'PARTY_CONFIRMED',
   ConsentStatus.authenticationRequired: 'AUTHENTICATION_REQUIRED',
+  ConsentStatus.authenticationComplete: 'AUTHENTICATION_COMPLETE',
   ConsentStatus.consentGranted: 'CONSENT_GRANTED',
   ConsentStatus.challengeGenerated: 'CHALLENGE_GENERATED',
+  ConsentStatus.challengeSigned: 'CHALLENGE_SIGNED',
   ConsentStatus.active: 'ACTIVE',
   ConsentStatus.revokeRequested: 'REVOKE_REQUESTED',
   ConsentStatus.revoked: 'REVOKED',
@@ -117,8 +120,8 @@ const _$AuthChannelEnumMap = {
 Credential _$CredentialFromJson(Map<String, dynamic> json) {
   return Credential(
     id: json['id'] as String,
-    credentialType:
-        _$enumDecodeNullable(_$CredentialTypeEnumMap, json['credentialType']),
+    payload: json['payload'] as String,
+    type: _$enumDecodeNullable(_$CredentialTypeEnumMap, json['type']),
     status: _$enumDecodeNullable(_$CredentialStatusEnumMap, json['status']),
     challenge: json['challenge'] == null
         ? null
@@ -136,8 +139,8 @@ Map<String, dynamic> _$CredentialToJson(Credential instance) {
   }
 
   writeNotNull('id', instance.id);
-  writeNotNull(
-      'credentialType', _$CredentialTypeEnumMap[instance.credentialType]);
+  writeNotNull('payload', instance.payload);
+  writeNotNull('type', _$CredentialTypeEnumMap[instance.type]);
   writeNotNull('status', _$CredentialStatusEnumMap[instance.status]);
   writeNotNull('challenge', instance.challenge?.toJson());
   return val;
@@ -149,7 +152,7 @@ const _$CredentialTypeEnumMap = {
 
 const _$CredentialStatusEnumMap = {
   CredentialStatus.pending: 'PENDING',
-  CredentialStatus.active: 'ACTIVE',
+  CredentialStatus.verified: 'VERIFIED',
 };
 
 Challenge _$ChallengeFromJson(Map<String, dynamic> json) {
@@ -175,7 +178,7 @@ Map<String, dynamic> _$ChallengeToJson(Challenge instance) {
 
 CredentialScope _$CredentialScopeFromJson(Map<String, dynamic> json) {
   return CredentialScope(
-    scope: json['scope'] as String,
+    actions: json['scope'] as List<String>,
     accountId: json['accountId'] as String,
   );
 }
@@ -189,14 +192,15 @@ Map<String, dynamic> _$CredentialScopeToJson(CredentialScope instance) {
     }
   }
 
-  writeNotNull('scope', instance.scope);
+  writeNotNull('actions', instance.actions);
   writeNotNull('accountId', instance.accountId);
   return val;
 }
 
 Account _$AccountFromJson(Map<String, dynamic> json) {
   return Account(
-    id: json['id'] as String,
+    address: json['address'] as String,
+    description: json['description'] as String,
     currency: _$enumDecodeNullable(_$CurrencyEnumMap, json['currency']),
   );
 }
@@ -210,7 +214,7 @@ Map<String, dynamic> _$AccountToJson(Account instance) {
     }
   }
 
-  writeNotNull('id', instance.id);
+  writeNotNull('id', instance.address);
   writeNotNull('currency', _$CurrencyEnumMap[instance.currency]);
   return val;
 }

@@ -3,12 +3,18 @@ description: A new Flutter application.
 publish_to: 'none'
 version: 1.0.0+1
 
+dependency_overrides:
+  analyzer: '0.39.14'
+
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  fido2_client:
+    git:
+      url: git://github.com/mojaloop/fido2-client-plugin
   logger: ^0.6.0
   international_phone_input: ^1.0.4
   local_auth: ^0.6.2+3
@@ -27,6 +33,7 @@ dependencies:
   equatable: ^0.6.0
   flutter_web_auth: ^0.2.4
   cross_connectivity: ^1.0.2
+  shared_preferences: ^0.5.10
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

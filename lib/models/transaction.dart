@@ -126,6 +126,7 @@ class Quote extends Equatable implements JsonModel {
   Quote({
     this.transferAmount,
     this.payeeFspFee,
+    this.payeeReceiveAmount,
     this.payeeFspCommission,
     this.expiration,
     this.condition,
@@ -140,6 +141,9 @@ class Quote extends Equatable implements JsonModel {
 
   /// Payee FSP’s part of the transaction fee.
   final Money payeeFspFee;
+
+  /// The amount of money that the Payee FSP should receive.
+  Money payeeReceiveAmount;
 
   /// Transaction commission from the Payee FSP.
   final Money payeeFspCommission;

@@ -44,7 +44,7 @@ Chrome (web) • chrome • web-javascript • Google Chrome 88.0.4324.182
 ```bash
 git clone git@github.com:mojaloop/pisp-demo-app-flutter.git
 cd pisp-demo-app-flutter
-flutter run -d chrome
+flutter run -d chrome --web-port 5000
 ```
 
 ## JSON Serialization

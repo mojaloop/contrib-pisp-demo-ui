@@ -10,10 +10,9 @@ import 'package:pispapp/ui/pages/account-linking/web_auth.dart';
 import 'package:pispapp/utils/log_printer.dart';
 
 class AccountLinkingFlowController extends GetxController {
-
   AccountLinkingFlowController(this._consentRepository);
 
-  static final logger =  getLogger('AccountLinkingFlowController');
+  static final logger = getLogger('AccountLinkingFlowController');
 
   IConsentRepository _consentRepository;
 
@@ -51,11 +50,10 @@ class AccountLinkingFlowController extends GetxController {
 
   Future<void> initiateConsentRequest(List<Account> accsToLink) async {
     _setAwaitingUpdate(true);
+    logger.w('Initiating consent request!');
 
     final Consent updatedConsent = Consent(
-      authChannels: [AuthChannel.web, AuthChannel.otp],
-      accounts: accsToLink
-    );
+        authChannels: [AuthChannel.web, AuthChannel.otp], accounts: accsToLink);
     await _consentRepository.updateData(documentId, updatedConsent.toJson());
   }
 
@@ -82,6 +80,8 @@ class AccountLinkingFlowController extends GetxController {
     // Update consent with latest change
     this.consent = consent;
 
+    logger.w('Consent has status: ${consent.status}');
+
     // TODO(kkzeng): Figure out what needs to be done in each state and explore state machine library use
     switch (consent.status) {
       case ConsentStatus.pendingPartyLookup:
@@ -101,7 +101,7 @@ class AccountLinkingFlowController extends GetxController {
           // The consent data has been updated
           _setAwaitingUpdate(false);
 
-          switch(consent.authChannels[0]) {
+          switch (consent.authChannels[0]) {
             case AuthChannel.otp:
               Get.to<dynamic>(OTPAuth(this));
               break;
@@ -109,7 +109,7 @@ class AccountLinkingFlowController extends GetxController {
               Get.to<dynamic>(WebAuth(this));
               break;
             default:
-              // not supported
+            // not supported
           }
         }
         break;

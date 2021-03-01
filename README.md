@@ -71,7 +71,7 @@ firebase init
 # select the following options:
 # existing project
 # mojapay-dev
-# web
+# build/web
 # rewrite - Yes
 # automatic builds - No
 # overwrite web/index.html - No
@@ -86,6 +86,8 @@ cd pisp_demo_app_flutter
 flutter build web
 firebase deploy
 ```
+
+Now go to https://mojapay-dev.web.app to see it live!
 
 ## JSON Serialization
 

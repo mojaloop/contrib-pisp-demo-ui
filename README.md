@@ -59,6 +59,34 @@ cd pisp-demo-app-flutter
 flutter run -d chrome --web-port 5000
 ```
 
+## Deploying - Web
+
+We need to set up firebase (only once)
+```bash
+# release to the firebase project
+npm install -g firebase-tools
+firebase login
+firebase init
+
+# select the following options:
+# existing project
+# mojapay-dev
+# web
+# rewrite - Yes
+# automatic builds - No
+# overwrite web/index.html - No
+```
+
+```bash
+# First, make sure we have the correct fido2_client
+cd ..
+git clone https://github.com/mojaloop/fido2-client-plugin fido2_client
+
+cd pisp_demo_app_flutter
+flutter build web
+firebase deploy
+```
+
 ## JSON Serialization
 
 To generate the files that handle JSON encoding/decoding for model objects (e.g. consent.g.dart), run `flutter pub run build_runner build` in the project directory.

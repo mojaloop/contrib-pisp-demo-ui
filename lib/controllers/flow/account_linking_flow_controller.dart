@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:fido2_client/fido2_client_web.dart';
+import 'package:fido2_client/Fido2ClientPlugin_web.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/models/consent.dart';
 import 'package:pispapp/models/party.dart';
@@ -11,7 +11,6 @@ import 'package:pispapp/ui/pages/account-linking/otp_auth.dart';
 import 'package:pispapp/ui/pages/account-linking/register_credential.dart';
 import 'package:pispapp/ui/pages/account-linking/web_auth.dart';
 import 'package:pispapp/utils/log_printer.dart';
-import 'package:pispapp/utils/local_auth.dart';
 
 class AccountLinkingFlowController extends GetxController {
   AccountLinkingFlowController(this._consentRepository);

@@ -256,8 +256,8 @@ packages:
   fido2_client:
     dependency: "direct main"
     description:
-      path: "/Users/ldaly/developer/vessels/mojaloop/fido2_client"
-      relative: false
+      path: "../fido2_client"
+      relative: true
     source: path
     version: "0.0.1"
   file:

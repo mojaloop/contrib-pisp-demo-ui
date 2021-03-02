@@ -16,6 +16,7 @@ class PlatformAwareAssetImage extends StatelessWidget {
     if (kIsWeb) {
       return Image.network(
         'assets/${package == null ? '' : 'packages/$package/'}$asset',
+        width: 300,
       );
     }
 

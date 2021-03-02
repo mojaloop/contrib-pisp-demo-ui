@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pispapp/controllers/ephemeral/splash_controller.dart';
 import 'package:pispapp/ui/widgets/bottom_button.dart';
+import 'package:pispapp/ui/widgets/pineapple.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -17,12 +18,13 @@ class SplashScreen extends StatelessWidget {
         body: Column(
           children: <Widget>[
             const SizedBox(height: 150.0),
+            Pineapple(),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  'MojaPay',
+                  'PineapplePay',
                   style: GoogleFonts.muli(
                     fontSize: 55,
                     fontWeight: FontWeight.w600,
@@ -52,7 +54,7 @@ class SplashScreen extends StatelessWidget {
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  'Simplifies and speeds up payments',
+                  'All your accounts in one place.',
                   style: GoogleFonts.muli(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,

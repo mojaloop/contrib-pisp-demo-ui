@@ -212,6 +212,7 @@ enum ConsentStatus {
   @JsonValue('CONSENT_GRANTED')
   consentGranted,
 
+  // TODO: remove this - challenge generated is now no longer valid
   /// The server has requested that Mojaloop present a challenge
   /// for the FIDO registration process.
   @JsonValue('CHALLENGE_GENERATED')

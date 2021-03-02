@@ -152,8 +152,8 @@ class AccountLinkingFlowController extends GetxController {
         }
         break;
       case ConsentStatus.consentGranted:
-        break;
-      case ConsentStatus.challengeGenerated:
+        // break;
+        // case ConsentStatus.challengeGenerated:
         // The consent data has been updated
         _setAwaitingUpdate(false);
 

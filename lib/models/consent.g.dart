@@ -200,7 +200,7 @@ Map<String, dynamic> _$CredentialScopeToJson(CredentialScope instance) {
 Account _$AccountFromJson(Map<String, dynamic> json) {
   return Account(
     address: json['address'] as String,
-    description: json['description'] as String,
+    accountNickname: json['accountNickname'] as String,
     currency: _$enumDecodeNullable(_$CurrencyEnumMap, json['currency']),
   );
 }

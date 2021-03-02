@@ -138,7 +138,7 @@ class CredentialScope implements JsonModel {
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 // ignore: must_be_immutable
 class Account extends Equatable implements JsonModel {
-  Account({this.address, this.description, this.currency});
+  Account({this.address, this.accountNickname, this.currency});
 
   @override
   factory Account.fromJson(Map<String, dynamic> json) =>
@@ -148,7 +148,7 @@ class Account extends Equatable implements JsonModel {
   String address;
 
   /// user readable description
-  String description;
+  String accountNickname;
 
   /// Currency of the bank account.
   Currency currency;

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:fido2_client/Fido2ClientPlugin_web.dart';
+import 'package:logger/logger.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/models/consent.dart';
 import 'package:pispapp/models/party.dart';
@@ -33,9 +34,11 @@ class AccountLinkingFlowController extends GetxController {
     _setAwaitingUpdate(true);
 
     final User user = Get.find<AuthController>().user;
+    logger.v('fspId is ' + fspId);
 
     // Construct a new consent
     final Consent newConsent = Consent(
+      participantId: fspId,
       userId: user.id,
       party: Party(
         partyIdInfo: PartyIdInfo(

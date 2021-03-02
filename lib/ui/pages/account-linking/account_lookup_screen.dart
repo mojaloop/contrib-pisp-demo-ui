@@ -8,9 +8,12 @@ import 'package:pispapp/repositories/firebase/consent_repository.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
+import 'package:pispapp/utils/log_printer.dart';
 
 class AccountLookupScreen extends StatelessWidget {
   AccountLookupScreen(this.fsp);
+
+  static final logger = getLogger('AccountLookupScreen');
 
   final Fsp fsp;
 

@@ -17,6 +17,7 @@ class AccountLinkingInitiation extends StatelessWidget {
         child: ListTile(
           trailing: const Icon(Icons.arrow_forward_ios),
           title: Text(fsp.name),
+          subtitle: Text(fsp.id),
           onTap: () => Get.to<dynamic>(AccountLookupScreen(fsp)),
         ),
       ),

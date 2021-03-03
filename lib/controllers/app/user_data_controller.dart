@@ -34,6 +34,12 @@ class UserDataController extends GetxController {
     update();
   }
 
+  // Future<PISPPhoneNumber> getPhoneNumber() {
+  PISPPhoneNumber getPhoneNumber() {
+    print('_user is: ' + userInfo.phoneNumber.toString());
+    return userInfo.phoneNumber;
+  }
+
   void setUserRegistrationDate(String date) {
     userInfo.registrationDate = date;
     update();

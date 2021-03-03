@@ -12,26 +12,32 @@ class PhoneNumberInput extends StatelessWidget {
 
   final PISPPhoneNumber initialValue;
 
+  PISPPhoneNumber currentValue;
+
   final void Function(PISPPhoneNumber) onUpdate;
 
   @override
   Widget build(BuildContext context) {
+    print('initialValue ' + initialValue.toString());
     return InternationalPhoneNumberInput(
+        selectorConfig:
+            SelectorConfig(selectorType: PhoneInputSelectorType.BOTTOM_SHEET),
         hintText: hintText,
+        autoValidateMode: AutovalidateMode.disabled,
         onInputChanged: (PhoneNumber number) {
-          print(number.phoneNumber);
-          if (onUpdate != null) {
-            onUpdate(PISPPhoneNumber(number.isoCode, number.phoneNumber));
+          currentValue = PISPPhoneNumber(number.dialCode, number.parseNumber());
+        },
+        onInputValidated: (bool valid) {
+          if (valid == true) {
+            onUpdate(currentValue);
           }
         },
-        onInputValidated: (bool value) {
-          print(value);
-        },
-        // TODO: figure out optional syntax
-        initialValue: PhoneNumber(
-            phoneNumber: initialValue?.number,
-            isoCode: initialValue?.countryCode),
-        countries: Countries.countryCodes);
+        initialValue:
+            PhoneNumber(phoneNumber: '410237238', dialCode: '+61', isoCode: 'AU'
+                // dialCode: initialValue?.countryCode));
+                ));
+    // initialValue: PhoneNumber(phoneNumber: '410237238', isoCode: 'AU'));
+    // countries: Countries.countryCodes);
     // return InternationalPhoneInput(
     //   hintText: hintText,
     //   enabledCountries: Countries.countryCodes,
@@ -39,7 +45,8 @@ class PhoneNumberInput extends StatelessWidget {
     //   initialSelection: initialValue?.countryCode,
     //   onPhoneNumberChange: (phoneNumber, _, isoCode) {
     //     if (onUpdate != null) {
-    //       onUpdate(PhoneNumber(isoCode, phoneNumber));
+    //       print('onUpdate ' + phoneNumber);
+    //       onUpdate(PISPPhoneNumber(isoCode, phoneNumber));
     //     }
     //   },
     // );

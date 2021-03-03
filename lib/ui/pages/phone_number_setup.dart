@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/ephemeral/setup_controller.dart';
+import 'package:pispapp/models/phone_number.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/phone_number_tile.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
@@ -44,10 +45,15 @@ class PhoneNumberSetup extends StatelessWidget {
                       }),
                     ),
                     PhoneNumberInput(
-                      hintText: 'Enter phone number',
-                      // initialValue: Get.find<SetupController>().phoneNumber,
-                      onUpdate: controller.onPhoneNumberChange,
-                    ),
+                        hintText: 'Enter phone number',
+                        initialValue: Get.find<SetupController>().phoneNumber,
+                        onUpdate:
+                            Get.find<SetupController>().onPhoneNumberChange)
+                    // onUpdate: (PISPPhoneNumber number) =>
+                    //     // print('closure updated number: ' + number.toString())
+                    //     print('controller: ' +
+                    //         controller.onPhoneNumberChange.toString()))
+                    // controller.onPhoneNumberChange(number)),
                   ],
                 ),
               ),

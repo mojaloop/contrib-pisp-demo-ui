@@ -14,7 +14,7 @@ class PhoneNumberInput extends StatelessWidget {
 
   PISPPhoneNumber currentValue;
 
-  final void Function(PISPPhoneNumber) onUpdate;
+  final void Function(PISPPhoneNumber, bool) onUpdate;
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +28,12 @@ class PhoneNumberInput extends StatelessWidget {
           currentValue = PISPPhoneNumber(number.dialCode, number.parseNumber());
         },
         onInputValidated: (bool valid) {
-          if (valid == true) {
-            onUpdate(currentValue);
-          }
-        },
-        initialValue:
-            PhoneNumber(phoneNumber: '410237238', dialCode: '+61', isoCode: 'AU'
-                // dialCode: initialValue?.countryCode));
-                ));
+          onUpdate(currentValue, valid);
+        });
+    // initialValue:
+    //     PhoneNumber(phoneNumber: '410237238', dialCode: '+61', isoCode: 'AU'
+    //         // dialCode: initialValue?.countryCode));
+    //         ));
     // initialValue: PhoneNumber(phoneNumber: '410237238', isoCode: 'AU'));
     // countries: Countries.countryCodes);
     // return InternationalPhoneInput(

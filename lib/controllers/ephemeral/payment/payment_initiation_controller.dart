@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:get/get.dart';
-import 'package:international_phone_input/international_phone_input.dart';
 import 'package:pispapp/models/phone_number.dart';
 
 class PaymentInitiationController extends GetxController {
@@ -10,17 +9,10 @@ class PaymentInitiationController extends GetxController {
 
   RxBool validPhoneNumber = false.obs;
 
-  void onPhoneNumberChange(PISPPhoneNumber phoneNumber) {
+  void onPhoneNumberChange(PISPPhoneNumber phoneNumber, bool valid) {
     this.phoneNumber = phoneNumber;
-    _checkNumberValidity();
+    validPhoneNumber.value = valid;
     update();
-  }
-
-  Future<void> _checkNumberValidity() async {
-    PhoneService.parsePhoneNumber(phoneNumber.number, phoneNumber.countryCode)
-        .then((isValid) {
-      validPhoneNumber.value = isValid;
-    });
   }
 
   Future<void> onPayNow() async {

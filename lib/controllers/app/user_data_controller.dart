@@ -36,7 +36,7 @@ class UserDataController extends GetxController {
 
   // Future<PISPPhoneNumber> getPhoneNumber() {
   PISPPhoneNumber getPhoneNumber() {
-    print('_user is: ' + userInfo.phoneNumber.toString());
+    print('_user is: ' + userInfo?.phoneNumber?.toString());
     return userInfo.phoneNumber;
   }
 

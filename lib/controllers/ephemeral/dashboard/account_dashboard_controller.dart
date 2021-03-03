@@ -52,7 +52,7 @@ class AccountDashboardController extends GetxController {
   }
 
   Future<void> updateTransactions() async {
-    final userId = Get.find<AuthController>().user.id;
+    final userId = Get.find<AuthController>().user?.id;
     transactionList = await _transactionRepo.getTransactions(userId);
     update();
   }

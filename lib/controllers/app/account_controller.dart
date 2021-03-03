@@ -12,7 +12,7 @@ class AccountController extends GetxController {
 
   Future<void> getLinkedAccounts() async {
     accounts.value = await _accountRepository.getUserAccounts(
-      Get.find<AuthController>().user.id,
+      Get.find<AuthController>().user?.id,
     );
   }
 }

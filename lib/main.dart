@@ -47,8 +47,6 @@ class _LifecycleAwareAppState extends State<LifecycleAwareApp>
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
-    // Show verification screen when app first starts
-    Get.find<LocalAuthController>().appWasResumed();
     Get.find<ConnectivityController>().startListenForConnectionStatus();
     super.initState();
   }
@@ -64,11 +62,9 @@ class _LifecycleAwareAppState extends State<LifecycleAwareApp>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
       case AppLifecycleState.resumed:
-        Get.find<LocalAuthController>().appWasResumed();
         Get.find<ConnectivityController>().startListenForConnectionStatus();
         break;
       case AppLifecycleState.paused:
-        Get.find<LocalAuthController>().appWasPaused();
         Get.find<ConnectivityController>().stopListeningForConnectionStatus();
         break;
       default:
@@ -122,7 +118,6 @@ void initAppControllers() {
   Get.put(AccountController(StubAccountRepository()));
   Get.put(DashboardController());
   Get.put(AppNavigator());
-  Get.put(LocalAuthController());
   Get.put(ConnectivityController());
 
   // Put repositories

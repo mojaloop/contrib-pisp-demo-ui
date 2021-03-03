@@ -18,7 +18,6 @@ class PhoneNumberInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('initialValue ' + initialValue.toString());
     return InternationalPhoneNumberInput(
         selectorConfig:
             SelectorConfig(selectorType: PhoneInputSelectorType.BOTTOM_SHEET),
@@ -30,23 +29,5 @@ class PhoneNumberInput extends StatelessWidget {
         onInputValidated: (bool valid) {
           onUpdate(currentValue, valid);
         });
-    // initialValue:
-    //     PhoneNumber(phoneNumber: '410237238', dialCode: '+61', isoCode: 'AU'
-    //         // dialCode: initialValue?.countryCode));
-    //         ));
-    // initialValue: PhoneNumber(phoneNumber: '410237238', isoCode: 'AU'));
-    // countries: Countries.countryCodes);
-    // return InternationalPhoneInput(
-    //   hintText: hintText,
-    //   enabledCountries: Countries.countryCodes,
-    //   initialPhoneNumber: initialValue?.number,
-    //   initialSelection: initialValue?.countryCode,
-    //   onPhoneNumberChange: (phoneNumber, _, isoCode) {
-    //     if (onUpdate != null) {
-    //       print('onUpdate ' + phoneNumber);
-    //       onUpdate(PISPPhoneNumber(isoCode, phoneNumber));
-    //     }
-    //   },
-    // );
   }
 }

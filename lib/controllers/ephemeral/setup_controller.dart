@@ -32,8 +32,6 @@ class SetupController extends GetxController {
   /// We rely on the phone number library to only call this
   /// when the number is already valid
   void onPhoneNumberChange(PISPPhoneNumber phoneNumber, bool valid) {
-    print('onPhoneNumberChange? ' + phoneNumber.toString());
-
     this.phoneNumber = phoneNumber;
     Get.find<UserDataController>().setPhoneNumber(phoneNumber);
     validPhoneNumber.value = valid;
@@ -58,11 +56,11 @@ class SetupController extends GetxController {
     // skip the phone number setup
     // Otherwise proceed with phone number setup
     // TODO - get rid of this, instead pre-fill the user's number
-    // if (Get.find<UserDataController>().phoneNumberAssociated) {
-    //   Get.find<AppNavigator>().offAllNamed('/dashboard');
-    // } else {
-    Get.find<AppNavigator>().toNamed('/phone_number');
-    // }
+    if (Get.find<UserDataController>().phoneNumberAssociated) {
+      Get.find<AppNavigator>().offAllNamed('/dashboard');
+    } else {
+      Get.find<AppNavigator>().toNamed('/phone_number');
+    }
   }
 
   void onPhoneNumberSubmitted() {

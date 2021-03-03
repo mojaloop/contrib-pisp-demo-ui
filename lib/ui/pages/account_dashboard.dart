@@ -23,6 +23,7 @@ class AccountDashboard extends StatelessWidget {
         return SafeArea(
           child: RefreshIndicator(
             onRefresh: () async {
+              print('AccountDashboard.build.onRefresh');
               Get.find<AccountDashboardController>().refresh();
             },
             child: SingleChildScrollView(
@@ -52,7 +53,7 @@ class AccountDashboard extends StatelessWidget {
       body: Container(
         child: const Center(
           child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(LightColor.yellow2),
+            valueColor: AlwaysStoppedAnimation<Color>(LightColor.lightBlue2),
           ),
         ),
       ),

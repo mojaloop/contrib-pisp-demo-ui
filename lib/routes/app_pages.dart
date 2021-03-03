@@ -36,6 +36,7 @@ abstract class AppPages {
     GetPage(
       name: Routes.DASHBOARD,
       page: () {
+        print('AppPages - dasboard stuff');
         Get.find<DashboardController>().showAccountsPage();
         Get.find<AccountDashboardController>().refresh();
         return Dashboard();

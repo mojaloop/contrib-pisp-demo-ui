@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:pispapp/controllers/app/account_controller.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/models/account.dart';
@@ -19,21 +20,26 @@ class AccountDashboardController extends GetxController {
   bool noAccounts = true;
 
   @override
-  Future<void> refresh() async {
-    // isLoading = true;
+  // Future<void> refresh() async {
+  Future<void> onReady() async {
+    print('AccountDashboardController - Refreshing!');
+    isLoading = true;
     // update();
 
-    // await getLinkedAccounts();
+    await getLinkedAccounts();
 
-    // if (Get.find<AccountController>().accounts.isEmpty) {
-    //   noAccounts = true;
-    // } else {
-    //   noAccounts = false;
-    //   await setSelectedAccount(
-    //     Get.find<AccountController>().accounts.elementAt(0),
-    //   );
-    // }
-    // isLoading = false;
+    if (Get.find<AccountController>().accounts.isEmpty) {
+      noAccounts = true;
+    } else {
+      noAccounts = false;
+      await setSelectedAccount(
+        Get.find<AccountController>().accounts.elementAt(0),
+      );
+    }
+
+    isLoading = false;
+
+    print('AccountDashboardController - done!');
 
     // update();
   }

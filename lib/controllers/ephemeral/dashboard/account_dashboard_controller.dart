@@ -20,10 +20,11 @@ class AccountDashboardController extends GetxController {
   bool noAccounts = true;
 
   @override
-  // Future<void> refresh() async {
   Future<void> onReady() async {
     print('AccountDashboardController - Refreshing!');
     isLoading = true;
+
+    // LD - TODO - calling this seems to crash the application
     // update();
 
     await getLinkedAccounts();
@@ -41,6 +42,7 @@ class AccountDashboardController extends GetxController {
 
     print('AccountDashboardController - done!');
 
+    // LD - TODO - calling this seems to crash the application
     // update();
   }
 

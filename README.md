@@ -65,7 +65,7 @@ We need to set up firebase (only once)
 ```bash
 # release to the firebase project
 npm install -g firebase-tools
-firebase loginhv1
+firebase login
 firebase init
 
 # select the following options:

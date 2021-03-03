@@ -25,7 +25,7 @@ class PaymentFlowController extends GetxController {
   void Function() _unsubscriber;
 
   /// Initiates a transaction to the given phone number.
-  Future<void> initiate(PhoneNumber phoneNumber) async {
+  Future<void> initiate(PISPPhoneNumber phoneNumber) async {
     _setAwaitingUpdate(true);
 
     final user = Get.find<AuthController>().user;

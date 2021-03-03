@@ -6,7 +6,7 @@ import 'package:pispapp/models/phone_number.dart';
 import 'package:pispapp/routes/app_navigator.dart';
 
 class SetupController extends GetxController {
-  PhoneNumber phoneNumber;
+  PISPPhoneNumber phoneNumber;
   RxBool validPhoneNumber = false.obs;
 
   bool googleLogin = false;
@@ -18,7 +18,7 @@ class SetupController extends GetxController {
     update();
   }
 
-  void onPhoneNumberChange(PhoneNumber phoneNumber) {
+  void onPhoneNumberChange(PISPPhoneNumber phoneNumber) {
     this.phoneNumber = phoneNumber;
     _checkNumberValidity();
     Get.find<UserDataController>().setPhoneNumber(phoneNumber);
@@ -26,7 +26,8 @@ class SetupController extends GetxController {
   }
 
   Future<void> _checkNumberValidity() async {
-    PhoneService.parsePhoneNumber(phoneNumber.number, phoneNumber.countryCode).then((isValid) {
+    PhoneService.parsePhoneNumber(phoneNumber.number, phoneNumber.countryCode)
+        .then((isValid) {
       validPhoneNumber.value = isValid;
     });
   }
@@ -48,10 +49,9 @@ class SetupController extends GetxController {
     // If phone number information has been previously associated then
     // skip the phone number setup
     // Otherwise proceed with phone number setup
-    if(Get.find<UserDataController>().phoneNumberAssociated) {
+    if (Get.find<UserDataController>().phoneNumberAssociated) {
       Get.find<AppNavigator>().offAllNamed('/dashboard');
-    }
-    else {
+    } else {
       Get.find<AppNavigator>().toNamed('/phone_number');
     }
   }

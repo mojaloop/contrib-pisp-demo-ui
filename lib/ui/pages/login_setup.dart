@@ -20,7 +20,7 @@ class LoginSetup extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.fromLTRB(10, 60, 0, 30),
               child: TitleText(
-                'Mojapay Setup',
+                'Set up your PineapplePay Account',
                 fontSize: 20,
               ),
             ),

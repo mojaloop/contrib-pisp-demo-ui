@@ -21,7 +21,8 @@ class PhoneNumberSetup extends StatelessWidget {
           children: <Widget>[
             const Padding(
               padding: EdgeInsets.fromLTRB(10, 60, 0, 30),
-              child: TitleText('Mojapay Setup', fontSize: 20),
+              child:
+                  TitleText('Set up your PineapplePay Account', fontSize: 20),
             ),
             const SizedBox(height: 20),
             GetBuilder<SetupController>(
@@ -44,7 +45,7 @@ class PhoneNumberSetup extends StatelessWidget {
                     ),
                     PhoneNumberInput(
                       hintText: 'Enter phone number',
-                      initialValue: Get.find<SetupController>().phoneNumber,
+                      // initialValue: Get.find<SetupController>().phoneNumber,
                       onUpdate: controller.onPhoneNumberChange,
                     ),
                   ],

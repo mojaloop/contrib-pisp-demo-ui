@@ -39,7 +39,7 @@ class SplashScreen extends StatelessWidget {
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  'Transfer Money',
+                  'Transfer, Pay Bills + More',
                   style: GoogleFonts.muli(
                     fontSize: 25,
                     fontWeight: FontWeight.w600,

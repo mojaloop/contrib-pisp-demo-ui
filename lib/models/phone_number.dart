@@ -2,8 +2,8 @@ import 'package:equatable/equatable.dart';
 
 import 'model.dart';
 
-class PhoneNumber extends Equatable implements Model {
-  PhoneNumber(this.countryCode, this.number);
+class PISPPhoneNumber extends Equatable implements Model {
+  PISPPhoneNumber(this.countryCode, this.number);
 
   final String countryCode;
 

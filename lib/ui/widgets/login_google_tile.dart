@@ -11,7 +11,7 @@ class LoginWithGoogleTile extends StatelessWidget {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(),
       title: const TitleText(
-        'Link Google Account',
+        'Sign in with Google',
         fontSize: 14,
       ),
       trailing: trailingWidget,

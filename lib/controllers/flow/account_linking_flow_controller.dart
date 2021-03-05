@@ -34,6 +34,7 @@ class AccountLinkingFlowController extends GetxController {
     _setAwaitingUpdate(true);
 
     final User user = Get.find<AuthController>().user;
+    logger.v('initiateDiscovery: user.id is ' + user.id);
     logger.v('fspId is ' + fspId);
 
     // Construct a new consent
@@ -78,9 +79,8 @@ class AccountLinkingFlowController extends GetxController {
 
   Future<void> signChallenge(String signedChallenge) async {
     final Fido2ClientWeb f = Fido2ClientWeb();
-    // Fido2Client f = Fido2Client();
-    f.consoleLog('HELLO WORLD!');
-    f.initiateRegistration('Registering credential!');
+    final User user = Get.find<AuthController>().user;
+    f.initiateRegistration(challenge: '123456', userId: user.id);
 
     // TODO: this is a hack - we're not actually doing any fido, just mimicking an unlock action
     // await LocalAuth.authenticateUser(

@@ -26,7 +26,6 @@ class AccountDashboard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              TitleText('Linked Accounts', fontSize: 20),
               const SizedBox(height: 50),
               ..._buildMenuWidgets(controller),
             ],
@@ -62,10 +61,19 @@ class AccountDashboard extends StatelessWidget {
     }
 
     return <Widget>[
+      TitleText('Selected Account:', fontSize: 20),
       AccountDashboardAppBar(() {
         _showAccountChoosingBottomSheet();
       }),
+      const SizedBox(height: 10),
+      TitleText(
+        controller.accountList.length.toString() + ' accounts available',
+        textAlign: TextAlign.center,
+        fontSize: 13,
+        color: LightColor.grey,
+      ),
       const SizedBox(height: 50),
+
       // TODO - LD removed for now
       // const TitleText('Operations'),
       // const SizedBox(height: 10),

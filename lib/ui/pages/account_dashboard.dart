@@ -23,8 +23,9 @@ class AccountDashboard extends StatelessWidget {
         return SafeArea(
           child: RefreshIndicator(
             onRefresh: () async {
-              print('AccountDashboard.build.onRefresh');
-              Get.find<AccountDashboardController>().refresh();
+              print(
+                  'AccountDashboard.build.onRefresh - doing nothing as this seems bad');
+              // Get.find<AccountDashboardController>().refresh();
             },
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),

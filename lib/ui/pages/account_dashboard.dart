@@ -19,33 +19,18 @@ class AccountDashboard extends StatelessWidget {
     return GetBuilder<AccountDashboardController>(builder: (controller) {
       if (controller.isLoading) {
         return _buildLoadingWidget();
-      } else {
-        return SafeArea(
-          child: RefreshIndicator(
-            onRefresh: () async {
-              print(
-                  'AccountDashboard.build.onRefresh - doing nothing as this seems bad');
-              // Get.find<AccountDashboardController>().refresh();
-            },
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(10, 30, 0, 30),
-                      child: TitleText('Accounts', fontSize: 20),
-                    ),
-                    ..._buildMenuWidgets(controller),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        );
       }
+
+      return Padding(
+          padding: EdgeInsets.fromLTRB(30, 30, 0, 30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              TitleText('Linked Accounts', fontSize: 20),
+              const SizedBox(height: 50),
+              ..._buildMenuWidgets(controller),
+            ],
+          ));
     });
   }
 
@@ -62,11 +47,17 @@ class AccountDashboard extends StatelessWidget {
   }
 
   List<Widget> _buildMenuWidgets(AccountDashboardController controller) {
-    print('AccountList ' + controller.accountList.first.alias.toString());
+    print('AccountList length: ' + controller.accountList.toString());
 
     if (controller.accountList.isEmpty) {
       return <Widget>[
         const TitleText('No Accounts Linked', fontSize: 20),
+        const TitleText(
+          'Select "Link to get started.',
+          textAlign: TextAlign.center,
+          fontSize: 16,
+          color: LightColor.grey,
+        ),
       ];
     }
 

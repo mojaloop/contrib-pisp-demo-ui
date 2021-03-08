@@ -85,9 +85,12 @@ class _LifecycleAwareAppState extends State<LifecycleAwareApp>
 }
 
 Future<void> setupCurrentUser() async {
+  print('setupCurrentUser()');
   final FirebaseUser currentUser = await FirebaseAuth.instance.currentUser();
   if (currentUser != null) {
+    print('setupCurrentUser() - noCurrentUser');
     final User user = User.fromFirebase(currentUser, LoginType.google);
+    print('setupCurrentUser() - found user: ' + user.id);
     Get.find<AuthController>().setUser(user);
     // Since it has been determined that the user is logged in
     // we can create the user data controller.

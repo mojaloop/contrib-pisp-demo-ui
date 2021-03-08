@@ -80,8 +80,10 @@ class AccountLinkingFlowController extends GetxController {
   Future<void> signChallenge(String signedChallenge) async {
     final Fido2ClientWeb f = Fido2ClientWeb();
     final User user = Get.find<AuthController>().user;
-    f.initiateRegistration(challenge: '123456', userId: user.id);
+    final platformCredential =
+        await f.initiateRegistration(challenge: '123456', userId: user.id);
 
+    logger.w('signChallenge, credential is: ' + platformCredential.toString());
     // TODO: this is a hack - we're not actually doing any fido, just mimicking an unlock action
     // await LocalAuth.authenticateUser(
     //   'Please authorize to complete the linking process.',

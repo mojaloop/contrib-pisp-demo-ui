@@ -38,9 +38,8 @@ class AccountUnlinkingController extends GetxController {
 
   Consent findConsentToRevoke(String accId) {
     // Find Consent object linked to this accId - this is guaranteed to exist
-    return consents.firstWhere((consent) => consent.accounts
-        .where((account) => account.address == accId)
-        .isNotEmpty);
+    return consents.firstWhere((consent) =>
+        consent.accounts.where((account) => account.id == accId).isNotEmpty);
   }
 
   /// Revokes a particular consent object associated with an accId

@@ -31,6 +31,7 @@ class LoginSetup extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     LoginWithGoogleTile(
+                      onTap: () => value.onLinkGoogleAccount(),
                       trailingWidget: GetBuilder<SetupController>(
                         builder: (value) => value.googleLogin
                             ? const Icon(Icons.check_circle_outline,

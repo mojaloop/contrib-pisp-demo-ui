@@ -23,15 +23,15 @@ class AssociatedAccountsController extends GetxController {
 
   List<Account> getSelectedAccounts() {
     return associatedAccounts
-        .where((account) => _selectedAccIds.contains(account.address))
+        .where((account) => _selectedAccIds.contains(account.id))
         .toList();
   }
 
   List<CredentialScope> getSelectedScopes() {
     return associatedAccounts
-        .where((account) => _selectedAccIds.contains(account.address))
-        .map((e) => CredentialScope(
-            actions: ['accounts.transfer'], accountId: e.address))
+        .where((account) => _selectedAccIds.contains(account.id))
+        .map((e) =>
+            CredentialScope(actions: ['accounts.transfer'], accountId: e.id))
         .toList();
   }
 

@@ -11,40 +11,43 @@ class AccountDashboardController extends GetxController {
 
   Account selectedAccount;
 
+  List<Account> accountList = <Account>[];
   List<Transaction> transactionList = <Transaction>[];
 
-  bool isLoading = true;
+  bool isLoading = false;
 
   ITransactionRepository _transactionRepo;
 
-  bool noAccounts = true;
+  // @override
+  // Future<void> onReady() async {
+  //   print('AccountDashboardController - Refreshing!');
+  //   isLoading = true;
 
-  @override
-  Future<void> onReady() async {
-    print('AccountDashboardController - Refreshing!');
-    isLoading = true;
+  //   // LD - TODO - calling this seems to crash the application
+  //   // update();
 
-    // LD - TODO - calling this seems to crash the application
-    // update();
+  //   await getLinkedAccounts();
+  //   accountList = Get.find<AccountController>().accounts;
+  //   if (accountList.isNotEmpty) {
+  //     await setSelectedAccount(accountList.first);
+  //   }
 
-    await getLinkedAccounts();
+  //   // if (Get.find<AccountController>().accounts.isEmpty) {
+  //   //   noAccounts = true;
+  //   // } else {
+  //   //   noAccounts = false;
+  //   //   await setSelectedAccount(
+  //   //     Get.find<AccountController>().accounts.elementAt(0),
+  //   //   );
+  //   // }
 
-    if (Get.find<AccountController>().accounts.isEmpty) {
-      noAccounts = true;
-    } else {
-      noAccounts = false;
-      await setSelectedAccount(
-        Get.find<AccountController>().accounts.elementAt(0),
-      );
-    }
+  //   isLoading = false;
 
-    isLoading = false;
+  //   print('AccountDashboardController - done!');
 
-    print('AccountDashboardController - done!');
-
-    // LD - TODO - calling this seems to crash the application
-    // update();
-  }
+  //   // LD - TODO - calling this seems to crash the application
+  //   // update();
+  // }
 
   Future<void> setSelectedAccount(Account acc) async {
     selectedAccount = acc;

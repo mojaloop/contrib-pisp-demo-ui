@@ -61,29 +61,54 @@ class AccountDashboard extends StatelessWidget {
   }
 
   List<Widget> _buildMenuWidgets(AccountDashboardController controller) {
-    if (controller.noAccounts) {
+    print('AccountList ' + controller.accountList.first.alias.toString());
+
+    if (controller.accountList.isEmpty) {
       return <Widget>[
         const TitleText('No Accounts Linked', fontSize: 20),
       ];
-    } else {
-      return <Widget>[
-        AccountDashboardAppBar(() {
-          _showAccountChoosingBottomSheet();
-        }),
-        const SizedBox(height: 50),
-        const TitleText('Operations'),
-        const SizedBox(height: 10),
-        Operations(),
+    }
+
+    return <Widget>[
+      AccountDashboardAppBar(() {
+        _showAccountChoosingBottomSheet();
+      }),
+      const SizedBox(height: 50),
+      // TODO - LD removed for now
+      // const TitleText('Operations'),
+      // const SizedBox(height: 10),
+      // Operations(),
+      const SizedBox(height: 40),
+      ..._buildTransfersSection(controller)
+    ];
+  }
+
+  List<Widget> _buildTransfersSection(AccountDashboardController controller) {
+    if (controller.transactionList.isEmpty) {
+      return [
+        const TitleText(
+          'Transfers',
+          fontSize: 20,
+        ),
         const SizedBox(height: 40),
-        const TitleText('Transactions'),
-        ...controller.transactionList.map(
-          (transaction) => TransactionTile(
-            transaction,
-            (t) => _showTransactionDetailBottomSheet(t),
-          ),
-        )
+        const TitleText(
+          'No transfers yet... select Transfer to get started.',
+          textAlign: TextAlign.center,
+          fontSize: 16,
+          color: LightColor.grey,
+        ),
       ];
     }
+
+    return [
+      const TitleText('Transfers'),
+      ...controller.transactionList.map(
+        (transaction) => TransactionTile(
+          transaction,
+          (t) => _showTransactionDetailBottomSheet(t),
+        ),
+      )
+    ];
   }
 
   void _showTransactionDetailBottomSheet(Transaction t) {

@@ -25,10 +25,11 @@ class Dashboard extends StatelessWidget {
                 icon: Icon(Icons.transfer_within_a_station),
                 label: 'Transfer',
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline),
-                label: 'Profile',
-              ),
+              // TODO (LD) - removed for now... not using this.
+              //BottomNavigationBarItem(
+              //  icon: Icon(Icons.person_outline),
+              //  label: 'Profile',
+              //),
             ],
             currentIndex: value.selectedIndex,
             fixedColor: LightColor.darkgrey,

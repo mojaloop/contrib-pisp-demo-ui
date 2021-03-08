@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:pispapp/controllers/app/account_controller.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/controllers/ephemeral/dashboard/dashboard_controller.dart';
+import 'package:pispapp/repositories/firebase/account_repository.dart';
 import 'package:pispapp/repositories/firebase/auth_repository.dart';
 import 'package:pispapp/repositories/firebase/consent_repository.dart';
 import 'package:pispapp/repositories/firebase/user_data_repository.dart';
@@ -118,7 +119,7 @@ String determineStartingPage() {
 // Initialize controllers which maintain global app state
 void initAppControllers() {
   Get.put(AuthController(AuthRepository()));
-  Get.put(AccountController(StubAccountRepository()));
+  Get.put(AccountController(AccountRepository()));
   Get.put(DashboardController());
   Get.put(AppNavigator());
   Get.put(ConnectivityController());

@@ -112,6 +112,11 @@ enum TransactionStatus {
   @JsonValue('PENDING_PAYEE_CONFIRMATION')
   pendingPayeeConfirmation,
 
+  /// User has confirmed the payee, now waiting for response(s) from
+  /// `POST /thirdpartyRequests/transactions`
+  @JsonValue('PAYEE_CONFIRMED')
+  payeeConfirmed,
+
   /// Waiting for the user to authorize the transaction.
   @JsonValue('AUTHORIZATION_REQUIRED')
   authorizationRequired,

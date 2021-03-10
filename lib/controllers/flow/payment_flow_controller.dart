@@ -56,6 +56,7 @@ class PaymentFlowController extends GetxController {
         sourceAccountId: account.sourceAccountId,
         consentId: account.consentId,
         amount: amount,
+        status: TransactionStatus.payeeConfirmed,
       ).toJson(),
     );
   }

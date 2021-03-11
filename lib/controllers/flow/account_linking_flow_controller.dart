@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:get/get.dart';
 import 'package:fido2_client/Fido2ClientPlugin_web.dart';
 import 'package:logger/logger.dart';
@@ -32,6 +34,11 @@ class AccountLinkingFlowController extends GetxController {
   /// linked to this [opaqueId]
   Future<void> initiateDiscovery(String opaqueId, String fspId) async {
     _setAwaitingUpdate(true);
+
+    final authController = Get.find<AuthController>();
+    if (authController.user == null) {
+      logger.e('authController.user is null!!!');
+    }
 
     final User user = Get.find<AuthController>().user;
     logger.v('initiateDiscovery: user.id is ' + user.id);
@@ -80,16 +87,24 @@ class AccountLinkingFlowController extends GetxController {
   Future<void> signChallenge(String signedChallenge) async {
     final Fido2ClientWeb f = Fido2ClientWeb();
     final User user = Get.find<AuthController>().user;
-    final platformCredential =
-        await f.initiateRegistration(challenge: '123456', userId: user.id);
 
-    logger.w('signChallenge, credential is: ' + platformCredential.toString());
-    // TODO: this is a hack - we're not actually doing any fido, just mimicking an unlock action
-    // await LocalAuth.authenticateUser(
-    //   'Please authorize to complete the linking process.',
-    // );
-    // TODO: not sure what to do here...
-    // maybe we can just fill in a fake credential or something
+    // rp.id depends on where we are running
+    // grab the hostname
+    final host = window.location.hostname;
+    print('hostname is: ' + host.toString());
+    final options = {
+      'rp': {
+        'name': 'Pineapple Pay',
+        'id': host.toString(),
+      }
+    };
+    final platformCredential = await f.initiateRegistration(
+        challenge: '123456', userId: user.id, options: options);
+    // .catchError((Error error) => {error.printError()});
+
+    logger.w('signChallenge, credential is: ' + platformCredential.id);
+
+    // TODO; get the required params out to save and send to Mojaloop
     final Credential updatedCredential = Credential(
         id: 'keyHandleId',
         payload: 'todo get the payload...',

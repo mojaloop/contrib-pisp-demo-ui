@@ -72,7 +72,7 @@ class AccountSelectionScreen extends StatelessWidget {
         if (!controller.isAwaitingUpdate) {
           return MojaButton(
             const TitleText(
-              'Set PIN',
+              'Link account(s)',
               color: Colors.white,
               fontSize: 20,
             ),

@@ -19,6 +19,7 @@ class AccountLookupScreen extends StatelessWidget {
 
   final AccountLookupController _accountLookupController =
       AccountLookupController();
+  // TODO: I think the race condition is here... maybe consentRepository is null?
   final AccountLinkingFlowController _accountLinkingFlowController =
       AccountLinkingFlowController(ConsentRepository());
 

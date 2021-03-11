@@ -74,7 +74,7 @@ class AssociatedAccounts extends StatelessWidget {
         if (!controller.isAwaitingUpdate) {
           return MojaButton(
               const TitleText(
-                'Set PIN',
+                'Link Account(s)',
                 color: Colors.white,
                 fontSize: 20,
               ), onTap: () {

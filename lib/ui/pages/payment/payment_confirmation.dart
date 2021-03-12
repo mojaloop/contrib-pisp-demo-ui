@@ -54,8 +54,12 @@ class PaymentConfirmation extends StatelessWidget {
       color: LightColor.navyBlue1,
       child: Column(
         children: <Widget>[
-          ShadowBoxHeading('Payee Name'),
-          Text(transaction.payee.name),
+          ShadowBoxHeading('Sending money to:'),
+          Text(
+            transaction.payee.name,
+            style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 30),
         ],
       ),
     );
@@ -70,7 +74,7 @@ class PaymentConfirmation extends StatelessWidget {
           color: LightColor.navyBlue1,
           child: Column(
             children: <Widget>[
-              ShadowBoxHeading('Transaction Amount'),
+              ShadowBoxHeading('Send how much?'),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -114,7 +118,7 @@ class PaymentConfirmation extends StatelessWidget {
         builder: (controller) {
           return Column(
             children: <Widget>[
-              ShadowBoxHeading('Choose Payment Account'),
+              ShadowBoxHeading('From which linked account?'),
               ListTile(
                 leading: const CircleAvatar(),
                 contentPadding: const EdgeInsets.symmetric(),

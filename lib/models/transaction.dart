@@ -143,7 +143,7 @@ class Quote extends Equatable implements JsonModel {
   final Money payeeFspFee;
 
   /// The amount of money that the Payee FSP should receive.
-  Money payeeReceiveAmount;
+  final Money payeeReceiveAmount;
 
   /// Transaction commission from the Payee FSP.
   final Money payeeFspCommission;

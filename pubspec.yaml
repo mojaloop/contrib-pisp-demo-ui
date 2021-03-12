@@ -15,7 +15,7 @@ dependencies:
   fido2_client:
     # git:
     #   url: git://github.com/mojaloop/fido2-client-plugin
-    # Temporary override for web support tests
+    # TODO: Temporary override for web support tests
     path: ../fido2_client
   logger: ^0.6.0
   international_phone_input: ^1.0.4

@@ -64,13 +64,31 @@ class PaymentAuthorization extends StatelessWidget {
   }
 
   Widget _buildTransferAmountSection(Transaction transaction) {
-    final transferAmount = transaction.quote.transferAmount;
-
     final name = transaction.payee.name;
-    final fee = transaction.quote.payeeFspFee;
-    // TODO: fix this for the demo!!!
-    // parse to numbers and do maths
-    final receiveAmount = transferAmount.amount;
+    final transferAmount = transaction.quote.transferAmount;
+    final payeeFspFee = transaction.quote.payeeFspFee;
+    final payeeReceiveAmount = transaction.quote.payeeReceiveAmount;
+
+    final List<Widget> feeSection = [];
+    if (payeeFspFee != null) {
+      feeSection.add(Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TitleText(
+          '- \$${payeeFspFee.amount} transfer fees',
+          fontSize: 25,
+        ),
+      ));
+    }
+
+    if (payeeReceiveAmount != null) {
+      feeSection.add(Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TitleText(
+          '\$${payeeReceiveAmount.amount} will reach $name',
+          fontSize: 25,
+        ),
+      ));
+    }
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -81,16 +99,11 @@ class PaymentAuthorization extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TitleText(
-              '${transferAmount.currency.toJsonString()} ${transferAmount.amount}',
-              fontSize: 40,
+              'Sending: \$${transferAmount.amount}',
+              fontSize: 30,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-                'Including a fee of: ${fee.amount}\n${name} will receive: ${receiveAmount}',
-                style: TextStyle(fontStyle: FontStyle.italic)),
-          ),
+          ...feeSection,
           const Icon(Icons.arrow_downward),
           const Icon(Icons.arrow_downward),
         ]),

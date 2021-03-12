@@ -67,7 +67,8 @@ class PartyIdInfo extends Equatable implements JsonModel {
   Map<String, dynamic> toJson() => _$PartyIdInfoToJson(this);
 
   @override
-  List<Object> get props => [fspId, partyIdType, partySubIdOrType, partyIdentifier];
+  List<Object> get props =>
+      [fspId, partyIdType, partySubIdOrType, partyIdentifier];
 }
 
 /// Current allowed enumerations for the type of party id.
@@ -77,6 +78,9 @@ enum PartyIdType {
 
   @JsonValue('OPAQUE')
   opaque,
+
+  @JsonValue('THIRD_PARTY_LINK')
+  thirdPartyLink,
 }
 
 extension PartyIdTypeJson on PartyIdType {

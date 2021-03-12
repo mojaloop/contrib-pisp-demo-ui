@@ -99,6 +99,7 @@ T _$enumDecodeNullable<T>(
 const _$PartyIdTypeEnumMap = {
   PartyIdType.msisdn: 'MSISDN',
   PartyIdType.opaque: 'OPAQUE',
+  PartyIdType.thirdPartyLink: 'THIRD_PARTY_LINK',
 };
 
 PartyPersonalInfo _$PartyPersonalInfoFromJson(Map<String, dynamic> json) {

@@ -42,7 +42,7 @@ class Transaction extends Equatable implements JsonModel {
   Party payee;
 
   /// Information about the payer in the proposed financial transaction.
-  Party payer;
+  PartyIdInfo payer;
 
   /// DFSP specific account identifier to identify the source account used by
   /// the payer for the proposed financial transaction.

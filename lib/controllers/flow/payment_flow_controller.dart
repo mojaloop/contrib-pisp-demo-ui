@@ -36,7 +36,7 @@ class PaymentFlowController extends GetxController {
         payee: Party(
           partyIdInfo: PartyIdInfo(
             partyIdType: PartyIdType.msisdn,
-            partyIdentifier: phoneNumber.toString(),
+            partyIdentifier: phoneNumber.toString().replaceAll('+', ''),
           ),
         ),
       ).toJson(),
@@ -53,10 +53,14 @@ class PaymentFlowController extends GetxController {
     await _transactionRepository.updateData(
       transaction.id,
       Transaction(
-        sourceAccountId: account.sourceAccountId,
-        consentId: account.consentId,
-        amount: amount,
-      ).toJson(),
+              sourceAccountId: account.sourceAccountId,
+              consentId: account.consentId,
+              amount: amount,
+              // TODO(ldaly): load this from the selected account
+              payer: PartyIdInfo(
+                  partyIdType: PartyIdType.thirdPartyLink,
+                  partyIdentifier: '1234-1234-1234-1234'))
+          .toJson(),
     );
   }
 
@@ -68,29 +72,25 @@ class PaymentFlowController extends GetxController {
 
     // Ask user to provide their authentication. For example, the app could prompt
     // user to give their fingerprint.
-    final isUserAuthenticated = await LocalAuth.authenticateUser(
-      'Please authorize to continue the transaction.',
+    // final isUserAuthenticated = await LocalAuth.authenticateUser(
+    //   'Please authorize to continue the transaction.',
+    // );
+
+    // TODO(ldaly): Implement the signing here with fido library
+    const String signature = 'unimplemented123';
+
+    // Update Firebase with the authentication value, which in this case
+    // is the signature.
+    _transactionRepository.setData(
+      transaction.id,
+      Transaction(
+        authentication: Authentication(
+          value: signature,
+        ),
+        responseType: ResponseType.authorized,
+      ).toJson(),
+      merge: true,
     );
-
-    if (isUserAuthenticated) {
-      // TODO(kkzeng): Implement the signing here
-      const String signature = 'unimplemented123';
-
-      // Update Firebase with the authentication value, which in this case
-      // is the signature.
-      _transactionRepository.setData(
-        transaction.id,
-        Transaction(
-          authentication: Authentication(
-            value: signature,
-          ),
-          responseType: ResponseType.authorized,
-        ).toJson(),
-        merge: true,
-      );
-    } else {
-      // TODO(kkzeng): What happens when the authentication fails?
-    }
   }
 
   void _startListening(String id) {

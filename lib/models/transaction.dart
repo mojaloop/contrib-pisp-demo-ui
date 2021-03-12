@@ -42,7 +42,7 @@ class Transaction extends Equatable implements JsonModel {
   Party payee;
 
   /// Information about the payer in the proposed financial transaction.
-  Party payer;
+  PartyIdInfo payer;
 
   /// DFSP specific account identifier to identify the source account used by
   /// the payer for the proposed financial transaction.
@@ -111,11 +111,6 @@ enum TransactionStatus {
   /// details about the transaction.
   @JsonValue('PENDING_PAYEE_CONFIRMATION')
   pendingPayeeConfirmation,
-
-  /// User has confirmed the payee, now waiting for response(s) from
-  /// `POST /thirdpartyRequests/transactions`
-  @JsonValue('PAYEE_CONFIRMED')
-  payeeConfirmed,
 
   /// Waiting for the user to authorize the transaction.
   @JsonValue('AUTHORIZATION_REQUIRED')

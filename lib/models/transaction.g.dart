@@ -15,7 +15,7 @@ Transaction _$TransactionFromJson(Map<String, dynamic> json) {
         : Party.fromJson(json['payee'] as Map<String, dynamic>),
     payer: json['payer'] == null
         ? null
-        : Party.fromJson(json['payer'] as Map<String, dynamic>),
+        : PartyIdInfo.fromJson(json['payer'] as Map<String, dynamic>),
     sourceAccountId: json['sourceAccountId'] as String,
     consentId: json['consentId'] as String,
     amount: json['amount'] == null

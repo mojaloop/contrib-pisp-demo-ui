@@ -18,6 +18,7 @@ Account _$AccountFromJson(Map<String, dynamic> json) {
     fspInfo: json['fspInfo'] == null
         ? null
         : Fsp.fromJson(json['fspInfo'] as Map<String, dynamic>),
+    keyHandleId: List<int>.from(json['keyHandleId'] as List<dynamic>),
   );
 }
 
@@ -36,5 +37,6 @@ Map<String, dynamic> _$AccountToJson(Account instance) {
   writeNotNull('sourceAccountId', instance.sourceAccountId);
   writeNotNull('partyInfo', instance.partyInfo?.toJson());
   writeNotNull('fspInfo', instance.fspInfo?.toJson());
+  writeNotNull('keyHandleId', instance.keyHandleId);
   return val;
 }

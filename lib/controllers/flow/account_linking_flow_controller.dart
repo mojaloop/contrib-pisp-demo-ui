@@ -98,15 +98,14 @@ class AccountLinkingFlowController extends GetxController {
         'id': host.toString(),
       }
     };
-    final platformCredential = await f.initiateRegistration(
+    final credentialId = await f.initiateRegistration(
         challenge: '123456', userId: user.id, options: options);
-    // .catchError((Error error) => {error.printError()});
 
-    logger.w('signChallenge, credential is: ' + platformCredential.id);
+    logger.w('signChallenge, credential is: ' + credentialId.toString());
 
-    // TODO; get the required params out to save and send to Mojaloop
+    // TODO(LD): get the attestationObject
     final Credential updatedCredential = Credential(
-        id: 'keyHandleId',
+        id: 'todo - do we need this?',
         payload: 'todo get the payload...',
         type: CredentialType.fido,
         status: CredentialStatus.pending,
@@ -114,7 +113,9 @@ class AccountLinkingFlowController extends GetxController {
             payload: 'hmm we should not be sending this',
             signature: signedChallenge));
     final Consent updatedConsent = Consent(
-        credential: updatedCredential, status: ConsentStatus.challengeSigned);
+        keyHandleId: credentialId,
+        credential: updatedCredential,
+        status: ConsentStatus.challengeSigned);
     await _consentRepository.updateData(documentId, updatedConsent.toJson());
   }
 

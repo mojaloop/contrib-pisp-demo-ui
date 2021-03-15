@@ -8,34 +8,34 @@ part of 'consent.dart';
 
 Consent _$ConsentFromJson(Map<String, dynamic> json) {
   return Consent(
-    id: json['id'] as String,
-    consentId: json['consentId'] as String,
-    party: json['party'] == null
-        ? null
-        : Party.fromJson(json['party'] as Map<String, dynamic>),
-    status: _$enumDecodeNullable(_$ConsentStatusEnumMap, json['status']),
-    userId: json['userId'] as String,
-    consentRequestId: json['consentRequestId'] as String,
-    accounts: (json['accounts'] as List)
-        ?.map((e) =>
-            e == null ? null : Account.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    authChannels: (json['authChannels'] as List)
-        ?.map((e) => _$enumDecodeNullable(_$AuthChannelEnumMap, e))
-        ?.toList(),
-    authUri: json['authUri'] as String,
-    authToken: json['authToken'] as String,
-    initiatorId: json['initiatorId'] as String,
-    participantId: json['participantId'] as String,
-    scopes: (json['scopes'] as List)
-        ?.map((e) => e == null
-            ? null
-            : CredentialScope.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    credential: json['credential'] == null
-        ? null
-        : Credential.fromJson(json['credential'] as Map<String, dynamic>),
-  );
+      id: json['id'] as String,
+      consentId: json['consentId'] as String,
+      party: json['party'] == null
+          ? null
+          : Party.fromJson(json['party'] as Map<String, dynamic>),
+      status: _$enumDecodeNullable(_$ConsentStatusEnumMap, json['status']),
+      userId: json['userId'] as String,
+      consentRequestId: json['consentRequestId'] as String,
+      accounts: (json['accounts'] as List)
+          ?.map((e) =>
+              e == null ? null : Account.fromJson(e as Map<String, dynamic>))
+          ?.toList(),
+      authChannels: (json['authChannels'] as List)
+          ?.map((e) => _$enumDecodeNullable(_$AuthChannelEnumMap, e))
+          ?.toList(),
+      authUri: json['authUri'] as String,
+      authToken: json['authToken'] as String,
+      initiatorId: json['initiatorId'] as String,
+      participantId: json['participantId'] as String,
+      scopes: (json['scopes'] as List)
+          ?.map((e) => e == null
+              ? null
+              : CredentialScope.fromJson(e as Map<String, dynamic>))
+          ?.toList(),
+      credential: json['credential'] == null
+          ? null
+          : Credential.fromJson(json['credential'] as Map<String, dynamic>),
+      keyHandleId: json['keyHandleId'] as List<int>);
 }
 
 Map<String, dynamic> _$ConsentToJson(Consent instance) {
@@ -63,6 +63,7 @@ Map<String, dynamic> _$ConsentToJson(Consent instance) {
   writeNotNull('participantId', instance.participantId);
   writeNotNull('scopes', instance.scopes?.map((e) => e?.toJson())?.toList());
   writeNotNull('credential', instance.credential?.toJson());
+  writeNotNull('keyHandleId', instance.keyHandleId);
   return val;
 }
 

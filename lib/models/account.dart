@@ -15,6 +15,7 @@ class Account extends Equatable implements Model {
     this.sourceAccountId,
     this.partyInfo,
     this.fspInfo,
+    this.keyHandleId,
   });
 
   factory Account.fromJson(Map<String, dynamic> json) =>
@@ -42,9 +43,18 @@ class Account extends Equatable implements Model {
 
   final Fsp fspInfo;
 
+  final List<int> keyHandleId;
+
   Map<String, dynamic> toJson() => _$AccountToJson(this);
 
   @override
-  List<Object> get props => [alias, userId, consentId, sourceAccountId,
-    partyInfo, fspInfo];
+  List<Object> get props => [
+        alias,
+        userId,
+        consentId,
+        sourceAccountId,
+        partyInfo,
+        fspInfo,
+        keyHandleId
+      ];
 }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:fido2_client/Fido2ClientPlugin_web.dart';
 import 'package:get/get.dart';
 
 import 'package:pispapp/controllers/app/auth_controller.dart';
@@ -23,6 +24,8 @@ class PaymentFlowController extends GetxController {
   String documentId;
 
   void Function() _unsubscriber;
+
+  Account selectedAccount;
 
   /// Initiates a transaction to the given phone number.
   Future<void> initiate(PISPPhoneNumber phoneNumber) async {
@@ -49,6 +52,7 @@ class PaymentFlowController extends GetxController {
   /// data to move forward with the transfer.
   Future<void> confirm(Money amount, Account account) async {
     _setAwaitingUpdate(true);
+    this.selectedAccount = account;
 
     await _transactionRepository.updateData(
       transaction.id,
@@ -68,6 +72,7 @@ class PaymentFlowController extends GetxController {
   /// of the transaction must be equal to [TransactionStatus.authorizationRequired]
   /// upon calling this function.
   Future<void> authorize() async {
+    final Fido2ClientWeb f = Fido2ClientWeb();
     _setAwaitingUpdate(true);
 
     // Ask user to provide their authentication. For example, the app could prompt
@@ -76,7 +81,12 @@ class PaymentFlowController extends GetxController {
     //   'Please authorize to continue the transaction.',
     // );
 
-    // TODO(ldaly): Implement the signing here with fido library
+    // TODO(ldaly): get the keyHandleId from the selected account
+    const String challenge = 'unimplemented123';
+
+    await f.initiateSigning(
+        keyHandleId: selectedAccount.keyHandleId, challenge: challenge);
+    // TODO: get the signed challenge!
     const String signature = 'unimplemented123';
 
     // Update Firebase with the authentication value, which in this case

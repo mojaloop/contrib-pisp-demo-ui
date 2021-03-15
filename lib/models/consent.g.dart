@@ -35,7 +35,9 @@ Consent _$ConsentFromJson(Map<String, dynamic> json) {
       credential: json['credential'] == null
           ? null
           : Credential.fromJson(json['credential'] as Map<String, dynamic>),
-      keyHandleId: List<int>.from(json['keyHandleId'] as List<dynamic>));
+      keyHandleId: json['keyHandleId'] == null
+          ? null
+          : List<int>.from(json['keyHandleId'] as List<dynamic>));
 }
 
 Map<String, dynamic> _$ConsentToJson(Consent instance) {

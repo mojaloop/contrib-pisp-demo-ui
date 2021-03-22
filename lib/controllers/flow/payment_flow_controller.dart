@@ -75,12 +75,6 @@ class PaymentFlowController extends GetxController {
     final Fido2ClientWeb f = Fido2ClientWeb();
     _setAwaitingUpdate(true);
 
-    // Ask user to provide their authentication. For example, the app could prompt
-    // user to give their fingerprint.
-    // final isUserAuthenticated = await LocalAuth.authenticateUser(
-    //   'Please authorize to continue the transaction.',
-    // );
-
     // TODO(ldaly): get the keyHandleId from the selected account
     const String challenge = 'unimplemented123';
 

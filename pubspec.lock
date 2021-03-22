@@ -256,9 +256,11 @@ packages:
   fido2_client:
     dependency: "direct main"
     description:
-      path: "../fido2_client"
-      relative: true
-    source: path
+      path: "."
+      ref: ee7bb1a55c06479d7c8128d8a4aa453291d4f1ef
+      resolved-ref: ee7bb1a55c06479d7c8128d8a4aa453291d4f1ef
+      url: "git://github.com/mojaloop/fido2-client-plugin"
+    source: git
     version: "0.0.1"
   file:
     dependency: transitive

@@ -49,11 +49,6 @@ class PhoneNumberSetup extends StatelessWidget {
                         initialValue: Get.find<SetupController>().phoneNumber,
                         onUpdate:
                             Get.find<SetupController>().onPhoneNumberChange)
-                    // onUpdate: (PISPPhoneNumber number) =>
-                    //     // print('closure updated number: ' + number.toString())
-                    //     print('controller: ' +
-                    //         controller.onPhoneNumberChange.toString()))
-                    // controller.onPhoneNumberChange(number)),
                   ],
                 ),
               ),

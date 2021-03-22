@@ -8,7 +8,6 @@ class AccountRepository implements IAccountRepository {
 
   @override
   Future<List<Account>> getUserAccounts(String userId) async {
-    print('AccountRepository getUserAccounts');
     return accounts.where('userId', isEqualTo: userId).getDocuments().then(
           (snapshot) => snapshot.documents
               .map((element) => Account.fromJson(element.data))

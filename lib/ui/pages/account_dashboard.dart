@@ -46,8 +46,6 @@ class AccountDashboard extends StatelessWidget {
   }
 
   List<Widget> _buildMenuWidgets(AccountDashboardController controller) {
-    print('AccountList length: ' + controller.accountList.toString());
-
     if (controller.accountList.isEmpty) {
       return <Widget>[
         const TitleText('No Accounts Linked', fontSize: 20),

@@ -33,6 +33,9 @@ class AccountLinkingInitiation extends StatelessWidget {
         return _buildEmptyDisplay();
       }
 
+      fspController.availableFsps.sort(
+          (f1, f2) => f1.name.toLowerCase().compareTo(f2.name.toLowerCase()));
+
       return ListView.builder(
         itemCount: fspController.availableFsps.length + 2,
         itemBuilder: (BuildContext ctxt, int index) {
@@ -72,9 +75,10 @@ class AccountLinkingInitiation extends StatelessWidget {
   Widget _buildDescText() {
     return Container(
       padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-      child: const Text(
-        'Please choose the financial provider of the account that you would like to link:',
-      ),
+      child: const Text('Who do you hold an account with?',
+          style: const TextStyle(
+            fontSize: 15.0,
+          )),
     );
   }
 

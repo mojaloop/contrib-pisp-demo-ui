@@ -83,13 +83,12 @@ class AccountSelectionScreen extends StatelessWidget {
               );
             },
           );
-        } else {
-          return MojaButton(
-            const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-            ),
-          );
         }
+        return MojaButton(
+          const CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+          ),
+        );
       },
     );
   }
@@ -110,21 +109,23 @@ class AccountSelectionScreen extends StatelessWidget {
     }
 
     final int listLength = associatedAccounts.length + 2;
-    return ListView.builder(
-      itemCount: listLength,
-      itemBuilder: (BuildContext ctxt, int index) {
-        // Top shows a description
-        if (index == 0) {
-          return _buildInstructions();
-        }
-        // Bottom part is a "Link Account(s)" button
-        else if (index == listLength - 1) {
-          return _buildActionButton();
-        } else {
-          return _buildListItem(associatedAccounts[index - 1]);
-        }
-      },
-    );
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        child: ListView.builder(
+          itemCount: listLength,
+          itemBuilder: (BuildContext ctxt, int index) {
+            // Top shows a description
+            if (index == 0) {
+              return _buildInstructions();
+            }
+            // Bottom part is a "Link Account(s)" button
+            else if (index == listLength - 1) {
+              return _buildActionButton();
+            } else {
+              return _buildListItem(associatedAccounts[index - 1]);
+            }
+          },
+        ));
   }
 
   @override

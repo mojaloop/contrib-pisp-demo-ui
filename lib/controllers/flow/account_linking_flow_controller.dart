@@ -91,7 +91,6 @@ class AccountLinkingFlowController extends GetxController {
     // rp.id depends on where we are running
     // grab the hostname
     final host = window.location.hostname;
-    print('hostname is: ' + host.toString());
     final options = {
       'rp': {
         'name': 'Pineapple Pay',

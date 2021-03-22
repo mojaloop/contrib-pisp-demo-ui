@@ -24,6 +24,7 @@ class Consent implements JsonModel {
     this.participantId,
     this.scopes,
     this.credential,
+    this.keyHandleId,
   });
 
   @override
@@ -75,6 +76,10 @@ class Consent implements JsonModel {
 
   /// Credential object used for authentication of consent
   Credential credential;
+
+  /// credentialId/KeyHandleId from the user's authenticator
+  /// used to identify which key to use to verify a transaction
+  List<int> keyHandleId;
 
   @override
   Map<String, dynamic> toJson() => _$ConsentToJson(this);

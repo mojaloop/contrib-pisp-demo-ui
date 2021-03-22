@@ -29,7 +29,7 @@ void main() {
   test(
     'setPhoneNumber() sets the phone number correctly',
     () {
-      userDataController.setPhoneNumber(PhoneNumber('SG', '66666666'));
+      userDataController.setPhoneNumber(PISPPhoneNumber('SG', '66666666'));
       expect(userDataController.userInfo.phoneNumber.countryCode, 'SG');
       expect(userDataController.userInfo.phoneNumber.number, '66666666');
     },
@@ -47,7 +47,7 @@ void main() {
     'loadAuxiliaryInfo() correctly loads auxiliary info',
     () async {
       final AuxiliaryUserInfo userInfo = AuxiliaryUserInfo(
-          phoneNumber: PhoneNumber('SG', '66666666'),
+          phoneNumber: PISPPhoneNumber('SG', '66666666'),
           registrationDate: '01/01/2020');
       when(userDataRepository.loadAuxiliaryInfoForUser(any))
           .thenAnswer((_) => Future.value(userInfo));
@@ -79,7 +79,7 @@ void main() {
     'phoneNumberAssociated returns false when no phone number is set',
     () async {
       final AuxiliaryUserInfo userInfo =
-          AuxiliaryUserInfo(phoneNumber: PhoneNumber('SG', '66666666'));
+          AuxiliaryUserInfo(phoneNumber: PISPPhoneNumber('SG', '66666666'));
       when(userDataRepository.loadAuxiliaryInfoForUser(any))
           .thenAnswer((_) => Future.value(userInfo));
 

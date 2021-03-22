@@ -116,3 +116,9 @@ flutter version v1.9.1+hotfix.3
 
 flutter pub run build_runner build
 ```
+
+
+## TODO:
+
+- [ ] Update readme for better description of WEB
+- [ ] add a `flutter build web` and `flutter build apk` step to the ci/cd - this requires us to upload the `serviceAccount.json` file to circleci somehow

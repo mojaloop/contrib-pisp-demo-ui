@@ -10,11 +10,9 @@ class BottomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Align(
-        alignment: Alignment.bottomRight,
-        child: MojaButton(child, onTap: onTap),
-      ),
+    return Align(
+      alignment: Alignment.bottomRight,
+      child: MojaButton(child, onTap: onTap),
     );
   }
 }

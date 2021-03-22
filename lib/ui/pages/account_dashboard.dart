@@ -59,7 +59,7 @@ class AccountDashboard extends StatelessWidget {
     }
 
     return <Widget>[
-      TitleText('Selected Account:', fontSize: 20),
+      const TitleText('Selected Account:', fontSize: 20),
       AccountDashboardAppBar(() {
         _showAccountChoosingBottomSheet();
       }),
@@ -72,7 +72,7 @@ class AccountDashboard extends StatelessWidget {
       ),
       const SizedBox(height: 50),
 
-      // TODO - LD removed for now
+      // TODO(LD): removed for now - not relevant for our demo
       // const TitleText('Operations'),
       // const SizedBox(height: 10),
       // Operations(),

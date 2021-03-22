@@ -35,47 +35,47 @@ class Profile extends StatelessWidget {
               ),
               Center(child: TitleText(user.name)),
               const SizedBox(height: 40),
-              //   Column(
-              //     children: <Widget>[
-              //       // _headingTile(context, 'Payee Details'),
-              //       ListTile(
-              //         contentPadding: const EdgeInsets.symmetric(),
-              //         title: const TitleText('Email'),
-              //         trailing: Text(Get.find<AuthController>().user.email),
-              //       ),
-              //       GetBuilder<UserDataController>(
-              //         builder: (value) => ListTile(
-              //           contentPadding: const EdgeInsets.symmetric(),
-              //           title: const TitleText(
-              //             'Phone Number',
-              //             fontSize: 18,
-              //           ),
-              //           trailing:
-              //               Text(value.userInfo.getFormattedPhoneNoForDisplay()),
-              //         ),
-              //       ),
-              //       GetBuilder<UserDataController>(
-              //         builder: (value) => ListTile(
-              //           contentPadding: const EdgeInsets.symmetric(),
-              //           title: const TitleText(
-              //             'Registration Date',
-              //             fontSize: 18,
-              //           ),
-              //           trailing: Text(value.userInfo
-              //               .getFormattedRegistrationDateForDisplay()),
-              //         ),
-              //       ),
-              //       // TODO(LD): Disabled unlinking for now
-              //       // ListTile(
-              //       //     contentPadding: const EdgeInsets.symmetric(),
-              //       //     title: const TitleText(
-              //       //       'Remove Accounts',
-              //       //       fontSize: 18,
-              //       //     ),
-              //       //     trailing: const Icon(Icons.arrow_forward),
-              //       //     onTap: () => Get.toNamed<dynamic>('/account-unlinking'))
-              //     ],
-              //   ),
+              Column(
+                children: <Widget>[
+                  // _headingTile(context, 'Payee Details'),
+                  ListTile(
+                    contentPadding: const EdgeInsets.symmetric(),
+                    title: const TitleText('Email'),
+                    trailing: Text(Get.find<AuthController>().user.email),
+                  ),
+                  GetBuilder<UserDataController>(
+                    builder: (value) => ListTile(
+                      contentPadding: const EdgeInsets.symmetric(),
+                      title: const TitleText(
+                        'Phone Number',
+                        fontSize: 18,
+                      ),
+                      trailing:
+                          Text(value.userInfo.getFormattedPhoneNoForDisplay()),
+                    ),
+                  ),
+                  GetBuilder<UserDataController>(
+                    builder: (value) => ListTile(
+                      contentPadding: const EdgeInsets.symmetric(),
+                      title: const TitleText(
+                        'Registration Date',
+                        fontSize: 18,
+                      ),
+                      trailing: Text(value.userInfo
+                          .getFormattedRegistrationDateForDisplay()),
+                    ),
+                  ),
+                  //       // TODO(LD): Disabled unlinking for now
+                  //       // ListTile(
+                  //       //     contentPadding: const EdgeInsets.symmetric(),
+                  //       //     title: const TitleText(
+                  //       //       'Remove Accounts',
+                  //       //       fontSize: 18,
+                  //       //     ),
+                  //       //     trailing: const Icon(Icons.arrow_forward),
+                  //       //     onTap: () => Get.toNamed<dynamic>('/account-unlinking'))
+                ],
+              ),
               BottomButton(
                 TitleText(
                   'Log out',

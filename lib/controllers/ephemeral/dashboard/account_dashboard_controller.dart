@@ -21,11 +21,7 @@ class AccountDashboardController extends GetxController {
 
   @override
   Future<void> onReady() async {
-    print('AccountDashboardController - Refreshing!');
     isLoading = true;
-
-    // LD - TODO - calling this seems to crash the application
-    // update();
 
     await getLinkedAccounts();
     accountList = Get.find<AccountController>().accounts;
@@ -39,21 +35,7 @@ class AccountDashboardController extends GetxController {
       await setSelectedAccount(accountList.first);
     }
 
-    // if (Get.find<AccountController>().accounts.isEmpty) {
-    //   noAccounts = true;
-    // } else {
-    //   noAccounts = false;
-    //   await setSelectedAccount(
-    //     Get.find<AccountController>().accounts.elementAt(0),
-    //   );
-    // }
-
     isLoading = false;
-
-    print('AccountDashboardController - done!');
-
-    // LD - TODO - calling this seems to crash the application
-    // update();
   }
 
   Future<void> setSelectedAccount(Account acc) async {

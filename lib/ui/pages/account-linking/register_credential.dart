@@ -30,7 +30,7 @@ class RegisterCredential extends StatelessWidget {
               fontSize: 20,
             ),
             onTap: () {
-              // TODO: popup and ask user for their fingerprint!
+              // TODO(LD): get the challenge to be signed
 
               _registerCredentialController.signedChallenge = '12345';
               // Send auth token back to demo server for verification

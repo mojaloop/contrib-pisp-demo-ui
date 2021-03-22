@@ -38,6 +38,7 @@ class AuthRepository implements IAuthRepository {
     switch (user.loginType) {
       case LoginType.google:
         await _googleSignIn.signOut();
+        await _firebaseAuth.signOut();
         break;
     }
     logger.i('User ${user.id} signed out.');

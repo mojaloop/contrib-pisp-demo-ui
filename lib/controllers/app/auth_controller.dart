@@ -30,10 +30,8 @@ class AuthController extends GetxController {
   }
 
   Future<User> signInWithGoogle() async {
-    print('AuthController.signInWithGoogle');
     final user = await _authRepository.signInWithGoogle();
     setUser(user);
-
     createUserDataControllerAndCreateUserEntity(user);
 
     return user;

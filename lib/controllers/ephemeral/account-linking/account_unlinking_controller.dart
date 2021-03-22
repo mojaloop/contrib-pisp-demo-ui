@@ -29,7 +29,8 @@ class AccountUnlinkingController extends GetxController {
     final String currentUserId = Get.find<AuthController>().user.id;
 
     // Prefer the cached version but if not possible, load again
-    consents = await _consentRepository.getActiveConsents(currentUserId, preferCached: true);
+    consents = await _consentRepository.getActiveConsents(currentUserId,
+        preferCached: true);
 
     // Flatten the consents into the list of accounts
     accounts.value = consents.expand((element) => element.accounts).toList();

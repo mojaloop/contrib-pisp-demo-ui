@@ -1,4 +1,4 @@
-package com.example.pispapp
+package io.mojaloop.mojapay
 
 import androidx.annotation.NonNull
 //import io.flutter.embedding.android.FlutterActivity

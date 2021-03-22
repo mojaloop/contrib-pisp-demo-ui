@@ -4,37 +4,38 @@ import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/models/account.dart';
 import 'package:pispapp/models/transaction.dart';
 import 'package:pispapp/repositories/interfaces/i_transaction_repository.dart';
+import 'package:pispapp/utils/log_printer.dart';
 
 class AccountDashboardController extends GetxController {
   AccountDashboardController(this._transactionRepo);
 
   Account selectedAccount;
+  final logger = getLogger((AccountDashboardController).toString());
 
+  List<Account> accountList = <Account>[];
   List<Transaction> transactionList = <Transaction>[];
 
-  bool isLoading = true;
+  bool isLoading = false;
 
   ITransactionRepository _transactionRepo;
 
-  bool noAccounts = true;
-
-  Future<void> refresh() async {
+  @override
+  Future<void> onReady() async {
     isLoading = true;
-    update();
 
     await getLinkedAccounts();
-
-    if (Get.find<AccountController>().accounts.isEmpty) {
-      noAccounts = true;
+    accountList = Get.find<AccountController>().accounts;
+    var user = Get.find<AuthController>().user;
+    if (user == null) {
+      logger.e('User is null!');
     } else {
-      noAccounts = false;
-      await setSelectedAccount(
-        Get.find<AccountController>().accounts.elementAt(0),
-      );
+      logger.i('User is NOT null');
     }
-    isLoading = false;
+    if (accountList.isNotEmpty) {
+      await setSelectedAccount(accountList.first);
+    }
 
-    update();
+    isLoading = false;
   }
 
   Future<void> setSelectedAccount(Account acc) async {
@@ -43,7 +44,7 @@ class AccountDashboardController extends GetxController {
   }
 
   Future<void> updateTransactions() async {
-    final userId = Get.find<AuthController>().user.id;
+    final userId = Get.find<AuthController>().user?.id;
     transactionList = await _transactionRepo.getTransactions(userId);
     update();
   }

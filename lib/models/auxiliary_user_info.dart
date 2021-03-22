@@ -8,13 +8,14 @@ class AuxiliaryUserInfo extends Equatable implements Model {
   AuxiliaryUserInfo({this.registrationDate, this.phoneNumber});
 
   String registrationDate;
-  PhoneNumber phoneNumber;
+  PISPPhoneNumber phoneNumber;
 
   @override
   List<Object> get props => [registrationDate, phoneNumber];
 
   String getFormattedPhoneNoForDisplay() {
-    if(phoneNumber == null || (phoneNumber.countryCode == null && phoneNumber.number == null)) {
+    if (phoneNumber == null ||
+        (phoneNumber.countryCode == null && phoneNumber.number == null)) {
       return 'n/a';
     }
     return (phoneNumber.countryCode ?? '') + (phoneNumber.number ?? '');

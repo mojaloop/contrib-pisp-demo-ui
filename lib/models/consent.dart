@@ -24,10 +24,12 @@ class Consent implements JsonModel {
     this.participantId,
     this.scopes,
     this.credential,
+    this.keyHandleId,
   });
 
   @override
-  factory Consent.fromJson(Map<String, dynamic> json) => _$ConsentFromJson(json);
+  factory Consent.fromJson(Map<String, dynamic> json) =>
+      _$ConsentFromJson(json);
 
   /// Internal id that is used to identify the transaction.
   String id;
@@ -62,7 +64,7 @@ class Consent implements JsonModel {
   /// Secret token generated upon authentication
   String authToken;
 
-   /// Id of initiation party e.g - PISP
+  /// Id of initiation party e.g - PISP
   String initiatorId;
 
   /// Id of participant PISP/DFSP/party
@@ -75,6 +77,10 @@ class Consent implements JsonModel {
   /// Credential object used for authentication of consent
   Credential credential;
 
+  /// credentialId/KeyHandleId from the user's authenticator
+  /// used to identify which key to use to verify a transaction
+  List<int> keyHandleId;
+
   @override
   Map<String, dynamic> toJson() => _$ConsentToJson(this);
 }
@@ -84,16 +90,19 @@ class Consent implements JsonModel {
 class Credential implements JsonModel {
   Credential({
     this.id,
-    this.credentialType,
+    this.payload,
+    this.type,
     this.status,
     this.challenge,
   });
 
   @override
-  factory Credential.fromJson(Map<String, dynamic> json) => _$CredentialFromJson(json);
+  factory Credential.fromJson(Map<String, dynamic> json) =>
+      _$CredentialFromJson(json);
 
   String id;
-  CredentialType credentialType;
+  String payload;
+  CredentialType type;
   CredentialStatus status;
   Challenge challenge;
 
@@ -106,7 +115,8 @@ class Challenge implements JsonModel {
   Challenge({this.payload, this.signature});
 
   @override
-  factory Challenge.fromJson(Map<String, dynamic> json) => _$ChallengeFromJson(json);
+  factory Challenge.fromJson(Map<String, dynamic> json) =>
+      _$ChallengeFromJson(json);
 
   String payload;
   String signature;
@@ -117,12 +127,13 @@ class Challenge implements JsonModel {
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 class CredentialScope implements JsonModel {
-  CredentialScope({this.scope, this.accountId});
+  CredentialScope({this.actions, this.accountId});
 
   @override
-  factory CredentialScope.fromJson(Map<String, dynamic> json) => _$CredentialScopeFromJson(json);
+  factory CredentialScope.fromJson(Map<String, dynamic> json) =>
+      _$CredentialScopeFromJson(json);
 
-  String scope;
+  List<String> actions;
   String accountId;
 
   @override
@@ -132,13 +143,17 @@ class CredentialScope implements JsonModel {
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 // ignore: must_be_immutable
 class Account extends Equatable implements JsonModel {
-  Account({this.id, this.currency});
+  Account({this.id, this.accountNickname, this.currency});
 
   @override
-  factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
+  factory Account.fromJson(Map<String, dynamic> json) =>
+      _$AccountFromJson(json);
 
   /// Address of the bank account.
   String id;
+
+  /// user readable description
+  String accountNickname;
 
   /// Currency of the bank account.
   Currency currency;
@@ -165,8 +180,8 @@ enum CredentialStatus {
   @JsonValue('PENDING')
   pending,
 
-  @JsonValue('ACTIVE')
-  active,
+  @JsonValue('VERIFIED')
+  verified,
 }
 
 extension CredentialStatusJson on CredentialStatus {
@@ -185,19 +200,33 @@ enum ConsentStatus {
   @JsonValue('PENDING_PARTY_CONFIRMATION')
   pendingPartyConfirmation,
 
+  /// User has confirmed party
+  @JsonValue('PARTY_CONFIRMED')
+  partyConfirmed,
+
   /// Waiting for the user to authorize the account linking.
   @JsonValue('AUTHENTICATION_REQUIRED')
   authenticationRequired,
+
+  /// Waiting for the user to authorize the account linking.
+  @JsonValue('AUTHENTICATION_COMPLETE')
+  authenticationComplete,
 
   /// Mojaloop has notified the server that consent has been granted.
   /// The user has authorized themselves.
   @JsonValue('CONSENT_GRANTED')
   consentGranted,
 
+  // TODO: remove this - challenge generated is now no longer valid
   /// The server has requested that Mojaloop present a challenge
   /// for the FIDO registration process.
   @JsonValue('CHALLENGE_GENERATED')
   challengeGenerated,
+
+  /// The server has requested that Mojaloop present a challenge
+  /// for the FIDO registration process.
+  @JsonValue('CHALLENGE_SIGNED')
+  challengeSigned,
 
   /// The account linking was successful.
   @JsonValue('ACTIVE')

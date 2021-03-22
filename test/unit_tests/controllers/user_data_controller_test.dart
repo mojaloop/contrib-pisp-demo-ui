@@ -14,13 +14,13 @@ void main() {
   User user;
 
   setUp(
-        () {
-      user = User(id: '12345',
+    () {
+      user = User(
+          id: '12345',
           name: 'Test User',
           email: 'test@test.com',
           photoUrl: 'image.com',
-          loginType: LoginType.google
-      );
+          loginType: LoginType.google);
       userDataRepository = MockUserDataRepository();
       userDataController = UserDataController(userDataRepository, user);
     },
@@ -28,8 +28,8 @@ void main() {
 
   test(
     'setPhoneNumber() sets the phone number correctly',
-        () {
-      userDataController.setPhoneNumber(PhoneNumber('SG', '66666666'));
+    () {
+      userDataController.setPhoneNumber(PISPPhoneNumber('SG', '66666666'));
       expect(userDataController.userInfo.phoneNumber.countryCode, 'SG');
       expect(userDataController.userInfo.phoneNumber.number, '66666666');
     },
@@ -37,7 +37,7 @@ void main() {
 
   test(
     'setUserRegistrationDate() sets the registration date correctly',
-        () {
+    () {
       userDataController.setUserRegistrationDate('01/01/2020');
       expect(userDataController.userInfo.registrationDate, '01/01/2020');
     },
@@ -45,11 +45,12 @@ void main() {
 
   test(
     'loadAuxiliaryInfo() correctly loads auxiliary info',
-        () async {
-      final  AuxiliaryUserInfo userInfo = AuxiliaryUserInfo(
-          phoneNumber: PhoneNumber('SG', '66666666'),
+    () async {
+      final AuxiliaryUserInfo userInfo = AuxiliaryUserInfo(
+          phoneNumber: PISPPhoneNumber('SG', '66666666'),
           registrationDate: '01/01/2020');
-      when(userDataRepository.loadAuxiliaryInfoForUser(any)).thenAnswer((_) => Future.value(userInfo));
+      when(userDataRepository.loadAuxiliaryInfoForUser(any))
+          .thenAnswer((_) => Future.value(userInfo));
 
       await userDataController.loadAuxiliaryInfoForUser();
 
@@ -64,8 +65,9 @@ void main() {
 
   test(
     'phoneNumberAssociated returns false when no phone number is set',
-        () async {
-      when(userDataRepository.loadAuxiliaryInfoForUser(any)).thenAnswer((_) => Future.value(AuxiliaryUserInfo()));
+    () async {
+      when(userDataRepository.loadAuxiliaryInfoForUser(any))
+          .thenAnswer((_) => Future.value(AuxiliaryUserInfo()));
 
       await userDataController.loadAuxiliaryInfoForUser();
 
@@ -75,9 +77,11 @@ void main() {
 
   test(
     'phoneNumberAssociated returns false when no phone number is set',
-        () async {
-      final AuxiliaryUserInfo userInfo = AuxiliaryUserInfo(phoneNumber: PhoneNumber('SG', '66666666'));
-      when(userDataRepository.loadAuxiliaryInfoForUser(any)).thenAnswer((_) => Future.value(userInfo));
+    () async {
+      final AuxiliaryUserInfo userInfo =
+          AuxiliaryUserInfo(phoneNumber: PISPPhoneNumber('SG', '66666666'));
+      when(userDataRepository.loadAuxiliaryInfoForUser(any))
+          .thenAnswer((_) => Future.value(userInfo));
 
       await userDataController.loadAuxiliaryInfoForUser();
 

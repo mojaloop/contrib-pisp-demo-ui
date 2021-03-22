@@ -2,16 +2,17 @@ import 'package:pispapp/models/account.dart';
 import 'package:pispapp/models/fsp.dart';
 import 'package:pispapp/models/party.dart';
 import 'package:pispapp/repositories/interfaces/i_account_repository.dart';
+import 'package:pispapp/config/config.dart';
 
 final List<Account> accounts = <Account>[
   Account(
-    alias: 'Personal',
+    alias: 'Personal2',
     partyInfo: PartyIdInfo(
       fspId: 'DJCICFQ1919',
       partyIdentifier: 'IN1233323987',
     ),
     fspInfo: Fsp(id: 'DJCICFQ1919', name: 'Bank of India'),
-    consentId: '555',
+    consentId: Config.MOCK_CONSENT_ID,
     userId: 'vXiSsQglsFYXqVkOHNKKFhnuAAI2',
     sourceAccountId: 'bob.fspA',
   ),

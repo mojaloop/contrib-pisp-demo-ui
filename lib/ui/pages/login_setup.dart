@@ -10,7 +10,8 @@ class LoginSetup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      // resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
@@ -19,7 +20,7 @@ class LoginSetup extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.fromLTRB(10, 60, 0, 30),
               child: TitleText(
-                'Mojapay Setup',
+                'Set up your PineapplePay Account',
                 fontSize: 20,
               ),
             ),
@@ -30,9 +31,11 @@ class LoginSetup extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     LoginWithGoogleTile(
+                      onTap: () => value.onLinkGoogleAccount(),
                       trailingWidget: GetBuilder<SetupController>(
                         builder: (value) => value.googleLogin
-                            ? const Icon(Icons.check_circle_outline, color: Colors.green)
+                            ? const Icon(Icons.check_circle_outline,
+                                color: Colors.green)
                             : GestureDetector(
                                 child: const Icon(Icons.keyboard_arrow_right),
                                 onTap: () => value.onLinkGoogleAccount(),

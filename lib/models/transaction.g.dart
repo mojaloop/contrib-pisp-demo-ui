@@ -15,7 +15,7 @@ Transaction _$TransactionFromJson(Map<String, dynamic> json) {
         : Party.fromJson(json['payee'] as Map<String, dynamic>),
     payer: json['payer'] == null
         ? null
-        : Party.fromJson(json['payer'] as Map<String, dynamic>),
+        : PartyIdInfo.fromJson(json['payer'] as Map<String, dynamic>),
     sourceAccountId: json['sourceAccountId'] as String,
     consentId: json['consentId'] as String,
     amount: json['amount'] == null
@@ -115,6 +115,9 @@ Quote _$QuoteFromJson(Map<String, dynamic> json) {
     payeeFspFee: json['payeeFspFee'] == null
         ? null
         : Money.fromJson(json['payeeFspFee'] as Map<String, dynamic>),
+    payeeReceiveAmount: json['payeeReceiveAmount'] == null
+        ? null
+        : Money.fromJson(json['payeeReceiveAmount'] as Map<String, dynamic>),
     payeeFspCommission: json['payeeFspCommission'] == null
         ? null
         : Money.fromJson(json['payeeFspCommission'] as Map<String, dynamic>),
@@ -135,6 +138,7 @@ Map<String, dynamic> _$QuoteToJson(Quote instance) {
 
   writeNotNull('transferAmount', instance.transferAmount?.toJson());
   writeNotNull('payeeFspFee', instance.payeeFspFee?.toJson());
+  writeNotNull('payeeReceiveAmount', instance.payeeReceiveAmount?.toJson());
   writeNotNull('payeeFspCommission', instance.payeeFspCommission?.toJson());
   writeNotNull('expiration', instance.expiration);
   writeNotNull('condition', instance.condition);

@@ -1,16 +1,26 @@
 import 'package:get/get.dart';
-import 'package:international_phone_input/international_phone_input.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/controllers/app/user_data_controller.dart';
 import 'package:pispapp/models/phone_number.dart';
 import 'package:pispapp/routes/app_navigator.dart';
 
 class SetupController extends GetxController {
-  PhoneNumber phoneNumber;
+  PISPPhoneNumber phoneNumber;
   RxBool validPhoneNumber = false.obs;
 
   bool googleLogin = false;
   bool googleLoginPrompt = false;
+
+  // TODO - reenable one day - seems to cause rendering issues
+  // @override
+  // void onInit() {
+  //   if (Get.find<UserDataController>().phoneNumberAssociated) {
+  // phoneNumber = Get.find<UserDataController>().getPhoneNumber();
+  //   validPhoneNumber.value = true;
+  //   }
+
+  //   super.onInit();
+  // }
 
   void defaultState() {
     googleLogin = false;
@@ -18,17 +28,14 @@ class SetupController extends GetxController {
     update();
   }
 
-  void onPhoneNumberChange(PhoneNumber phoneNumber) {
+  /// Because of some web quirks,
+  /// We rely on the phone number library to only call this
+  /// when the number is already valid
+  void onPhoneNumberChange(PISPPhoneNumber phoneNumber, bool valid) {
     this.phoneNumber = phoneNumber;
-    _checkNumberValidity();
     Get.find<UserDataController>().setPhoneNumber(phoneNumber);
+    validPhoneNumber.value = valid;
     update();
-  }
-
-  Future<void> _checkNumberValidity() async {
-    PhoneService.parsePhoneNumber(phoneNumber.number, phoneNumber.countryCode).then((isValid) {
-      validPhoneNumber.value = isValid;
-    });
   }
 
   Future<void> onLinkGoogleAccount() async {
@@ -48,10 +55,10 @@ class SetupController extends GetxController {
     // If phone number information has been previously associated then
     // skip the phone number setup
     // Otherwise proceed with phone number setup
-    if(Get.find<UserDataController>().phoneNumberAssociated) {
+    // TODO - get rid of this, instead pre-fill the user's number
+    if (Get.find<UserDataController>().phoneNumberAssociated) {
       Get.find<AppNavigator>().offAllNamed('/dashboard');
-    }
-    else {
+    } else {
       Get.find<AppNavigator>().toNamed('/phone_number');
     }
   }

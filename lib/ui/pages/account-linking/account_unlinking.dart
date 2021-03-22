@@ -40,7 +40,7 @@ class AccountUnlinking extends StatelessWidget {
   }
 
   Widget _buildListItem(Account acc) {
-    final String accId = acc?.id ?? 'Unknown Account';
+    final String accId = acc?.accountNickname ?? 'Unknown Account';
     final String currencyStr =
         acc?.currency?.toJsonString() ?? 'Unknown Currency';
     return Container(
@@ -123,8 +123,8 @@ class AccountUnlinking extends StatelessWidget {
               'Please note that the following accounts will be removed:'),
           const SizedBox(height: 10),
           // Add list of accounts that will be removed
-          ...toRevoke.accounts
-              .map((acc) => Text('• ${acc.id}', textAlign: TextAlign.left)),
+          ...toRevoke.accounts.map((acc) =>
+              Text('• ${acc.accountNickname}', textAlign: TextAlign.left)),
         ],
       );
     }

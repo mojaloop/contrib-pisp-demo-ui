@@ -42,9 +42,10 @@ PartyIdInfo _$PartyIdInfoFromJson(Map<String, dynamic> json) {
     fspId: json['fspId'] as String,
     partyIdType:
         _$enumDecodeNullable(_$PartyIdTypeEnumMap, json['partyIdType']),
-    partySubIdOrType: json['partySubIdOrType'] as String,
     partyIdentifier: json['partyIdentifier'] as String,
   );
+  // TODO: hack - for some reason this stopped compiling
+  // )..partySubIdOrType = json['partySubIdOrType'] as String;
 }
 
 Map<String, dynamic> _$PartyIdInfoToJson(PartyIdInfo instance) {
@@ -98,6 +99,7 @@ T _$enumDecodeNullable<T>(
 const _$PartyIdTypeEnumMap = {
   PartyIdType.msisdn: 'MSISDN',
   PartyIdType.opaque: 'OPAQUE',
+  PartyIdType.thirdPartyLink: 'THIRD_PARTY_LINK',
 };
 
 PartyPersonalInfo _$PartyPersonalInfoFromJson(Map<String, dynamic> json) {

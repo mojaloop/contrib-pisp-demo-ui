@@ -23,7 +23,7 @@ class PaymentInitiation extends StatelessWidget {
         children: <Widget>[
           const Padding(
             padding: EdgeInsets.fromLTRB(10, 60, 0, 30),
-            child: TitleText('Pay Now', fontSize: 20),
+            child: TitleText('Transfer', fontSize: 20),
           ),
           GetBuilder<PaymentInitiationController>(
             init: _paymentInitiationController,
@@ -33,7 +33,7 @@ class PaymentInitiation extends StatelessWidget {
                 color: LightColor.navyBlue1,
                 child: Column(
                   children: <Widget>[
-                    const PhoneNumberTile(heading: 'Payee Mobile Number'),
+                    const PhoneNumberTile(heading: 'Send to a Phone Number:'),
                     PhoneNumberInput(
                       hintText: 'Enter phone number',
                       initialValue: controller.phoneNumber,
@@ -62,17 +62,19 @@ class PaymentInitiation extends StatelessWidget {
           // flow controller is expected to bring used to another page.
           return Obx(() {
             return BottomButton(
-              const TitleText(
-                'Make A Transfer',
-                color: Colors.white,
-                fontSize: 20,
-              ),
-              onTap: _paymentInitiationController.validPhoneNumber.value ? () {
-                final phoneNumber = _paymentInitiationController.phoneNumber;
-                // Initiate a transfer to the given phone number.
-                _paymentFlowController.initiate(phoneNumber);
-              } : null
-            );
+                const TitleText(
+                  'Make A Transfer',
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+                onTap: _paymentInitiationController.validPhoneNumber.value
+                    ? () {
+                        final phoneNumber =
+                            _paymentInitiationController.phoneNumber;
+                        // Initiate a transfer to the given phone number.
+                        _paymentFlowController.initiate(phoneNumber);
+                      }
+                    : null);
           });
         } else {
           // Once the user clicks the button, it will change to a circular progress

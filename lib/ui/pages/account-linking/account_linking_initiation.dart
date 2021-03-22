@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/ephemeral/account-linking/available_fsp_controller.dart';
+import 'package:pispapp/controllers/flow/account_linking_flow_controller.dart';
 import 'package:pispapp/ui/pages/account-linking/account_lookup_screen.dart';
 import 'package:pispapp/models/fsp.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
@@ -17,6 +18,7 @@ class AccountLinkingInitiation extends StatelessWidget {
         child: ListTile(
           trailing: const Icon(Icons.arrow_forward_ios),
           title: Text(fsp.name),
+          subtitle: Text(fsp.id),
           onTap: () => Get.to<dynamic>(AccountLookupScreen(fsp)),
         ),
       ),
@@ -30,6 +32,9 @@ class AccountLinkingInitiation extends StatelessWidget {
       if (fspController.availableFsps.isEmpty) {
         return _buildEmptyDisplay();
       }
+
+      fspController.availableFsps.sort(
+          (f1, f2) => f1.name.toLowerCase().compareTo(f2.name.toLowerCase()));
 
       return ListView.builder(
         itemCount: fspController.availableFsps.length + 2,
@@ -70,9 +75,10 @@ class AccountLinkingInitiation extends StatelessWidget {
   Widget _buildDescText() {
     return Container(
       padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-      child: const Text(
-        'Please choose the financial provider of the account that you would like to link:',
-      ),
+      child: const Text('Who do you hold an account with?',
+          style: const TextStyle(
+            fontSize: 15.0,
+          )),
     );
   }
 

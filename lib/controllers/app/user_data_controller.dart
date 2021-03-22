@@ -20,15 +20,22 @@ class UserDataController extends GetxController {
 
   bool get phoneNumberAssociated => userInfo?.phoneNumber != null;
 
-  Future<void> loadAuxiliaryInfoForUser() async => userInfo = await _userDataRepository.loadAuxiliaryInfoForUser(_user.id);
+  Future<void> loadAuxiliaryInfoForUser() async =>
+      userInfo = await _userDataRepository.loadAuxiliaryInfoForUser(_user.id);
 
-  Future<void> associatePhoneNumberWithUser(PhoneNumber number) => _userDataRepository.associatePhoneNumberWithUser(_user.id, number);
+  Future<void> associatePhoneNumberWithUser(PISPPhoneNumber number) =>
+      _userDataRepository.associatePhoneNumberWithUser(_user.id, number);
 
-  Future<void> createUserEntryInDB() => _userDataRepository.createUserEntryInDB(_user.id);
+  Future<void> createUserEntryInDB() =>
+      _userDataRepository.createUserEntryInDB(_user.id);
 
-  void setPhoneNumber(PhoneNumber phoneNumber) {
+  void setPhoneNumber(PISPPhoneNumber phoneNumber) {
     userInfo.phoneNumber = phoneNumber;
     update();
+  }
+
+  PISPPhoneNumber getPhoneNumber() {
+    return userInfo.phoneNumber;
   }
 
   void setUserRegistrationDate(String date) {

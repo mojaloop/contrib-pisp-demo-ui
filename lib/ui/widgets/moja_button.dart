@@ -13,13 +13,13 @@ class MojaButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.only(left: 0, right: 0, top: 20, bottom: 20),
       child: ButtonTheme(
         minWidth: Get.width,
         height: 70.0,
         child: RaisedButton(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18.0),
+            borderRadius: BorderRadius.circular(5.0),
             side: const BorderSide(color: Colors.blue),
           ),
           onPressed: onTap,

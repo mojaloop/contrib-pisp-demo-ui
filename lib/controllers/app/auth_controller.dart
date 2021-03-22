@@ -21,7 +21,8 @@ class AuthController extends GetxController {
 
     // Since it has been determined that the user is logged in
     // we can create the user data controller.
-    final UserDataController _userDataController = Get.put(UserDataController(UserDataRepository(), user));
+    final UserDataController _userDataController =
+        Get.put(UserDataController(UserDataRepository(), user));
 
     // Create a user entity in the database if it does not exist already
     await _userDataController.createUserEntryInDB();
@@ -31,7 +32,6 @@ class AuthController extends GetxController {
   Future<User> signInWithGoogle() async {
     final user = await _authRepository.signInWithGoogle();
     setUser(user);
-
     createUserDataControllerAndCreateUserEntity(user);
 
     return user;

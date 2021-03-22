@@ -19,7 +19,8 @@ class PaymentAuthorization extends StatelessWidget {
     final transaction = _paymentFlowController.transaction;
 
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      // resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -63,7 +64,31 @@ class PaymentAuthorization extends StatelessWidget {
   }
 
   Widget _buildTransferAmountSection(Transaction transaction) {
+    final name = transaction.payee.name;
     final transferAmount = transaction.quote.transferAmount;
+    final payeeFspFee = transaction.quote.payeeFspFee;
+    final payeeReceiveAmount = transaction.quote.payeeReceiveAmount;
+
+    final List<Widget> feeSection = [];
+    if (payeeFspFee != null) {
+      feeSection.add(Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TitleText(
+          '- \$${payeeFspFee.amount} transfer fees',
+          fontSize: 25,
+        ),
+      ));
+    }
+
+    if (payeeReceiveAmount != null) {
+      feeSection.add(Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TitleText(
+          '\$${payeeReceiveAmount.amount} will reach $name',
+          fontSize: 25,
+        ),
+      ));
+    }
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -74,10 +99,11 @@ class PaymentAuthorization extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TitleText(
-              '${transferAmount.currency.toJsonString()} ${transferAmount.amount}',
-              fontSize: 40,
+              'Sending: \$${transferAmount.amount}',
+              fontSize: 30,
             ),
           ),
+          ...feeSection,
           const Icon(Icons.arrow_downward),
           const Icon(Icons.arrow_downward),
         ]),

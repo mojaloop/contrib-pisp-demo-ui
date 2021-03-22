@@ -8,14 +8,18 @@ import 'package:pispapp/repositories/firebase/consent_repository.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
+import 'package:pispapp/utils/log_printer.dart';
 
 class AccountLookupScreen extends StatelessWidget {
   AccountLookupScreen(this.fsp);
+
+  static final logger = getLogger('AccountLookupScreen');
 
   final Fsp fsp;
 
   final AccountLookupController _accountLookupController =
       AccountLookupController();
+  // TODO: I think the race condition is here... maybe consentRepository is null?
   final AccountLinkingFlowController _accountLinkingFlowController =
       AccountLinkingFlowController(ConsentRepository());
 
@@ -57,12 +61,25 @@ class AccountLookupScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildInstructions() {
-    return const Padding(
+  Widget _buildTitle() {
+    return Padding(
       padding: EdgeInsets.symmetric(vertical: 15),
       child: Text(
-        'Please enter the ID of the account you are trying to link.',
-        style: TextStyle(
+        'Login with ${fsp.name}',
+        style: const TextStyle(
+          fontSize: 25.0,
+          color: LightColor.navyBlue2,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInstructions() {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 15),
+      child: Text(
+        'Please enter the ID you use to log in with ${fsp.name}',
+        style: const TextStyle(
           fontSize: 15.0,
           color: LightColor.navyBlue2,
         ),
@@ -73,7 +90,8 @@ class AccountLookupScreen extends StatelessWidget {
   Widget _buildIDTextField() {
     return TextField(
       textAlign: TextAlign.center,
-      decoration: const InputDecoration(hintText: 'Account ID'),
+      decoration: const InputDecoration(
+          hintText: 'email, phone number, national ID number...'),
       style: const TextStyle(
         fontSize: 15.0,
         height: 2.0,
@@ -105,6 +123,7 @@ class AccountLookupScreen extends StatelessWidget {
           children: [
             const SizedBox(height: 30),
             _buildAccountIcon(),
+            _buildTitle(),
             _buildInstructions(),
             _buildIDTextField(),
             _buildActionSection(),

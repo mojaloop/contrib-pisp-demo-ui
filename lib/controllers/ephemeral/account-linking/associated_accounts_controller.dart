@@ -9,10 +9,9 @@ class AssociatedAccountsController extends GetxController {
   final HashSet<String> _selectedAccIds = HashSet();
 
   void onTap(String accId) {
-    if(isAccSelected(accId)) {
+    if (isAccSelected(accId)) {
       _unselectAcc(accId);
-    }
-    else {
+    } else {
       _selectAcc(accId);
     }
     update();
@@ -23,7 +22,17 @@ class AssociatedAccountsController extends GetxController {
   }
 
   List<Account> getSelectedAccounts() {
-    return associatedAccounts.where((account) => _selectedAccIds.contains(account.id)).toList();
+    return associatedAccounts
+        .where((account) => _selectedAccIds.contains(account.id))
+        .toList();
+  }
+
+  List<CredentialScope> getSelectedScopes() {
+    return associatedAccounts
+        .where((account) => _selectedAccIds.contains(account.id))
+        .map((e) =>
+            CredentialScope(actions: ['accounts.transfer'], accountId: e.id))
+        .toList();
   }
 
   void _selectAcc(String accId) {

@@ -9,7 +9,7 @@ class Dashboard extends StatelessWidget {
     return GetBuilder<DashboardController>(
       builder: (value) {
         return Scaffold(
-          resizeToAvoidBottomPadding: false,
+          resizeToAvoidBottomInset: false,
           body: value.widgetOptions.elementAt(value.selectedIndex),
           bottomNavigationBar: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
@@ -31,9 +31,11 @@ class Dashboard extends StatelessWidget {
               ),
             ],
             currentIndex: value.selectedIndex,
-            fixedColor: LightColor.navyBlue2,
-            unselectedItemColor: Colors.black,
+            fixedColor: LightColor.darkgrey,
+            unselectedItemColor: Colors.grey.shade400,
             onTap: value.onItemTapped,
+            showUnselectedLabels: true,
+            type: BottomNavigationBarType.fixed,
           ),
         );
       },

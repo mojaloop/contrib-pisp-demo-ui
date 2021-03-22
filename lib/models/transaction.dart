@@ -42,7 +42,7 @@ class Transaction extends Equatable implements JsonModel {
   Party payee;
 
   /// Information about the payer in the proposed financial transaction.
-  Party payer;
+  PartyIdInfo payer;
 
   /// DFSP specific account identifier to identify the source account used by
   /// the payer for the proposed financial transaction.
@@ -126,6 +126,7 @@ class Quote extends Equatable implements JsonModel {
   Quote({
     this.transferAmount,
     this.payeeFspFee,
+    this.payeeReceiveAmount,
     this.payeeFspCommission,
     this.expiration,
     this.condition,
@@ -140,6 +141,9 @@ class Quote extends Equatable implements JsonModel {
 
   /// Payee FSP’s part of the transaction fee.
   final Money payeeFspFee;
+
+  /// The amount of money that the Payee FSP should receive.
+  final Money payeeReceiveAmount;
 
   /// Transaction commission from the Payee FSP.
   final Money payeeFspCommission;

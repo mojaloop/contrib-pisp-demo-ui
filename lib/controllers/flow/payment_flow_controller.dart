@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:fido2_client/Fido2ClientPlugin_web.dart';
 import 'package:get/get.dart';
 
 import 'package:pispapp/controllers/app/auth_controller.dart';
@@ -24,8 +25,10 @@ class PaymentFlowController extends GetxController {
 
   void Function() _unsubscriber;
 
+  Account selectedAccount;
+
   /// Initiates a transaction to the given phone number.
-  Future<void> initiate(PhoneNumber phoneNumber) async {
+  Future<void> initiate(PISPPhoneNumber phoneNumber) async {
     _setAwaitingUpdate(true);
 
     final user = Get.find<AuthController>().user;
@@ -36,7 +39,7 @@ class PaymentFlowController extends GetxController {
         payee: Party(
           partyIdInfo: PartyIdInfo(
             partyIdType: PartyIdType.msisdn,
-            partyIdentifier: phoneNumber.toString(),
+            partyIdentifier: phoneNumber.toString().replaceAll('+', ''),
           ),
         ),
       ).toJson(),
@@ -49,14 +52,19 @@ class PaymentFlowController extends GetxController {
   /// data to move forward with the transfer.
   Future<void> confirm(Money amount, Account account) async {
     _setAwaitingUpdate(true);
+    this.selectedAccount = account;
 
     await _transactionRepository.updateData(
       transaction.id,
       Transaction(
-        sourceAccountId: account.sourceAccountId,
-        consentId: account.consentId,
-        amount: amount,
-      ).toJson(),
+              sourceAccountId: account.sourceAccountId,
+              consentId: account.consentId,
+              amount: amount,
+              // TODO(ldaly): load this from the selected account
+              payer: PartyIdInfo(
+                  partyIdType: PartyIdType.thirdPartyLink,
+                  partyIdentifier: '1234-1234-1234-1234'))
+          .toJson(),
     );
   }
 
@@ -64,33 +72,29 @@ class PaymentFlowController extends GetxController {
   /// of the transaction must be equal to [TransactionStatus.authorizationRequired]
   /// upon calling this function.
   Future<void> authorize() async {
+    final Fido2ClientWeb f = Fido2ClientWeb();
     _setAwaitingUpdate(true);
 
-    // Ask user to provide their authentication. For example, the app could prompt
-    // user to give their fingerprint.
-    final isUserAuthenticated = await LocalAuth.authenticateUser(
-      'Please authorize to continue the transaction.',
+    // TODO(ldaly): get the keyHandleId from the selected account
+    const String challenge = 'unimplemented123';
+
+    await f.initiateSigning(
+        keyHandleId: selectedAccount.keyHandleId, challenge: challenge);
+    // TODO: get the signed challenge!
+    const String signature = 'unimplemented123';
+
+    // Update Firebase with the authentication value, which in this case
+    // is the signature.
+    _transactionRepository.setData(
+      transaction.id,
+      Transaction(
+        authentication: Authentication(
+          value: signature,
+        ),
+        responseType: ResponseType.authorized,
+      ).toJson(),
+      merge: true,
     );
-
-    if (isUserAuthenticated) {
-      // TODO(kkzeng): Implement the signing here
-      const String signature = 'unimplemented123';
-
-      // Update Firebase with the authentication value, which in this case
-      // is the signature.
-      _transactionRepository.setData(
-        transaction.id,
-        Transaction(
-          authentication: Authentication(
-            value: signature,
-          ),
-          responseType: ResponseType.authorized,
-        ).toJson(),
-        merge: true,
-      );
-    } else {
-      // TODO(kkzeng): What happens when the authentication fails?
-    }
   }
 
   void _startListening(String id) {

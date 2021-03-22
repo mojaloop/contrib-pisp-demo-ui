@@ -28,7 +28,7 @@ class ConnectivityController extends GetxController {
       content: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(children: const [
-          Icon(Icons.wifi_off, size: 80, color: LightColor.lightBlue1),
+          Icon(Icons.access_time, size: 80, color: LightColor.lightBlue1),
           SizedBox(height: 10),
           Text(
             'Please make sure you turn on your Wifi or Cellular Data!',

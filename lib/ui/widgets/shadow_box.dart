@@ -14,7 +14,7 @@ class ShadowBox extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
         border: Border.all(color: color),
-        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
         boxShadow: const [
           BoxShadow(
             color: Color(0xfff3f3f3),

@@ -19,31 +19,17 @@ class AccountDashboard extends StatelessWidget {
     return GetBuilder<AccountDashboardController>(builder: (controller) {
       if (controller.isLoading) {
         return _buildLoadingWidget();
-      } else {
-        return SafeArea(
-          child: RefreshIndicator(
-            onRefresh: () async {
-              Get.find<AccountDashboardController>().refresh();
-            },
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(10, 30, 0, 30),
-                      child: TitleText('Accounts', fontSize: 20),
-                    ),
-                    ..._buildMenuWidgets(controller),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        );
       }
+
+      return Padding(
+          padding: EdgeInsets.fromLTRB(30, 30, 0, 30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const SizedBox(height: 50),
+              ..._buildMenuWidgets(controller),
+            ],
+          ));
     });
   }
 
@@ -52,7 +38,7 @@ class AccountDashboard extends StatelessWidget {
       body: Container(
         child: const Center(
           child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(LightColor.yellow2),
+            valueColor: AlwaysStoppedAnimation<Color>(LightColor.lightBlue2),
           ),
         ),
       ),
@@ -60,29 +46,67 @@ class AccountDashboard extends StatelessWidget {
   }
 
   List<Widget> _buildMenuWidgets(AccountDashboardController controller) {
-    if (controller.noAccounts) {
+    if (controller.accountList.isEmpty) {
       return <Widget>[
         const TitleText('No Accounts Linked', fontSize: 20),
-      ];
-    } else {
-      return <Widget>[
-        AccountDashboardAppBar(() {
-          _showAccountChoosingBottomSheet();
-        }),
-        const SizedBox(height: 50),
-        const TitleText('Operations'),
-        const SizedBox(height: 10),
-        Operations(),
-        const SizedBox(height: 40),
-        const TitleText('Transactions'),
-        ...controller.transactionList.map(
-          (transaction) => TransactionTile(
-            transaction,
-            (t) => _showTransactionDetailBottomSheet(t),
-          ),
-        )
+        const TitleText(
+          'Select "Link to get started.',
+          textAlign: TextAlign.center,
+          fontSize: 16,
+          color: LightColor.grey,
+        ),
       ];
     }
+
+    return <Widget>[
+      TitleText('Selected Account:', fontSize: 20),
+      AccountDashboardAppBar(() {
+        _showAccountChoosingBottomSheet();
+      }),
+      const SizedBox(height: 10),
+      TitleText(
+        controller.accountList.length.toString() + ' accounts available',
+        textAlign: TextAlign.center,
+        fontSize: 13,
+        color: LightColor.grey,
+      ),
+      const SizedBox(height: 50),
+
+      // TODO - LD removed for now
+      // const TitleText('Operations'),
+      // const SizedBox(height: 10),
+      // Operations(),
+      const SizedBox(height: 40),
+      ..._buildTransfersSection(controller)
+    ];
+  }
+
+  List<Widget> _buildTransfersSection(AccountDashboardController controller) {
+    if (controller.transactionList.isEmpty) {
+      return [
+        const TitleText(
+          'Transfers',
+          fontSize: 20,
+        ),
+        const SizedBox(height: 40),
+        const TitleText(
+          'No transfers yet... select Transfer to get started.',
+          textAlign: TextAlign.center,
+          fontSize: 16,
+          color: LightColor.grey,
+        ),
+      ];
+    }
+
+    return [
+      const TitleText('Transfers'),
+      ...controller.transactionList.map(
+        (transaction) => TransactionTile(
+          transaction,
+          (t) => _showTransactionDetailBottomSheet(t),
+        ),
+      )
+    ];
   }
 
   void _showTransactionDetailBottomSheet(Transaction t) {

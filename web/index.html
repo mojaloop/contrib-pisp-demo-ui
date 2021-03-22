@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    Fore more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+  -->
+  <base href="/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="PineapplePay">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>PineapplePay</title>
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <!-- This script installs service_worker.js to provide PWA functionality to
+       application. For more information, see:
+       https://developers.google.com/web/fundamentals/primers/service-workers -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('flutter-first-frame', function () {
+        navigator.serviceWorker.register('flutter_service_worker.js');
+      });
+    }
+  </script>
+  <!-- Add web support for firebase -->
+  <!-- support is still limited, so let's see how we go -->
+  <!-- we might want to look at these values: -->
+  <!-- https://github.com/FirebaseExtended/firebase-dart/issues/192#issuecomment-736885018 -->
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-auth.js"></script>
+
+
+  <!-- intl_phone_number_input -->
+  <script src="assets/packages/libphonenumber_plugin/js/libphonenumber.js"></script>
+  <script src="assets/packages/libphonenumber_plugin/js/stringbuffer.js"></script>
+  
+  <!-- fido2_client -->
+  <script src="assets/packages/fido2_client/assets/js/fido2_client.js"></script>
+  <script src="assets/packages/fido2_client/assets/js/cbor.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyCGsSZOEwnHu6cXeeTK3_UFUfyBxi2x250",
+      authDomain: "mojapay-dev.firebaseapp.com",
+      databaseURL: "https://mojapay-dev.firebaseio.com",
+      projectId: "mojapay-dev",
+      storageBucket: "mojapay-dev.appspot.com",
+      messagingSenderId: "513289562245",
+      appId: "1:513289562245:web:b93c85180a1cd0fbcd61ec"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
+  <meta name="google-signin-client_id" content="513289562245-7rag6nsec35vu4rjgab993jqebqdosrc.apps.googleusercontent.com">
+
+
+  <script src="main.dart.js" type="application/javascript"></script>
+</body>
+</html>

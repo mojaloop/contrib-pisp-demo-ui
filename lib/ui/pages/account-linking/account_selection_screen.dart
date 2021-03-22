@@ -37,7 +37,7 @@ class AccountSelectionScreen extends StatelessWidget {
   }
 
   Widget _buildListItem(Account acc) {
-    final String accId = acc?.id ?? 'Unknown Account';
+    final String accId = acc?.accountNickname ?? 'Unknown Account';
     final String currencyStr =
         acc?.currency?.toJsonString() ?? 'Unknown Currency';
     return Container(
@@ -72,22 +72,23 @@ class AccountSelectionScreen extends StatelessWidget {
         if (!controller.isAwaitingUpdate) {
           return MojaButton(
             const TitleText(
-              'Set PIN',
+              'Link account(s)',
               color: Colors.white,
               fontSize: 20,
             ),
             onTap: () {
               controller.initiateConsentRequest(
-                  _accountSelectionController.getSelectedAccounts());
+                _accountSelectionController.getSelectedAccounts(),
+                _accountSelectionController.getSelectedScopes(),
+              );
             },
           );
-        } else {
-          return MojaButton(
-            const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-            ),
-          );
         }
+        return MojaButton(
+          const CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+          ),
+        );
       },
     );
   }
@@ -108,21 +109,23 @@ class AccountSelectionScreen extends StatelessWidget {
     }
 
     final int listLength = associatedAccounts.length + 2;
-    return ListView.builder(
-      itemCount: listLength,
-      itemBuilder: (BuildContext ctxt, int index) {
-        // Top shows a description
-        if (index == 0) {
-          return _buildInstructions();
-        }
-        // Bottom part is a "Link Account(s)" button
-        else if (index == listLength - 1) {
-          return _buildActionButton();
-        } else {
-          return _buildListItem(associatedAccounts[index - 1]);
-        }
-      },
-    );
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        child: ListView.builder(
+          itemCount: listLength,
+          itemBuilder: (BuildContext ctxt, int index) {
+            // Top shows a description
+            if (index == 0) {
+              return _buildInstructions();
+            }
+            // Bottom part is a "Link Account(s)" button
+            else if (index == listLength - 1) {
+              return _buildActionButton();
+            } else {
+              return _buildListItem(associatedAccounts[index - 1]);
+            }
+          },
+        ));
   }
 
   @override

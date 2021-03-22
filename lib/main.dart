@@ -4,20 +4,22 @@ import 'package:get/get.dart';
 import 'package:pispapp/controllers/app/account_controller.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/controllers/ephemeral/dashboard/dashboard_controller.dart';
+import 'package:pispapp/repositories/firebase/account_repository.dart';
 import 'package:pispapp/repositories/firebase/auth_repository.dart';
 import 'package:pispapp/repositories/firebase/consent_repository.dart';
 import 'package:pispapp/repositories/firebase/user_data_repository.dart';
-import 'package:pispapp/repositories/stubs/stub_account_repository.dart';
 import 'package:pispapp/routes/app_navigator.dart';
 import 'package:pispapp/routes/app_pages.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
+import 'package:pispapp/utils/log_printer.dart';
 
 import 'controllers/app/account_controller.dart';
 import 'controllers/app/auth_controller.dart';
 import 'controllers/app/connectivity_controller.dart';
 import 'controllers/app/user_data_controller.dart';
-import 'controllers/ephemeral/local_auth_controller.dart';
 import 'models/user.dart';
+
+final logger = getLogger('main');
 
 Future<void> main() async {
   // Ensures flutter binding is created even before runApp() so
@@ -41,13 +43,11 @@ class LifecycleAwareApp extends StatefulWidget {
 
 class _LifecycleAwareAppState extends State<LifecycleAwareApp>
     // ignore: prefer_mixin
-    with WidgetsBindingObserver {
-
+    with
+        WidgetsBindingObserver {
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
-    // Show verification screen when app first starts
-    Get.find<LocalAuthController>().appWasResumed();
     Get.find<ConnectivityController>().startListenForConnectionStatus();
     super.initState();
   }
@@ -63,11 +63,9 @@ class _LifecycleAwareAppState extends State<LifecycleAwareApp>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
       case AppLifecycleState.resumed:
-        Get.find<LocalAuthController>().appWasResumed();
         Get.find<ConnectivityController>().startListenForConnectionStatus();
         break;
       case AppLifecycleState.paused:
-        Get.find<LocalAuthController>().appWasPaused();
         Get.find<ConnectivityController>().stopListeningForConnectionStatus();
         break;
       default:
@@ -88,28 +86,36 @@ class _LifecycleAwareAppState extends State<LifecycleAwareApp>
 }
 
 Future<void> setupCurrentUser() async {
-  final FirebaseUser currentUser = await FirebaseAuth.instance.currentUser();
-  if (currentUser != null) {
-    final User user = User.fromFirebase(currentUser, LoginType.google);
-    Get.find<AuthController>().setUser(user);
-    // Since it has been determined that the user is logged in
-    // we can create the user data controller.
-    final UserDataController _userDataController = Get.put(UserDataController(UserDataRepository(), user));
-    await _userDataController.loadAuxiliaryInfoForUser();
+  logger.i('setupCurrentUser()');
+  // final FirebaseUser currentUser = await FirebaseAuth.instance.currentUser();
+  final FirebaseUser currentUser =
+      await FirebaseAuth.instance.onAuthStateChanged.first;
+
+  if (currentUser == null) {
+    logger.w('setupCurrentUser() - noCurrentUser');
+
+    return;
   }
+
+  final User user = User.fromFirebase(currentUser, LoginType.google);
+  logger.w('setupCurrentUser() - found user: ${user.id}');
+  Get.find<AuthController>().setUser(user);
+  // Since it has been determined that the user is logged inr
+  // we can create the user data controller.
+  final UserDataController _userDataController =
+      Get.put(UserDataController(UserDataRepository(), user));
+  await _userDataController.loadAuxiliaryInfoForUser();
 }
 
 String determineStartingPage() {
   if (!Get.find<AuthController>().userSignedIn) {
     return '/';
-  }
-  else {
+  } else {
     // At this point, the user is signed in, so it is guaranteed that
     // UserDataController has been created and is available to use.
-    if(Get.find<UserDataController>().phoneNumberAssociated) {
+    if (Get.find<UserDataController>().phoneNumberAssociated) {
       return '/dashboard';
-    }
-    else {
+    } else {
       // Redirect user to phone number setup if user has no number in DB
       return '/phone_number';
     }
@@ -119,10 +125,9 @@ String determineStartingPage() {
 // Initialize controllers which maintain global app state
 void initAppControllers() {
   Get.put(AuthController(AuthRepository()));
-  Get.put(AccountController(StubAccountRepository()));
+  Get.put(AccountController(AccountRepository()));
   Get.put(DashboardController());
   Get.put(AppNavigator());
-  Get.put(LocalAuthController());
   Get.put(ConnectivityController());
 
   // Put repositories

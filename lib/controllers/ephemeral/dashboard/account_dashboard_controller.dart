@@ -1,15 +1,16 @@
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 import 'package:pispapp/controllers/app/account_controller.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/models/account.dart';
 import 'package:pispapp/models/transaction.dart';
 import 'package:pispapp/repositories/interfaces/i_transaction_repository.dart';
+import 'package:pispapp/utils/log_printer.dart';
 
 class AccountDashboardController extends GetxController {
   AccountDashboardController(this._transactionRepo);
 
   Account selectedAccount;
+  final logger = getLogger((AccountDashboardController).toString());
 
   List<Account> accountList = <Account>[];
   List<Transaction> transactionList = <Transaction>[];
@@ -28,6 +29,12 @@ class AccountDashboardController extends GetxController {
 
     await getLinkedAccounts();
     accountList = Get.find<AccountController>().accounts;
+    var user = Get.find<AuthController>().user;
+    if (user == null) {
+      logger.e('User is null!');
+    } else {
+      logger.i('User is NOT null');
+    }
     if (accountList.isNotEmpty) {
       await setSelectedAccount(accountList.first);
     }

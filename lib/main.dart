@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/app/account_controller.dart';
@@ -9,17 +8,18 @@ import 'package:pispapp/repositories/firebase/account_repository.dart';
 import 'package:pispapp/repositories/firebase/auth_repository.dart';
 import 'package:pispapp/repositories/firebase/consent_repository.dart';
 import 'package:pispapp/repositories/firebase/user_data_repository.dart';
-import 'package:pispapp/repositories/stubs/stub_account_repository.dart';
 import 'package:pispapp/routes/app_navigator.dart';
 import 'package:pispapp/routes/app_pages.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
+import 'package:pispapp/utils/log_printer.dart';
 
 import 'controllers/app/account_controller.dart';
 import 'controllers/app/auth_controller.dart';
 import 'controllers/app/connectivity_controller.dart';
 import 'controllers/app/user_data_controller.dart';
-import 'controllers/ephemeral/local_auth_controller.dart';
 import 'models/user.dart';
+
+final logger = getLogger('main');
 
 Future<void> main() async {
   // Ensures flutter binding is created even before runApp() so
@@ -86,19 +86,25 @@ class _LifecycleAwareAppState extends State<LifecycleAwareApp>
 }
 
 Future<void> setupCurrentUser() async {
-  print('setupCurrentUser()');
-  final FirebaseUser currentUser = await FirebaseAuth.instance.currentUser();
-  if (currentUser != null) {
-    print('setupCurrentUser() - noCurrentUser');
-    final User user = User.fromFirebase(currentUser, LoginType.google);
-    print('setupCurrentUser() - found user: ' + user.id);
-    Get.find<AuthController>().setUser(user);
-    // Since it has been determined that the user is logged in
-    // we can create the user data controller.
-    final UserDataController _userDataController =
-        Get.put(UserDataController(UserDataRepository(), user));
-    await _userDataController.loadAuxiliaryInfoForUser();
+  logger.i('setupCurrentUser()');
+  // final FirebaseUser currentUser = await FirebaseAuth.instance.currentUser();
+  final FirebaseUser currentUser =
+      await FirebaseAuth.instance.onAuthStateChanged.first;
+
+  if (currentUser == null) {
+    logger.w('setupCurrentUser() - noCurrentUser');
+
+    return;
   }
+
+  final User user = User.fromFirebase(currentUser, LoginType.google);
+  logger.w('setupCurrentUser() - found user: ${user.id}');
+  Get.find<AuthController>().setUser(user);
+  // Since it has been determined that the user is logged inr
+  // we can create the user data controller.
+  final UserDataController _userDataController =
+      Get.put(UserDataController(UserDataRepository(), user));
+  await _userDataController.loadAuxiliaryInfoForUser();
 }
 
 String determineStartingPage() {

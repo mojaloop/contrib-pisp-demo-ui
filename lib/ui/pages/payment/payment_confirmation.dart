@@ -14,14 +14,16 @@ import 'package:pispapp/ui/widgets/title_text.dart';
 import 'package:pispapp/models/currency.dart';
 
 class PaymentConfirmation extends StatelessWidget {
-  PaymentConfirmation(this._paymentFlowController);
+  PaymentConfirmation(this._paymentFlowController)
+      : _paymentConfirmationController = PaymentConfirmationController(
+            _paymentFlowController.onAmountFieldChanged);
 
   /// Controller that is passed between screens that handle
   /// the payment flow.
   final PaymentFlowController _paymentFlowController;
 
   /// Controller that is used to manage the states in this page.
-  final _paymentConfirmationController = PaymentConfirmationController();
+  final PaymentConfirmationController _paymentConfirmationController;
 
   @override
   Widget build(BuildContext context) {
@@ -144,6 +146,16 @@ class PaymentConfirmation extends StatelessWidget {
       init: _paymentFlowController,
       global: false,
       builder: (controller) {
+        if (!controller.hasEnteredAmount) {
+          return BottomButton(
+            const TitleText(
+              'Next',
+              color: Colors.white,
+              fontSize: 20,
+            ),
+          );
+        }
+
         if (!controller.isAwaitingUpdate) {
           // The user is only allowed to click the button once.
           // Afterward, the state of the payment flow controller will be updated

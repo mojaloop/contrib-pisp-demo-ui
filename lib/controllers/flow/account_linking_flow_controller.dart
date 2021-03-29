@@ -45,7 +45,7 @@ class AccountLinkingFlowController extends GetxController {
   }
 
   void onOTPFieldChanged(String otp) {
-    hasEnteredOTP = opaqueId != null && opaqueId.trim().isNotEmpty;
+    hasEnteredOTP = otp != null && otp.trim().isNotEmpty;
     update();
   }
 

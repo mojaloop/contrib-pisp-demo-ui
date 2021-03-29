@@ -8,11 +8,10 @@ import 'package:pispapp/utils/log_printer.dart';
 
 class AccountDashboardController extends GetxController {
   AccountDashboardController(this._transactionRepo);
-
-  Account selectedAccount;
   final logger = getLogger((AccountDashboardController).toString());
 
-  List<Account> accountList = <Account>[];
+  Account selectedAccount;
+
   RxList<Account> watchAccounts = Get.find<AccountController>().accounts;
   List<Transaction> transactionList = <Transaction>[];
 
@@ -22,18 +21,15 @@ class AccountDashboardController extends GetxController {
 
   @override
   Future<void> onReady() async {
+    ever(watchAccounts, onAccountsUpdated);
+
     isLoading = true;
-
     await getLinkedAccounts();
-    if (accountList.isNotEmpty) {
-      await setSelectedAccount(accountList.first);
-    }
-
-    ever(watchAccounts, testEverAccounts);
     isLoading = false;
   }
 
   Future<void> setSelectedAccount(Account acc) async {
+    logger.w('setSelectedAccount: ${acc.alias}');
     selectedAccount = acc;
     await updateTransactions();
   }
@@ -48,8 +44,11 @@ class AccountDashboardController extends GetxController {
     await Get.find<AccountController>().getLinkedAccounts();
   }
 
-  void testEverAccounts(List<Account> _accounts) {
-    logger.w('testEverAccounts');
-    accountList = _accounts;
+  Future<void> onAccountsUpdated(List<Account> _accounts) async {
+    logger.w('onAccountsUpdated, with ${_accounts.length} accounts');
+
+    if (_accounts.isNotEmpty) {
+      await setSelectedAccount(_accounts.first);
+    }
   }
 }

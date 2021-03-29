@@ -12,26 +12,7 @@ import 'package:pispapp/ui/widgets/transaction_tile.dart';
 
 import '../theme/light_theme.dart';
 
-class AccountDashboard extends StatefulWidget {
-  @override
-  _AccountDashboardState createState() => _AccountDashboardState();
-}
-
-class _AccountDashboardState extends State<AccountDashboard> {
-  @override
-  void initState() {
-    // WidgetsBinding.instance.addObserver(this);
-    // Get.find<ConnectivityController>().startListenForConnectionStatus();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    // WidgetsBinding.instance.removeObserver(this);
-    // Get.find<ConnectivityController>().stopListeningForConnectionStatus();
-    super.dispose();
-  }
-
+class AccountDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AccountDashboardController>(builder: (controller) {
@@ -45,7 +26,7 @@ class _AccountDashboardState extends State<AccountDashboard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               const SizedBox(height: 50),
-              ..._buildMenuWidgets(controller),
+              _buildMenuWidgets(controller),
             ],
           ));
     });
@@ -63,36 +44,47 @@ class _AccountDashboardState extends State<AccountDashboard> {
     );
   }
 
-  List<Widget> _buildMenuWidgets(AccountDashboardController controller) {
-    print('_buildMenuWidgets');
-    if (controller.accountList.isEmpty) {
-      return <Widget>[
-        const TitleText('No Accounts Linked', fontSize: 20),
-        const TitleText(
-          'Select "Link to get started.',
-          textAlign: TextAlign.center,
-          fontSize: 16,
-          color: LightColor.grey,
-        ),
-      ];
-    }
+  Widget _buildMenuWidgets(AccountDashboardController controller) {
+    // return Obx(() {
+    //   return Text('Obx: ${controller.watchAccounts.length}');
+    // });
+    return Obx(() {
+      print('_buildMenuWidgets');
+      if (controller.watchAccounts.isEmpty) {
+        return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const <Widget>[
+              TitleText('No Accounts Linked', fontSize: 20),
+              TitleText(
+                'Select "Link to get started.',
+                textAlign: TextAlign.center,
+                fontSize: 16,
+                color: LightColor.grey,
+              ),
+            ]);
+      }
 
-    return <Widget>[
-      const TitleText('Selected Account:', fontSize: 20),
-      AccountDashboardAppBar(() {
-        _showAccountChoosingBottomSheet();
-      }),
-      const SizedBox(height: 10),
-      TitleText(
-        controller.accountList.length.toString() + ' accounts available',
-        textAlign: TextAlign.center,
-        fontSize: 13,
-        color: LightColor.grey,
-      ),
-      const SizedBox(height: 50),
-      const SizedBox(height: 40),
-      ..._buildTransfersSection(controller)
-    ];
+      // return const TitleText('Selected Account:', fontSize: 20);
+      return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            const TitleText('Selected Account:', fontSize: 20),
+            AccountDashboardAppBar(() {
+              _showAccountChoosingBottomSheet();
+            }),
+            const SizedBox(height: 10),
+            TitleText(
+              controller.watchAccounts.length.toString() +
+                  ' accounts available',
+              textAlign: TextAlign.center,
+              fontSize: 13,
+              color: LightColor.grey,
+            ),
+            const SizedBox(height: 50),
+            const SizedBox(height: 40),
+            ..._buildTransfersSection(controller)
+          ]);
+    });
   }
 
   List<Widget> _buildTransfersSection(AccountDashboardController controller) {

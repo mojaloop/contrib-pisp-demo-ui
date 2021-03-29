@@ -31,6 +31,7 @@ class AccountController extends GetxController {
     final _accounts = await _accountRepository.getUserAccounts(
       Get.find<AuthController>().user?.id,
     );
+    accounts.clear();
     accounts.addAll(_accounts);
   }
 

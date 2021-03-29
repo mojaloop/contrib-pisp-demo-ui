@@ -26,6 +26,7 @@ class AccountLinkingFlowController extends GetxController {
   bool isAwaitingUpdate = false;
   bool isValidOpaqueId = false;
   bool hasSelectedAccounts = false;
+  bool hasEnteredOTP = false;
 
   String opaqueId;
   Consent consent;
@@ -40,6 +41,11 @@ class AccountLinkingFlowController extends GetxController {
 
   void onSelectedAccountsChanged(HashSet<Account> accounts) {
     hasSelectedAccounts = accounts.isNotEmpty;
+    update();
+  }
+
+  void onOTPFieldChanged(String otp) {
+    hasEnteredOTP = opaqueId != null && opaqueId.trim().isNotEmpty;
     update();
   }
 

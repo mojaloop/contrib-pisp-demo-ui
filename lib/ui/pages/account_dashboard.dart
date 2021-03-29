@@ -86,6 +86,41 @@ class AccountDashboard extends StatelessWidget {
           ]);
     });
   }
+  // List<Widget> _buildMenuWidgets(AccountDashboardController controller) {
+  //   if (controller.accountList.isEmpty) {
+  //     return <Widget>[
+  //       const TitleText('No Accounts Linked', fontSize: 20),
+  //       const TitleText(
+  //         'Select "Link to get started.',
+  //         textAlign: TextAlign.center,
+  //         fontSize: 16,
+  //         color: LightColor.grey,
+  //       ),
+  //     ];
+  //   }
+
+  //   return <Widget>[
+  //     const TitleText('Selected Account:', fontSize: 20),
+  //     AccountDashboardAppBar(() {
+  //       _showAccountChoosingBottomSheet();
+  //     }),
+  //     const SizedBox(height: 10),
+  //     TitleText(
+  //       controller.accountList.length.toString() + ' accounts available',
+  //       textAlign: TextAlign.center,
+  //       fontSize: 13,
+  //       color: LightColor.grey,
+  //     ),
+  //     const SizedBox(height: 50),
+
+  //     // TODO(LD): removed for now - not relevant for our demo
+  //     // const TitleText('Operations'),
+  //     // const SizedBox(height: 10),
+  //     // Operations(),
+  //     const SizedBox(height: 40),
+  //     ..._buildTransfersSection(controller)
+  //   ];
+  // }
 
   List<Widget> _buildTransfersSection(AccountDashboardController controller) {
     if (controller.transactionList.isEmpty) {

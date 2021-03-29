@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import 'package:pispapp/controllers/flow/payment_flow_controller.dart';
 import 'package:pispapp/models/transaction.dart';
-import 'package:pispapp/models/currency.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
 import 'package:pispapp/ui/widgets/shadow_heading.dart';
@@ -19,7 +18,6 @@ class PaymentAuthorization extends StatelessWidget {
     final transaction = _paymentFlowController.transaction;
 
     return Scaffold(
-      // resizeToAvoidBottomPadding: false,
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Padding(

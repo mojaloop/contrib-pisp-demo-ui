@@ -6,14 +6,32 @@ import 'package:pispapp/models/account.dart';
 import 'package:pispapp/models/transaction.dart';
 import 'package:pispapp/ui/widgets/account_choosing_bottom_sheet.dart';
 import 'package:pispapp/ui/widgets/account_dashboard_app_bar.dart';
-import 'package:pispapp/ui/widgets/operations.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
 import 'package:pispapp/ui/widgets/transaction_bottom_sheet.dart';
 import 'package:pispapp/ui/widgets/transaction_tile.dart';
 
 import '../theme/light_theme.dart';
 
-class AccountDashboard extends StatelessWidget {
+class AccountDashboard extends StatefulWidget {
+  @override
+  _AccountDashboardState createState() => _AccountDashboardState();
+}
+
+class _AccountDashboardState extends State<AccountDashboard> {
+  @override
+  void initState() {
+    // WidgetsBinding.instance.addObserver(this);
+    // Get.find<ConnectivityController>().startListenForConnectionStatus();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // WidgetsBinding.instance.removeObserver(this);
+    // Get.find<ConnectivityController>().stopListeningForConnectionStatus();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AccountDashboardController>(builder: (controller) {
@@ -46,6 +64,7 @@ class AccountDashboard extends StatelessWidget {
   }
 
   List<Widget> _buildMenuWidgets(AccountDashboardController controller) {
+    print('_buildMenuWidgets');
     if (controller.accountList.isEmpty) {
       return <Widget>[
         const TitleText('No Accounts Linked', fontSize: 20),
@@ -59,7 +78,7 @@ class AccountDashboard extends StatelessWidget {
     }
 
     return <Widget>[
-      TitleText('Selected Account:', fontSize: 20),
+      const TitleText('Selected Account:', fontSize: 20),
       AccountDashboardAppBar(() {
         _showAccountChoosingBottomSheet();
       }),
@@ -71,11 +90,6 @@ class AccountDashboard extends StatelessWidget {
         color: LightColor.grey,
       ),
       const SizedBox(height: 50),
-
-      // TODO - LD removed for now
-      // const TitleText('Operations'),
-      // const SizedBox(height: 10),
-      // Operations(),
       const SizedBox(height: 40),
       ..._buildTransfersSection(controller)
     ];

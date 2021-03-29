@@ -13,6 +13,7 @@ class AccountDashboardController extends GetxController {
   final logger = getLogger((AccountDashboardController).toString());
 
   List<Account> accountList = <Account>[];
+  RxList<Account> watchAccounts = Get.find<AccountController>().accounts;
   List<Transaction> transactionList = <Transaction>[];
 
   bool isLoading = false;
@@ -24,11 +25,11 @@ class AccountDashboardController extends GetxController {
     isLoading = true;
 
     await getLinkedAccounts();
-    accountList = Get.find<AccountController>().accounts;
     if (accountList.isNotEmpty) {
       await setSelectedAccount(accountList.first);
     }
 
+    ever(watchAccounts, testEverAccounts);
     isLoading = false;
   }
 
@@ -45,5 +46,10 @@ class AccountDashboardController extends GetxController {
 
   Future<void> getLinkedAccounts() async {
     await Get.find<AccountController>().getLinkedAccounts();
+  }
+
+  void testEverAccounts(List<Account> _accounts) {
+    logger.w('testEverAccounts');
+    accountList = _accounts;
   }
 }

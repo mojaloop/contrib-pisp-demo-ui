@@ -18,7 +18,6 @@ class AccountController extends GetxController {
   @override
   void onReady() {
     _startListening(Get.find<AuthController>().user?.id);
-
     super.onReady();
   }
 
@@ -29,9 +28,10 @@ class AccountController extends GetxController {
   }
 
   Future<void> getLinkedAccounts() async {
-    accounts.value = await _accountRepository.getUserAccounts(
+    final _accounts = await _accountRepository.getUserAccounts(
       Get.find<AuthController>().user?.id,
     );
+    accounts.addAll(_accounts);
   }
 
   void _startListening(String userId) {
@@ -42,7 +42,14 @@ class AccountController extends GetxController {
     _unsubscriber();
   }
 
-  void _onValue(List<Account> accounts) {
-    logger.w('_onValue called');
+  /// Replaces the entire value of accounts with
+  /// whatever firebase listener found
+  /// this is only valid for the demo where we _clear_ the list
+  /// of accounts, to ensure we always have the most recent
+  /// security key
+  void _onValue(List<Account> _accounts) {
+    logger.w('_onValue called - found ${_accounts.length} accounts');
+    accounts.clear();
+    accounts.addAll(_accounts);
   }
 }

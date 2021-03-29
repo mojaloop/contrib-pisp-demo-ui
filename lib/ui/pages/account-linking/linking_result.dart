@@ -21,11 +21,8 @@ class LinkingResult extends StatelessWidget {
 
     // This screen is only intended to last for 3 seconds before it
     // moves to the main dashboard.
-    // TODO(kkzeng): Shall we use a button instead of a timer like this?
-    // TODO: why does this die!?!?!?
     Timer(const Duration(seconds: 3),
         () => Get.find<AppNavigator>().offAllNamed(Routes.DASHBOARD));
-    // () => Get.back());
 
     return WillPopScope(
       onWillPop: () async => false,

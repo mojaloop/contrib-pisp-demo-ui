@@ -25,12 +25,6 @@ class AccountDashboardController extends GetxController {
 
     await getLinkedAccounts();
     accountList = Get.find<AccountController>().accounts;
-    var user = Get.find<AuthController>().user;
-    if (user == null) {
-      logger.e('User is null!');
-    } else {
-      logger.i('User is NOT null');
-    }
     if (accountList.isNotEmpty) {
       await setSelectedAccount(accountList.first);
     }

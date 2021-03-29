@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:html';
 
 import 'package:get/get.dart';
@@ -24,6 +25,7 @@ class AccountLinkingFlowController extends GetxController {
 
   bool isAwaitingUpdate = false;
   bool isValidOpaqueId = false;
+  bool hasSelectedAccounts = false;
 
   String opaqueId;
   Consent consent;
@@ -34,6 +36,11 @@ class AccountLinkingFlowController extends GetxController {
   void onIDChange(String _opaqueId) {
     opaqueId = _opaqueId;
     _setIsValidOpaqueId(opaqueId != null && opaqueId.trim().isNotEmpty);
+  }
+
+  void onSelectedAccountsChanged(HashSet<Account> accounts) {
+    hasSelectedAccounts = accounts.isNotEmpty;
+    update();
   }
 
   /// Adds a new consent object which notifies the

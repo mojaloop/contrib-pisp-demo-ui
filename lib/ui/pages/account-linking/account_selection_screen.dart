@@ -13,7 +13,8 @@ import 'package:pispapp/ui/widgets/title_text.dart';
 class AccountSelectionScreen extends StatelessWidget {
   AccountSelectionScreen(this._accountLinkingFlowController)
       : _accountSelectionController = AccountSelectionController(
-            _accountLinkingFlowController.consent.accounts);
+            _accountLinkingFlowController.consent.accounts,
+            _accountLinkingFlowController.onSelectedAccountsChanged);
 
   final AccountLinkingFlowController _accountLinkingFlowController;
   final AccountSelectionController _accountSelectionController;
@@ -69,20 +70,30 @@ class AccountSelectionScreen extends StatelessWidget {
       init: _accountLinkingFlowController,
       global: false,
       builder: (controller) {
-        if (!controller.isAwaitingUpdate) {
+        print(
+            'controller.hasSelectedAccounts, ${controller.hasSelectedAccounts}');
+        if (!controller.hasSelectedAccounts) {
           return MojaButton(
             const TitleText(
               'Link account(s)',
               color: Colors.white,
               fontSize: 20,
             ),
-            onTap: () {
-              controller.initiateConsentRequest(
-                _accountSelectionController.getSelectedAccounts(),
-                _accountSelectionController.getSelectedScopes(),
-              );
-            },
           );
+        }
+
+        if (!controller.isAwaitingUpdate) {
+          return MojaButton(
+              const TitleText(
+                'Link account(s)',
+                color: Colors.white,
+                fontSize: 20,
+              ), onTap: () {
+            controller.initiateConsentRequest(
+              _accountSelectionController.getSelectedAccounts(),
+              _accountSelectionController.getSelectedScopes(),
+            );
+          });
         }
         return MojaButton(
           const CircularProgressIndicator(

@@ -8,7 +8,7 @@ part of 'account.dart';
 
 Account _$AccountFromJson(Map<String, dynamic> json) {
   return Account(
-    alias: json['alias'] as String,
+    alias: json['alias'] == null ? '' : json['alias'] as String,
     userId: json['userId'] as String,
     consentId: json['consentId'] as String,
     sourceAccountId: json['sourceAccountId'] as String,

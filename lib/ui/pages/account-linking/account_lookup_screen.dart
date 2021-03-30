@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pispapp/controllers/ephemeral/account-linking/account_discovery_controller.dart';
 import 'package:pispapp/controllers/flow/account_linking_flow_controller.dart';
 import 'package:pispapp/models/fsp.dart';
 import 'package:pispapp/repositories/firebase/consent_repository.dart';
@@ -17,9 +16,6 @@ class AccountLookupScreen extends StatelessWidget {
 
   final Fsp fsp;
 
-  final AccountLookupController _accountLookupController =
-      AccountLookupController();
-  // TODO: I think the race condition is here... maybe consentRepository is null?
   final AccountLinkingFlowController _accountLinkingFlowController =
       AccountLinkingFlowController(ConsentRepository());
 
@@ -28,6 +24,17 @@ class AccountLookupScreen extends StatelessWidget {
       init: _accountLinkingFlowController,
       global: false,
       builder: (controller) {
+        logger.v('_buildActionSection');
+        if (controller.isValidOpaqueId == false) {
+          return BottomButton(
+            const TitleText(
+              'Lookup Account(s)',
+              color: Colors.white,
+              fontSize: 20,
+            ),
+          );
+        }
+
         if (!controller.isAwaitingUpdate) {
           // The user is only allowed to click the button once.
           // Afterward, the state of the payment flow controller will be updated
@@ -41,7 +48,7 @@ class AccountLookupScreen extends StatelessWidget {
             ),
             onTap: () {
               // Start discovering accounts associated to opaqueId
-              final opaqueId = _accountLookupController.opaqueId;
+              final opaqueId = _accountLinkingFlowController.opaqueId;
               _accountLinkingFlowController.initiateDiscovery(opaqueId, fsp.id);
             },
           );
@@ -98,7 +105,7 @@ class AccountLookupScreen extends StatelessWidget {
         color: LightColor.navyBlue2,
       ),
       onChanged: (String value) {
-        _accountLookupController.onIDChange(value);
+        _accountLinkingFlowController.onIDChange(value);
       },
     );
   }

@@ -14,4 +14,20 @@ class AccountRepository implements IAccountRepository {
               .toList(),
         );
   }
+
+  @override
+  void Function() listen(String userId, {AccountHandler onValue}) {
+    final subscription =
+        accounts.where('userId', isEqualTo: userId).snapshots().listen((event) {
+      if (event == null) {
+        return;
+      }
+
+      final accounts = event.documents.map((e) => Account.fromJson(e.data));
+      print('Listen: accounts updated!: ${accounts.map((e) => e.toJson())}');
+      onValue(accounts.toList());
+    });
+
+    return () => subscription.cancel();
+  }
 }

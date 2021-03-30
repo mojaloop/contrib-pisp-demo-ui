@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pispapp/config/config.dart';
 import 'package:pispapp/controllers/ephemeral/payment/payment_confirmation_controller.dart';
 import 'package:pispapp/controllers/flow/payment_flow_controller.dart';
 import 'package:pispapp/models/account.dart';
@@ -13,14 +14,16 @@ import 'package:pispapp/ui/widgets/title_text.dart';
 import 'package:pispapp/models/currency.dart';
 
 class PaymentConfirmation extends StatelessWidget {
-  PaymentConfirmation(this._paymentFlowController);
+  PaymentConfirmation(this._paymentFlowController)
+      : _paymentConfirmationController = PaymentConfirmationController(
+            _paymentFlowController.onAmountFieldChanged);
 
   /// Controller that is passed between screens that handle
   /// the payment flow.
   final PaymentFlowController _paymentFlowController;
 
   /// Controller that is used to manage the states in this page.
-  final _paymentConfirmationController = PaymentConfirmationController();
+  final PaymentConfirmationController _paymentConfirmationController;
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +93,6 @@ class PaymentConfirmation extends StatelessWidget {
                           color: LightColor.navyBlue2,
                         ),
                         onChanged: (String value) {
-                          // TODO(kkzeng): Support for other currencies.
                           controller.onTransactionAmountUpdate(
                             Money(value, Currency.USD),
                           );
@@ -98,8 +100,8 @@ class PaymentConfirmation extends StatelessWidget {
                   ),
                   const Padding(
                     padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                    // TODO(kkzeng): Support for other currencies.
-                    child: TitleText('USD', fontSize: 20),
+                    child:
+                        TitleText(Config.DEMO_DISPLAY_CURRENCY, fontSize: 20),
                   ),
                 ],
               ),
@@ -144,6 +146,16 @@ class PaymentConfirmation extends StatelessWidget {
       init: _paymentFlowController,
       global: false,
       builder: (controller) {
+        if (!controller.hasEnteredAmount) {
+          return BottomButton(
+            const TitleText(
+              'Next',
+              color: Colors.white,
+              fontSize: 20,
+            ),
+          );
+        }
+
         if (!controller.isAwaitingUpdate) {
           // The user is only allowed to click the button once.
           // Afterward, the state of the payment flow controller will be updated

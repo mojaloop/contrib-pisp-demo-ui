@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pispapp/config/config.dart';
 import 'package:pispapp/controllers/ephemeral/dashboard/account_dashboard_controller.dart';
 import 'package:pispapp/models/transaction.dart';
 import 'package:pispapp/ui/data/transaction_ui_data.dart';
@@ -47,7 +48,8 @@ class TransactionBottomSheet extends StatelessWidget {
                             color: _transactionUIData.textColor,
                           ),
                           const SizedBox(height: 20),
-                          _buildTransactionAmountWidget()
+                          if (_transaction.amount != null)
+                            _buildTransactionAmountWidget()
                         ],
                       ),
                     ],
@@ -116,7 +118,7 @@ class TransactionBottomSheet extends StatelessWidget {
           color: LightColor.navyBlue2,
           textColor: Colors.white,
           child: Text(
-            '${_transaction.amount.currency} ${_transaction.amount.amount}',
+            '${Config.DEMO_DISPLAY_CURRENCY} ${_transaction.amount.amount}',
             style: const TextStyle(fontSize: 28),
           ),
         ),

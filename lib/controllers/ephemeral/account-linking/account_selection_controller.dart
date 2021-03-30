@@ -4,9 +4,12 @@ import 'package:pispapp/models/consent.dart';
 import 'package:get/get.dart';
 
 class AccountSelectionController extends GetxController {
-  AccountSelectionController(this.associatedAccounts);
+  AccountSelectionController(
+      this.associatedAccounts, this.onSelectedAccountsChanged);
+
   final List<Account> associatedAccounts;
   final HashSet<Account> _selectedAccounts = HashSet();
+  Function onSelectedAccountsChanged;
 
   void onTap(Account acc) {
     if (isAccSelected(acc)) {
@@ -37,9 +40,11 @@ class AccountSelectionController extends GetxController {
 
   void _selectAcc(Account acc) {
     _selectedAccounts.add(acc);
+    onSelectedAccountsChanged(_selectedAccounts);
   }
 
   void _unselectAcc(Account acc) {
     _selectedAccounts.remove(acc);
+    onSelectedAccountsChanged(_selectedAccounts);
   }
 }

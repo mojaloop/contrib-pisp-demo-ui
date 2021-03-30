@@ -149,7 +149,7 @@ Map<String, dynamic> _$QuoteToJson(Quote instance) {
 Money _$MoneyFromJson(Map<String, dynamic> json) {
   return Money(
     json['amount'] as String,
-    _$enumDecodeNullable(_$CurrencyEnumMap, json['currency']),
+    json['currency'] as String,
   );
 }
 
@@ -163,14 +163,9 @@ Map<String, dynamic> _$MoneyToJson(Money instance) {
   }
 
   writeNotNull('amount', instance.amount);
-  writeNotNull('currency', _$CurrencyEnumMap[instance.currency]);
+  writeNotNull('currency', instance.currency);
   return val;
 }
-
-const _$CurrencyEnumMap = {
-  Currency.SGD: 'SGD',
-  Currency.USD: 'USD',
-};
 
 Authentication _$AuthenticationFromJson(Map<String, dynamic> json) {
   return Authentication(

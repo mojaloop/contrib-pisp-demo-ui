@@ -2,12 +2,11 @@ import 'dart:async';
 
 import 'package:pispapp/models/party.dart';
 import 'package:pispapp/models/transaction.dart';
-import 'package:pispapp/models/currency.dart';
 import 'package:pispapp/repositories/interfaces/i_transaction_repository.dart';
 
 List<Transaction> _stubTransactionData = <Transaction>[
   Transaction(
-    amount: Money('100', Currency.USD),
+    amount: Money('100', 'USD'),
     completedTimestamp: '2020-08-04T02:38:56.779Z',
     payee: Party(
       name: 'Mark Doe',
@@ -17,7 +16,7 @@ List<Transaction> _stubTransactionData = <Transaction>[
     sourceAccountId: 'bob.fspA',
   ),
   Transaction(
-    amount: Money('100', Currency.USD),
+    amount: Money('100', 'USD'),
     completedTimestamp: '2020-08-04T02:38:56.779Z',
     payee: Party(
       name: 'John Doe',
@@ -27,7 +26,7 @@ List<Transaction> _stubTransactionData = <Transaction>[
     sourceAccountId: 'bob.fspA',
   ),
   Transaction(
-    amount: Money('100', Currency.USD),
+    amount: Money('100', 'USD'),
     completedTimestamp: '2020-08-04T02:38:56.779Z',
     payee: Party(
       name: 'Lily Doe',
@@ -37,7 +36,7 @@ List<Transaction> _stubTransactionData = <Transaction>[
     sourceAccountId: 'bob.fspA',
   ),
   Transaction(
-    amount: Money('100', Currency.USD),
+    amount: Money('100', 'USD'),
     completedTimestamp: '2020-08-04T02:38:56.779Z',
     payee: Party(
       name: 'Mark Doe',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pispapp/config/config.dart';
 
 import 'package:pispapp/controllers/flow/payment_flow_controller.dart';
 import 'package:pispapp/models/transaction.dart';
@@ -72,7 +73,7 @@ class PaymentAuthorization extends StatelessWidget {
       feeSection.add(Padding(
         padding: const EdgeInsets.all(8.0),
         child: TitleText(
-          '- \$${payeeFspFee.amount} transfer fees',
+          '- ${Config.DEMO_CURRENCY_SYMBOL}${payeeFspFee.amount} transfer fees',
           fontSize: 25,
         ),
       ));
@@ -82,7 +83,7 @@ class PaymentAuthorization extends StatelessWidget {
       feeSection.add(Padding(
         padding: const EdgeInsets.all(8.0),
         child: TitleText(
-          '\$${payeeReceiveAmount.amount} will reach $name',
+          '${Config.DEMO_CURRENCY_SYMBOL}${payeeReceiveAmount.amount} will reach $name',
           fontSize: 25,
         ),
       ));
@@ -97,7 +98,7 @@ class PaymentAuthorization extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TitleText(
-              'Sending: \$${transferAmount.amount}',
+              'Sending: ${Config.DEMO_CURRENCY_SYMBOL}${transferAmount.amount}',
               fontSize: 30,
             ),
           ),

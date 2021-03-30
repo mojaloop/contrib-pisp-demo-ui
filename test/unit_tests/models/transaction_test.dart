@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:collection/collection.dart';
 import 'package:pispapp/models/party.dart';
 import 'package:pispapp/models/transaction.dart';
-import 'package:pispapp/models/currency.dart';
 
 void main() {
   Map<String, dynamic> json;
@@ -62,7 +61,7 @@ void main() {
       transactionId: '273a7307-27f8-40eb-a5eb-9a76374c8bee',
       transactionRequestId: '74987ec0-a5f1-4059-af06-f541dc70c379',
       userId: 'vXiSsQglsFYXqVkOHNKKFhnuAAI2',
-      amount: Money('100', Currency.USD),
+      amount: Money('100', 'USD'),
       authentication: Authentication(
         type: AuthenticationType.u2f,
         value: 'asdAhasdkljassdaASD2131bA',
@@ -80,9 +79,9 @@ void main() {
         expiration: '1970-01-01T00:00:00.006Z',
         ilpPacket:
             '6pjc9xrf0zgdwkjbia74654wf39qpsz4w8sdqtiqzh0e7q5akkkl7v3wiiiwgzp19nqpgu',
-        transferAmount: Money('25', Currency.USD),
-        payeeFspFee: Money('5', Currency.USD),
-        payeeFspCommission: Money('5', Currency.USD),
+        transferAmount: Money('25', 'USD'),
+        payeeFspFee: Money('5', 'USD'),
+        payeeFspCommission: Money('5', 'USD'),
       ),
     );
   });

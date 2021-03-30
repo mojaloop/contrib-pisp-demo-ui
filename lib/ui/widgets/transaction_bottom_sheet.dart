@@ -118,7 +118,7 @@ class TransactionBottomSheet extends StatelessWidget {
           color: LightColor.navyBlue2,
           textColor: Colors.white,
           child: Text(
-            '${Config.DEMO_DISPLAY_CURRENCY} ${_transaction.amount.amount}',
+            '${Config.DEMO_CURRENCY_CODE} ${_transaction.amount.amount}',
             style: const TextStyle(fontSize: 28),
           ),
         ),

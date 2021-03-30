@@ -11,7 +11,6 @@ import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
 import 'package:pispapp/ui/widgets/shadow_heading.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
-import 'package:pispapp/models/currency.dart';
 
 class PaymentConfirmation extends StatelessWidget {
   PaymentConfirmation(this._paymentFlowController)
@@ -94,14 +93,13 @@ class PaymentConfirmation extends StatelessWidget {
                         ),
                         onChanged: (String value) {
                           controller.onTransactionAmountUpdate(
-                            Money(value, Currency.USD),
+                            Money(value, Config.DEMO_CURRENCY_CODE),
                           );
                         }),
                   ),
                   const Padding(
                     padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                    child:
-                        TitleText(Config.DEMO_DISPLAY_CURRENCY, fontSize: 20),
+                    child: TitleText(Config.DEMO_CURRENCY_CODE, fontSize: 20),
                   ),
                 ],
               ),

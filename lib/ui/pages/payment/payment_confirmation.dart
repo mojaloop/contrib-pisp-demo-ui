@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pispapp/config/config.dart';
 import 'package:pispapp/controllers/ephemeral/payment/payment_confirmation_controller.dart';
 import 'package:pispapp/controllers/flow/payment_flow_controller.dart';
 import 'package:pispapp/models/account.dart';
@@ -10,7 +11,6 @@ import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
 import 'package:pispapp/ui/widgets/shadow_heading.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
-import 'package:pispapp/models/currency.dart';
 
 class PaymentConfirmation extends StatelessWidget {
   PaymentConfirmation(this._paymentFlowController);
@@ -90,16 +90,14 @@ class PaymentConfirmation extends StatelessWidget {
                           color: LightColor.navyBlue2,
                         ),
                         onChanged: (String value) {
-                          // TODO(kkzeng): Support for other currencies.
                           controller.onTransactionAmountUpdate(
-                            Money(value, Currency.USD),
+                            Money(value, Config.DEMO_CURRENCY_CODE),
                           );
                         }),
                   ),
                   const Padding(
                     padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                    // TODO(kkzeng): Support for other currencies.
-                    child: TitleText('USD', fontSize: 20),
+                    child: TitleText(Config.DEMO_CURRENCY_CODE, fontSize: 20),
                   ),
                 ],
               ),

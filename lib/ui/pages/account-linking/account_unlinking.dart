@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pispapp/controllers/ephemeral/account-linking/account_unlinking_controller.dart';
 import 'package:pispapp/models/consent.dart';
-import 'package:pispapp/models/currency.dart';
 import 'package:pispapp/repositories/firebase/consent_repository.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/shadow_box.dart';
@@ -41,8 +40,7 @@ class AccountUnlinking extends StatelessWidget {
 
   Widget _buildListItem(Account acc) {
     final String accId = acc?.accountNickname ?? 'Unknown Account';
-    final String currencyStr =
-        acc?.currency?.toJsonString() ?? 'Unknown Currency';
+    final String currencyStr = acc?.currency ?? 'Unknown Currency';
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: ShadowBox(

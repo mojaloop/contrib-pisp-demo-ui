@@ -202,10 +202,9 @@ Map<String, dynamic> _$CredentialScopeToJson(CredentialScope instance) {
 
 Account _$AccountFromJson(Map<String, dynamic> json) {
   return Account(
-    id: json['id'] as String,
-    accountNickname: json['accountNickname'] as String,
-    currency: _$enumDecodeNullable(_$CurrencyEnumMap, json['currency']),
-  );
+      id: json['id'] as String,
+      accountNickname: json['accountNickname'] as String,
+      currency: json['currency'] as String);
 }
 
 Map<String, dynamic> _$AccountToJson(Account instance) {
@@ -218,11 +217,6 @@ Map<String, dynamic> _$AccountToJson(Account instance) {
   }
 
   writeNotNull('id', instance.id);
-  writeNotNull('currency', _$CurrencyEnumMap[instance.currency]);
+  writeNotNull('currency', instance.currency);
   return val;
 }
-
-const _$CurrencyEnumMap = {
-  Currency.SGD: 'SGD',
-  Currency.USD: 'USD',
-};

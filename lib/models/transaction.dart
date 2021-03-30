@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'currency.dart';
 import 'model.dart';
 import 'party.dart';
 
@@ -183,7 +182,7 @@ class Money extends Equatable implements JsonModel {
   final String amount;
 
   /// Currency of the amount.
-  final Currency currency;
+  final String currency;
 
   @override
   Map<String, dynamic> toJson() => _$MoneyToJson(this);

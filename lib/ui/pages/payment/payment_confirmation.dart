@@ -13,14 +13,16 @@ import 'package:pispapp/ui/widgets/shadow_heading.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
 
 class PaymentConfirmation extends StatelessWidget {
-  PaymentConfirmation(this._paymentFlowController);
+  PaymentConfirmation(this._paymentFlowController)
+      : _paymentConfirmationController = PaymentConfirmationController(
+            _paymentFlowController.onAmountFieldChanged);
 
   /// Controller that is passed between screens that handle
   /// the payment flow.
   final PaymentFlowController _paymentFlowController;
 
   /// Controller that is used to manage the states in this page.
-  final _paymentConfirmationController = PaymentConfirmationController();
+  final PaymentConfirmationController _paymentConfirmationController;
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +99,12 @@ class PaymentConfirmation extends StatelessWidget {
                   ),
                   const Padding(
                     padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+<<<<<<< HEAD
                     child: TitleText(Config.DEMO_CURRENCY_CODE, fontSize: 20),
+=======
+                    child:
+                        TitleText(Config.DEMO_DISPLAY_CURRENCY, fontSize: 20),
+>>>>>>> cad7455f4778df0577ffce209cd34910b23b504b
                   ),
                 ],
               ),
@@ -142,6 +149,16 @@ class PaymentConfirmation extends StatelessWidget {
       init: _paymentFlowController,
       global: false,
       builder: (controller) {
+        if (!controller.hasEnteredAmount) {
+          return BottomButton(
+            const TitleText(
+              'Next',
+              color: Colors.white,
+              fontSize: 20,
+            ),
+          );
+        }
+
         if (!controller.isAwaitingUpdate) {
           // The user is only allowed to click the button once.
           // Afterward, the state of the payment flow controller will be updated

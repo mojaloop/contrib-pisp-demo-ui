@@ -34,4 +34,9 @@ class StubAccountRepository implements IAccountRepository {
   Future<List<Account>> getUserAccounts(String userId) {
     return Future.value(accounts);
   }
+
+  @override
+  void Function() listen(String userId, {onValue}) {
+    throw UnimplementedError();
+  }
 }

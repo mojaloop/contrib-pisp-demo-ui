@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:html';
 
 import 'package:get/get.dart';
@@ -23,11 +24,30 @@ class AccountLinkingFlowController extends GetxController {
   IConsentRepository _consentRepository;
 
   bool isAwaitingUpdate = false;
+  bool isValidOpaqueId = false;
+  bool hasSelectedAccounts = false;
+  bool hasEnteredOTP = false;
 
+  String opaqueId;
   Consent consent;
   String documentId;
 
   void Function() _unsubscriber;
+
+  void onIDChange(String _opaqueId) {
+    opaqueId = _opaqueId;
+    _setIsValidOpaqueId(opaqueId != null && opaqueId.trim().isNotEmpty);
+  }
+
+  void onSelectedAccountsChanged(HashSet<Account> accounts) {
+    hasSelectedAccounts = accounts.isNotEmpty;
+    update();
+  }
+
+  void onOTPFieldChanged(String otp) {
+    hasEnteredOTP = otp != null && otp.trim().isNotEmpty;
+    update();
+  }
 
   /// Adds a new consent object which notifies the
   /// PISP server to initiate discovery on the accounts
@@ -203,6 +223,11 @@ class AccountLinkingFlowController extends GetxController {
     // make any action and just need to wait. For example, a circular progress
     // indicator could be displayed.
     this.isAwaitingUpdate = isAwaitingUpdate;
+    update();
+  }
+
+  void _setIsValidOpaqueId(bool val) {
+    isValidOpaqueId = val;
     update();
   }
 }

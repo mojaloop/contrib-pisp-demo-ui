@@ -1,11 +1,11 @@
 {
-    "name": "pisp_demo_app_flutter",
-    "short_name": "pisp_demo_app_flutter",
+    "name": "PineapplePay",
+    "short_name": "PineapplePay",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "All your accounts in one place.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

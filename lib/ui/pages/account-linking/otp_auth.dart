@@ -7,16 +7,26 @@ import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
 
 class OTPAuth extends StatelessWidget {
-  OTPAuth(this._accountLinkingFlowController);
+  OTPAuth(this._accountLinkingFlowController)
+      : _authController =
+            OTPAuthController(_accountLinkingFlowController.onOTPFieldChanged);
 
   final AccountLinkingFlowController _accountLinkingFlowController;
-  final OTPAuthController _authController = OTPAuthController();
+  final OTPAuthController _authController;
 
   Widget _buildActionSection() {
     return GetBuilder<AccountLinkingFlowController>(
       init: _accountLinkingFlowController,
       global: false,
       builder: (controller) {
+        if (!controller.hasEnteredOTP) {
+          return BottomButton(const TitleText(
+            'Verify',
+            color: Colors.white,
+            fontSize: 20,
+          ));
+        }
+
         if (!controller.isAwaitingUpdate) {
           // The user is only allowed to click the button once.
           // Afterward, the state of the payment flow controller will be updated

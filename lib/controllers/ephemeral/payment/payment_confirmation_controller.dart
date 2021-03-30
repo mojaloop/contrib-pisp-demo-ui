@@ -4,6 +4,8 @@ import 'package:pispapp/models/account.dart';
 import 'package:pispapp/models/transaction.dart';
 
 class PaymentConfirmationController extends GetxController {
+  PaymentConfirmationController(this.onAmountFieldChanged);
+
   Money transactionAmount;
 
   bool transactionAmountPrompt = false;
@@ -11,6 +13,8 @@ class PaymentConfirmationController extends GetxController {
   Account selectedAccount;
 
   bool noAccounts = false;
+
+  Function onAmountFieldChanged;
 
   @override
   void onInit() {
@@ -20,6 +24,7 @@ class PaymentConfirmationController extends GetxController {
 
   void onTransactionAmountUpdate(Money amount) {
     transactionAmount = amount;
+    onAmountFieldChanged(amount.amount);
     update();
   }
 

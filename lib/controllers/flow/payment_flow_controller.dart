@@ -11,7 +11,6 @@ import 'package:pispapp/repositories/interfaces/i_transaction_repository.dart';
 import 'package:pispapp/ui/pages/payment/payment_authorization.dart';
 import 'package:pispapp/ui/pages/payment/payment_confirmation.dart';
 import 'package:pispapp/ui/pages/payment/payment_result.dart';
-import 'package:pispapp/utils/local_auth.dart';
 
 class PaymentFlowController extends GetxController {
   PaymentFlowController(this._transactionRepository);
@@ -19,6 +18,7 @@ class PaymentFlowController extends GetxController {
   ITransactionRepository _transactionRepository;
 
   bool isAwaitingUpdate = false;
+  bool hasEnteredAmount = false;
 
   Transaction transaction;
   String documentId;
@@ -26,6 +26,11 @@ class PaymentFlowController extends GetxController {
   void Function() _unsubscriber;
 
   Account selectedAccount;
+
+  void onAmountFieldChanged(String amount) {
+    hasEnteredAmount = amount != null && amount.trim().isNotEmpty;
+    update();
+  }
 
   /// Initiates a transaction to the given phone number.
   Future<void> initiate(PISPPhoneNumber phoneNumber) async {

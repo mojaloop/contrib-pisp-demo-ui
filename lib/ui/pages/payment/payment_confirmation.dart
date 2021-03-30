@@ -99,12 +99,7 @@ class PaymentConfirmation extends StatelessWidget {
                   ),
                   const Padding(
                     padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-<<<<<<< HEAD
                     child: TitleText(Config.DEMO_CURRENCY_CODE, fontSize: 20),
-=======
-                    child:
-                        TitleText(Config.DEMO_DISPLAY_CURRENCY, fontSize: 20),
->>>>>>> cad7455f4778df0577ffce209cd34910b23b504b
                   ),
                 ],
               ),

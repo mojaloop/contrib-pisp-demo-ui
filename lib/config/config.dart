@@ -6,4 +6,6 @@ class Config {
   static const MOCK_CONSENT_ID = '9d553d59-610f-44aa-b7ec-b483af24e98a';
 
   static const DEMO_CURRENCY_CODE = 'TZS';
+
+  static const DEMO_CURRENCY_SYMBOL = 'Tsh';
 }

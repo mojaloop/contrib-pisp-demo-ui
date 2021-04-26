@@ -73,7 +73,7 @@ class PaymentAuthorization extends StatelessWidget {
       feeSection.add(Padding(
         padding: const EdgeInsets.all(8.0),
         child: TitleText(
-          '- ${Config.DEMO_CURRENCY_SYMBOL}${payeeFspFee.amount} transfer fees',
+          '- ${Config.DEMO_CURRENCY_CODE}${payeeFspFee.amount} transfer fees',
           fontSize: 25,
         ),
       ));
@@ -83,7 +83,7 @@ class PaymentAuthorization extends StatelessWidget {
       feeSection.add(Padding(
         padding: const EdgeInsets.all(8.0),
         child: TitleText(
-          '${Config.DEMO_CURRENCY_SYMBOL}${payeeReceiveAmount.amount} will reach $name',
+          '${Config.DEMO_CURRENCY_CODE}${payeeReceiveAmount.amount} will reach $name',
           fontSize: 25,
         ),
       ));
@@ -98,7 +98,7 @@ class PaymentAuthorization extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TitleText(
-              'Sending: ${Config.DEMO_CURRENCY_SYMBOL}${transferAmount.amount}',
+              'Sending: ${Config.DEMO_CURRENCY_CODE}${transferAmount.amount}',
               fontSize: 30,
             ),
           ),

@@ -7,6 +7,4 @@ class Config {
 
   // Doesn't change the underlying currency, but just what is displayed for demo purposes
   static const DEMO_CURRENCY_CODE = 'TZS';
-
-  static const DEMO_CURRENCY_SYMBOL = 'Tsh';
 }

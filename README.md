@@ -1,24 +1,34 @@
-# MojaPay
+# pisp-demo-app
+
+## A reference end-user application for PISP on Mojaloop. Inspired by GPay.
 
 ## Introduction
 
-[Mojapay](https://github.com/mojaloop/pisp-demo-app-flutter) was developed to demonstrate the ability of Mojaloop to make end to end transfers. It's a payment initiation app, which allows people to send money to one another. The basic features of the app are
+[pisp-demo-app](https://github.com/mojaloop/pisp-demo-app-flutter) was developed to demonstrate the ability of Mojaloop to make end to end transfers. It's a payment initiation app, which allows people to send money to one another. The basic features of the app are
 
 1. Login/Authentication
 2. Account Linking
 3. Dashboard
-4. Transfers
+4. Third Party Initiated Transfers
 
-The goal of this document is to serve as a good starting point for someone onboarding onto Mojapay. The document talks about the architecture, design and decisions made in the app and also how one might proceed to add a new feature.
 
-## Warning: As of now, only Android is supported!
+For more information about Mojaloop and PISP with Mojaloop, refer to:
+- [mojaloop/pisp](https://github.com/mojaloop/pisp)
+- [mojaloop/mojaloop](https://github.com/mojaloop/mojaloop)
+- [mojaloop.io](https://mojaloop.io/)
 
-## Tech Stack
 
-1. Mojapay uses flutter for the frontend and uses firebase as a datastore and for authentication.
-2. We use [Get](https://pub.dev/packages/get) for state management. Thanks to Get, we have great separation of concerns in our codebase and it vastly reduces the verbosity of flutter syntax.
+## Docs
 
-## Local Setup
+Read the docs [here](docs/)
+The linking diagrams are [here](https://github.com/mojaloop/pisp-demo-server/tree/master/docs/assets/diagrams/transfer)
+
+
+
+## Developing Locally
+
+
+### Local Setup
 
 1. Clone [this](https://github.com/mojaloop/pisp-demo-app-flutter) repository.
 2. [Install](https://flutter.dev/docs/get-started/install) the flutter sdk.
@@ -93,11 +103,6 @@ Now go to https://mojapay-dev.web.app to see it live!
 
 To generate the files that handle JSON encoding/decoding for model objects (e.g. consent.g.dart), run `flutter pub run build_runner build` in the project directory.
    
-## Docs
-
-Read the docs [here](docs/)
-The linking diagrams are [here](https://github.com/mojaloop/pisp-demo-server/tree/master/docs/assets/diagrams/transfer)
-
 
 ## Flutter handy snippets
 
@@ -109,12 +114,9 @@ flutter pub upgrade
 # rebuild generated files
 flutter pub run build_runner build --delete-conflicting-outputs
 
+
 # specify a flutter version to use
 flutter version v1.9.1+hotfix.3
-
-# rebuild the generated files:
-
-flutter pub run build_runner build
 ```
 
 

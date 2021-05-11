@@ -22,6 +22,13 @@ __See it live at: https://pineapplepay.moja-lab.live/#/dashboard__
 - [mojaloop.io](https://mojaloop.io/)
 
 
+
+## Demo
+
+- See it live at: https://pineapplepay.moja-lab.live/#/dashboard__
+- View a video introduction [here](https://mojaloopcommunitymeeting.us2.pathable.com/pisp-demo-pi-14#/?limit=10&sortByFields[0]=createdAt&sortByOrders[0]=-1&uid=Dg6xvE5DuqnbJpKwn)
+
+
 ## Docs
 
 Full documentation can be found [here](docs/)

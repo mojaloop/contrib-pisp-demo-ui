@@ -1,14 +1,14 @@
 # contrib-pisp-demo-ui
+### A reference end-user application for PISP on Mojaloop. Inspired by GPay.
 
 ![](./docs/images/pineapplepay.png)
 
-### A reference end-user application for PISP on Mojaloop. Inspired by GPay.
 
 __See it live at: https://pineapplepay.moja-lab.live/#/dashboard__
 
 ## Introduction
 
-[contrib-pisp-demo-ui](https://github.com/mojaloop/pisp-demo-app-flutter) was developed to demonstrate the ability of Mojaloop to make end to end transfers. It's a payment initiation app, which allows people to send money to one another. The basic features of the app are:
+[contrib-pisp-demo-ui](https://github.com/mojaloop/contrib-pisp-demo-ui) was developed to demonstrate the ability of Mojaloop to make end to end transfers. It's a payment initiation app, which allows people to send money to one another. The basic features of the app are:
 
 1. Login/Authentication
 2. Account Linking
@@ -81,9 +81,9 @@ flutter run -d chrome --web-port 5000
 
 ## Deploying 
 
-> Note: We currently only support Local for Android, but we p
+> Note: We only deploy the _web_ version of this project at the moment.
 
-We need to set up firebase (only once)
+First, we need to set up firebase (only once)
 ```bash
 # release to the firebase project
 npm install -g firebase-tools
@@ -100,7 +100,7 @@ firebase init
 ```
 
 ```bash
-# First, make sure we have the correct fido2_client
+# Then, make sure we have the correct fido2_client
 cd ..
 git clone https://github.com/mojaloop/fido2-client-plugin fido2_client
 
@@ -115,9 +115,7 @@ Now go to https://mojapay-dev.web.app to see it live!
 
 To generate the files that handle JSON encoding/decoding for model objects (e.g. consent.g.dart), run `flutter pub run build_runner build` in the project directory.
    
-
 ## Flutter handy snippets
-
 
 ```bash
 # upgrade dependencies
@@ -126,13 +124,6 @@ flutter pub upgrade
 # rebuild generated files
 flutter pub run build_runner build --delete-conflicting-outputs
 
-
 # specify a flutter version to use
 flutter version v1.9.1+hotfix.3
 ```
-
-
-## TODO:
-
-- [ ] Update readme for better description of WEB
-- [ ] add a `flutter build web` and `flutter build apk` step to the ci/cd - this requires us to upload the `serviceAccount.json` file to circleci somehow

@@ -1,10 +1,14 @@
-# pisp-demo-app
+# contrib-pisp-demo-ui
 
-## A reference end-user application for PISP on Mojaloop. Inspired by GPay.
+### A reference end-user application for PISP on Mojaloop. Inspired by GPay.
+
+<iframe src="https://player.vimeo.com/video/541628842?title=0&amp;byline=0&amp;portrait=0&amp;playsinline=0&amp;autopause=0&amp;app_id=122963" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="" data-ready="true" style="width: 100%; height: 100%;" width="380" height="240" frameborder="0"></iframe>
+
+__See it live at: https://pineapplepay.moja-lab.live/#/dashboard__
 
 ## Introduction
 
-[pisp-demo-app](https://github.com/mojaloop/pisp-demo-app-flutter) was developed to demonstrate the ability of Mojaloop to make end to end transfers. It's a payment initiation app, which allows people to send money to one another. The basic features of the app are
+[contrib-pisp-demo-ui](https://github.com/mojaloop/pisp-demo-app-flutter) was developed to demonstrate the ability of Mojaloop to make end to end transfers. It's a payment initiation app, which allows people to send money to one another. The basic features of the app are:
 
 1. Login/Authentication
 2. Account Linking
@@ -12,7 +16,7 @@
 4. Third Party Initiated Transfers
 
 
-For more information about Mojaloop and PISP with Mojaloop, refer to:
+**For more information about Mojaloop and PISP with Mojaloop, see:**
 - [mojaloop/pisp](https://github.com/mojaloop/pisp)
 - [mojaloop/mojaloop](https://github.com/mojaloop/mojaloop)
 - [mojaloop.io](https://mojaloop.io/)
@@ -20,15 +24,17 @@ For more information about Mojaloop and PISP with Mojaloop, refer to:
 
 ## Docs
 
-Read the docs [here](docs/)
-The linking diagrams are [here](https://github.com/mojaloop/pisp-demo-server/tree/master/docs/assets/diagrams/transfer)
+Full documentation can be found [here](docs/)
 
+- The linking sequence diagrams are [here](https://github.com/mojaloop/pisp-demo-server/tree/master/docs/assets/diagrams/transfer)
 
 
 ## Developing Locally
 
+This project is written in Dart, and uses Google's Cross-platform Flutter library.
 
-### Local Setup
+
+### Android
 
 1. Clone [this](https://github.com/mojaloop/pisp-demo-app-flutter) repository.
 2. [Install](https://flutter.dev/docs/get-started/install) the flutter sdk.
@@ -40,19 +46,16 @@ The linking diagrams are [here](https://github.com/mojaloop/pisp-demo-server/tre
 8. Connect device/ emulator and run the app.
 
 
-[ TODO: configure sign in]
-
-
 ```bash
 keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
 ```
 
 
-8. Make sure you enter the app's SHA-1 fingerprint under the [Settings page](https://console.firebase.google.com/u/0/project/_/settings/general) of your Firebase console as this is required to ensure that Google sign-in functions properly. You can get the app's debug SHA-1 fingerprint by running this command: `keytool -list -v -alias androiddebugkey -keystore %USERPROFILE%\.android\debug.keystore`.
-9. Connect device/ emulator and run the app.
+9. Make sure you enter the app's SHA-1 fingerprint under the [Settings page](https://console.firebase.google.com/u/0/project/_/settings/general) of your Firebase console as this is required to ensure that Google sign-in functions properly. You can get the app's debug SHA-1 fingerprint by running this command: `keytool -list -v -alias androiddebugkey -keystore %USERPROFILE%\.android\debug.keystore`.
+10. Connect device/ emulator and run the app.
 
 
-### Local Setup - Flutter Web
+### Web
 
 1. Make sure you have flutter web enabled. See [this guide](https://flutter.dev/docs/get-started/web) for steps
 2. Ensure that `flutter devices` outputs the following:
@@ -69,7 +72,9 @@ cd pisp-demo-app-flutter
 flutter run -d chrome --web-port 5000
 ```
 
-## Deploying - Web
+## Deploying 
+
+> Note: We currently only support Local for Android, but we p
 
 We need to set up firebase (only once)
 ```bash
@@ -79,12 +84,12 @@ firebase login
 firebase init
 
 # select the following options:
-# existing project
-# mojapay-dev
-# build/web
-# rewrite - Yes
-# automatic builds - No
-# overwrite web/index.html - No
+# - existing project
+# - mojapay-dev
+# - build/web
+# - rewrite - Yes
+# - automatic builds - No
+# - overwrite web/index.html - No
 ```
 
 ```bash

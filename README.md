@@ -1,8 +1,8 @@
 # contrib-pisp-demo-ui
 
-### A reference end-user application for PISP on Mojaloop. Inspired by GPay.
+![](./docs/images/pineapplepay.png)
 
-<iframe src="https://player.vimeo.com/video/541628842?title=0&amp;byline=0&amp;portrait=0&amp;playsinline=0&amp;autopause=0&amp;app_id=122963" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="" data-ready="true" style="width: 100%; height: 100%;" width="380" height="240" frameborder="0"></iframe>
+### A reference end-user application for PISP on Mojaloop. Inspired by GPay.
 
 __See it live at: https://pineapplepay.moja-lab.live/#/dashboard__
 
@@ -25,7 +25,7 @@ __See it live at: https://pineapplepay.moja-lab.live/#/dashboard__
 
 ## Demo
 
-- See it live at: https://pineapplepay.moja-lab.live/#/dashboard__
+- See it live at: https://pineapplepay.moja-lab.live/#/dashboard
 - View a video introduction [here](https://mojaloopcommunitymeeting.us2.pathable.com/pisp-demo-pi-14#/?limit=10&sortByFields[0]=createdAt&sortByOrders[0]=-1&uid=Dg6xvE5DuqnbJpKwn)
 
 

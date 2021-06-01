@@ -15,7 +15,6 @@ dependencies:
   fido2_client:
     git:
       url: git://github.com/mojaloop/contrib-fido2-flutter-lib
-      ref: 353a3c86139f67597a7a83af8d944344a8d9fc18
   logger: ^0.6.0
   international_phone_input: ^1.0.4
   intl_phone_number_input: ^0.6.0

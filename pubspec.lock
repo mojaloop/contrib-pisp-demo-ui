@@ -257,8 +257,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "353a3c86139f67597a7a83af8d944344a8d9fc18"
-      resolved-ref: "353a3c86139f67597a7a83af8d944344a8d9fc18"
+      ref: HEAD
+      resolved-ref: "120316ea03df1ba76b709f6a03a458df1df52d26"
       url: "git://github.com/mojaloop/contrib-fido2-flutter-lib"
     source: git
     version: "0.0.1"

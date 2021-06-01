@@ -104,7 +104,7 @@ class AccountLinkingFlowController extends GetxController {
     await _consentRepository.updateData(documentId, updatedConsent.toJson());
   }
 
-  Future<void> signChallenge(String signedChallenge) async {
+  Future<void> signChallenge(String challengeToSign) async {
     final Fido2ClientWeb f = Fido2ClientWeb();
     final User user = Get.find<AuthController>().user;
 
@@ -118,10 +118,12 @@ class AccountLinkingFlowController extends GetxController {
         'id': host.toString(),
       }
     };
-    final credentialId =
-        await f.initiateRegistration('123456', user.id, options);
+    // TODO: get the attestation object, not just the credentialId
+    final publicKeyCredential =
+        await f.initiateRegistration(challengeToSign, user.id, options);
 
-    logger.w('signChallenge, credential is: ' + credentialId.toString());
+    logger.w(
+        'signChallenge, credential is: ' + publicKeyCredential.id.toString());
 
     // TODO(LD): get the attestationObject
     final Credential updatedCredential = Credential(
@@ -131,9 +133,9 @@ class AccountLinkingFlowController extends GetxController {
         status: CredentialStatus.pending,
         challenge: Challenge(
             payload: 'hmm we should not be sending this',
-            signature: signedChallenge));
+            signature: 'todo: get the signed challenge'));
     final Consent updatedConsent = Consent(
-        keyHandleId: credentialId,
+        keyHandleId: publicKeyCredential.id.split('').map(int.parse).toList(),
         credential: updatedCredential,
         status: ConsentStatus.challengeSigned);
     await _consentRepository.updateData(documentId, updatedConsent.toJson());

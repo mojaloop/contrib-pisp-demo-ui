@@ -2,7 +2,7 @@ import 'dart:collection';
 import 'dart:html';
 
 import 'package:get/get.dart';
-import 'package:fido2_client/Fido2ClientPlugin_web.dart';
+import 'package:fido2_client/fido2_client_web.dart';
 import 'package:logger/logger.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/models/consent.dart';
@@ -109,7 +109,8 @@ class AccountLinkingFlowController extends GetxController {
     final User user = Get.find<AuthController>().user;
 
     // rp.id depends on where we are running
-    // grab the hostname
+    // grab the hostname for easy config - great for a demo, but won't be
+    // suitable in production
     final host = window.location.hostname;
     final options = {
       'rp': {
@@ -117,8 +118,8 @@ class AccountLinkingFlowController extends GetxController {
         'id': host.toString(),
       }
     };
-    final credentialId = await f.initiateRegistration(
-        challenge: '123456', userId: user.id, options: options);
+    final credentialId =
+        await f.initiateRegistration('123456', user.id, options);
 
     logger.w('signChallenge, credential is: ' + credentialId.toString());
 

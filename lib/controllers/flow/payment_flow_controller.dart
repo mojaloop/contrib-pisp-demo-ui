@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:fido2_client/Fido2ClientPlugin_web.dart';
+import 'package:fido2_client/fido2_client_web.dart';
 import 'package:get/get.dart';
 
 import 'package:pispapp/controllers/app/auth_controller.dart';
@@ -83,8 +83,7 @@ class PaymentFlowController extends GetxController {
     // TODO(ldaly): get the keyHandleId from the selected account
     const String challenge = 'unimplemented123';
 
-    await f.initiateSigning(
-        keyHandleId: selectedAccount.keyHandleId, challenge: challenge);
+    await f.initiateSigning(selectedAccount.keyHandleId, challenge);
     // TODO: get the signed challenge!
     const String signature = 'unimplemented123';
 

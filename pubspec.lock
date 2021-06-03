@@ -256,9 +256,11 @@ packages:
   fido2_client:
     dependency: "direct main"
     description:
-      path: "../contrib-fido2-flutter-lib"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: c37307b822d7f45021d8c5866fc30afd80d5c721
+      url: "git://github.com/mojaloop/contrib-fido2-flutter-lib"
+    source: git
     version: "0.0.1"
   file:
     dependency: transitive

@@ -14,9 +14,10 @@ dependencies:
   flutter:
     sdk: flutter
   fido2_client:
-    path: ../contrib-fido2-flutter-lib
-    # git:
-    #   url: git://github.com/mojaloop/contrib-fido2-flutter-lib
+    # TODO: remove this when the lib is more stable
+    # path: ../contrib-fido2-flutter-lib
+    git:
+      url: git://github.com/mojaloop/contrib-fido2-flutter-lib
   logger: ^0.6.0
   international_phone_input: ^1.0.4
   intl_phone_number_input: ^0.6.0

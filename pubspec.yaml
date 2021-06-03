@@ -10,12 +10,14 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  crypto: ^2.1.0
   flutter:
     sdk: flutter
   fido2_client:
+    # TODO: remove this when the lib is more stable
+    # path: ../contrib-fido2-flutter-lib
     git:
       url: git://github.com/mojaloop/contrib-fido2-flutter-lib
-      ref: 353a3c86139f67597a7a83af8d944344a8d9fc18
   logger: ^0.6.0
   international_phone_input: ^1.0.4
   intl_phone_number_input: ^0.6.0
@@ -35,6 +37,9 @@ dependencies:
   flutter_web_auth: ^0.2.4
   cross_connectivity: ^1.0.2
   shared_preferences: ^0.5.10
+  jcs_dart:
+    git:
+      url: https://github.com/aps-lab/jcs_dart
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

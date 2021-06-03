@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:fido2_client/public_key_credential.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'model.dart';
@@ -23,7 +24,6 @@ class Consent implements JsonModel {
     this.participantId,
     this.scopes,
     this.credential,
-    this.keyHandleId,
   });
 
   @override
@@ -76,10 +76,6 @@ class Consent implements JsonModel {
   /// Credential object used for authentication of consent
   Credential credential;
 
-  /// credentialId/KeyHandleId from the user's authenticator
-  /// used to identify which key to use to verify a transaction
-  List<int> keyHandleId;
-
   @override
   Map<String, dynamic> toJson() => _$ConsentToJson(this);
 }
@@ -88,22 +84,18 @@ class Consent implements JsonModel {
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 class Credential implements JsonModel {
   Credential({
-    this.id,
-    this.payload,
     this.type,
     this.status,
-    this.challenge,
+    this.payload,
   });
 
   @override
   factory Credential.fromJson(Map<String, dynamic> json) =>
       _$CredentialFromJson(json);
 
-  String id;
-  String payload;
   CredentialType type;
   CredentialStatus status;
-  Challenge challenge;
+  PublicKeyCredential payload;
 
   @override
   Map<String, dynamic> toJson() => _$CredentialToJson(this);

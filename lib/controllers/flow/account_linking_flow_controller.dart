@@ -118,26 +118,18 @@ class AccountLinkingFlowController extends GetxController {
         'id': host.toString(),
       }
     };
-    // TODO: get the attestation object, not just the credentialId
     final publicKeyCredential =
         await f.initiateRegistration(challengeToSign, user.id, options);
 
     logger.w(
         'signChallenge, credential is: ' + publicKeyCredential.id.toString());
 
-    // TODO(LD): get the attestationObject
     final Credential updatedCredential = Credential(
-        id: 'todo - do we need this?',
-        payload: 'todo get the payload...',
         type: CredentialType.fido,
         status: CredentialStatus.pending,
-        challenge: Challenge(
-            payload: 'hmm we should not be sending this',
-            signature: 'todo: get the signed challenge'));
+        payload: publicKeyCredential);
     final Consent updatedConsent = Consent(
-        keyHandleId: publicKeyCredential.id.split('').map(int.parse).toList(),
-        credential: updatedCredential,
-        status: ConsentStatus.challengeSigned);
+        credential: updatedCredential, status: ConsentStatus.challengeSigned);
     await _consentRepository.updateData(documentId, updatedConsent.toJson());
   }
 

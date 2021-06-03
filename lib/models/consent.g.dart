@@ -34,10 +34,7 @@ Consent _$ConsentFromJson(Map<String, dynamic> json) {
           ?.toList(),
       credential: json['credential'] == null
           ? null
-          : Credential.fromJson(json['credential'] as Map<String, dynamic>),
-      keyHandleId: json['keyHandleId'] == null
-          ? null
-          : List<int>.from(json['keyHandleId'] as List<dynamic>));
+          : Credential.fromJson(json['credential'] as Map<String, dynamic>));
 }
 
 Map<String, dynamic> _$ConsentToJson(Consent instance) {
@@ -65,7 +62,6 @@ Map<String, dynamic> _$ConsentToJson(Consent instance) {
   writeNotNull('participantId', instance.participantId);
   writeNotNull('scopes', instance.scopes?.map((e) => e?.toJson())?.toList());
   writeNotNull('credential', instance.credential?.toJson());
-  writeNotNull('keyHandleId', instance.keyHandleId);
   return val;
 }
 
@@ -122,14 +118,10 @@ const _$AuthChannelEnumMap = {
 
 Credential _$CredentialFromJson(Map<String, dynamic> json) {
   return Credential(
-    id: json['id'] as String,
-    payload: json['payload'] as String,
-    type: _$enumDecodeNullable(_$CredentialTypeEnumMap, json['type']),
-    status: _$enumDecodeNullable(_$CredentialStatusEnumMap, json['status']),
-    challenge: json['challenge'] == null
-        ? null
-        : Challenge.fromJson(json['challenge'] as Map<String, dynamic>),
-  );
+      type: _$enumDecodeNullable(_$CredentialTypeEnumMap, json['type']),
+      status: _$enumDecodeNullable(_$CredentialStatusEnumMap, json['status']),
+      payload: PublicKeyCredential.fromJson(
+          json['payload'] as Map<String, dynamic>));
 }
 
 Map<String, dynamic> _$CredentialToJson(Credential instance) {
@@ -141,11 +133,9 @@ Map<String, dynamic> _$CredentialToJson(Credential instance) {
     }
   }
 
-  writeNotNull('id', instance.id);
-  writeNotNull('payload', instance.payload);
+  writeNotNull('payload', instance.payload.toJson());
   writeNotNull('type', _$CredentialTypeEnumMap[instance.type]);
   writeNotNull('status', _$CredentialStatusEnumMap[instance.status]);
-  writeNotNull('challenge', instance.challenge?.toJson());
   return val;
 }
 

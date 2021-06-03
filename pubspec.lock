@@ -258,7 +258,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: c37307b822d7f45021d8c5866fc30afd80d5c721
+      resolved-ref: "3fcd09866a8f59d602d6e859d079b9b217464ae1"
       url: "git://github.com/mojaloop/contrib-fido2-flutter-lib"
     source: git
     version: "0.0.1"

@@ -3,6 +3,7 @@ import 'package:fido2_client/fido2_client_web.dart';
 import 'package:get/get.dart';
 
 import 'package:pispapp/controllers/app/auth_controller.dart';
+import 'package:pispapp/main.dart';
 import 'package:pispapp/models/party.dart';
 import 'package:pispapp/models/phone_number.dart';
 import 'package:pispapp/models/transaction.dart';
@@ -81,10 +82,12 @@ class PaymentFlowController extends GetxController {
     _setAwaitingUpdate(true);
 
     // TODO(ldaly): get the keyHandleId from the selected account
+    // TODO(ldaly): get the correct signed challenge from the api
     const String challenge = 'unimplemented123';
+    final credential =
+        await f.initiateSigning(selectedAccount.keyHandleId, challenge);
+    logger.w('Signed credential is: ' + credential.toString());
 
-    await f.initiateSigning(selectedAccount.keyHandleId, challenge);
-    // TODO: get the signed challenge!
     const String signature = 'unimplemented123';
 
     // Update Firebase with the authentication value, which in this case

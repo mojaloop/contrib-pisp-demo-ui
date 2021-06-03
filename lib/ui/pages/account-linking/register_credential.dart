@@ -5,6 +5,7 @@ import 'package:pispapp/controllers/flow/account_linking_flow_controller.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
+import 'package:pispapp/utils/utils.dart';
 
 class RegisterCredential extends StatelessWidget {
   RegisterCredential(this._accountLinkingFlowController);
@@ -30,12 +31,12 @@ class RegisterCredential extends StatelessWidget {
               fontSize: 20,
             ),
             onTap: () {
-              // TODO(LD): get the challenge to be signed
+              // TODO(LD): derive the challenge to be signed
+              final challengeToSign = Utils.deriveChallengeFromConsent(
+                  _accountLinkingFlowController.consent);
 
-              _registerCredentialController.signedChallenge = '12345';
               // Send auth token back to demo server for verification
-              _accountLinkingFlowController
-                  .signChallenge(_registerCredentialController.signedChallenge);
+              _accountLinkingFlowController.signChallenge(challengeToSign);
             },
           );
         } else {

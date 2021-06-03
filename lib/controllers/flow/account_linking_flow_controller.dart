@@ -105,6 +105,8 @@ class AccountLinkingFlowController extends GetxController {
   }
 
   Future<void> signChallenge(String challengeToSign) async {
+    logger.w('signChallenge, signing challenge ' + challengeToSign);
+
     final Fido2ClientWeb f = Fido2ClientWeb();
     final User user = Get.find<AuthController>().user;
 

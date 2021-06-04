@@ -6,9 +6,12 @@ import 'package:pispapp/controllers/flow/account_linking_flow_controller.dart';
 import 'package:pispapp/ui/theme/light_theme.dart';
 import 'package:pispapp/ui/widgets/bottom_button.dart';
 import 'package:pispapp/ui/widgets/title_text.dart';
+import 'package:pispapp/utils/log_printer.dart';
 
 class WebAuth extends StatelessWidget {
   WebAuth(this._accountLinkingFlowController);
+
+  static final logger = getLogger('WebAuth');
 
   final AccountLinkingFlowController _accountLinkingFlowController;
   final WebAuthController _authController = WebAuthController();
@@ -33,8 +36,10 @@ class WebAuth extends StatelessWidget {
               final String result = await FlutterWebAuth.authenticate(
                   url: controller.consent.authUri,
                   callbackUrlScheme: WebAuthController.customScheme);
+
               final String authToken =
                   _authController.extractAuthTokenFromResult(result);
+              logger.w('Got secret from web auth flow: ' + authToken);
               if (authToken != null) {
                 _accountLinkingFlowController.sendAuthToken(authToken);
               } else {

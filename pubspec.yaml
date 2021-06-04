@@ -21,9 +21,9 @@ dependencies:
 
   fido2_client:
     # TODO: remove this when the lib is more stable
-    # path: ../contrib-fido2-flutter-lib
-    git:
-      url: git://github.com/mojaloop/contrib-fido2-flutter-lib
+    path: ../contrib-fido2-flutter-lib
+    # git:
+      # url: git://github.com/mojaloop/contrib-fido2-flutter-lib
   firebase_auth: ^0.16.1
   firebase_core: ^0.4.5
   flutter:

@@ -123,8 +123,7 @@ class AccountLinkingFlowController extends GetxController {
     final publicKeyCredential =
         await f.initiateRegistration(challengeToSign, user.id, options);
 
-    logger.w(
-        'signChallenge, credential is: ' + publicKeyCredential.id.toString());
+    logger.w('signChallenge, credential is: ' + publicKeyCredential.toString());
 
     final Credential updatedCredential = Credential(
         type: CredentialType.fido,

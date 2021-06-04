@@ -47,14 +47,14 @@ class _LifecycleAwareAppState extends State<LifecycleAwareApp>
         WidgetsBindingObserver {
   @override
   void initState() {
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance?.addObserver(this);
     Get.find<ConnectivityController>().startListenForConnectionStatus();
     super.initState();
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance?.removeObserver(this);
     Get.find<ConnectivityController>().stopListeningForConnectionStatus();
     super.dispose();
   }

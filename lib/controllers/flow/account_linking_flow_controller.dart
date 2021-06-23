@@ -5,7 +5,10 @@ import 'package:get/get.dart';
 import 'package:fido2_client/fido2_client_web.dart';
 import 'package:logger/logger.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
+import 'package:pispapp/controllers/app/user_data_controller.dart';
+import 'package:pispapp/models/auxiliary_user_info.dart';
 import 'package:pispapp/models/consent.dart';
+import 'package:pispapp/models/parsed_public_key_credential.dart';
 import 'package:pispapp/models/party.dart';
 import 'package:pispapp/models/user.dart';
 import 'package:pispapp/repositories/interfaces/i_consent_repository.dart';
@@ -64,10 +67,40 @@ class AccountLinkingFlowController extends GetxController {
     logger.v('initiateDiscovery: user.id is ' + user.id);
     logger.v('fspId is ' + fspId);
 
+    /// If the user is using the LiveSwitch Demo type
+    /// and the liveSwitchLinkingScenario setting is not 'none'
+    /// set the consentRequestId here to a value that the dfsp simulator
+    /// will recognize and be able to respond to
+    ///
+    /// If we don't set the consentRequestId, the server will do it for us!
+
+    // TODO(ld): allow the consentRequestIds to be configured dynamically
+    String consentRequestId;
+    final userInfo = Get.find<UserDataController>().userInfo;
+    if (userInfo.demoType == DemoType.liveSwitch) {
+      switch (userInfo.liveSwitchLinkingScenario) {
+        // Take a look at the rules.json file for the dfsp simulator
+        // for example values here.
+        case LiveSwitchLinkingScenario.otpLoginSuccess:
+          {
+            consentRequestId = 'c51ec534-ee48-4575-b6a9-ead2955b8069';
+            break;
+          }
+        case LiveSwitchLinkingScenario.webLoginSuccess:
+          {
+            consentRequestId = 'b51ec534-ee48-4575-b6a9-ead2955b8069';
+            break;
+          }
+        case LiveSwitchLinkingScenario.none:
+        // do nothing here
+      }
+    }
+
     // Construct a new consent
     final Consent newConsent = Consent(
       participantId: fspId,
       userId: user.id,
+      consentRequestId: consentRequestId,
       party: Party(
         partyIdInfo: PartyIdInfo(
           partyIdType: PartyIdType.opaque,
@@ -122,13 +155,15 @@ class AccountLinkingFlowController extends GetxController {
     };
     final publicKeyCredential =
         await f.initiateRegistration(challengeToSign, user.id, options);
+    final parsedPublicKeyCredential =
+        ParsedPublicKeyCredential.fromPublicKeyCredential(publicKeyCredential);
 
     logger.w('signChallenge, credential is: ' + publicKeyCredential.toString());
 
     final Credential updatedCredential = Credential(
-        type: CredentialType.fido,
+        credentialType: CredentialType.fido,
         status: CredentialStatus.pending,
-        payload: publicKeyCredential);
+        payload: parsedPublicKeyCredential);
     final Consent updatedConsent = Consent(
         credential: updatedCredential, status: ConsentStatus.challengeSigned);
     await _consentRepository.updateData(documentId, updatedConsent.toJson());

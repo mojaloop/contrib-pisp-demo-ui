@@ -24,7 +24,7 @@ class _PhoneNumberInputState extends State<PhoneNumberInput> {
 
   final void Function(PISPPhoneNumber, bool) onUpdate;
 
-  // TODO: get this from the locale
+  // TODO: get this from the locale for a better UI
   PhoneNumber initialPhoneNumber = PhoneNumber(isoCode: 'TZ');
 
   @override
@@ -44,7 +44,6 @@ class _PhoneNumberInputState extends State<PhoneNumberInput> {
         onInputValidated: (bool valid) {
           onUpdate(currentValue, valid);
         },
-        // initialValue: PhoneNumber(dialCode: '+255', isoCode: 'TZ'));
         initialValue: initialPhoneNumber);
   }
 }

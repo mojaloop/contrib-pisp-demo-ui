@@ -46,4 +46,44 @@ class Utils {
     final digest = sha256.convert(bytes);
     return digest.toString();
   }
+
+  static String uint8BufferToBase64String(List<int> buffer) {
+    return base64Encode(buffer);
+  }
+
+  static List<int> base64StringToUInt8Buffer(String base64Str) {
+    return base64Decode(base64Str).map((e) => e.toInt()).toList();
+  }
+
+  static T _$enumDecode<T>(
+    Map<T, dynamic> enumValues,
+    dynamic source, {
+    T unknownValue,
+  }) {
+    if (source == null) {
+      throw ArgumentError('A value must be provided. Supported values: '
+          '${enumValues.values.join(', ')}');
+    }
+
+    final value = enumValues.entries
+        .singleWhere((e) => e.value == source, orElse: () => null)
+        ?.key;
+
+    if (value == null && unknownValue == null) {
+      throw ArgumentError('`$source` is not one of the supported values: '
+          '${enumValues.values.join(', ')}');
+    }
+    return value ?? unknownValue;
+  }
+
+  static T $enumDecodeNullable<T>(
+    Map<T, dynamic> enumValues,
+    dynamic source, {
+    T unknownValue,
+  }) {
+    if (source == null) {
+      return null;
+    }
+    return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
+  }
 }

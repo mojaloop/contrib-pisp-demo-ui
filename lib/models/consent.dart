@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:fido2_client/public_key_credential.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:pispapp/models/parsed_public_key_credential.dart';
 
 import 'model.dart';
 import 'party.dart';
@@ -80,11 +81,10 @@ class Consent implements JsonModel {
   Map<String, dynamic> toJson() => _$ConsentToJson(this);
 }
 
-// TODO(kkzeng): Adapt model once changes to auth-service finalized
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 class Credential implements JsonModel {
   Credential({
-    this.type,
+    this.credentialType,
     this.status,
     this.payload,
   });
@@ -93,9 +93,12 @@ class Credential implements JsonModel {
   factory Credential.fromJson(Map<String, dynamic> json) =>
       _$CredentialFromJson(json);
 
-  CredentialType type;
+  CredentialType credentialType;
   CredentialStatus status;
-  PublicKeyCredential payload;
+  // ParsedPublicKeyCredential is the same as the
+  // PublicKeyCredential, only the ArrayBuffer<int> is parsed as
+  // a base64 encoded string
+  ParsedPublicKeyCredential payload;
 
   @override
   Map<String, dynamic> toJson() => _$CredentialToJson(this);

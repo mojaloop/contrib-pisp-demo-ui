@@ -89,7 +89,7 @@ class UserDataRepository implements IUserDataRepository {
 
   Future<void> setDemoType(String uid, DemoType demoType) async {
     final Map<String, dynamic> data = <String, dynamic>{
-      DEMO_TYPE_KEY: demoType.toString(),
+      DEMO_TYPE_KEY: demoType.toJsonString(),
     };
 
     return _firestore
@@ -101,7 +101,7 @@ class UserDataRepository implements IUserDataRepository {
   Future<void> setLiveSwitchLinkingScenario(
       String uid, LiveSwitchLinkingScenario linkingScenario) async {
     final Map<String, dynamic> data = <String, dynamic>{
-      LIVE_SWITCH_LINKING_SCENARIO: linkingScenario.toString(),
+      LIVE_SWITCH_LINKING_SCENARIO: linkingScenario.toJsonString(),
     };
 
     return _firestore

@@ -46,4 +46,12 @@ class Utils {
     final digest = sha256.convert(bytes);
     return digest.toString();
   }
+
+  static String uint8BufferToBase64String(List<int> buffer) {
+    return base64Encode(buffer);
+  }
+
+  static List<int> base64StringToUInt8Buffer(String base64Str) {
+    return base64Decode(base64Str).map((e) => e.toInt()).toList();
+  }
 }

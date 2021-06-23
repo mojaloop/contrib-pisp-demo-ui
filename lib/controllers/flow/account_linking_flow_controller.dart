@@ -6,6 +6,7 @@ import 'package:fido2_client/fido2_client_web.dart';
 import 'package:logger/logger.dart';
 import 'package:pispapp/controllers/app/auth_controller.dart';
 import 'package:pispapp/models/consent.dart';
+import 'package:pispapp/models/parsed_public_key_credential.dart';
 import 'package:pispapp/models/party.dart';
 import 'package:pispapp/models/user.dart';
 import 'package:pispapp/repositories/interfaces/i_consent_repository.dart';
@@ -122,13 +123,15 @@ class AccountLinkingFlowController extends GetxController {
     };
     final publicKeyCredential =
         await f.initiateRegistration(challengeToSign, user.id, options);
+    final parsedPublicKeyCredential =
+        ParsedPublicKeyCredential.fromPublicKeyCredential(publicKeyCredential);
 
     logger.w('signChallenge, credential is: ' + publicKeyCredential.toString());
 
     final Credential updatedCredential = Credential(
-        type: CredentialType.fido,
+        credentialType: CredentialType.fido,
         status: CredentialStatus.pending,
-        payload: publicKeyCredential);
+        payload: parsedPublicKeyCredential);
     final Consent updatedConsent = Consent(
         credential: updatedCredential, status: ConsentStatus.challengeSigned);
     await _consentRepository.updateData(documentId, updatedConsent.toJson());

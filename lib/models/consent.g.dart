@@ -118,9 +118,10 @@ const _$AuthChannelEnumMap = {
 
 Credential _$CredentialFromJson(Map<String, dynamic> json) {
   return Credential(
-      type: _$enumDecodeNullable(_$CredentialTypeEnumMap, json['type']),
+      credentialType:
+          _$enumDecodeNullable(_$CredentialTypeEnumMap, json['credentialType']),
       status: _$enumDecodeNullable(_$CredentialStatusEnumMap, json['status']),
-      payload: PublicKeyCredential.fromJson(
+      payload: ParsedPublicKeyCredential.fromJson(
           json['payload'] as Map<String, dynamic>));
 }
 
@@ -134,7 +135,8 @@ Map<String, dynamic> _$CredentialToJson(Credential instance) {
   }
 
   writeNotNull('payload', instance.payload.toJson());
-  writeNotNull('type', _$CredentialTypeEnumMap[instance.type]);
+  writeNotNull(
+      'credentialType', _$CredentialTypeEnumMap[instance.credentialType]);
   writeNotNull('status', _$CredentialStatusEnumMap[instance.status]);
   return val;
 }

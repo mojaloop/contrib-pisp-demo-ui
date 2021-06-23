@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:pispapp/models/phone_number.dart';
+import 'package:pispapp/repositories/firebase/user_data_repository.dart';
+import 'package:pispapp/utils/utils.dart';
 
 import 'model.dart';
 
@@ -58,6 +60,29 @@ class AuxiliaryUserInfo extends Equatable implements Model {
       this.phoneNumber,
       this.demoType,
       this.liveSwitchLinkingScenario});
+
+  static AuxiliaryUserInfo fromJson(Map<String, dynamic> json) {
+    final String phoneNo = json[UserDataRepository.PHONE_NO_KEY] as String;
+    final String countryCode =
+        json[UserDataRepository.PHONE_NO_COUNTRY_CODE_KEY] as String;
+    final String dateRegistered =
+        json[UserDataRepository.REGISTRATION_DATE_KEY] as String;
+    final PISPPhoneNumber number = (phoneNo == null || countryCode == null)
+        ? null
+        : PISPPhoneNumber(countryCode, phoneNo);
+
+    final DemoType demoType = Utils.$enumDecodeNullable(
+        DemoTypeEnumMap, json[UserDataRepository.DEMO_TYPE_KEY]);
+    final LiveSwitchLinkingScenario liveSwitchLinkingScenario =
+        Utils.$enumDecodeNullable(LiveSwitchLinkingScenarioMap,
+            json[UserDataRepository.LIVE_SWITCH_LINKING_SCENARIO]);
+
+    return AuxiliaryUserInfo(
+        phoneNumber: number,
+        registrationDate: dateRegistered,
+        demoType: demoType,
+        liveSwitchLinkingScenario: liveSwitchLinkingScenario);
+  }
 
   String registrationDate;
   PISPPhoneNumber phoneNumber;

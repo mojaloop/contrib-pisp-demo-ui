@@ -15,7 +15,8 @@ class UserDataRepository implements IUserDataRepository {
 
   static final logger = getLogger('UserDataRepository');
 
-  final Firestore _firestore = Firestore.instance;
+  final Firestore firestore = Firestore.instance;
+  CollectionReference get users => firestore.collection('users');
 
   /// Creates a user entry in the database where the document ID is
   /// equal to the user id assigned by Firebase Auth.
@@ -23,7 +24,7 @@ class UserDataRepository implements IUserDataRepository {
   @override
   Future<void> createUserEntryInDB(String uid) async {
     // Check for existing user (if this is not the first sign on)
-    final QuerySnapshot s = await _firestore.collection('users').getDocuments();
+    final QuerySnapshot s = await users.getDocuments();
     final bool userExists =
         s.documents.where((document) => document.documentID == uid).isNotEmpty;
     if (!userExists) {
@@ -34,7 +35,7 @@ class UserDataRepository implements IUserDataRepository {
         LIVE_SWITCH_LINKING_SCENARIO:
             LiveSwitchLinkingScenario.none.toJsonString(),
       };
-      _firestore.collection('users').document(uid).setData(data);
+      firestore.collection('users').document(uid).setData(data);
       logger.d('Firestore entry created for $uid');
     }
   }
@@ -43,33 +44,12 @@ class UserDataRepository implements IUserDataRepository {
   /// such as phone number, date of registration etc.
   @override
   Future<AuxiliaryUserInfo> loadAuxiliaryInfoForUser(String uid) async {
-    return _firestore.collection('users').document(uid).get().then((userEntry) {
+    return users.document(uid).get().then((userEntry) {
       if (userEntry?.data == null) {
         return AuxiliaryUserInfo();
       }
-      final Map<String, dynamic> userData = userEntry.data;
-      // Currently only phone number but can be extended to populate other fields
-      final String phoneNo =
-          userData[UserDataRepository.PHONE_NO_KEY] as String;
-      final String countryCode =
-          userData[UserDataRepository.PHONE_NO_COUNTRY_CODE_KEY] as String;
-      final String dateRegistered =
-          userData[UserDataRepository.REGISTRATION_DATE_KEY] as String;
-      final PISPPhoneNumber number = (phoneNo == null || countryCode == null)
-          ? null
-          : PISPPhoneNumber(countryCode, phoneNo);
 
-      final DemoType demoType =
-          Utils.$enumDecodeNullable(DemoTypeEnumMap, userData[DEMO_TYPE_KEY]);
-      final LiveSwitchLinkingScenario liveSwitchLinkingScenario =
-          Utils.$enumDecodeNullable(LiveSwitchLinkingScenarioMap,
-              userData[LIVE_SWITCH_LINKING_SCENARIO]);
-
-      return AuxiliaryUserInfo(
-          phoneNumber: number,
-          registrationDate: dateRegistered,
-          demoType: demoType,
-          liveSwitchLinkingScenario: liveSwitchLinkingScenario);
+      return AuxiliaryUserInfo.fromJson(userEntry.data);
     });
   }
 
@@ -81,10 +61,7 @@ class UserDataRepository implements IUserDataRepository {
       PHONE_NO_KEY: num.number,
       PHONE_NO_COUNTRY_CODE_KEY: num.countryCode
     };
-    _firestore
-        .collection('users')
-        .document(uid)
-        .setData(phoneNumberData, merge: true);
+    users.document(uid).setData(phoneNumberData, merge: true);
   }
 
   Future<void> setDemoType(String uid, DemoType demoType) async {
@@ -92,10 +69,7 @@ class UserDataRepository implements IUserDataRepository {
       DEMO_TYPE_KEY: demoType.toJsonString(),
     };
 
-    return _firestore
-        .collection('users')
-        .document(uid)
-        .setData(data, merge: true);
+    return users.document(uid).setData(data, merge: true);
   }
 
   Future<void> setLiveSwitchLinkingScenario(
@@ -104,9 +78,20 @@ class UserDataRepository implements IUserDataRepository {
       LIVE_SWITCH_LINKING_SCENARIO: linkingScenario.toJsonString(),
     };
 
-    return _firestore
-        .collection('users')
-        .document(uid)
-        .setData(data, merge: true);
+    return users.document(uid).setData(data, merge: true);
+  }
+
+  @override
+  void Function() listen(String userId, {AuxiliaryUserInfoHandler onValue}) {
+    final subscription = users.document(userId).snapshots().listen((event) {
+      if (event == null) {
+        return;
+      }
+
+      print('Got a user event!' + event.data.toString());
+      return onValue(AuxiliaryUserInfo.fromJson(event.data));
+    });
+
+    return () => subscription.cancel();
   }
 }

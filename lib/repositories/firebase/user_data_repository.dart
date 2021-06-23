@@ -9,6 +9,8 @@ class UserDataRepository implements IUserDataRepository {
   static const PHONE_NO_KEY = 'phoneNo';
   static const PHONE_NO_COUNTRY_CODE_KEY = 'phoneNoIsoCode';
   static const REGISTRATION_DATE_KEY = 'dateRegistered';
+  static const DEMO_TYPE_KEY = 'demoType';
+  static const LIVE_SWITCH_LINKING_SCENARIO = 'liveSwitchLinkingScenario';
 
   static final logger = getLogger('UserDataRepository');
 
@@ -24,8 +26,11 @@ class UserDataRepository implements IUserDataRepository {
     final bool userExists =
         s.documents.where((document) => document.documentID == uid).isNotEmpty;
     if (!userExists) {
+      // Set Defaults
       final Map<String, dynamic> data = <String, dynamic>{
-        REGISTRATION_DATE_KEY: DateTime.now().toIso8601String()
+        REGISTRATION_DATE_KEY: DateTime.now().toIso8601String(),
+        DEMO_TYPE_KEY: DemoType.simulatedSwitch.toString(),
+        LIVE_SWITCH_LINKING_SCENARIO: LiveSwitchLinkingScenario.none.toString(),
       };
       _firestore.collection('users').document(uid).setData(data);
       logger.d('Firestore entry created for $uid');
@@ -51,8 +56,16 @@ class UserDataRepository implements IUserDataRepository {
       final PISPPhoneNumber number = (phoneNo == null || countryCode == null)
           ? null
           : PISPPhoneNumber(countryCode, phoneNo);
+
+      final DemoType demoType = userData[DEMO_TYPE_KEY] as DemoType;
+      final LiveSwitchLinkingScenario liveSwitchLinkingScenario =
+          userData[LIVE_SWITCH_LINKING_SCENARIO] as LiveSwitchLinkingScenario;
+
       return AuxiliaryUserInfo(
-          phoneNumber: number, registrationDate: dateRegistered);
+          phoneNumber: number,
+          registrationDate: dateRegistered,
+          demoType: demoType,
+          liveSwitchLinkingScenario: liveSwitchLinkingScenario);
     });
   }
 
@@ -68,5 +81,28 @@ class UserDataRepository implements IUserDataRepository {
         .collection('users')
         .document(uid)
         .setData(phoneNumberData, merge: true);
+  }
+
+  Future<void> setDemoType(String uid, DemoType demoType) async {
+    final Map<String, dynamic> data = <String, dynamic>{
+      DEMO_TYPE_KEY: demoType.toString(),
+    };
+
+    return _firestore
+        .collection('users')
+        .document(uid)
+        .setData(data, merge: true);
+  }
+
+  Future<void> setLiveSwitchLinkingScenario(
+      String uid, LiveSwitchLinkingScenario linkingScenario) async {
+    final Map<String, dynamic> data = <String, dynamic>{
+      LIVE_SWITCH_LINKING_SCENARIO: linkingScenario.toString(),
+    };
+
+    return _firestore
+        .collection('users')
+        .document(uid)
+        .setData(data, merge: true);
   }
 }

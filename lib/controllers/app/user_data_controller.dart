@@ -26,6 +26,14 @@ class UserDataController extends GetxController {
   Future<void> associatePhoneNumberWithUser(PISPPhoneNumber number) =>
       _userDataRepository.associatePhoneNumberWithUser(_user.id, number);
 
+  Future<void> setDemoType(DemoType demoType) =>
+      _userDataRepository.setDemoType(_user.id, demoType);
+
+  Future<void> setLiveSwitchLinkingScenario(
+          LiveSwitchLinkingScenario linkingScenario) =>
+      _userDataRepository.setLiveSwitchLinkingScenario(
+          _user.id, linkingScenario);
+
   Future<void> createUserEntryInDB() =>
       _userDataRepository.createUserEntryInDB(_user.id);
 
@@ -41,5 +49,13 @@ class UserDataController extends GetxController {
   void setUserRegistrationDate(String date) {
     userInfo.registrationDate = date;
     update();
+  }
+
+  DemoType getDemoType() {
+    return userInfo.demoType;
+  }
+
+  LiveSwitchLinkingScenario getLiveSwitchLinkingScenario() {
+    return userInfo.liveSwitchLinkingScenario;
   }
 }

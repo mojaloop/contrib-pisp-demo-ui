@@ -4,6 +4,7 @@ import 'package:pispapp/models/phone_number.dart';
 
 import 'package:pispapp/repositories/interfaces/i_user_data_repository.dart';
 import 'package:pispapp/utils/log_printer.dart';
+import 'package:pispapp/utils/utils.dart';
 
 class UserDataRepository implements IUserDataRepository {
   static const PHONE_NO_KEY = 'phoneNo';
@@ -29,8 +30,9 @@ class UserDataRepository implements IUserDataRepository {
       // Set Defaults
       final Map<String, dynamic> data = <String, dynamic>{
         REGISTRATION_DATE_KEY: DateTime.now().toIso8601String(),
-        DEMO_TYPE_KEY: DemoType.simulatedSwitch.toString(),
-        LIVE_SWITCH_LINKING_SCENARIO: LiveSwitchLinkingScenario.none.toString(),
+        DEMO_TYPE_KEY: DemoType.simulatedSwitch.toJsonString(),
+        LIVE_SWITCH_LINKING_SCENARIO:
+            LiveSwitchLinkingScenario.none.toJsonString(),
       };
       _firestore.collection('users').document(uid).setData(data);
       logger.d('Firestore entry created for $uid');
@@ -57,9 +59,11 @@ class UserDataRepository implements IUserDataRepository {
           ? null
           : PISPPhoneNumber(countryCode, phoneNo);
 
-      final DemoType demoType = userData[DEMO_TYPE_KEY] as DemoType;
+      final DemoType demoType =
+          Utils.$enumDecodeNullable(DemoTypeEnumMap, userData[DEMO_TYPE_KEY]);
       final LiveSwitchLinkingScenario liveSwitchLinkingScenario =
-          userData[LIVE_SWITCH_LINKING_SCENARIO] as LiveSwitchLinkingScenario;
+          Utils.$enumDecodeNullable(LiveSwitchLinkingScenarioMap,
+              userData[LIVE_SWITCH_LINKING_SCENARIO]);
 
       return AuxiliaryUserInfo(
           phoneNumber: number,

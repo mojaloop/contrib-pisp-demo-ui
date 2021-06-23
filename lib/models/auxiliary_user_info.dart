@@ -12,11 +12,21 @@ enum DemoType {
   liveSwitch,
 }
 
+const DemoTypeEnumMap = {
+  DemoType.simulatedSwitch: 'simulatedSwitch',
+  DemoType.liveSwitch: 'liveSwitch',
+};
+
+extension DemoTypeJson on DemoType {
+  String toJsonString() {
+    return DemoTypeEnumMap[this];
+  }
+}
+
 enum LiveSwitchLinkingScenario {
   // Use none if using the simulated switch
   // or if you don't want the demo to prefill variables for you
   // such as the consentRequestId
-
   @JsonValue('none')
   none,
 
@@ -25,6 +35,20 @@ enum LiveSwitchLinkingScenario {
 
   @JsonValue('otpLoginSuccess')
   otpLoginSuccess,
+
+  // Add other linking scenarios here if you want
+}
+
+const LiveSwitchLinkingScenarioMap = {
+  LiveSwitchLinkingScenario.none: 'none',
+  LiveSwitchLinkingScenario.otpLoginSuccess: 'otpLoginSuccess',
+  LiveSwitchLinkingScenario.webLoginSuccess: 'webLoginSuccess',
+};
+
+extension LiveSwitchLinkingScenarioJson on LiveSwitchLinkingScenario {
+  String toJsonString() {
+    return LiveSwitchLinkingScenarioMap[this];
+  }
 }
 
 // ignore: must_be_immutable

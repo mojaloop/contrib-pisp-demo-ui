@@ -6,5 +6,6 @@ class Config {
   static const MOCK_CONSENT_ID = '9d553d59-610f-44aa-b7ec-b483af24e98a';
 
   // Doesn't change the underlying currency, but just what is displayed for demo purposes
-  static const DEMO_CURRENCY_CODE = 'TZS';
+  static const DEMO_CURRENCY_CODE = 'USD';
+  // static const DEMO_CURRENCY_CODE = 'TZS';
 }

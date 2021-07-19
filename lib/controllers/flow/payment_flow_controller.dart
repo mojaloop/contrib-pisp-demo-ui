@@ -66,10 +66,10 @@ class PaymentFlowController extends GetxController {
               sourceAccountId: account.sourceAccountId,
               consentId: account.consentId,
               amount: amount,
-              // TODO(ldaly): load this from the selected account
               payer: PartyIdInfo(
                   partyIdType: PartyIdType.thirdPartyLink,
-                  partyIdentifier: '1234-1234-1234-1234'))
+                  partyIdentifier: account.sourceAccountId,
+                  fspId: account.fspInfo.id))
           .toJson(),
     );
   }

@@ -24,7 +24,7 @@ dependencies:
     # path: ../contrib-fido2-flutter-lib
     git:
       url: git://github.com/mojaloop/contrib-fido2-flutter-lib
-      ref: 2cfd18ffdf3ec3362e76cc509866744ca75de4ba
+      ref: c474f138879710cab40dc3211059cbb198020123
   firebase_auth: ^0.16.1
   firebase_core: ^0.4.5
   flutter:

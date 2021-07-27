@@ -173,7 +173,8 @@ Map<String, dynamic> _$ChallengeToJson(Challenge instance) {
 
 CredentialScope _$CredentialScopeFromJson(Map<String, dynamic> json) {
   return CredentialScope(
-    actions: json['scope'] as List<String>,
+    // actions: List<String>.from(json['actions'] as List<dynamic>),
+    actions: (json['actions'] as List).map((i) => i as String).toList(),
     accountId: json['accountId'] as String,
   );
 }

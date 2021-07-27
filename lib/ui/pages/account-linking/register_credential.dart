@@ -31,6 +31,8 @@ class RegisterCredential extends StatelessWidget {
               fontSize: 20,
             ),
             onTap: () {
+              print('deriving challenge from consent: ' +
+                  _accountLinkingFlowController.consent.toJson().toString());
               final challengeToSign = Utils.deriveChallengeFromConsent(
                   _accountLinkingFlowController.consent);
 

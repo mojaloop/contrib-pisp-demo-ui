@@ -353,8 +353,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: c8641dc811e97fa2e0c39a8f4bed6ca40967468c
-      resolved-ref: c8641dc811e97fa2e0c39a8f4bed6ca40967468c
+      ref: c58b4dc4675c5537aa5a8b263219d8ddb1b5ce3c
+      resolved-ref: c58b4dc4675c5537aa5a8b263219d8ddb1b5ce3c
       url: "https://github.com/czepiec/flutter_web_auth"
     source: git
     version: "0.3.0"

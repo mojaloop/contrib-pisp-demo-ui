@@ -5,7 +5,7 @@ import 'package:pispapp/repositories/interfaces/i_consent_repository.dart';
 
 class ConsentRepository extends GetxService implements IConsentRepository {
   final CollectionReference _consentRef =
-      Firestore.instance.collection('consents');
+      FirebaseFirestore.instance.collection('consents');
 
   List<Consent> cache;
 
@@ -20,11 +20,11 @@ class ConsentRepository extends GetxService implements IConsentRepository {
     }
 
     // Otherwise if no cache exists or user did not want cached results
-    return _consentRef.where('userId', isEqualTo: userId).getDocuments().then(
+    return _consentRef.where('userId', isEqualTo: userId).get().then(
       (snapshot) {
-        cache = snapshot.documents.map((element) {
-          final Consent c = Consent.fromJson(element.data);
-          c.id = element.documentID;
+        cache = snapshot.docs.map((element) {
+          final Consent c = Consent.fromJson(element.data());
+          c.id = element.id;
           return c;
         }).toList();
         return cache;
@@ -65,7 +65,7 @@ class ConsentRepository extends GetxService implements IConsentRepository {
   @override
   Future<String> add(Map<String, dynamic> data) async {
     final docRef = await _consentRef.add(data);
-    return docRef.documentID;
+    return docRef.id;
   }
 
   @override

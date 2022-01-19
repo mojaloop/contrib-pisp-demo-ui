@@ -41,6 +41,9 @@ class Utils {
     final canonicalString =
         JsonCanonicalizer().canonicalize(nonCanonicalString);
 
+    print('deriveChallengeFromConsent, canonical payload string: ' +
+        canonicalString);
+
     // SHA256 the Canonical JSON representation
     final bytes = utf8.encode(canonicalString);
     final digest = sha256.convert(bytes);

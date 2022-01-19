@@ -3,49 +3,41 @@ description: A new Flutter application.
 publish_to: 'none'
 version: 1.0.0+1
 
-dependency_overrides:
-  analyzer: '0.39.14'
+# dependency_overrides:
+#   analyzer: '0.39.14'
 
 environment:
   sdk: ">=2.11.0 <3.0.0"
 
 dependencies:
-  cloud_firestore: ^0.13.7
-  cross_connectivity: ^1.0.2
-  crypto: ^2.1.0
+  cloud_firestore: ^3.1.6
+  cross_connectivity: ^3.0.3
+  crypto: ^3.0.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
-  equatable: ^1.2.5
+  equatable: ^2.0.0
 
   fido2_client:
     # TODO: remove this when the lib is more stable
     # path: ../contrib-fido2-flutter-lib
     git:
       url: git://github.com/mojaloop/contrib-fido2-flutter-lib
-      ref: 2cfd18ffdf3ec3362e76cc509866744ca75de4ba
-  firebase_auth: ^0.16.1
-  firebase_core: ^0.4.5
+      ref: b22109f2357aa35c8a743d417593bbe18b1ec65e
+  firebase_auth: ^3.3.5
+  firebase_core: ^1.11.0
   flutter:
     sdk: flutter
 
   flutter_secure_storage: ^3.3.3
-
-  # TODO: replace with main package - waiting for PR: https://github.com/LinusU/flutter_web_auth/pull/77
-  # flutter_web_auth: ^0.2.4
-  flutter_web_auth: 
-    git:
-      url: https://github.com/czepiec/flutter_web_auth
-      ref: c8641dc811e97fa2e0c39a8f4bed6ca40967468c
-
-
+  flutter_web_auth: ^0.4.0
   get: ^3.25.4
-  google_fonts: ^1.1.0
+  google_fonts: ^2.2.0
   google_sign_in: ^4.5.1
-  international_phone_input: ^1.0.4
-  intl: ^0.16.1
-  intl_phone_number_input: ^0.6.0
+  # international_phone_input: ^1.0.4
+  intl: ^0.17.0
+  intl_phone_number_input: ^0.7.0+2
 
   # Canonical JSON Parser - not published to pub.dev
   jcs_dart:
@@ -53,16 +45,16 @@ dependencies:
       url: https://github.com/aps-lab/jcs_dart
 
   json_annotation: ^3.0.1
-  local_auth: ^0.6.2+3
+  local_auth: ^1.1.10
   logger: ^0.6.0
   mockito: ^4.1.1
   pin_code_fields: ^4.0.0
-  shared_preferences: ^0.5.10
+  shared_preferences: ^2.0.12
 
 dev_dependencies:
   build_runner: ^1.10.0
-  flutter_test:
-    sdk: flutter
+  # flutter_test:
+  #   sdk: flutter
   json_serializable: ^3.3.0
 
 # The following section is specific to Flutter.

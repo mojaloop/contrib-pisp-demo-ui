@@ -3,14 +3,14 @@ import 'package:pispapp/models/account.dart';
 import 'package:pispapp/repositories/interfaces/i_account_repository.dart';
 
 class AccountRepository implements IAccountRepository {
-  final Firestore firestore = Firestore.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
   CollectionReference get accounts => firestore.collection('accounts');
 
   @override
   Future<List<Account>> getUserAccounts(String userId) async {
-    return accounts.where('userId', isEqualTo: userId).getDocuments().then(
-          (snapshot) => snapshot.documents
-              .map((element) => Account.fromJson(element.data))
+    return accounts.where('userId', isEqualTo: userId).get().then(
+          (snapshot) => snapshot.docs
+              .map((element) => Account.fromJson(element.data()!))
               .toList(),
         );
   }
@@ -23,7 +23,7 @@ class AccountRepository implements IAccountRepository {
         return;
       }
 
-      final accounts = event.documents.map((e) => Account.fromJson(e.data));
+      final accounts = event.docs.map((e) => Account.fromJson(e.data()));
       print('Listen: accounts updated!: ${accounts.map((e) => e.toJson())}');
       onValue(accounts.toList());
     });
